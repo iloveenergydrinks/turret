@@ -22,32 +22,78 @@ export type Token = ExternalToken & {
 };
 
 export type TokenSymbol =
+  | "AAPL"
+  | "AMZN"
+  | "AVGO"
   | "BOLD"
   | "ETH"
+  | "GOOGL"
   | "LQTY"
   | "LUSD"
+  | "LLY"
+  | "META"
+  | "MSFT"
+  | "MU"
+  | "NVDA"
   | "RETH"
   | "SBOLD"
+  | "TSLA"
   | "YBOLD"
   | "WSTETH";
 
-export type CollateralSymbol = TokenSymbol & ("ETH" | "RETH" | "WSTETH");
+export type CollateralSymbol = TokenSymbol & (
+  | "AAPL"
+  | "AMZN"
+  | "AVGO"
+  | "ETH"
+  | "GOOGL"
+  | "LLY"
+  | "META"
+  | "MSFT"
+  | "MU"
+  | "NVDA"
+  | "RETH"
+  | "TSLA"
+  | "WSTETH"
+);
 
 export function isTokenSymbol(symbolOrUrl: string): symbolOrUrl is TokenSymbol {
   return (
-    symbolOrUrl === "BOLD"
+    symbolOrUrl === "AAPL"
+    || symbolOrUrl === "AMZN"
+    || symbolOrUrl === "AVGO"
+    || symbolOrUrl === "BOLD"
     || symbolOrUrl === "ETH"
+    || symbolOrUrl === "GOOGL"
     || symbolOrUrl === "LQTY"
     || symbolOrUrl === "LUSD"
+    || symbolOrUrl === "LLY"
+    || symbolOrUrl === "META"
+    || symbolOrUrl === "MSFT"
+    || symbolOrUrl === "MU"
+    || symbolOrUrl === "NVDA"
     || symbolOrUrl === "RETH"
     || symbolOrUrl === "SBOLD"
+    || symbolOrUrl === "TSLA"
     || symbolOrUrl === "YBOLD"
     || symbolOrUrl === "WSTETH"
   );
 }
 
 export function isCollateralSymbol(symbol: string): symbol is CollateralSymbol {
-  return symbol === "ETH" || symbol === "RETH" || symbol === "WSTETH";
+  return symbol === "AAPL"
+    || symbol === "AMZN"
+    || symbol === "AVGO"
+    || symbol === "ETH"
+    || symbol === "GOOGL"
+    || symbol === "LLY"
+    || symbol === "META"
+    || symbol === "MSFT"
+    || symbol === "MU"
+    || symbol === "NVDA"
+    || symbol === "RETH"
+    || symbol === "TSLA"
+    || symbol === "WSTETH";
 }
 
 export type CollateralToken = Token & {
@@ -106,15 +152,54 @@ export const WSTETH: CollateralToken = {
   symbol: "WSTETH" as const,
 } as const;
 
-export const COLLATERALS: CollateralToken[] = [ETH, RETH, WSTETH];
+function stockToken(symbol: CollateralSymbol, collateralRatio: number): CollateralToken {
+  return { collateralRatio, icon: tokenEth, name: symbol, symbol };
+}
+
+export const AAPL = stockToken("AAPL", 1.75);
+export const MSFT = stockToken("MSFT", 1.75);
+export const GOOGL = stockToken("GOOGL", 1.80);
+export const AMZN = stockToken("AMZN", 1.85);
+export const META = stockToken("META", 1.90);
+export const NVDA = stockToken("NVDA", 2.00);
+export const AVGO = stockToken("AVGO", 2.00);
+export const LLY = stockToken("LLY", 2.00);
+export const MU = stockToken("MU", 2.25);
+export const TSLA = stockToken("TSLA", 2.50);
+
+export const COLLATERALS: CollateralToken[] = [
+  ETH,
+  RETH,
+  WSTETH,
+  AAPL,
+  MSFT,
+  GOOGL,
+  AMZN,
+  META,
+  NVDA,
+  AVGO,
+  LLY,
+  MU,
+  TSLA,
+];
 
 export const TOKENS_BY_SYMBOL = {
+  AAPL,
+  AMZN,
+  AVGO,
   BOLD,
   ETH,
+  GOOGL,
+  LLY,
   LQTY,
   LUSD,
+  META,
+  MSFT,
+  MU,
+  NVDA,
   RETH,
   SBOLD,
+  TSLA,
   YBOLD,
   WSTETH,
 } as const;

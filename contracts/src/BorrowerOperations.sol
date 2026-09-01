@@ -274,14 +274,15 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
         interestBatchManagerOf[vars.troveId] = _params.interestBatchManager;
 
         // Set the stored Trove properties and mint the NFT
-        vars.troveManager.onOpenTroveAndJoinBatch(
-            _params.owner,
-            vars.troveId,
-            vars.change,
-            _params.interestBatchManager,
-            vars.batch.entireCollWithoutRedistribution,
-            vars.batch.entireDebtWithoutRedistribution
-        );
+        vars.troveManager
+            .onOpenTroveAndJoinBatch(
+                _params.owner,
+                vars.troveId,
+                vars.change,
+                _params.interestBatchManager,
+                vars.batch.entireCollWithoutRedistribution,
+                vars.batch.entireDebtWithoutRedistribution
+            );
 
         sortedTroves.insertIntoBatch(
             vars.troveId,
@@ -984,7 +985,9 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
 
         interestBatchManagerOf[_troveId] = _newBatchManager;
         // Can’t have both individual delegation and batch manager
-        if (interestIndividualDelegateOf[_troveId].account != address(0)) delete interestIndividualDelegateOf[_troveId];
+        if (interestIndividualDelegateOf[_troveId].account != address(0)) {
+            delete interestIndividualDelegateOf[_troveId];
+        }
 
         vars.trove = vars.troveManager.getLatestTroveData(_troveId);
         vars.newBatch = vars.troveManager.getLatestBatchData(_newBatchManager);
@@ -1014,22 +1017,24 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
             (vars.newBatch.entireDebtWithoutRedistribution + vars.trove.entireDebt) * vars.newBatch.annualManagementFee;
         vars.activePool.mintAggInterestAndAccountForTroveChange(newBatchTroveChange, _newBatchManager);
 
-        vars.troveManager.onSetInterestBatchManager(
-            ITroveManager.OnSetInterestBatchManagerParams({
-                troveId: _troveId,
-                troveColl: vars.trove.entireColl,
-                troveDebt: vars.trove.entireDebt,
-                troveChange: newBatchTroveChange,
-                newBatchAddress: _newBatchManager,
-                newBatchColl: vars.newBatch.entireCollWithoutRedistribution,
-                newBatchDebt: vars.newBatch.entireDebtWithoutRedistribution
-            })
-        );
+        vars.troveManager
+            .onSetInterestBatchManager(
+                ITroveManager.OnSetInterestBatchManagerParams({
+                    troveId: _troveId,
+                    troveColl: vars.trove.entireColl,
+                    troveDebt: vars.trove.entireDebt,
+                    troveChange: newBatchTroveChange,
+                    newBatchAddress: _newBatchManager,
+                    newBatchColl: vars.newBatch.entireCollWithoutRedistribution,
+                    newBatchDebt: vars.newBatch.entireDebtWithoutRedistribution
+                })
+            );
 
         vars.sortedTroves.remove(_troveId);
-        vars.sortedTroves.insertIntoBatch(
-            _troveId, BatchId.wrap(_newBatchManager), vars.newBatch.annualInterestRate, _upperHint, _lowerHint
-        );
+        vars.sortedTroves
+            .insertIntoBatch(
+                _troveId, BatchId.wrap(_newBatchManager), vars.newBatch.annualInterestRate, _upperHint, _lowerHint
+            );
     }
 
     function kickFromBatch(uint256 _troveId, uint256 _upperHint, uint256 _lowerHint) external override {
@@ -1117,8 +1122,9 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
             vars.batch.annualInterestRate != _newAnnualInterestRate
                 && block.timestamp < vars.trove.lastInterestRateAdjTime + INTEREST_RATE_ADJ_COOLDOWN
         ) {
-            vars.trove.entireDebt =
-                _applyUpfrontFee(vars.trove.entireColl, vars.trove.entireDebt, vars.batchChange, _maxUpfrontFee, false);
+            vars.trove.entireDebt = _applyUpfrontFee(
+                vars.trove.entireColl, vars.trove.entireDebt, vars.batchChange, _maxUpfrontFee, false
+            );
         }
 
         // Recalculate newWeightedRecordedDebt, now taking into account the upfront fee
@@ -1130,16 +1136,17 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
 
         activePool.mintAggInterestAndAccountForTroveChange(vars.batchChange, vars.batchManager);
 
-        vars.troveManager.onRemoveFromBatch(
-            _troveId,
-            vars.trove.entireColl,
-            vars.trove.entireDebt,
-            vars.batchChange,
-            vars.batchManager,
-            vars.batch.entireCollWithoutRedistribution,
-            vars.batch.entireDebtWithoutRedistribution,
-            _newAnnualInterestRate
-        );
+        vars.troveManager
+            .onRemoveFromBatch(
+                _troveId,
+                vars.trove.entireColl,
+                vars.trove.entireDebt,
+                vars.batchChange,
+                vars.batchManager,
+                vars.batch.entireCollWithoutRedistribution,
+                vars.batch.entireDebtWithoutRedistribution,
+                _newAnnualInterestRate
+            );
     }
 
     function switchBatchManager(

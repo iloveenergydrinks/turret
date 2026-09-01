@@ -17,8 +17,10 @@ import "./Interfaces/IBoldToken.sol";
  */
 
 contract BoldToken is Ownable, IBoldToken, ERC20Permit {
-    string internal constant _NAME = "BOLD Stablecoin";
-    string internal constant _SYMBOL = "BOLD";
+    // The fork retains Liquity's internal IBoldToken interface for minimal
+    // protocol risk, while exposing the independent product asset as rUSD.
+    string internal constant _NAME = "rUSD Stablecoin";
+    string internal constant _SYMBOL = "rUSD";
 
     // --- Addresses ---
 

@@ -672,7 +672,8 @@ contract DeployLiquity2Script is DeployGovernance, UniPriceConverter, StdCheats,
             _troveManagerParams.BCR,
             _troveManagerParams.SCR,
             _troveManagerParams.LIQUIDATION_PENALTY_SP,
-            _troveManagerParams.LIQUIDATION_PENALTY_REDISTRIBUTION
+            _troveManagerParams.LIQUIDATION_PENALTY_REDISTRIBUTION,
+            type(uint256).max
         );
         address troveManagerAddress = vm.computeCreate2Address(
             SALT, keccak256(getBytecode(type(TroveManager).creationCode, address(addressesRegistry)))

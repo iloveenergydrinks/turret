@@ -46,6 +46,7 @@ interface IAddressesRegistry {
     function BCR() external returns (uint256);
     function LIQUIDATION_PENALTY_SP() external returns (uint256);
     function LIQUIDATION_PENALTY_REDISTRIBUTION() external returns (uint256);
+    function DEBT_CEILING() external returns (uint256);
 
     function collToken() external view returns (IERC20Metadata);
     function borrowerOperations() external view returns (IBorrowerOperations);

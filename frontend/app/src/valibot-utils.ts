@@ -272,6 +272,16 @@ export function vVoteAllocations() {
 
 export function vCollateralSymbol() {
   return v.union([
+    v.literal("AAPL"),
+    v.literal("MSFT"),
+    v.literal("GOOGL"),
+    v.literal("AMZN"),
+    v.literal("META"),
+    v.literal("NVDA"),
+    v.literal("AVGO"),
+    v.literal("LLY"),
+    v.literal("MU"),
+    v.literal("TSLA"),
     v.literal("ETH"),
     v.literal("RETH"),
     v.literal("WSTETH"),

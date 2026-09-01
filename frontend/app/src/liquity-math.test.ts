@@ -57,7 +57,7 @@ test("getLiquidationRisk() works", () => {
   const ltv = (value: number) => dn.mul(d(value), maxLtv);
 
   expect(getLiquidationRisk(ltv(-1), maxLtv)).toBe("low");
-  expect(getLiquidationRisk(ltv(0), maxLtv)).toBe("low");
+  expect(getLiquidationRisk(ltv(0), maxLtv)).toBe("not-applicable");
 
   expect(getLiquidationRisk(ltv(0.539), maxLtv)).toBe("low");
   expect(getLiquidationRisk(ltv(0.540), maxLtv)).toBe("low");

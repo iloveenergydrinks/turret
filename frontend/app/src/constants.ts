@@ -75,7 +75,17 @@ export const REDEMPTION_SLIPPAGE_TOLERANCE = 0.001; // 0.1%
 
 // XXX what is the point of this?
 export const MAX_COLLATERAL_DEPOSITS: Record<CollateralSymbol, dn.Dnum> = {
+  AAPL: dn.from(100_000_000n, 18),
+  AMZN: dn.from(100_000_000n, 18),
+  AVGO: dn.from(100_000_000n, 18),
   ETH: dn.from(100_000_000n, 18),
+  GOOGL: dn.from(100_000_000n, 18),
+  LLY: dn.from(100_000_000n, 18),
+  META: dn.from(100_000_000n, 18),
+  MSFT: dn.from(100_000_000n, 18),
+  MU: dn.from(100_000_000n, 18),
+  NVDA: dn.from(100_000_000n, 18),
+  TSLA: dn.from(100_000_000n, 18),
   WSTETH: dn.from(100_000_000n, 18),
   RETH: dn.from(100_000_000n, 18),
 };

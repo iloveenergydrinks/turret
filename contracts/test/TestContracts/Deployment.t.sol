@@ -373,7 +373,8 @@ contract TestDeployer is MetadataDeployment {
             _troveManagerParams.BCR,
             _troveManagerParams.SCR,
             _troveManagerParams.LIQUIDATION_PENALTY_SP,
-            _troveManagerParams.LIQUIDATION_PENALTY_REDISTRIBUTION
+            _troveManagerParams.LIQUIDATION_PENALTY_REDISTRIBUTION,
+            type(uint256).max
         );
         address troveManagerAddress = getAddress(
             address(this), getBytecode(type(TroveManagerTester).creationCode, address(addressesRegistry)), SALT
@@ -593,7 +594,8 @@ contract TestDeployer is MetadataDeployment {
             _troveManagerParams.BCR,
             _troveManagerParams.SCR,
             _troveManagerParams.LIQUIDATION_PENALTY_SP,
-            _troveManagerParams.LIQUIDATION_PENALTY_REDISTRIBUTION
+            _troveManagerParams.LIQUIDATION_PENALTY_REDISTRIBUTION,
+            type(uint256).max
         );
         address troveManagerAddress =
             getAddress(address(this), getBytecode(type(TroveManager).creationCode, address(addressesRegistry)), SALT);

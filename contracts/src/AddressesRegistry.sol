@@ -40,6 +40,9 @@ contract AddressesRegistry is Ownable, IAddressesRegistry {
     uint256 public immutable LIQUIDATION_PENALTY_SP;
     // Liquidation penalty for troves redistributed
     uint256 public immutable LIQUIDATION_PENALTY_REDISTRIBUTION;
+    // Maximum total debt for this collateral branch. A hard branch-local cap
+    // contains issuer, oracle and liquidity risk for Stock Token collateral.
+    uint256 public immutable DEBT_CEILING;
 
     error InvalidCCR();
     error InvalidMCR();
@@ -48,6 +51,7 @@ contract AddressesRegistry is Ownable, IAddressesRegistry {
     error SPPenaltyTooLow();
     error SPPenaltyGtRedist();
     error RedistPenaltyTooHigh();
+    error InvalidDebtCeiling();
 
     event CollTokenAddressChanged(address _collTokenAddress);
     event BorrowerOperationsAddressChanged(address _borrowerOperationsAddress);
@@ -75,15 +79,17 @@ contract AddressesRegistry is Ownable, IAddressesRegistry {
         uint256 _bcr,
         uint256 _scr,
         uint256 _liquidationPenaltySP,
-        uint256 _liquidationPenaltyRedistribution
+        uint256 _liquidationPenaltyRedistribution,
+        uint256 _debtCeiling
     ) Ownable(_owner) {
-        if (_ccr <= 1e18 || _ccr >= 2e18) revert InvalidCCR();
-        if (_mcr <= 1e18 || _mcr >= 2e18) revert InvalidMCR();
+        if (_ccr <= 1e18 || _ccr > 5e18) revert InvalidCCR();
+        if (_mcr <= 1e18 || _mcr > 5e18) revert InvalidMCR();
         if (_bcr < 5e16 || _bcr >= 50e16) revert InvalidBCR();
-        if (_scr <= 1e18 || _scr >= 2e18) revert InvalidSCR();
+        if (_scr <= 1e18 || _scr > 5e18) revert InvalidSCR();
         if (_liquidationPenaltySP < MIN_LIQUIDATION_PENALTY_SP) revert SPPenaltyTooLow();
         if (_liquidationPenaltySP > _liquidationPenaltyRedistribution) revert SPPenaltyGtRedist();
         if (_liquidationPenaltyRedistribution > MAX_LIQUIDATION_PENALTY_REDISTRIBUTION) revert RedistPenaltyTooHigh();
+        if (_debtCeiling == 0) revert InvalidDebtCeiling();
 
         CCR = _ccr;
         SCR = _scr;
@@ -91,6 +97,7 @@ contract AddressesRegistry is Ownable, IAddressesRegistry {
         BCR = _bcr;
         LIQUIDATION_PENALTY_SP = _liquidationPenaltySP;
         LIQUIDATION_PENALTY_REDISTRIBUTION = _liquidationPenaltyRedistribution;
+        DEBT_CEILING = _debtCeiling;
     }
 
     function setAddresses(AddressVars memory _vars) external onlyOwner {

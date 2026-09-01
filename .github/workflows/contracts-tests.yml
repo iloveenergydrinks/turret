@@ -19,7 +19,7 @@ env:
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main, dev, sandcastle-stock-tokens]
     paths:
       - ".github/workflows/contracts-tests.yml"
       - "contracts/**"
@@ -50,6 +50,11 @@ jobs:
       - name: Run Forge tests local
         run: |
           forge test -vvv --no-match-contract Mainnet
+
+      - name: Run Stock Token sandcastle tests
+        run: |
+          forge test --match-path 'test/StockToken*.t.sol' -vvv
+          forge test --match-path test/BranchDebtCeiling.t.sol -vvv
 
       - name: Run Forge tests mainnet
         run: |

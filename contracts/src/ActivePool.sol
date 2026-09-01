@@ -33,6 +33,7 @@ contract ActivePool is IActivePool {
 
     IInterestRouter public immutable interestRouter;
     IBoldRewardsReceiver public immutable stabilityPool;
+    uint256 internal immutable DEBT_CEILING;
 
     uint256 internal collBalance; // deposited coll tracker
 
@@ -71,6 +72,8 @@ contract ActivePool is IActivePool {
     event ActivePoolBoldDebtUpdated(uint256 _recordedDebtSum);
     event ActivePoolCollBalanceUpdated(uint256 _collBalance);
 
+    error DebtCeilingExceeded();
+
     constructor(IAddressesRegistry _addressesRegistry) {
         collToken = _addressesRegistry.collToken();
         borrowerOperationsAddress = address(_addressesRegistry.borrowerOperations());
@@ -79,6 +82,7 @@ contract ActivePool is IActivePool {
         defaultPoolAddress = address(_addressesRegistry.defaultPool());
         interestRouter = _addressesRegistry.interestRouter();
         boldToken = _addressesRegistry.boldToken();
+        DEBT_CEILING = _addressesRegistry.DEBT_CEILING();
 
         emit CollTokenAddressChanged(address(collToken));
         emit BorrowerOperationsAddressChanged(borrowerOperationsAddress);
@@ -153,7 +157,7 @@ contract ActivePool is IActivePool {
     }
 
     // Returns sum of agg.recorded debt plus agg. pending interest. Excludes pending redist. gains.
-    function getBoldDebt() external view returns (uint256) {
+    function getBoldDebt() public view returns (uint256) {
         return aggRecordedDebt + calcPendingAggInterest() + aggBatchManagementFees + calcPendingAggBatchManagementFee();
     }
 
@@ -216,6 +220,12 @@ contract ActivePool is IActivePool {
         external
     {
         _requireCallerIsBOorTroveM();
+
+        uint256 newlyIssuedDebt = _troveChange.debtIncrease + _troveChange.upfrontFee;
+        if (
+            msg.sender == borrowerOperationsAddress && newlyIssuedDebt != 0
+                && getBoldDebt() + IDefaultPool(defaultPoolAddress).getBoldDebt() + newlyIssuedDebt > DEBT_CEILING
+        ) revert DebtCeilingExceeded();
 
         // Batch management fees
         if (_batchAddress != address(0)) {
