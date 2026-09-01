@@ -54,6 +54,11 @@ describe("deployment route configuration", () => {
       ...stockEnv,
       NEXT_PUBLIC_SBOLD: "0x0000000000000000000000000000000000000001",
     })).toContainEqual({ pool: "sbold" });
+    expect(getEarnPoolStaticParams({
+      ...stockEnv,
+      NEXT_PUBLIC_SBOLD: "0x0000000000000000000000000000000000000001",
+      NEXT_PUBLIC_ENABLE_STAKING: "false",
+    })).not.toContainEqual({ pool: "sbold" });
   });
 
   test("rejects invalid and duplicate collateral configuration", () => {

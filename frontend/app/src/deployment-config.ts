@@ -85,7 +85,7 @@ export function getEarnPoolStaticParams(
     ...getConfiguredCollateralSymbols(env).map((symbol) => ({
       pool: symbol.toLowerCase(),
     })),
-    ...(env.NEXT_PUBLIC_SBOLD ? [{ pool: "sbold" }] : []),
+    ...(env.NEXT_PUBLIC_SBOLD && getDeploymentFeatures(env).staking ? [{ pool: "sbold" }] : []),
   ];
 }
 
