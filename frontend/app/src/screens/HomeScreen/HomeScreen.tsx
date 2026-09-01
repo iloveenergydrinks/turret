@@ -5,7 +5,7 @@ import type { BranchId, CollateralSymbol } from "@/src/types";
 import { READ_ONLY_DEPLOYMENT } from "@/src/deployment-config";
 import { getBranches, getCollToken } from "@/src/liquity-utils";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 const MVP_MARKETS = [
   { symbol: "AAPL", name: "Apple", maxLtv: "57.1%" },
@@ -79,93 +79,78 @@ function PreviewMarketRow({
           onClick={() => onSelect(market)}
           type="button"
         >
-          {selected ? "Selected" : "Preview"}
+          {selected ? "Viewing" : "Inspect"}
         </button>
       </td>
     </tr>
   );
 }
 
-function PositionPreview({ market }: { market: PreviewMarket }) {
-  const [collateralAmount, setCollateralAmount] = useState("10");
-  const [borrowAmount, setBorrowAmount] = useState("1000");
-  const maxLtv = Number.parseFloat(market.maxLtv);
-  const exampleLtv = useMemo(() => {
-    const borrow = Number.parseFloat(borrowAmount) || 0;
-    return Math.min(maxLtv, Math.max(0, maxLtv * (borrow / 2000)));
-  }, [borrowAmount, maxLtv]);
-
+function PositionMechanism({ market }: { market: PreviewMarket }) {
   return (
-    <form className="rusd-position-preview" onSubmit={(event) => event.preventDefault()}>
+    <figure className="rusd-position-preview">
       <div className="rusd-position-head">
         <div>
-          <span className="rusd-position-label">Position preview</span>
-          <strong>{market.symbol} / USDG</strong>
+          <strong>{market.symbol}-backed credit</strong>
         </div>
-        <span className="rusd-position-mode">Illustrative</span>
+        <span className="rusd-position-mode">How it works</span>
       </div>
 
-      <div className="rusd-position-exchange">
-        <label className="rusd-position-field" htmlFor="dockyard-collateral-amount">
-          <span>You deposit</span>
-          <span className="rusd-position-input">
-            <input
-              aria-label={`${market.symbol} collateral amount`}
-              id="dockyard-collateral-amount"
-              inputMode="decimal"
-              min="0"
-              onChange={(event) => setCollateralAmount(event.target.value)}
-              type="number"
-              value={collateralAmount}
-            />
-            <strong>{market.symbol}</strong>
-          </span>
-        </label>
-
-        <span aria-hidden="true" className="rusd-position-flow">
-          <svg fill="none" viewBox="0 0 16 18">
-            <path d="M8 2.5v12M3.5 10 8 14.5l4.5-4.5" />
+      <div
+        aria-label={`${market.symbol} Stock Tokens are locked in an isolated vault, which lends existing USDG liquidity`}
+        className="rusd-position-path"
+        role="img"
+      >
+        <div className="rusd-position-node">
+          <span>Collateral</span>
+          <strong>{market.symbol}</strong>
+          <small>Stock Token</small>
+        </div>
+        <span aria-hidden="true" className="rusd-position-route">
+          <svg fill="none" viewBox="0 0 44 14">
+            <path d="M2 7h37M34 2l5 5-5 5" />
           </svg>
         </span>
-
-        <label className="rusd-position-field rusd-position-field-output" htmlFor="dockyard-borrow-amount">
-          <span>You borrow</span>
-          <span className="rusd-position-input">
-            <input
-              aria-label="USDG borrow amount"
-              id="dockyard-borrow-amount"
-              inputMode="decimal"
-              min="0"
-              onChange={(event) => setBorrowAmount(event.target.value)}
-              type="number"
-              value={borrowAmount}
-            />
-            <strong>USDG</strong>
-          </span>
-        </label>
+        <div className="rusd-position-node rusd-position-vault">
+          <span>Locked in</span>
+          <strong>Isolated vault</strong>
+          <small>One stock market</small>
+        </div>
+        <span aria-hidden="true" className="rusd-position-route">
+          <svg fill="none" viewBox="0 0 44 14">
+            <path d="M2 7h37M34 2l5 5-5 5" />
+          </svg>
+        </span>
+        <div className="rusd-position-node">
+          <span>You receive</span>
+          <strong>USDG</strong>
+          <small>Existing liquidity</small>
+        </div>
       </div>
 
       <div className="rusd-position-risk">
-        <div>
-          <span>Example LTV</span>
-          <strong>{exampleLtv.toFixed(1)}%</strong>
+        <div className="rusd-position-risk-heading">
+          <span>Maximum opening LTV</span>
+          <strong>{market.maxLtv}</strong>
         </div>
-        <span className="rusd-position-risk-track">
-          <span style={{ width: `${Math.min(100, (exampleLtv / maxLtv) * 100)}%` }} />
+        <span aria-hidden="true" className="rusd-position-risk-track">
+          <span />
         </span>
         <div className="rusd-position-risk-scale">
-          <span>Lower risk</span>
-          <span>Max {market.maxLtv}</span>
+          <span>More collateral</span>
+          <span>Opening limit</span>
         </div>
       </div>
 
-      <div className="rusd-position-safeguards">
-        <span>Isolated vault</span>
-        <span>Dual-oracle safeguards</span>
-      </div>
+      <figcaption>
+        Your Stock Token stays locked while the debt is open. Repay the USDG to withdraw it.
+      </figcaption>
 
-      <button className="rusd-position-cta" disabled type="submit">Borrow USDG</button>
-    </form>
+      <div className="rusd-position-safeguards">
+        <span>Existing USDG only</span>
+        <span>Two price feeds</span>
+      </div>
+    </figure>
   );
 }
 
@@ -186,7 +171,7 @@ export function HomeScreen() {
             <span>One Stock Token per vault</span>
           </div>
         </div>
-        <PositionPreview market={selectedMarket} />
+        <PositionMechanism market={selectedMarket} />
       </section>
 
       <ol aria-label="How borrowing works" className="rusd-borrow-flow">
@@ -210,7 +195,7 @@ export function HomeScreen() {
             <h2 className="rusd-market-title">Markets</h2>
             <p>Compare isolated borrowing parameters.</p>
           </div>
-          {READ_ONLY_DEPLOYMENT && <span className="rusd-market-selected">Previewing {selectedMarket.symbol}</span>}
+          {READ_ONLY_DEPLOYMENT && <span className="rusd-market-selected">Viewing {selectedMarket.symbol}</span>}
         </div>
         <table className="rusd-market-table">
           <caption className="sr-only">
