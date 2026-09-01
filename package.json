@@ -6,6 +6,10 @@
   "repository": "github:liquity/bold",
   "bugs": "https://github.com/liquity/bold/issues",
   "homepage": "https://github.com/liquity/bold#readme",
+  "scripts": {
+    "build": "NEXT_PUBLIC_MVP_READ_ONLY=true MVP_READ_ONLY=true pnpm --dir frontend/app build:mvp",
+    "start": "MVP_READ_ONLY=true node frontend/app/scripts/serve-mvp.mjs"
+  },
   "devDependencies": {
     "dprint": "^0.50.0"
   },
