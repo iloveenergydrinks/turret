@@ -3,10 +3,10 @@ import type { CollateralSymbol } from "@/src/types";
 const COLLATERAL_SYMBOLS = new Set<string>([
   "AAPL",
   "AMZN",
-  "AVGO",
+  "AMD",
   "ETH",
   "GOOGL",
-  "LLY",
+  "ORCL",
   "META",
   "MSFT",
   "MU",

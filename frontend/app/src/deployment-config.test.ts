@@ -13,8 +13,8 @@ const stockEnv = {
   NEXT_PUBLIC_COLL_3_TOKEN_ID: "AMZN",
   NEXT_PUBLIC_COLL_4_TOKEN_ID: "META",
   NEXT_PUBLIC_COLL_5_TOKEN_ID: "NVDA",
-  NEXT_PUBLIC_COLL_6_TOKEN_ID: "AVGO",
-  NEXT_PUBLIC_COLL_7_TOKEN_ID: "LLY",
+  NEXT_PUBLIC_COLL_6_TOKEN_ID: "AMD",
+  NEXT_PUBLIC_COLL_7_TOKEN_ID: "ORCL",
   NEXT_PUBLIC_COLL_8_TOKEN_ID: "MU",
   NEXT_PUBLIC_COLL_9_TOKEN_ID: "TSLA",
 } as const;
@@ -28,8 +28,8 @@ describe("deployment route configuration", () => {
       "AMZN",
       "META",
       "NVDA",
-      "AVGO",
-      "LLY",
+      "AMD",
+      "ORCL",
       "MU",
       "TSLA",
     ]);
@@ -40,8 +40,8 @@ describe("deployment route configuration", () => {
       { collateral: "amzn" },
       { collateral: "meta" },
       { collateral: "nvda" },
-      { collateral: "avgo" },
-      { collateral: "lly" },
+      { collateral: "amd" },
+      { collateral: "orcl" },
       { collateral: "mu" },
       { collateral: "tsla" },
     ]);

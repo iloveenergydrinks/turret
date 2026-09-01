@@ -77,10 +77,10 @@ export const REDEMPTION_SLIPPAGE_TOLERANCE = 0.001; // 0.1%
 export const MAX_COLLATERAL_DEPOSITS: Record<CollateralSymbol, dn.Dnum> = {
   AAPL: dn.from(100_000_000n, 18),
   AMZN: dn.from(100_000_000n, 18),
-  AVGO: dn.from(100_000_000n, 18),
+  AMD: dn.from(100_000_000n, 18),
   ETH: dn.from(100_000_000n, 18),
   GOOGL: dn.from(100_000_000n, 18),
-  LLY: dn.from(100_000_000n, 18),
+  ORCL: dn.from(100_000_000n, 18),
   META: dn.from(100_000_000n, 18),
   MSFT: dn.from(100_000_000n, 18),
   MU: dn.from(100_000_000n, 18),

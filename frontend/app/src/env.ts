@@ -1,7 +1,7 @@
 "use client";
 
-import type { Address, Branch, BranchId, IcStrategy } from "@/src/types";
 import { getRpcOverride, getSubgraphOverride } from "@/src/data-sources-override";
+import type { Address, Branch, BranchId, IcStrategy } from "@/src/types";
 
 import { DEFAULT_COMMIT_URL, DEFAULT_LEGACY_CHECKS, DEFAULT_STRATEGIES, DEFAULT_VERSION_URL } from "@/src/constants";
 import { isBranchId } from "@/src/types";
@@ -36,8 +36,8 @@ export const CollateralSymbolSchema = v.union([
   v.literal("AMZN"),
   v.literal("META"),
   v.literal("NVDA"),
-  v.literal("AVGO"),
-  v.literal("LLY"),
+  v.literal("AMD"),
+  v.literal("ORCL"),
   v.literal("MU"),
   v.literal("TSLA"),
   v.literal("ETH"),

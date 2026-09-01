@@ -14,8 +14,8 @@ The first version uses ten isolated collateral branches sharing one stablecoin:
 | AMZN   |               54.1% |              $10.0m |
 | META   |               52.6% |              $10.0m |
 | NVDA   |               50.0% |              $10.0m |
-| AVGO   |               50.0% |               $7.5m |
-| LLY    |               50.0% |               $7.5m |
+| AMD    |               50.0% |               $7.5m |
+| ORCL   |               50.0% |               $7.5m |
 | MU     |               44.4% |               $5.0m |
 | TSLA   |               40.0% |               $5.0m |
 
@@ -51,8 +51,8 @@ The one-hour oracle staleness threshold is test-only. Stock Token feeds operate 
 | AMZN   |      54.05% |                       40.54% |                  17.50% |
 | META   |      52.63% |                       42.10% |                  17.50% |
 | NVDA   |      50.00% |                       45.00% |                  20.00% |
-| AVGO   |      50.00% |                       45.00% |                  20.00% |
-| LLY    |      50.00% |                       45.00% |                  20.00% |
+| AMD    |      50.00% |                       45.00% |                  20.00% |
+| ORCL   |      50.00% |                       45.00% |                  20.00% |
 | MU     |      44.44% |                       51.11% |                  25.00% |
 | TSLA   |      40.00% |                       56.00% |                  25.00% |
 
@@ -73,7 +73,15 @@ forge script script/DeployStockTokenSandcastle.s.sol:DeployStockTokenSandcastle 
   --disable-code-size-limit
 ```
 
-The script writes `contracts/deployment-stock-sandcastle.json`. The arrays use this fixed order: AAPL, MSFT, GOOGL, AMZN, META, NVDA, AVGO, LLY, MU, TSLA.
+The script writes `contracts/deployment-stock-sandcastle.json`. The arrays use this fixed order: AAPL, MSFT, GOOGL, AMZN, META, NVDA, AMD, ORCL, MU, TSLA.
+
+Before any deployment that uses live Robinhood collateral and Chainlink feeds, run:
+
+```sh
+pnpm --dir contracts validate:stock-registry
+```
+
+The preflight fails closed if any token is inactive, has a pending multiplier change, has moved addresses, lacks a primary/secondary feed, or if the live feed metadata has drifted from the reviewed 24-hour heartbeat, 0.5% threshold, and 8-decimal configuration. A passing preflight is necessary but not sufficient for production deployment.
 
 Generate the contract portion of the frontend environment from that manifest:
 

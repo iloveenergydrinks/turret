@@ -13,6 +13,9 @@ contract StockTokenConfigTest is Test {
         for (uint256 i = 0; i < configs.length; ++i) {
             assertTrue(configs[i].symbol != bytes32(0));
             assertTrue(configs[i].robinhoodChainToken != address(0));
+            assertTrue(configs[i].chainlinkFeed != address(0));
+            assertTrue(configs[i].secondaryChainlinkFeed != address(0));
+            assertTrue(configs[i].chainlinkFeed != configs[i].secondaryChainlinkFeed);
             assertGe(configs[i].MCR, 175e16);
             assertGt(configs[i].CCR, configs[i].MCR);
             assertGt(configs[i].MCR, configs[i].SCR);
@@ -22,6 +25,8 @@ contract StockTokenConfigTest is Test {
             for (uint256 j = i + 1; j < configs.length; ++j) {
                 assertTrue(configs[i].symbol != configs[j].symbol);
                 assertTrue(configs[i].robinhoodChainToken != configs[j].robinhoodChainToken);
+                assertTrue(configs[i].chainlinkFeed != configs[j].chainlinkFeed);
+                assertTrue(configs[i].secondaryChainlinkFeed != configs[j].secondaryChainlinkFeed);
             }
         }
     }

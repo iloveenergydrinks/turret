@@ -24,13 +24,13 @@ export type Token = ExternalToken & {
 export type TokenSymbol =
   | "AAPL"
   | "AMZN"
-  | "AVGO"
+  | "AMD"
   | "BOLD"
   | "ETH"
   | "GOOGL"
   | "LQTY"
   | "LUSD"
-  | "LLY"
+  | "ORCL"
   | "META"
   | "MSFT"
   | "MU"
@@ -46,10 +46,10 @@ export type CollateralSymbol =
   & (
     | "AAPL"
     | "AMZN"
-    | "AVGO"
+    | "AMD"
     | "ETH"
     | "GOOGL"
-    | "LLY"
+    | "ORCL"
     | "META"
     | "MSFT"
     | "MU"
@@ -63,13 +63,13 @@ export function isTokenSymbol(symbolOrUrl: string): symbolOrUrl is TokenSymbol {
   return (
     symbolOrUrl === "AAPL"
     || symbolOrUrl === "AMZN"
-    || symbolOrUrl === "AVGO"
+    || symbolOrUrl === "AMD"
     || symbolOrUrl === "BOLD"
     || symbolOrUrl === "ETH"
     || symbolOrUrl === "GOOGL"
     || symbolOrUrl === "LQTY"
     || symbolOrUrl === "LUSD"
-    || symbolOrUrl === "LLY"
+    || symbolOrUrl === "ORCL"
     || symbolOrUrl === "META"
     || symbolOrUrl === "MSFT"
     || symbolOrUrl === "MU"
@@ -85,10 +85,10 @@ export function isTokenSymbol(symbolOrUrl: string): symbolOrUrl is TokenSymbol {
 export function isCollateralSymbol(symbol: string): symbol is CollateralSymbol {
   return symbol === "AAPL"
     || symbol === "AMZN"
-    || symbol === "AVGO"
+    || symbol === "AMD"
     || symbol === "ETH"
     || symbol === "GOOGL"
-    || symbol === "LLY"
+    || symbol === "ORCL"
     || symbol === "META"
     || symbol === "MSFT"
     || symbol === "MU"
@@ -164,8 +164,8 @@ export const GOOGL = stockToken("GOOGL", 1.80);
 export const AMZN = stockToken("AMZN", 1.85);
 export const META = stockToken("META", 1.90);
 export const NVDA = stockToken("NVDA", 2.00);
-export const AVGO = stockToken("AVGO", 2.00);
-export const LLY = stockToken("LLY", 2.00);
+export const AMD = stockToken("AMD", 2.00);
+export const ORCL = stockToken("ORCL", 2.00);
 export const MU = stockToken("MU", 2.25);
 export const TSLA = stockToken("TSLA", 2.50);
 
@@ -179,8 +179,8 @@ export const COLLATERALS: CollateralToken[] = [
   AMZN,
   META,
   NVDA,
-  AVGO,
-  LLY,
+  AMD,
+  ORCL,
   MU,
   TSLA,
 ];
@@ -188,11 +188,11 @@ export const COLLATERALS: CollateralToken[] = [
 export const TOKENS_BY_SYMBOL = {
   AAPL,
   AMZN,
-  AVGO,
+  AMD,
   BOLD,
   ETH,
   GOOGL,
-  LLY,
+  ORCL,
   LQTY,
   LUSD,
   META,

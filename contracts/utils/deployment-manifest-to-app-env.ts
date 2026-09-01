@@ -102,8 +102,8 @@ const STOCK_SYMBOLS = [
   "AMZN",
   "META",
   "NVDA",
-  "AVGO",
-  "LLY",
+  "AMD",
+  "ORCL",
   "MU",
   "TSLA",
 ] as const;
