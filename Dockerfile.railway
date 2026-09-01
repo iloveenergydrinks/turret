@@ -13,6 +13,7 @@ ENV NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=preview
 ENV MVP_READ_ONLY=true
 
 RUN pnpm install --frozen-lockfile
+RUN test -s frontend/app/.env
 RUN pnpm --dir frontend/app build:mvp
 
 EXPOSE 3000
