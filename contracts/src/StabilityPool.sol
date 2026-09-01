@@ -60,7 +60,7 @@ import "./Dependencies/LiquityBase.sol";
  *
  * A series of liquidations that nearly empty the Pool (and thus each multiply P by a very small number in range ]0,1[ ) may push P
  * to its 36 digit decimal limit, and round it to 0, when in fact the Pool hasn't been emptied: this would break deposit tracking.
- * 
+ *
  * P is stored at 36-digit precision as a uint. That is, a value of "1" is represented by a value of 1e36 in the code.
  *
  * So, to track P accurately, we use a scale factor: if a liquidation would cause P to decrease below 1e27,
@@ -169,8 +169,10 @@ contract StabilityPool is LiquityBase, IStabilityPool, IStabilityPoolEvents {
     // Highest power `SCALE_FACTOR` can be raised to without overflow
     uint256 public constant MAX_SCALE_FACTOR_EXPONENT = 8;
 
-    // The number of scale changes after which an untouched deposit stops receiving yield / coll gains
-    uint256 public constant SCALE_SPAN = 2;
+    // Keep gain accounting aligned with the maximum scale exponent supported
+    // by compounded deposits. A single near-total offset can cross three
+    // scales, so a fixed two-scale gain window can orphan later rewards.
+    uint256 public constant SCALE_SPAN = MAX_SCALE_FACTOR_EXPONENT;
 
     // Each time the scale of P shifts by SCALE_FACTOR, the scale is incremented by 1
     uint256 public currentScale;
@@ -460,7 +462,9 @@ contract StabilityPool is LiquityBase, IStabilityPool, IStabilityPoolEvents {
         uint256 normalizedGains = scaleToS[snapshots.scale] - snapshots.S;
 
         // Scale down further coll gains by a power of `SCALE_FACTOR` depending on how many scale changes they span
-        for (uint256 i = 1; i <= SCALE_SPAN; ++i) {
+        uint256 scaleDiff = currentScale - snapshots.scale;
+        uint256 scalesToRead = LiquityMath._min(scaleDiff, SCALE_SPAN);
+        for (uint256 i = 1; i <= scalesToRead; ++i) {
             normalizedGains += scaleToS[snapshots.scale + i] / SCALE_FACTOR ** i;
         }
 
@@ -477,7 +481,9 @@ contract StabilityPool is LiquityBase, IStabilityPool, IStabilityPoolEvents {
         uint256 normalizedGains = scaleToB[snapshots.scale] - snapshots.B;
 
         // Scale down further yield gains by a power of `SCALE_FACTOR` depending on how many scale changes they span
-        for (uint256 i = 1; i <= SCALE_SPAN; ++i) {
+        uint256 scaleDiff = currentScale - snapshots.scale;
+        uint256 scalesToRead = LiquityMath._min(scaleDiff, SCALE_SPAN);
+        for (uint256 i = 1; i <= scalesToRead; ++i) {
             normalizedGains += scaleToB[snapshots.scale + i] / SCALE_FACTOR ** i;
         }
 
@@ -497,7 +503,9 @@ contract StabilityPool is LiquityBase, IStabilityPool, IStabilityPoolEvents {
         uint256 normalizedGains = scaleToB[snapshots.scale] - snapshots.B;
 
         // Scale down further yield gains by a power of `SCALE_FACTOR` depending on how many scale changes they span
-        for (uint256 i = 1; i <= SCALE_SPAN; ++i) {
+        uint256 scaleDiff = currentScale - snapshots.scale;
+        uint256 scalesToRead = LiquityMath._min(scaleDiff, SCALE_SPAN);
+        for (uint256 i = 1; i <= scalesToRead; ++i) {
             normalizedGains += scaleToB[snapshots.scale + i] / SCALE_FACTOR ** i;
         }
 
@@ -505,8 +513,8 @@ contract StabilityPool is LiquityBase, IStabilityPool, IStabilityPoolEvents {
         uint256 pendingSPYield = activePool.calcPendingSPYield();
         newYieldGainsOwed += pendingSPYield;
 
-        if (currentScale <= snapshots.scale + SCALE_SPAN) {
-            normalizedGains += P * pendingSPYield / totalBoldDeposits / SCALE_FACTOR ** (currentScale - snapshots.scale);
+        if (scaleDiff <= SCALE_SPAN) {
+            normalizedGains += P * pendingSPYield / totalBoldDeposits / SCALE_FACTOR ** scaleDiff;
         }
 
         return LiquityMath._min(initialDeposit * normalizedGains / snapshots.P, newYieldGainsOwed);

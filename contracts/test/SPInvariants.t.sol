@@ -70,4 +70,33 @@ contract SPInvariantsTest is SPInvariantsBase {
     function invariant_AllFundsClaimable() external view {
         assert_AllFundsClaimable();
     }
+
+    function testYieldRemainsClaimableAfterMultiScaleTransition() external {
+        vm.prank(fran);
+        handler.openTrove(44583310328523063131373523380500666879128490);
+        vm.prank(carl);
+        handler.openTrove(296067622128403818764994630);
+        vm.prank(adam);
+        handler.openTrove(type(uint256).max - 1);
+        vm.prank(fran);
+        handler.provideToSp(187, true);
+        vm.prank(hope);
+        handler.provideToSp(1034, false);
+        vm.prank(fran);
+        handler.liquidateMe();
+        vm.prank(eric);
+        handler.openTrove(1118854582849743552477784549968133967040108284768583);
+        vm.prank(dana);
+        handler.openTrove(21688);
+        vm.prank(adam);
+        handler.provideToSp(33137668098021610674606499478856777575691607642044900101146358566094602063428, true);
+        vm.prank(gabe);
+        handler.openTrove(1468);
+        vm.prank(gabe);
+        handler.liquidateMe();
+        vm.prank(hope);
+        handler.openTrove(241981273143404182);
+
+        assert_AllFundsClaimable();
+    }
 }
