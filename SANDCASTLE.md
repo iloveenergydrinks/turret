@@ -36,6 +36,25 @@ The ratios and ceilings are placeholders for simulation, not production risk par
 
 The one-hour oracle staleness threshold is also test-only. Stock Token feeds operate 24/5 and may hold their last price without heartbeats during weekends, holidays, thin overnight sessions, and corporate-action pauses. With the current conservative failure model, an ordinary market closure can therefore permanently shut down a branch. Production requires a reviewed market-session and temporary-pause policy; merely increasing the threshold is not a sufficient fix. See the [Robinhood Chain oracle documentation](https://docs.robinhood.com/chain/oracles-and-price-feeds/) and [Chainlink's Robinhood feed guidance](https://docs.chain.link/data-feeds/tokenized-equity-feeds/robinhood).
 
+## Executable gap model
+
+`StockTokenRiskModel.t.sol` models a position starting exactly at MCR and measures the largest one-step price gap for which its collateral still covers the debt plus the 10% redistribution penalty. These deterministic checks are a screening tool, not a substitute for historical and Monte Carlo simulation.
+
+| Branch | Maximum LTV | Gap before penalty shortfall | Oracle deviation cutoff |
+| ------ | ----------: | ---------------------------: | ----------------------: |
+| AAPL   |      57.14% |                       37.14% |                  15.00% |
+| MSFT   |      57.14% |                       37.14% |                  15.00% |
+| GOOGL  |      55.55% |                       38.88% |                  15.00% |
+| AMZN   |      54.05% |                       40.54% |                  17.50% |
+| META   |      52.63% |                       42.10% |                  17.50% |
+| NVDA   |      50.00% |                       45.00% |                  20.00% |
+| AVGO   |      50.00% |                       45.00% |                  20.00% |
+| LLY    |      50.00% |                       45.00% |                  20.00% |
+| MU     |      44.44% |                       51.11% |                  25.00% |
+| TSLA   |      40.00% |                       56.00% |                  25.00% |
+
+The model exposes a deliberate unresolved conflict: all ten branches still cover the 10% redistribution penalty after a 30% gap, but a single 30% oracle update exceeds every configured deviation cutoff and currently causes permanent shutdown before normal liquidation can use the new price. A production design needs an independently validated secondary price or an explicitly reviewed gap-handling mechanism; the cutoff must not simply be removed.
+
 ## Local deployment
 
 Prerequisites: Foundry and the repository submodules.
