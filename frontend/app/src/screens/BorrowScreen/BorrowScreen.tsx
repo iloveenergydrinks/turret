@@ -35,7 +35,6 @@ import { useAccount, useBalances } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
 import {
   Checkbox,
-  COLLATERALS as KNOWN_COLLATERALS,
   Dropdown,
   HFlex,
   IconExternal,
@@ -53,8 +52,6 @@ import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useState } from "react";
 import { maxUint256 } from "viem";
 
-const KNOWN_COLLATERAL_SYMBOLS = KNOWN_COLLATERALS.map(({ symbol }) => symbol);
-
 export function BorrowScreen() {
   const branches = getBranches();
   // useParams() can return an array but not with the current
@@ -70,6 +67,7 @@ export function BorrowScreen() {
   const branch = getBranch(collSymbol);
   const collateral = getCollToken(branch.id);
   const collaterals = branches.map((b) => getCollToken(b.branchId));
+  const collateralSymbols = collaterals.map(({ symbol }) => symbol);
 
   const maxCollDeposit = MAX_COLLATERAL_DEPOSITS[collSymbol];
 
@@ -99,7 +97,7 @@ export function BorrowScreen() {
 
   const collPrice = usePrice(collateral.symbol);
 
-  const balances = useBalances(account.address, KNOWN_COLLATERAL_SYMBOLS);
+  const balances = useBalances(account.address, collateralSymbols);
   const collateralRatios = useBranchCollateralRatios(branch.id);
   const isShutdown = useIsBranchShutdown(branch.id);
 
@@ -262,7 +260,7 @@ export function BorrowScreen() {
                     />
                   ))}
                 </TokenIcon.Group>
-                {NBSP}ETH
+                {NBSP}Stock Tokens
               </div>,
               <div
                 className={css({

@@ -15,7 +15,7 @@ export default {
     : window.location.origin,
   appIcon: (
     typeof window === "undefined" ? "" : window.location.origin
-  ) + "/favicon.svg",
+  ) + "/brand/dockyard-safe-harbor-ai.png",
 
   // Menu bar
   menu: {

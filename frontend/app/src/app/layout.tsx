@@ -25,7 +25,7 @@ import { GeistSans } from "geist/font/sans";
 
 export const metadata: Metadata = {
   title: content.appName,
-  icons: "/favicon.svg",
+  icons: "/brand/dockyard-safe-harbor-ai.png",
 };
 
 export const viewport: Viewport = {
@@ -46,7 +46,7 @@ export default function Layout({
           dangerouslySetInnerHTML={{
             __html: `<!--
 THESIS: Dockyard turns ten isolated stock markets into one approachable borrowing desk; it refuses the wide corporate trading terminal and literal nautical theme.
-OWN-WORLD: a slow sea-glass mesh gradient, white rounded work surfaces, deep teal actions, blue-green ink, open Figtree display lettering, quiet depth, and an AI-generated D shaped as a protected channel.
+OWN-WORLD: a slow sea-glass mesh gradient, white rounded work surfaces, deep teal actions, blue-green ink, open Figtree display lettering, quiet depth, and a four-part safe-harbor mark protecting a central berth.
 STORY: understand Stock Token to isolated vault to rUSD, compare honest max-LTV parameters, then choose a market and borrow.
 FIRST VIEWPORT: compact floating navigation over a centered promise and tide-line mechanism, followed by one narrow ten-market panel with direct Borrow actions.
 FORM: centered harbor wayfinding desk, assigned grounded direction 3, approved composition B, seed 0326060a.

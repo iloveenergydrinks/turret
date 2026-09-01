@@ -13,6 +13,7 @@ const contentTypes = {
   ".json": "application/json; charset=utf-8",
   ".png": "image/png",
   ".svg": "image/svg+xml",
+  ".txt": "text/plain; charset=utf-8",
   ".woff": "font/woff",
   ".woff2": "font/woff2",
 };
@@ -25,7 +26,9 @@ function securityHeaders() {
       "style-src 'self' 'unsafe-inline'",
       "script-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
-      "connect-src 'none'",
+      // The verified deployment is a static app, but wallet, RPC, explorer,
+      // and subgraph clients still need outbound HTTPS/WebSocket access.
+      "connect-src 'self' https: wss:",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'none'",
@@ -65,11 +68,17 @@ createServer((request, response) => {
     return;
   }
 
-  const allowedAsset = pathname.startsWith("/_next/static/") || /^\/[\w.-]+\.(svg|png|ico|woff2?)$/.test(pathname);
   const filePath = resolve(outputDirectory, `.${pathname}`);
-  if (allowedAsset && filePath.startsWith(`${outputDirectory}${sep}`) && sendFile(request, response, filePath)) return;
+  const isInsideOutput = filePath.startsWith(`${outputDirectory}${sep}`);
+  const allowedFile = /\.(?:css|html|ico|js|json|png|svg|txt|woff2?)$/.test(filePath);
+  if (isInsideOutput && allowedFile && sendFile(request, response, filePath)) return;
+
+  // Next's static export writes application routes as `/route.html`.
+  // Preserve clean URLs so links such as `/borrow/aapl` do not fall back to
+  // the landing page.
+  if (isInsideOutput && !extname(filePath) && sendFile(request, response, `${filePath}.html`)) return;
 
   response.writeHead(302, { ...securityHeaders(), Location: "/" }).end();
 }).listen(port, "0.0.0.0", () => {
-  console.log(`rUSD MVP preview listening on port ${port}`);
+  console.log(`Dockyard frontend listening on port ${port}`);
 });

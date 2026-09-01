@@ -143,7 +143,7 @@ components:
 
 **Creative North Star: "The Sea-Glass Dockyard Desk"**
 
-Dockyard turns isolated Stock Token markets into one approachable borrowing desk. A slowly shifting sea-glass field establishes place, while a narrow centerline of white work surfaces, deep turquoise controls, and blue-green ink keeps the product practical. The atmosphere is maritime through light, tide-like motion, and the protected-channel negative space inside the D—not through anchors, ships, rope, or decorative nautical scenery.
+Dockyard turns isolated Stock Token markets into one approachable borrowing desk. A slowly shifting sea-glass field establishes place, while a narrow centerline of white work surfaces, deep turquoise controls, and blue-green ink keeps the product practical. The atmosphere is maritime through light, tide-like motion, and the protected central berth inside the safe-harbor mark—not through anchors, ships, rope, or decorative nautical scenery.
 
 The protocol is Dockyard; rUSD is the dollar-denominated stablecoin users borrow. Dockyard owns the navigation, logo, shell, and overall visual world. rUSD appears as the output currency in the borrowing mechanism, balances, debt, repayment, and redemption. Internal CSS custom properties and class names may retain the `rusd-` prefix for implementation stability; that prefix is not user-facing identity and must never be used to rename the protocol in copy or visual assets.
 
@@ -157,7 +157,7 @@ The system is narrow, friendly, and direct. It inherits Liquity V1's approachabl
 - One oversized, plain-language Qubic Grid promise followed by a concise collateral-to-rUSD mechanism.
 - A living sea-glass mesh behind translucent paper surfaces, never contours or pointer-reactive effects.
 - Fine mint separators, rounded practical controls, and one quiet ambient depth device per surface.
-- An AI-generated Dockyard D built around a protected harbor and entering channel.
+- An AI-generated safe-harbor mark built from four rounded dock modules protecting a central berth.
 - Explicit risk, preview, and network language that never relies on color alone.
 
 ## Colors
@@ -168,8 +168,8 @@ The palette combines a deep turquoise action voice with misted mint surfaces and
 
 - **Turquoise Action** (`#08786E`): The sole primary interaction color for buttons, active navigation, links, focus identity, the Dockyard dock lines, and mechanism icons.
 - **Turquoise Action Hover** (`#05675F`): The darker pointer-hover response for primary actions.
-- **Turquoise Bright** (`#0FAE9B`): The entering-channel accent inside the Dockyard mark and the mechanism connectors; use it as geometry, not small text on white.
-- **Favicon Wave** (`#8EF0DC`): The lighter wave stroke used only where the mark sits on its dark Turquoise Action favicon tile.
+- **Turquoise Bright** (`#0FAE9B`): The mechanism connectors and other restrained flow geometry; use it as geometry, not small text on white.
+- **Favicon Wave** (`#8EF0DC`): A reserved light accent for compact brand applications; it is not used inside the current monochrome mark.
 
 ### Secondary
 
@@ -262,9 +262,9 @@ Depth is ambient and layered over the mesh. The top bar uses a translucent paper
 
 The form language combines rounded working surfaces with authored line geometry. Primary floating surfaces use 18px corners; mechanism tiles use 24px on wide screens and 15px on compact screens; controls use 10px; ticker chips use 9px; preview notices use 12px; and the compact top bar uses 14px. The account control and preview badges are full pills, while status dots and the information mark are circular. Borders are one pixel and low contrast; they divide information instead of boxing every element.
 
-The Dockyard mark is an AI-generated D refined from a six-direction identity exploration. Its deep-teal outer form creates a protected circular harbor in negative space, while one turquoise channel enters from the lower-left. The Qubic Grid “Dockyard” wordmark sits to its right. The same transparent raster mark is used for the favicon and navigation; the high-resolution original is preserved under `public/brand/`. The borrowing flow has its own semantic icons—stacked market cards, a hexagonal collateral aperture, and a minted rUSD coin—but none of these replaces the protocol mark.
+The Dockyard mark is an AI-generated safe harbor refined through reference-led identity exploration. Four rounded deep-teal dock modules converge around a protected central berth, creating one compact symbol without a letterform or literal maritime illustration. The lowercase Qubic Grid “dockyard.” wordmark sits to its right. The same transparent raster mark is used for the favicon and navigation; the 512px web asset and high-resolution original are preserved under `public/brand/`. The borrowing flow has its own semantic icons—stacked market cards, a hexagonal collateral aperture, and a minted rUSD coin—but none of these replaces the protocol mark.
 
-**The One Channel Rule.** The logo uses one restrained turquoise channel entering a protected negative-space harbor; do not add anchors, ships, rope, portholes, or extra waves.
+**The Protected Berth Rule.** The logo uses four equal visual masses around one central negative-space berth; do not add lettering, anchors, ships, rope, portholes, or decorative waves.
 
 **The Soft Structure Rule.** Use roundness to soften clear structure, not to turn every label or data cell into a pill.
 
@@ -293,7 +293,7 @@ Ticker chips are compact identifiers, not ornamental tags: 52px by 32px on wide 
 
 ### Navigation
 
-The top bar is a sticky 64px paper shell. The AI-generated Dockyard mark and Qubic Grid wordmark anchor the left, Geist routes occupy the center, and network plus wallet state occupy the right. Inactive links use Quiet Slate; the active route switches to Teal Ink and receives a 3px Turquoise Action underline. At 760px and below, route links and network text hide while brand and wallet action stay visible.
+The top bar is a sticky 64px paper shell. The AI-generated safe-harbor mark and Qubic Grid wordmark anchor the left, Geist routes occupy the center, and network plus wallet state occupy the right. Inactive links use Quiet Slate; the active route switches to Teal Ink and receives a 3px Turquoise Action underline. At 760px and below, route links and network text hide while brand and wallet action stay visible.
 
 ### Market Table
 
@@ -309,7 +309,7 @@ The signature environmental component is Paper Shaders `MeshGradient`, fixed to 
 
 ### Dockyard Logo
 
-The signature logo is the AI-generated protected-channel D with the Qubic Grid Dockyard wordmark. The outer harbor uses Turquoise Action, the entering channel uses Turquoise Bright, and the wordmark uses Teal Ink. Its accessible name is “Dockyard.” rUSD may appear as a minted coin icon in borrowing flows, but it is never substituted for the protocol logo.
+The signature logo is the AI-generated four-part safe-harbor mark with the lowercase Qubic Grid “dockyard.” wordmark. The mark uses Turquoise Action and the wordmark uses Teal Ink. Its accessible name is “Dockyard.” rUSD may appear as a minted coin icon in borrowing flows, but it is never substituted for the protocol logo.
 
 ## Do's and Don'ts
 
@@ -321,7 +321,7 @@ The signature logo is the AI-generated protected-channel D with the Qubic Grid D
 - **Do** use Turquoise Action for primary interaction hierarchy, Turquoise Bright for wave and flow geometry, and Mint Soft for supportive emphasis.
 - **Do** keep financial data in continuous, scan-friendly structures with fine Mint Line separators.
 - **Do** use Qubic Grid for the promise, Dockyard wordmark, and compact section signage; keep navigation, actions, prose, and numeric data in Geist.
-- **Do** preserve the AI-generated protected-channel D across the wordmark and favicon.
+- **Do** preserve the AI-generated four-part safe-harbor mark across the wordmark and favicon.
 - **Do** pair risk, network, and preview status color with explicit language and visible keyboard focus.
 - **Do** allow internal `rusd-` CSS class and token prefixes to remain where renaming would create implementation churn; keep them invisible to users.
 

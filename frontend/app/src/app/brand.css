@@ -46,6 +46,13 @@ body {
   object-fit: contain;
 }
 
+.dockyard-logo-mark-frame {
+  display: grid;
+  flex: 0 0 auto;
+  overflow: hidden;
+  place-items: center;
+}
+
 .dockyard-logo-wordmark {
   font-weight: 720;
   letter-spacing: -0.035em;
@@ -298,46 +305,6 @@ body {
   text-wrap: balance;
 }
 
-.rusd-flow {
-  display: grid;
-  grid-template-columns: auto 92px auto 92px auto;
-  align-items: center;
-  margin-top: 24px;
-}
-
-.rusd-flow-step {
-  display: grid;
-  justify-items: center;
-  gap: 10px;
-  min-width: 116px;
-  color: var(--rusd-ink);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.rusd-flow-icon {
-  display: grid;
-  place-items: center;
-  width: 82px;
-  height: 82px;
-  color: var(--rusd-primary);
-  background: var(--rusd-frost);
-  border: 1px solid rgba(8, 120, 110, 0.12);
-  border-radius: 24px;
-  box-shadow: inset 0 -10px 24px rgba(15, 174, 155, 0.08);
-}
-
-.rusd-flow-icon svg {
-  width: 48px;
-  height: 48px;
-}
-
-.rusd-flow-arrow {
-  width: 66px;
-  color: var(--rusd-bright);
-}
-
 .rusd-market-panel {
   overflow: hidden;
   background: rgba(255, 255, 255, 0.94);
@@ -522,6 +489,131 @@ body {
   white-space: nowrap;
 }
 
+.rusd-how {
+  padding: 54px 0 18px;
+}
+
+.rusd-how-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  align-items: end;
+  gap: 48px;
+  margin-bottom: 24px;
+}
+
+.rusd-how-heading h2 {
+  max-width: 560px;
+  margin: 0;
+  color: var(--rusd-ink);
+  font-family: var(--rusd-display);
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.rusd-how-heading p {
+  max-width: 46ch;
+  margin: 0 0 4px;
+  color: var(--rusd-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.rusd-how-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  min-height: 620px;
+}
+
+.rusd-how-card {
+  display: grid;
+  overflow: hidden;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 18px;
+  box-shadow: 0 10px 34px rgba(15, 68, 63, 0.09);
+}
+
+.rusd-how-card-market {
+  grid-row: 1 / 3;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.rusd-how-card-isolated,
+.rusd-how-card-borrow {
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.rusd-how-media {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--rusd-soft);
+}
+
+.rusd-how-media img {
+  object-fit: contain;
+}
+
+.rusd-how-card-market .rusd-how-media img {
+  object-position: center;
+}
+
+.rusd-how-card-isolated .rusd-how-media img {
+  object-position: center;
+  transform: scale(1.45);
+}
+
+.rusd-how-card-borrow .rusd-how-media img {
+  object-position: center;
+  transform: scale(1.45);
+}
+
+.rusd-how-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+.rusd-how-card-market .rusd-how-copy {
+  min-height: 176px;
+  padding: 28px;
+}
+
+.rusd-how-card-isolated .rusd-how-copy,
+.rusd-how-card-borrow .rusd-how-copy {
+  min-height: 132px;
+}
+
+.rusd-how-copy h3 {
+  margin: 0;
+  color: var(--rusd-ink);
+  font-family: var(--rusd-display);
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.rusd-how-card-market .rusd-how-copy h3 {
+  max-width: 12ch;
+  font-size: 34px;
+}
+
+.rusd-how-copy p {
+  max-width: 42ch;
+  margin: 10px 0 0;
+  color: var(--rusd-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
 .rusd-footer {
   padding: 0 0 28px;
 }
@@ -579,32 +671,6 @@ body {
     font-size: 17px;
   }
 
-  .rusd-flow {
-    grid-template-columns: auto 28px auto 28px auto;
-    width: 100%;
-    margin-top: 28px;
-  }
-
-  .rusd-flow-step {
-    min-width: 0;
-    font-size: 11px;
-  }
-
-  .rusd-flow-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 15px;
-  }
-
-  .rusd-flow-icon svg {
-    width: 34px;
-    height: 34px;
-  }
-
-  .rusd-flow-arrow {
-    width: 24px;
-  }
-
   .rusd-market-table th, .rusd-market-table td {
     padding-right: 16px;
     padding-left: 16px;
@@ -642,6 +708,54 @@ body {
 
   .rusd-info .rusd-text-link {
     grid-column: 2;
+  }
+
+  .rusd-how {
+    padding-top: 42px;
+  }
+
+  .rusd-how-heading {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 0 6px 20px;
+  }
+
+  .rusd-how-heading h2 {
+    font-size: clamp(38px, 12vw, 52px);
+  }
+
+  .rusd-how-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    min-height: 0;
+  }
+
+  .rusd-how-card-market,
+  .rusd-how-card-isolated,
+  .rusd-how-card-borrow {
+    grid-row: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: 230px auto;
+  }
+
+  .rusd-how-card-market .rusd-how-copy {
+    min-height: 0;
+  }
+
+  .rusd-how-copy,
+  .rusd-how-card-market .rusd-how-copy {
+    padding: 22px;
+  }
+
+  .rusd-how-card-market .rusd-how-copy h3,
+  .rusd-how-copy h3 {
+    max-width: none;
+    font-size: 26px;
+  }
+
+  .rusd-how-card-isolated .rusd-how-media img,
+  .rusd-how-card-borrow .rusd-how-media img {
+    transform: scale(1.15);
   }
 
   .rusd-footer-inner {
