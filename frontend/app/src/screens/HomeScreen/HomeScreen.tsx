@@ -104,8 +104,9 @@ function PositionMechanism({ market }: { market: PreviewMarket }) {
           <small>Stock Token</small>
         </div>
         <span aria-hidden="true" className="rusd-position-route">
-          <svg fill="none" viewBox="0 0 44 14">
-            <path d="M2 7h37M34 2l5 5-5 5" />
+          <svg fill="none" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="19" />
+            <path d="M12.5 20h14M21 14.5l5.5 5.5-5.5 5.5" />
           </svg>
         </span>
         <div className="rusd-position-node">

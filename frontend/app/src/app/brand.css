@@ -1041,16 +1041,24 @@ body {
 
 .rusd-position-route svg {
   display: block;
-  width: 44px;
-  height: 14px;
+  width: 40px;
+  height: 40px;
   overflow: visible;
+}
+
+.rusd-position-route circle {
+  fill: currentColor;
+  fill-opacity: 0.12;
+  stroke: currentColor;
+  stroke-opacity: 0.28;
+  stroke-width: 1;
 }
 
 .rusd-position-route path {
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.75;
+  stroke-width: 1.8;
 }
 
 .rusd-position-risk {
@@ -1323,7 +1331,8 @@ body {
   }
 
   .rusd-position-route svg {
-    width: 34px;
+    width: 32px;
+    height: 32px;
     transform: rotate(90deg);
   }
 
