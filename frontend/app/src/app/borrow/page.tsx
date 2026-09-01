@@ -1,7 +1,14 @@
 import { DOCKYARD_STANDALONE_DEPLOYMENT } from "@/src/dockyard-config";
-import { redirect } from "next/navigation";
+import { DockyardBorrowPage } from "@/src/screens/DockyardBorrowScreen/DockyardBorrowPage";
+import { Suspense } from "react";
 
 export default function BorrowPage() {
-  if (DOCKYARD_STANDALONE_DEPLOYMENT) redirect("/borrow/aapl");
+  if (DOCKYARD_STANDALONE_DEPLOYMENT) {
+    return (
+      <Suspense>
+        <DockyardBorrowPage />
+      </Suspense>
+    );
+  }
   return null;
 }

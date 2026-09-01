@@ -175,7 +175,7 @@ function PreviewMarketRow({
       <td className="rusd-ltv">{market.maxLtv}</td>
       <td>
         {live
-          ? <Link className="rusd-action" href={`/borrow/${market.symbol.toLowerCase()}`}>Borrow</Link>
+          ? <Link className="rusd-action" href={`/borrow?market=${market.symbol.toLowerCase()}`}>Borrow</Link>
           : (
             <button
               aria-pressed={selected}
