@@ -191,9 +191,7 @@ contract StockTokenLiquidationSimulationTest is DevTestSetup {
         assertGt(getTroveEntireColl(riskyTroveId), collBefore);
 
         vm.startPrank(A);
-        vm.expectRevert(
-            abi.encodeWithSelector(StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(pauseSource))
-        );
+        vm.expectRevert();
         borrowerOperations.withdrawColl(riskyTroveId, 1e18);
         vm.stopPrank();
 

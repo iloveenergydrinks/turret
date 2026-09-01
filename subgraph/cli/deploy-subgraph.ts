@@ -2,6 +2,10 @@ import { $, echo, fs, minimist, path, question } from "zx";
 
 const LATEST_DEPLOYMENT_CONTEXT_PATH = path.join(__dirname, "../../contracts/deployment-context-latest.json");
 const STOCK_SANDCASTLE_MANIFEST_PATH = path.join(__dirname, "../../contracts/deployment-stock-sandcastle.json");
+const STOCK_PRODUCTION_MANIFEST_PATH = path.join(
+  __dirname,
+  "../../contracts/deployment-stock-robinhood-mainnet.json",
+);
 const NETWORKS_JSON_PATH = path.join(__dirname, "../networks.json");
 const GENERATED_NETWORKS_JSON_PATH = path.join(__dirname, "../networks-generated.json");
 const SUBGRAPH_MANIFEST_PATH = path.join(__dirname, "../subgraph.yaml");
@@ -19,6 +23,7 @@ Arguments:
                   - local: Deploy to a local network
                   - sepolia: Deploy to Ethereum Sepolia
                   - stock-sandcastle: Build or deploy the Stock Token sandcastle
+                  - stock-production: Build or deploy the Robinhood mainnet rUSD subgraph
                   - mainnet: Deploy to the Ethereum mainnet (not implemented)
                   - liquity-testnet: Deploy to the Liquity v2 testnet (not implemented)
 
@@ -78,7 +83,8 @@ export async function main() {
   }
 
   let isLocal = false;
-  let isStockSandcastle = false;
+  let isStockDeployment = false;
+  let requiresExplicitStockNodes = false;
 
   if (networkPreset === "local") {
     options.name ??= "liquity2/liquity2";
@@ -95,7 +101,14 @@ export async function main() {
     options.name ??= "rusd-stock-sandcastle";
     options.network ??= "robinhood-testnet";
     options.manifest ??= STOCK_SANDCASTLE_MANIFEST_PATH;
-    isStockSandcastle = true;
+    isStockDeployment = true;
+    requiresExplicitStockNodes = true;
+  }
+  if (networkPreset === "stock-production") {
+    options.name ??= "rusd-robinhood";
+    options.network ??= "robinhood";
+    options.manifest ??= STOCK_PRODUCTION_MANIFEST_PATH;
+    isStockDeployment = true;
   }
   if (networkPreset === "mainnet-relaunch") {
     options.name ??= "liquity-2-relaunch";
@@ -118,7 +131,7 @@ export async function main() {
   if (!options.ipfsNode && !options.network) {
     throw new Error("--ipfs-node <IPFS_NODE_URL> is required");
   }
-  if (isStockSandcastle && !options.buildOnly && (!options.graphNode || !options.ipfsNode)) {
+  if (requiresExplicitStockNodes && !options.buildOnly && (!options.graphNode || !options.ipfsNode)) {
     throw new Error("Stock sandcastle deployment requires explicit --graph-node and --ipfs-node endpoints");
   }
 
@@ -159,8 +172,8 @@ export async function main() {
 
   await generateNetworksJson({
     isLocal,
-    stockManifestPath: isStockSandcastle ? options.manifest : undefined,
-    stockNetwork: isStockSandcastle ? options.network : undefined,
+    stockManifestPath: isStockDeployment ? options.manifest : undefined,
+    stockNetwork: isStockDeployment ? options.network : undefined,
   });
 
   echo`
@@ -237,16 +250,16 @@ async function generateNetworksJson({
 
 async function stockManifestToNetworkConfig(manifestPath: string) {
   const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
-  if (manifest.chainId !== 31337 && manifest.chainId !== 46630) {
-    throw new Error(`Unsupported stock sandcastle chain ID: ${manifest.chainId}`);
+  if (manifest.chainId !== 31337 && manifest.chainId !== 4663 && manifest.chainId !== 46630) {
+    throw new Error(`Unsupported stock deployment chain ID: ${manifest.chainId}`);
   }
   if (typeof manifest.stablecoin !== "string" || !/^0x[0-9a-fA-F]{40}$/.test(manifest.stablecoin)) {
-    throw new Error("Invalid stablecoin address in stock sandcastle manifest");
+    throw new Error("Invalid stablecoin address in stock deployment manifest");
   }
 
   const startBlock = manifest.deploymentBlock ?? 0;
   if (!Number.isSafeInteger(startBlock) || startBlock < 0) {
-    throw new Error("Invalid deployment block in stock sandcastle manifest");
+    throw new Error("Invalid deployment block in stock deployment manifest");
   }
   if (startBlock === 0) {
     console.warn("Stock sandcastle manifest has no deploymentBlock; indexing will start at block 0.");

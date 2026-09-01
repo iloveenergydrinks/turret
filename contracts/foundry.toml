@@ -11,8 +11,17 @@ fs_permissions = [
     { access = "read-write", path = "./utils/assets/test_output" },
     { access = "read-write", path = "./deployment-manifest.json" },
     { access = "read-write", path = "./deployment-stock-sandcastle.json" },
+    { access = "read-write", path = "./deployment-stock-robinhood-mainnet.json" },
     { access = "read", path = "./addresses/" }
 ]
+
+# The production profile minimizes immutable runtime bytecode. The stock-token
+# oracle escape hatch otherwise leaves BorrowerOperations just above EIP-170.
+[profile.production]
+optimizer = true
+optimizer_runs = 1
+bytecode_hash = "none"
+cbor_metadata = false
 
 [invariant]
 call_override = false

@@ -32,6 +32,7 @@ testMatrix.json
 /deployment-context-latest.json
 /deployment-manifest.json
 /deployment-stock-sandcastle.json
+/deployment-stock-robinhood-mainnet.json
 
 # Invariant test counterexamples
 /counterexamples

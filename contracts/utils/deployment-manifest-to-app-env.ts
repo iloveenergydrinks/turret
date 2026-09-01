@@ -2,8 +2,8 @@ import { z } from "zod";
 import { echo, fs, minimist } from "zx";
 
 const HELP = `
-Converts a deployment manifest created by DeployLiquity2 or the Stock Token
-sandcastle deployer into environment variables for frontend/app.
+Converts a deployment manifest created by DeployLiquity2 or a Stock Token
+deployer into environment variables for frontend/app.
 
 Usage:
   ./deployment-manifest-to-app-env.ts <MANIFEST_JSON> [OUTPUT_ENV] [OPTIONS]
@@ -68,8 +68,8 @@ const ZDeploymentManifest = z.object({
   ),
 });
 
-const ZStockSandcastleManifest = z.object({
-  chainId: z.union([z.literal(31337), z.literal(46630)]),
+const ZStockDeploymentManifest = z.object({
+  chainId: z.union([z.literal(31337), z.literal(4663), z.literal(46630)]),
   stablecoin: ZAddress,
   collateralRegistry: ZAddress,
   hintHelpers: ZAddress,
@@ -93,7 +93,7 @@ const ZStockSandcastleManifest = z.object({
 });
 
 type DeploymentManifest = z.infer<typeof ZDeploymentManifest>;
-type StockSandcastleManifest = z.infer<typeof ZStockSandcastleManifest>;
+type StockDeploymentManifest = z.infer<typeof ZStockDeploymentManifest>;
 
 const STOCK_SYMBOLS = [
   "AAPL",
@@ -133,7 +133,7 @@ export function main() {
 
   const outputEnv = objectToEnvironmentVariables(
     "stockTokens" in manifest
-      ? stockSandcastleToAppEnvVariables(manifest)
+      ? stockDeploymentToAppEnvVariables(manifest)
       : deployedContractsToAppEnvVariables(manifest),
   );
 
@@ -213,12 +213,22 @@ function deployedContractsToAppEnvVariables(manifest: DeploymentManifest) {
   return appEnvVariables;
 }
 
-function stockSandcastleToAppEnvVariables(manifest: StockSandcastleManifest) {
+function stockDeploymentToAppEnvVariables(manifest: StockDeploymentManifest) {
+  const isRobinhoodMainnet = manifest.chainId === 4663;
   const appEnvVariables: Record<string, string | boolean> = {
     NEXT_PUBLIC_ACCOUNT_SCREEN: true,
     NEXT_PUBLIC_AIRDROP_VAULTS: false,
     NEXT_PUBLIC_AIRDROP_VAULTS_URL: "",
-    NEXT_PUBLIC_DEPLOYMENT_FLAVOR: "Stock Token Sandcastle",
+    NEXT_PUBLIC_CHAIN_BLOCK_EXPLORER: isRobinhoodMainnet
+      ? "Robinhood Chain Explorer|https://robinhoodchain.blockscout.com"
+      : "Robinhood Chain Testnet Explorer|https://explorer.testnet.chain.robinhood.com",
+    NEXT_PUBLIC_CHAIN_CURRENCY: "Ether|ETH|18",
+    NEXT_PUBLIC_CHAIN_ID: String(manifest.chainId),
+    NEXT_PUBLIC_CHAIN_NAME: isRobinhoodMainnet ? "Robinhood Chain" : "Robinhood Chain Testnet",
+    NEXT_PUBLIC_CHAIN_RPC_URL: isRobinhoodMainnet
+      ? "https://rpc.mainnet.chain.robinhood.com"
+      : "https://rpc.testnet.chain.robinhood.com",
+    NEXT_PUBLIC_DEPLOYMENT_FLAVOR: isRobinhoodMainnet ? "rUSD Robinhood Mainnet" : "Stock Token Sandcastle",
     NEXT_PUBLIC_ENABLE_LEVERAGE: false,
     NEXT_PUBLIC_ENABLE_STAKING: false,
     NEXT_PUBLIC_LEGACY_CHECK: false,
@@ -332,7 +342,7 @@ function contractNameToAppEnvVariable(contractName: string, prefix: string = "")
   return null;
 }
 
-function parseDeploymentManifest(content: string): DeploymentManifest | StockSandcastleManifest {
+function parseDeploymentManifest(content: string): DeploymentManifest | StockDeploymentManifest {
   if (!content.trim()) {
     console.error("\nNo deployment manifest provided.\n");
     process.exit(1);
@@ -346,7 +356,7 @@ function parseDeploymentManifest(content: string): DeploymentManifest | StockSan
     process.exit(1);
   }
 
-  const manifest = z.union([ZDeploymentManifest, ZStockSandcastleManifest]).safeParse(json);
+  const manifest = z.union([ZDeploymentManifest, ZStockDeploymentManifest]).safeParse(json);
   if (!manifest.success) {
     console.error("\nInvalid deployment manifest provided.\n");
     console.error(

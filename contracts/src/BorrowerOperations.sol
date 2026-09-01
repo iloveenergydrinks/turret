@@ -573,13 +573,12 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
         // reverts, while preserving all normal checks whenever it is live.
         // Any collateral withdrawal or debt increase always requires a live
         // oracle.
-        bool isPureRiskReducingAdjustment = _troveChange.collDecrease == 0 && _troveChange.debtIncrease == 0;
         bool oracleTemporarilyUnavailable;
         try priceFeed.fetchPrice() returns (uint256 price, bool newOracleFailureDetected) {
-            if (newOracleFailureDetected) revert NewOracleFailureDetected();
+            if (newOracleFailureDetected) revert();
             vars.price = price;
-        } catch (bytes memory revertData) {
-            if (!isPureRiskReducingAdjustment) _revertBytes(revertData);
+        } catch {
+            if (_troveChange.collDecrease != 0 || _troveChange.debtIncrease != 0) revert();
             oracleTemporarilyUnavailable = true;
         }
         if (!oracleTemporarilyUnavailable) {
@@ -696,12 +695,6 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
 
         vars.activePool.mintAggInterestAndAccountForTroveChange(_troveChange, batchManager);
         _moveTokensFromAdjustment(receiver, _troveChange, vars.boldToken, vars.activePool);
-    }
-
-    function _revertBytes(bytes memory _revertData) internal pure {
-        assembly {
-            revert(add(_revertData, 0x20), mload(_revertData))
-        }
     }
 
     function closeTrove(uint256 _troveId) external override {
