@@ -10,14 +10,6 @@ export function BottomBar() {
         <span>Independent Stock Token credit protocol · {CHAIN_NAME}</span>
         <div className="rusd-footer-links">
           <Link className="rusd-text-link" href="/redeem">Redeem rUSD</Link>
-          <a
-            className="rusd-text-link"
-            href="https://github.com/iloveenergydrinks/liquityv3"
-            rel="noreferrer"
-            target="_blank"
-          >
-            GitHub
-          </a>
           <AboutButton />
         </div>
       </div>

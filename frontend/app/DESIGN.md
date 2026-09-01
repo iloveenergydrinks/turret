@@ -301,6 +301,10 @@ The market list is one continuous fixed-layout paper surface. Its 11px uppercase
 
 The borrowing route names one selected Stock Token in the headline and explicitly identifies Robinhood Chain Testnet with its chain ID. Collateral, rUSD debt, and interest configuration share one 600px paper workspace. Redemption education sits behind a native disclosure so it remains available without interrupting the transaction. A bare `/borrow` route resolves to the first supported market and replaces the URL with that explicit market route.
 
+### Earn Desk
+
+The Earn route reuses the control-deck composition instead of the inherited centered icon headline and stacked position cards. A plain-language promise sits left while one deep-teal mechanism panel shows the actual return path: rUSD enters one isolated Stability Pool, borrower interest returns as rUSD, and liquidation proceeds return as Stock Tokens. A continuous white pool ledger follows with company name, current APR, pool deposits, and one Deposit or Manage action per market. In read-only deployments the same surface renders ten honest preview rows without calling wallet or market-data hooks, and every action explicitly remains not live. At 760px the hero stacks and the pool ledger hides the pool-deposit column while preserving market, APR, and status.
+
 ### Risk and Preview States
 
 The risk note is an explicit Mint Soft panel with a circular paper information mark and a two-level text hierarchy. Read-only state is consolidated into the top-bar “Preview · not live” badge, the composer’s disabled “Contracts not live” action, and the concluding “Preview · contracts pending” status; no duplicate cream notice or live-contract implication remains.
