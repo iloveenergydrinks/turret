@@ -164,7 +164,7 @@ function PositionPreview({ market }: { market: PreviewMarket }) {
         <span>Dual-oracle safeguards</span>
       </div>
 
-      <button className="rusd-position-cta" disabled type="submit">Contracts not live</button>
+      <button className="rusd-position-cta" disabled type="submit">Illustration only</button>
     </form>
   );
 }
@@ -186,7 +186,7 @@ export function HomeScreen() {
             <span>One Stock Token per vault</span>
           </div>
         </div>
-        {READ_ONLY_DEPLOYMENT && <PositionPreview market={selectedMarket} />}
+        <PositionPreview market={selectedMarket} />
       </section>
 
       <ol aria-label="How borrowing works" className="rusd-borrow-flow">
