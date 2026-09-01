@@ -155,8 +155,9 @@ export function DockyardBorrowScreen({ market }: { market: DockyardMarket }) {
   const borrowUnsafe = projectedLtvBps !== null && projectedLtvBps > market.maxLtvBps;
   const insufficientCollateral = collateralAmount > (collateralBalance.data ?? 0n);
   const insufficientLiquidity = borrowAmount > (liquidity.data ?? 0n);
+  const vaultReadUnavailable = paused.isError || liquidity.isError || feeBps.isError || price.isError;
   const canBorrow = isConnected && !paused.data && hasBorrowValues && !borrowUnsafe && !insufficientCollateral
-    && !insufficientLiquidity && price.data !== undefined;
+    && !insufficientLiquidity && price.data !== undefined && !vaultReadUnavailable;
 
   async function approveCollateral() {
     reset();
@@ -219,9 +220,15 @@ export function DockyardBorrowScreen({ market }: { market: DockyardMarket }) {
           <h1>Borrow USDG with {market.symbol}.</h1>
           <p>One transaction locks your Stock Token and sends USDG to your wallet.</p>
         </div>
-        <div className="dockyard-live-status" data-paused={paused.data || undefined}>
+        <div className="dockyard-live-status" data-paused={paused.data || vaultReadUnavailable || undefined}>
           <span />
-          {paused.isLoading ? "Checking vault" : paused.data ? "Borrowing paused" : "Mainnet vault live"}
+          {paused.isLoading
+            ? "Checking vault"
+            : vaultReadUnavailable
+            ? "Vault connection unavailable"
+            : paused.data
+            ? "Borrowing paused"
+            : "Mainnet vault live"}
         </div>
       </header>
 
@@ -293,8 +300,8 @@ export function DockyardBorrowScreen({ market }: { market: DockyardMarket }) {
           {insufficientLiquidity && (
             <p className="dockyard-form-error">The vault does not have enough USDG for this loan.</p>
           )}
-          {price.isError && (
-            <p className="dockyard-form-error">The price checks are unavailable, so borrowing is blocked.</p>
+          {vaultReadUnavailable && (
+            <p className="dockyard-form-error">The vault connection is unavailable, so borrowing is blocked.</p>
           )}
           {transactionError(writeError) && <p className="dockyard-form-error">{transactionError(writeError)}</p>}
           {receipt.isSuccess && <p className="dockyard-form-success">Transaction confirmed on Robinhood Chain.</p>}
