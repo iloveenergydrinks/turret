@@ -1,6 +1,6 @@
 # rUSD Home / Markets Asset Manifest
 
-Approved mock: `../mocks/rusd-v1-narrow-approved.png` (1536 × 1024)
+Topology reference: `../mocks/rusd-v1-narrow-approved.png` (1536 × 1024). Later user direction supersedes its palette, display typeface, and mechanism pictograms.
 
 Implementation evidence:
 
@@ -9,7 +9,7 @@ Implementation evidence:
 - `../../src/comps/AppLayout/TopBar.tsx`
 - `../../src/comps/AppLayout/BottomBar.tsx`
 - `../../src/app/brand.css`
-- `../screenshots/rusd-desktop.png` (1280 × 900)
+- `../screenshots/rusd-desktop.png` (1536 × 1024)
 - `../screenshots/rusd-mobile.png` (390 × 844)
 
 Inventory result: no production raster assets are required for this surface. The approved visual world is deliberately made from type, inline SVG, semantic HTML, and CSS-owned surfaces. Mock pixels remain reference-only and are not shipped.
@@ -26,7 +26,7 @@ None.
 
 ### `brand-lockup`
 
-- implementation: Render the original looped rUSD mark and wordmark as one accessible inline SVG in `Logo.tsx`. SVG owns the mark path, dot, and wordmark; the top-bar link owns sizing, color, and focus treatment. Keep the vector responsive and do not rasterize the approved-mock logo.
+- implementation: Render the original bright-turquoise looped rUSD mark and Bricolage wordmark as one accessible inline SVG in `Logo.tsx`. SVG owns the mark path, dot, and wordmark; the top-bar link owns sizing, color, and focus treatment.
 - notes: Compared with the approved mock and both implementation captures. The deployed lockup preserves the required looped silhouette and semantic vector role; exact stroke and wordmark styling are implementation-owned.
 - qa_status: `accepted`
 
@@ -38,14 +38,14 @@ None.
 
 ### `hero-message`
 
-- implementation: Use semantic heading and paragraph elements for the product promise and explanatory line. CSS owns responsive type sizing, two-line balance, deep-navy/periwinkle-gray palette, center alignment, spacing, and the narrow readable measure.
+- implementation: Use semantic heading and paragraph elements for the product promise and explanatory line. CSS owns responsive Bricolage variable typography, teal-ink/mint palette, center alignment, spacing, and the narrow readable measure.
 - notes: Text must stay live for accessibility and responsive wrapping. No lettering or background treatment should be baked into an image.
 - qa_status: `accepted`
 
 ### `collateral-to-rusd-mechanism`
 
-- implementation: Compose three labeled HTML steps with inline SVG icons for Stock Token, Vault, and rUSD, plus inline SVG arrows between them. CSS owns icon-tile size, pale-lavender fill, periwinkle stroke/color, rounded corners, grid spacing, and mobile scaling. Keep all SVGs decorative with accessible meaning supplied by the containing group label and visible step labels.
-- notes: The implementation uses simplified semantic symbols rather than copying pixels from the mock. The structure, palette, visual role, and responsive sequence match the approved direction without requiring raster art.
+- implementation: Compose three labeled HTML steps with authored inline SVG geometry: a stacked market card, a hexagonal collateral aperture, and a minted rUSD coin, plus beaded arrows. CSS owns icon-tile size, frost fill, turquoise stroke/color, rounded corners, grid spacing, and mobile scaling.
+- notes: The symbols are product-specific and explicitly replace the generic bank and safe pictograms rejected by the user.
 - qa_status: `accepted`
 
 ### `market-panel-and-table`
@@ -56,19 +56,19 @@ None.
 
 ### `market-ticker-badges`
 
-- implementation: Build each ticker badge as a styled `span` inside the market-name cell. CSS owns the 52 × 32px desktop and 46 × 32px mobile footprint, lavender fill, periwinkle text, 9px radius, weight, and truncation behavior for adjacent metadata.
+- implementation: Build each ticker badge as a styled `span` inside the market-name cell. CSS owns the 52 × 32px desktop and 46 × 32px mobile footprint, mint fill, turquoise text, 9px radius, weight, and truncation behavior for adjacent metadata.
 - notes: These badges replace the comp's illustrative company marks with crisp, data-driven semantic labels. No raster or external logo fetch belongs in this surface.
 - qa_status: `accepted`
 
 ### `borrow-actions`
 
-- implementation: Use accessible links for one Borrow action per market. CSS owns compact dimensions, periwinkle fill, white label, 10px radius, keyboard focus ring, hover color, and the small upward hover motion.
+- implementation: Use accessible links for one Borrow action per market. CSS owns compact dimensions, deep-turquoise fill, Bricolage white label, 10px radius, keyboard focus ring, hover color, and the small upward hover motion.
 - notes: Controls remain semantic and interactive; no button artwork is required.
 - qa_status: `accepted`
 
 ### `risk-note`
 
-- implementation: Build the isolated-risk explainer as an `aside` with a CSS-drawn circular information mark, semantic strong/body copy, and a text link. CSS owns the soft-lavender panel, subtle border, 18px radius, icon circle, three-column desktop layout, and two-column mobile reflow.
+- implementation: Build the isolated-risk explainer as an `aside` with a CSS-drawn circular information mark, semantic strong/body copy, and a text link. CSS owns the soft-mint panel, subtle turquoise border, 18px radius, icon circle, three-column desktop layout, and two-column mobile reflow.
 - notes: The visible risk copy must remain selectable and screen-reader accessible. The panel's color and chrome are layout properties, not raster content.
 - qa_status: `accepted`
 
@@ -80,7 +80,7 @@ None.
 
 ### `page-field-and-surface-chrome`
 
-- implementation: Create the pale-lavender page field, restrained radial tint, white panel backgrounds, borders, radii, and quiet shadows entirely in CSS variables and component rules. Keep radius, shadow, clipping, and responsive layout out of any bitmap.
+- implementation: Create the pale-mint page field, restrained turquoise radial tint, white panel backgrounds, borders, radii, and quiet teal-gray shadows entirely in CSS variables and component rules.
 - notes: Visual comparison confirms that the background and card treatment are simple CSS effects with no intrinsic texture or photographic detail to extract.
 - qa_status: `accepted`
 

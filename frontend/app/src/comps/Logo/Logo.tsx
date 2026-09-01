@@ -14,17 +14,17 @@ export function Logo({
       <path
         d="M5 27V14.5C5 8.7 8.8 5 14.5 5S24 8.7 24 14.5v3.8c0 3.4 2.2 5.7 5.5 5.7H34"
         fill="none"
-        stroke="var(--rusd-primary, #5a50e8)"
+        stroke="var(--rusd-bright, #0fae9b)"
         strokeLinecap="round"
         strokeWidth="4"
       />
-      <circle cx="14.5" cy="14.5" fill="var(--rusd-primary, #5a50e8)" r="2.5" />
+      <circle cx="14.5" cy="14.5" fill="var(--rusd-bright, #0fae9b)" r="2.5" />
       <text
-        fill="var(--rusd-ink, #11142f)"
-        fontFamily="Geist, Arial, sans-serif"
+        fill="var(--rusd-ink, #102b2a)"
+        fontFamily="Bricolage Grotesque Variable, Arial Narrow, sans-serif"
         fontSize="22"
-        fontWeight="760"
-        letterSpacing="-1"
+        fontWeight="720"
+        letterSpacing="-1.2"
         x="39"
         y="26"
       >

@@ -1,13 +1,16 @@
 :root {
-  --rusd-bg: #f5f4ff;
+  --rusd-bg: #f0faf8;
   --rusd-surface: #ffffff;
-  --rusd-ink: #11142f;
-  --rusd-muted: #676b87;
-  --rusd-line: #e3e3f1;
-  --rusd-primary: #5a50e8;
-  --rusd-primary-hover: #4940d2;
-  --rusd-soft: #eeecff;
-  --rusd-warning: #dc6b2f;
+  --rusd-ink: #102b2a;
+  --rusd-muted: #5a7270;
+  --rusd-line: #d8eae6;
+  --rusd-primary: #08786e;
+  --rusd-primary-hover: #05675f;
+  --rusd-bright: #0fae9b;
+  --rusd-soft: #ddf5f0;
+  --rusd-frost: #f7fcfb;
+  --rusd-warning: #d97645;
+  --rusd-display: "Bricolage Grotesque Variable", "Arial Narrow", sans-serif;
   --rusd-max-width: 1040px;
 }
 
@@ -42,7 +45,7 @@ body {
   background:
     radial-gradient(
     circle at 50% -10%,
-    rgba(90, 80, 232, 0.08),
+    rgba(15, 174, 155, 0.1),
     transparent 36rem
   ),
     var(--rusd-bg);
@@ -73,7 +76,7 @@ body {
   padding: 0 14px 0 18px;
   background: rgba(255, 255, 255, 0.96);
   border-radius: 18px;
-  box-shadow: 0 8px 28px rgba(30, 27, 92, 0.07);
+  box-shadow: 0 8px 28px rgba(15, 68, 63, 0.08);
 }
 
 .rusd-brand-link {
@@ -87,7 +90,7 @@ body {
 .rusd-nav-link:focus-visible,
 .rusd-action:focus-visible,
 .rusd-text-link:focus-visible {
-  outline: 3px solid rgba(90, 80, 232, 0.3);
+  outline: 3px solid rgba(8, 120, 110, 0.28);
   outline-offset: 3px;
 }
 
@@ -103,8 +106,10 @@ body {
   display: inline-flex;
   align-items: center;
   color: var(--rusd-muted);
+  font-family: var(--rusd-display);
   font-size: 14px;
-  font-weight: 650;
+  font-variation-settings: "opsz" 20, "wdth" 95;
+  font-weight: 660;
   text-decoration: none;
 }
 
@@ -134,6 +139,9 @@ body {
   color: #fff;
   background: var(--rusd-primary);
   border-radius: 999px;
+  font-family: var(--rusd-display);
+  font-variation-settings: "opsz" 18, "wdth" 96;
+  font-weight: 680;
 }
 
 .rusd-account button:hover {
@@ -141,7 +149,7 @@ body {
 }
 
 .rusd-account button:focus-visible {
-  outline: 3px solid rgba(90, 80, 232, 0.3);
+  outline: 3px solid rgba(8, 120, 110, 0.28);
   outline-offset: 3px;
 }
 
@@ -179,10 +187,12 @@ body {
   max-width: 100%;
   margin: 0;
   color: var(--rusd-ink);
-  font-size: clamp(48px, 4.5vw, 68px);
-  font-weight: 760;
-  letter-spacing: -0.04em;
-  line-height: 0.98;
+  font-family: var(--rusd-display);
+  font-size: clamp(50px, 4.75vw, 72px);
+  font-variation-settings: "opsz" 72, "wdth" 91;
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
   text-wrap: balance;
 }
 
@@ -208,7 +218,9 @@ body {
   gap: 10px;
   min-width: 116px;
   color: var(--rusd-ink);
+  font-family: var(--rusd-display);
   font-size: 13px;
+  font-variation-settings: "opsz" 18, "wdth" 96;
   font-weight: 700;
 }
 
@@ -218,8 +230,10 @@ body {
   width: 82px;
   height: 82px;
   color: var(--rusd-primary);
-  background: var(--rusd-soft);
-  border-radius: 18px;
+  background: var(--rusd-frost);
+  border: 1px solid rgba(8, 120, 110, 0.12);
+  border-radius: 24px;
+  box-shadow: inset 0 -10px 24px rgba(15, 174, 155, 0.08);
 }
 
 .rusd-flow-icon svg {
@@ -229,14 +243,14 @@ body {
 
 .rusd-flow-arrow {
   width: 66px;
-  color: var(--rusd-primary);
+  color: var(--rusd-bright);
 }
 
 .rusd-market-panel {
   overflow: hidden;
   background: var(--rusd-surface);
   border-radius: 18px;
-  box-shadow: 0 10px 34px rgba(30, 27, 92, 0.08);
+  box-shadow: 0 10px 34px rgba(15, 68, 63, 0.09);
 }
 
 .rusd-market-table {
@@ -248,7 +262,7 @@ body {
 .rusd-market-table th {
   padding: 11px 28px;
   color: var(--rusd-muted);
-  background: #fafaff;
+  background: var(--rusd-frost);
   border-top: 1px solid var(--rusd-line);
   border-bottom: 1px solid var(--rusd-line);
   font-size: 11px;
@@ -283,7 +297,7 @@ body {
 }
 
 .rusd-market-table tbody tr:hover {
-  background: #fafaff;
+  background: var(--rusd-frost);
 }
 
 .rusd-market-name {
@@ -315,6 +329,8 @@ body {
 
 .rusd-market-symbol {
   color: var(--rusd-ink);
+  font-family: var(--rusd-display);
+  font-variation-settings: "opsz" 16, "wdth" 96;
   font-weight: 700;
 }
 
@@ -342,7 +358,9 @@ body {
   color: #fff;
   background: var(--rusd-primary);
   border-radius: 10px;
+  font-family: var(--rusd-display);
   font-size: 13px;
+  font-variation-settings: "opsz" 18, "wdth" 96;
   font-weight: 700;
   text-decoration: none;
   transition: background 140ms ease-out, transform 140ms ease-out;
@@ -359,9 +377,9 @@ body {
   align-items: center;
   gap: 18px;
   padding: 22px 26px;
-  color: #302b83;
+  color: #18554f;
   background: var(--rusd-soft);
-  border: 1px solid rgba(90, 80, 232, 0.14);
+  border: 1px solid rgba(8, 120, 110, 0.14);
   border-radius: 18px;
 }
 
@@ -381,18 +399,22 @@ body {
   display: block;
   margin-bottom: 4px;
   color: var(--rusd-ink);
+  font-family: var(--rusd-display);
   font-size: 15px;
+  font-variation-settings: "opsz" 18, "wdth" 96;
 }
 
 .rusd-info p {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.55;
 }
 
 .rusd-text-link {
   color: var(--rusd-primary);
+  font-family: var(--rusd-display);
   font-size: 13px;
+  font-variation-settings: "opsz" 18, "wdth" 96;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -447,7 +469,8 @@ body {
   }
 
   .rusd-hero h1 {
-    font-size: clamp(42px, 13vw, 60px);
+    font-size: clamp(44px, 13vw, 60px);
+    font-variation-settings: "opsz" 56, "wdth" 88;
   }
 
   .rusd-flow {

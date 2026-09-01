@@ -1,4 +1,5 @@
 // All global styles should be imported here for easier maintenance
+import "@fontsource-variable/bricolage-grotesque/standard.css";
 import "@liquity2/uikit/index.css";
 import "./brand.css";
 
@@ -28,8 +29,6 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export default function Layout({
@@ -45,7 +44,7 @@ export default function Layout({
           dangerouslySetInnerHTML={{
             __html: `<!--
 THESIS: rUSD turns ten isolated stock markets into one friendly borrowing desk; it refuses the wide corporate trading terminal.
-OWN-WORLD: light lavender ground, white rounded surfaces, periwinkle actions, navy type, soft offset depth, and an original looped rUSD mark.
+OWN-WORLD: pale mint ground, white rounded surfaces, deep turquoise actions, teal-black type, Bricolage display lettering, soft offset depth, and an original looped rUSD mark.
 STORY: understand Stock Token to vault to rUSD, compare honest max-LTV parameters, then choose a market and borrow.
 FIRST VIEWPORT: a compact floating nav, centered promise and three-step mechanism, followed by one narrow ten-market panel with Borrow actions.
 FORM: friendly narrow credit desk, grounded direction 3, seed bda2b7b3.

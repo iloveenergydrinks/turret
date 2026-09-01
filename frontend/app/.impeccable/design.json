@@ -1,53 +1,32 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-01T08:35:34Z",
+  "generatedAt": "2026-09-01T08:49:10Z",
   "title": "Design System: rUSD",
   "extensions": {
     "colorMeta": {
-      "periwinkle-action": {
+      "turquoise-action": {
         "role": "primary",
-        "displayName": "Periwinkle Action",
-        "canonical": "#5A50E8",
-        "tonalRamp": [
-          "oklch(15% 0.221 278.8)",
-          "oklch(27% 0.221 278.8)",
-          "oklch(39% 0.221 278.8)",
-          "oklch(51% 0.221 278.8)",
-          "oklch(63% 0.221 278.8)",
-          "oklch(75% 0.221 278.8)",
-          "oklch(87% 0.221 278.8)",
-          "oklch(95% 0.221 278.8)"
-        ]
+        "displayName": "Turquoise Action",
+        "canonical": "#08786E",
+        "tonalRamp": ["oklch(15% 0.10 175)", "oklch(27% 0.10 175)", "oklch(39% 0.10 175)", "oklch(51% 0.10 175)", "oklch(63% 0.10 175)", "oklch(75% 0.09 175)", "oklch(87% 0.05 175)", "oklch(95% 0.02 175)"]
       },
-      "periwinkle-action-hover": {
+      "turquoise-action-hover": {
         "role": "primary",
-        "displayName": "Periwinkle Action Hover",
-        "canonical": "#4940D2",
-        "tonalRamp": [
-          "oklch(15% 0.215 277.3)",
-          "oklch(27% 0.215 277.3)",
-          "oklch(39% 0.215 277.3)",
-          "oklch(51% 0.215 277.3)",
-          "oklch(63% 0.215 277.3)",
-          "oklch(75% 0.215 277.3)",
-          "oklch(87% 0.215 277.3)",
-          "oklch(95% 0.215 277.3)"
-        ]
+        "displayName": "Turquoise Action Hover",
+        "canonical": "#05675F",
+        "tonalRamp": ["oklch(15% 0.09 175)", "oklch(27% 0.09 175)", "oklch(39% 0.09 175)", "oklch(51% 0.09 175)", "oklch(63% 0.08 175)", "oklch(75% 0.07 175)", "oklch(87% 0.04 175)", "oklch(95% 0.02 175)"]
       },
-      "lavender-field": {
+      "turquoise-bright": {
+        "role": "secondary",
+        "displayName": "Turquoise Bright",
+        "canonical": "#0FAE9B",
+        "tonalRamp": ["oklch(15% 0.13 175)", "oklch(27% 0.13 175)", "oklch(39% 0.13 175)", "oklch(51% 0.13 175)", "oklch(63% 0.12 175)", "oklch(75% 0.10 175)", "oklch(87% 0.06 175)", "oklch(95% 0.02 175)"]
+      },
+      "mint-field": {
         "role": "neutral",
-        "displayName": "Lavender Field",
-        "canonical": "#F5F4FF",
-        "tonalRamp": [
-          "oklch(15% 0.015 290.3)",
-          "oklch(27% 0.015 290.3)",
-          "oklch(39% 0.015 290.3)",
-          "oklch(51% 0.015 290.3)",
-          "oklch(63% 0.015 290.3)",
-          "oklch(75% 0.015 290.3)",
-          "oklch(87% 0.015 290.3)",
-          "oklch(95% 0.015 290.3)"
-        ]
+        "displayName": "Mint Field",
+        "canonical": "#F0FAF8",
+        "tonalRamp": ["oklch(15% 0.02 175)", "oklch(27% 0.02 175)", "oklch(39% 0.02 175)", "oklch(51% 0.02 175)", "oklch(63% 0.02 175)", "oklch(75% 0.02 175)", "oklch(87% 0.015 175)", "oklch(95% 0.01 175)"]
       },
       "paper-surface": {
         "role": "neutral",
@@ -64,85 +43,50 @@
           "oklch(95% 0.000 89.9)"
         ]
       },
-      "midnight-ink": {
+      "teal-ink": {
         "role": "neutral",
-        "displayName": "Midnight Ink",
-        "canonical": "#11142F",
+        "displayName": "Teal Ink",
+        "canonical": "#102B2A",
         "tonalRamp": [
-          "oklch(15% 0.053 275.9)",
-          "oklch(27% 0.053 275.9)",
-          "oklch(39% 0.053 275.9)",
-          "oklch(51% 0.053 275.9)",
-          "oklch(63% 0.053 275.9)",
-          "oklch(75% 0.053 275.9)",
-          "oklch(87% 0.053 275.9)",
-          "oklch(95% 0.053 275.9)"
+          "oklch(15% 0.04 175)", "oklch(27% 0.04 175)", "oklch(39% 0.04 175)", "oklch(51% 0.04 175)", "oklch(63% 0.04 175)", "oklch(75% 0.03 175)", "oklch(87% 0.02 175)", "oklch(95% 0.01 175)"
         ]
       },
       "quiet-slate": {
         "role": "neutral",
         "displayName": "Quiet Slate",
-        "canonical": "#676B87",
+        "canonical": "#5A7270",
         "tonalRamp": [
-          "oklch(15% 0.044 278.4)",
-          "oklch(27% 0.044 278.4)",
-          "oklch(39% 0.044 278.4)",
-          "oklch(51% 0.044 278.4)",
-          "oklch(63% 0.044 278.4)",
-          "oklch(75% 0.044 278.4)",
-          "oklch(87% 0.044 278.4)",
-          "oklch(95% 0.044 278.4)"
+          "oklch(15% 0.03 175)", "oklch(27% 0.03 175)", "oklch(39% 0.03 175)", "oklch(51% 0.03 175)", "oklch(63% 0.03 175)", "oklch(75% 0.025 175)", "oklch(87% 0.015 175)", "oklch(95% 0.01 175)"
         ]
       },
-      "lavender-line": {
+      "mint-line": {
         "role": "neutral",
-        "displayName": "Lavender Line",
-        "canonical": "#E3E3F1",
+        "displayName": "Mint Line",
+        "canonical": "#D8EAE6",
         "tonalRamp": [
-          "oklch(15% 0.019 286.0)",
-          "oklch(27% 0.019 286.0)",
-          "oklch(39% 0.019 286.0)",
-          "oklch(51% 0.019 286.0)",
-          "oklch(63% 0.019 286.0)",
-          "oklch(75% 0.019 286.0)",
-          "oklch(87% 0.019 286.0)",
-          "oklch(95% 0.019 286.0)"
+          "oklch(15% 0.02 175)", "oklch(27% 0.02 175)", "oklch(39% 0.02 175)", "oklch(51% 0.02 175)", "oklch(63% 0.02 175)", "oklch(75% 0.02 175)", "oklch(87% 0.015 175)", "oklch(95% 0.01 175)"
         ]
       },
-      "lavender-soft": {
+      "mint-soft": {
         "role": "secondary",
-        "displayName": "Lavender Soft",
-        "canonical": "#EEECFF",
+        "displayName": "Mint Soft",
+        "canonical": "#DDF5F0",
         "tonalRamp": [
-          "oklch(15% 0.025 290.7)",
-          "oklch(27% 0.025 290.7)",
-          "oklch(39% 0.025 290.7)",
-          "oklch(51% 0.025 290.7)",
-          "oklch(63% 0.025 290.7)",
-          "oklch(75% 0.025 290.7)",
-          "oklch(87% 0.025 290.7)",
-          "oklch(95% 0.025 290.7)"
+          "oklch(15% 0.03 175)", "oklch(27% 0.03 175)", "oklch(39% 0.03 175)", "oklch(51% 0.03 175)", "oklch(63% 0.03 175)", "oklch(75% 0.025 175)", "oklch(87% 0.02 175)", "oklch(95% 0.01 175)"
         ]
       },
       "table-frost": {
         "role": "neutral",
         "displayName": "Table Frost",
-        "canonical": "#FAFAFF",
+        "canonical": "#F7FCFB",
         "tonalRamp": [
-          "oklch(15% 0.007 286.3)",
-          "oklch(27% 0.007 286.3)",
-          "oklch(39% 0.007 286.3)",
-          "oklch(51% 0.007 286.3)",
-          "oklch(63% 0.007 286.3)",
-          "oklch(75% 0.007 286.3)",
-          "oklch(87% 0.007 286.3)",
-          "oklch(95% 0.007 286.3)"
+          "oklch(15% 0.01 175)", "oklch(27% 0.01 175)", "oklch(39% 0.01 175)", "oklch(51% 0.01 175)", "oklch(63% 0.01 175)", "oklch(75% 0.01 175)", "oklch(87% 0.008 175)", "oklch(95% 0.005 175)"
         ]
       },
       "testnet-amber": {
         "role": "tertiary",
         "displayName": "Testnet Amber",
-        "canonical": "#DC6B2F",
+        "canonical": "#D97645",
         "tonalRamp": [
           "oklch(15% 0.159 45.6)",
           "oklch(27% 0.159 45.6)",
@@ -184,12 +128,12 @@
     "shadows": [
       {
         "name": "ambient-navigation",
-        "value": "0 8px 28px rgba(30, 27, 92, 0.07)",
+        "value": "0 8px 28px rgba(15, 68, 63, 0.08)",
         "purpose": "Low ambient lift for the sticky white top bar."
       },
       {
         "name": "ambient-panel",
-        "value": "0 10px 34px rgba(30, 27, 92, 0.08)",
+        "value": "0 10px 34px rgba(15, 68, 63, 0.09)",
         "purpose": "Broader ambient lift for the continuous market surface."
       }
     ],
@@ -224,7 +168,7 @@
       "refersTo": "button-primary",
       "description": "The compact primary action used once per market row.",
       "html": "<a class=\"ds-button-primary\" href=\"#\">Borrow</a>",
-      "css": ".ds-button-primary { display: inline-flex; align-items: center; justify-content: center; min-width: 88px; min-height: 36px; padding: 0 16px; color: var(--rusd-surface, #ffffff); background: var(--rusd-primary, #5a50e8); border-radius: 10px; font-family: Geist, Arial, sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 140ms ease-out, transform 140ms ease-out; } .ds-button-primary:hover { background: var(--rusd-primary-hover, #4940d2); transform: translateY(-1px); } .ds-button-primary:focus-visible { outline: 3px solid rgba(90, 80, 232, 0.3); outline-offset: 3px; }"
+      "css": ".ds-button-primary { display: inline-flex; align-items: center; justify-content: center; min-width: 88px; min-height: 36px; padding: 0 16px; color: var(--rusd-surface, #ffffff); background: var(--rusd-primary, #08786e); border-radius: 10px; font-family: 'Bricolage Grotesque Variable', Arial, sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 140ms ease-out, transform 140ms ease-out; } .ds-button-primary:hover { background: var(--rusd-primary-hover, #05675f); transform: translateY(-1px); } .ds-button-primary:focus-visible { outline: 3px solid rgba(8, 120, 110, 0.28); outline-offset: 3px; }"
     },
     {
       "name": "Account Button",
@@ -232,14 +176,14 @@
       "refersTo": "account-button",
       "description": "The persistent wallet action in the top bar.",
       "html": "<button class=\"ds-account-button\" type=\"button\">Connect account</button>",
-      "css": ".ds-account-button { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 14px; color: var(--rusd-surface, #ffffff); background: var(--rusd-primary, #5a50e8); border: 0; border-radius: 999px; font-family: Geist, Arial, sans-serif; font-size: 16px; white-space: nowrap; cursor: pointer; transition: background 50ms; } .ds-account-button:hover { background: var(--rusd-primary-hover, #4940d2); } .ds-account-button:focus-visible { outline: 3px solid rgba(90, 80, 232, 0.3); outline-offset: 3px; } .ds-account-button:active { transform: translateY(1px); }"
+      "css": ".ds-account-button { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 14px; color: var(--rusd-surface, #ffffff); background: var(--rusd-primary, #08786e); border: 0; border-radius: 999px; font-family: 'Bricolage Grotesque Variable', Arial, sans-serif; font-size: 16px; white-space: nowrap; cursor: pointer; transition: background 50ms; } .ds-account-button:hover { background: var(--rusd-primary-hover, #05675f); } .ds-account-button:focus-visible { outline: 3px solid rgba(8, 120, 110, 0.28); outline-offset: 3px; } .ds-account-button:active { transform: translateY(1px); }"
     },
     {
       "name": "Primary Navigation",
       "kind": "nav",
       "description": "Centered product navigation with a clear underline for the active route.",
       "html": "<nav aria-label=\"Primary\" class=\"ds-nav\"><a class=\"ds-nav-link\" data-active=\"true\" href=\"#\">Markets</a><a class=\"ds-nav-link\" href=\"#\">Positions</a><a class=\"ds-nav-link\" href=\"#\">Earn</a></nav>",
-      "css": ".ds-nav { display: flex; align-items: stretch; min-height: 64px; gap: 28px; padding: 0 24px; background: rgba(255, 255, 255, 0.96); border-radius: 18px; box-shadow: 0 8px 28px rgba(30, 27, 92, 0.07); } .ds-nav-link { position: relative; display: inline-flex; align-items: center; color: var(--rusd-muted, #676b87); font-family: Geist, Arial, sans-serif; font-size: 14px; font-weight: 650; text-decoration: none; } .ds-nav-link[data-active=\"true\"] { color: var(--rusd-ink, #11142f); } .ds-nav-link[data-active=\"true\"]::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: var(--rusd-primary, #5a50e8); border-radius: 3px 3px 0 0; content: \"\"; } .ds-nav-link:focus-visible { outline: 3px solid rgba(90, 80, 232, 0.3); outline-offset: 3px; }"
+      "css": ".ds-nav { display: flex; align-items: stretch; min-height: 64px; gap: 28px; padding: 0 24px; background: rgba(255, 255, 255, 0.96); border-radius: 18px; box-shadow: 0 8px 28px rgba(15, 68, 63, 0.08); } .ds-nav-link { position: relative; display: inline-flex; align-items: center; color: var(--rusd-muted, #5a7270); font-family: 'Bricolage Grotesque Variable', Arial, sans-serif; font-size: 14px; font-weight: 660; text-decoration: none; } .ds-nav-link[data-active=\"true\"] { color: var(--rusd-ink, #102b2a); } .ds-nav-link[data-active=\"true\"]::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: var(--rusd-primary, #08786e); border-radius: 3px 3px 0 0; content: \"\"; } .ds-nav-link:focus-visible { outline: 3px solid rgba(8, 120, 110, 0.28); outline-offset: 3px; }"
     },
     {
       "name": "Market Ticker Chip",
@@ -247,7 +191,7 @@
       "refersTo": "ticker-chip",
       "description": "A compact stock-market identifier inside the continuous market table.",
       "html": "<span class=\"ds-ticker-chip\">AAPL</span>",
-      "css": ".ds-ticker-chip { display: inline-grid; place-items: center; width: 52px; height: 32px; color: var(--rusd-primary, #5a50e8); background: var(--rusd-soft, #eeecff); border-radius: 9px; font-family: Geist, Arial, sans-serif; font-size: 12px; font-weight: 760; letter-spacing: -0.01em; }"
+      "css": ".ds-ticker-chip { display: inline-grid; place-items: center; width: 52px; height: 32px; color: var(--rusd-primary, #08786e); background: var(--rusd-soft, #ddf5f0); border-radius: 9px; font-family: Geist, Arial, sans-serif; font-size: 12px; font-weight: 760; letter-spacing: -0.01em; }"
     },
     {
       "name": "Market Panel",
@@ -255,7 +199,7 @@
       "refersTo": "market-panel",
       "description": "The continuous paper table used to compare isolated markets.",
       "html": "<section class=\"ds-market-panel\"><table class=\"ds-market-table\"><thead><tr><th>Market</th><th>Max LTV</th><th><span>Action</span></th></tr></thead><tbody><tr><td><span class=\"ds-market-symbol\">AAPL</span><small>Isolated Stock Token market</small></td><td class=\"ds-market-ltv\">70%</td><td><a class=\"ds-market-action\" href=\"#\">Borrow</a></td></tr></tbody></table></section>",
-      "css": ".ds-market-panel { overflow: hidden; width: 100%; max-width: 760px; color: var(--rusd-ink, #11142f); background: var(--rusd-surface, #ffffff); border-radius: 18px; box-shadow: 0 10px 34px rgba(30, 27, 92, 0.08); font-family: Geist, Arial, sans-serif; } .ds-market-table { width: 100%; border-collapse: collapse; table-layout: fixed; } .ds-market-table th { padding: 11px 28px; color: var(--rusd-muted, #676b87); background: #fafaff; border-top: 1px solid var(--rusd-line, #e3e3f1); border-bottom: 1px solid var(--rusd-line, #e3e3f1); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-align: left; text-transform: uppercase; } .ds-market-table th:last-child, .ds-market-table td:last-child { width: 132px; text-align: right; } .ds-market-table td { height: 46px; padding: 0 28px; border-bottom: 1px solid var(--rusd-line, #e3e3f1); font-size: 14px; transition: background 160ms ease-out; } .ds-market-table tbody tr:hover { background: #fafaff; } .ds-market-symbol { display: block; font-weight: 700; } .ds-market-table small { color: var(--rusd-muted, #676b87); font-size: 12px; } .ds-market-ltv { font-variant-numeric: tabular-nums; font-weight: 700; } .ds-market-action { display: inline-flex; align-items: center; justify-content: center; min-width: 72px; min-height: 36px; color: #ffffff; background: var(--rusd-primary, #5a50e8); border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none; } .ds-market-action:hover { background: var(--rusd-primary-hover, #4940d2); } .ds-market-action:focus-visible { outline: 3px solid rgba(90, 80, 232, 0.3); outline-offset: 3px; }"
+      "css": ".ds-market-panel { overflow: hidden; width: 100%; max-width: 760px; color: var(--rusd-ink, #102b2a); background: var(--rusd-surface, #ffffff); border-radius: 18px; box-shadow: 0 10px 34px rgba(15, 68, 63, 0.09); font-family: Geist, Arial, sans-serif; } .ds-market-table { width: 100%; border-collapse: collapse; table-layout: fixed; } .ds-market-table th { padding: 11px 28px; color: var(--rusd-muted, #5a7270); background: #f7fcfb; border-top: 1px solid var(--rusd-line, #d8eae6); border-bottom: 1px solid var(--rusd-line, #d8eae6); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-align: left; text-transform: uppercase; } .ds-market-table th:last-child, .ds-market-table td:last-child { width: 132px; text-align: right; } .ds-market-table td { height: 46px; padding: 0 28px; border-bottom: 1px solid var(--rusd-line, #d8eae6); font-size: 14px; transition: background 160ms ease-out; } .ds-market-table tbody tr:hover { background: #f7fcfb; } .ds-market-symbol { display: block; font-family: 'Bricolage Grotesque Variable', Arial, sans-serif; font-weight: 700; } .ds-market-table small { color: var(--rusd-muted, #5a7270); font-size: 12px; } .ds-market-ltv { font-variant-numeric: tabular-nums; font-weight: 700; } .ds-market-action { display: inline-flex; align-items: center; justify-content: center; min-width: 72px; min-height: 36px; color: #ffffff; background: var(--rusd-primary, #08786e); border-radius: 10px; font-family: 'Bricolage Grotesque Variable', Arial, sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; } .ds-market-action:hover { background: var(--rusd-primary-hover, #05675f); } .ds-market-action:focus-visible { outline: 3px solid rgba(8, 120, 110, 0.28); outline-offset: 3px; }"
     },
     {
       "name": "Risk Note",
@@ -263,19 +207,19 @@
       "refersTo": "info-panel",
       "description": "A friendly explanatory surface that keeps liquidation risk visible.",
       "html": "<aside class=\"ds-risk-note\"><span aria-hidden=\"true\" class=\"ds-risk-icon\">i</span><div><strong>Your risk stays isolated.</strong><p>If a vault crosses its maximum LTV, it can be liquidated.</p></div><a href=\"#\">How borrowing works</a></aside>",
-      "css": ".ds-risk-note { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 22px 26px; color: #302b83; background: var(--rusd-soft, #eeecff); border: 1px solid rgba(90, 80, 232, 0.14); border-radius: 18px; font-family: Geist, Arial, sans-serif; } .ds-risk-icon { display: grid; place-items: center; width: 42px; height: 42px; color: var(--rusd-primary, #5a50e8); background: var(--rusd-surface, #ffffff); border-radius: 50%; font-size: 21px; font-weight: 750; } .ds-risk-note strong { display: block; margin-bottom: 4px; color: var(--rusd-ink, #11142f); font-size: 15px; } .ds-risk-note p { margin: 0; font-size: 13px; line-height: 1.55; } .ds-risk-note a { color: var(--rusd-primary, #5a50e8); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; } .ds-risk-note a:focus-visible { outline: 3px solid rgba(90, 80, 232, 0.3); outline-offset: 3px; }"
+      "css": ".ds-risk-note { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 22px 26px; color: #18554f; background: var(--rusd-soft, #ddf5f0); border: 1px solid rgba(8, 120, 110, 0.14); border-radius: 18px; font-family: Geist, Arial, sans-serif; } .ds-risk-icon { display: grid; place-items: center; width: 42px; height: 42px; color: var(--rusd-primary, #08786e); background: var(--rusd-surface, #ffffff); border-radius: 50%; font-size: 21px; font-weight: 750; } .ds-risk-note strong { display: block; margin-bottom: 4px; color: var(--rusd-ink, #102b2a); font-family: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif; font-size: 15px; } .ds-risk-note p { margin: 0; font-size: 14px; line-height: 1.55; } .ds-risk-note a { color: var(--rusd-primary, #08786e); font-family: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; } .ds-risk-note a:focus-visible { outline: 3px solid rgba(8, 120, 110, 0.28); outline-offset: 3px; }"
     },
     {
       "name": "rUSD Mark",
       "kind": "custom",
       "description": "The original looped mark and heavy wordmark used as the rUSD signature.",
-      "html": "<svg aria-label=\"rUSD\" class=\"ds-rusd-mark\" role=\"img\" viewBox=\"0 0 112 36\"><path d=\"M5 27V14.5C5 8.7 8.8 5 14.5 5S24 8.7 24 14.5v3.8c0 3.4 2.2 5.7 5.5 5.7H34\" fill=\"none\" stroke=\"var(--rusd-primary, #5a50e8)\" stroke-linecap=\"round\" stroke-width=\"4\"/><circle cx=\"14.5\" cy=\"14.5\" fill=\"var(--rusd-primary, #5a50e8)\" r=\"2.5\"/><text fill=\"var(--rusd-ink, #11142f)\" font-family=\"Geist, Arial, sans-serif\" font-size=\"22\" font-weight=\"760\" letter-spacing=\"-1\" x=\"39\" y=\"26\">rUSD</text></svg>",
+      "html": "<svg aria-label=\"rUSD\" class=\"ds-rusd-mark\" role=\"img\" viewBox=\"0 0 112 36\"><path d=\"M5 27V14.5C5 8.7 8.8 5 14.5 5S24 8.7 24 14.5v3.8c0 3.4 2.2 5.7 5.5 5.7H34\" fill=\"none\" stroke=\"var(--rusd-bright, #0fae9b)\" stroke-linecap=\"round\" stroke-width=\"4\"/><circle cx=\"14.5\" cy=\"14.5\" fill=\"var(--rusd-bright, #0fae9b)\" r=\"2.5\"/><text fill=\"var(--rusd-ink, #102b2a)\" font-family=\"Bricolage Grotesque Variable, Arial Narrow, sans-serif\" font-size=\"22\" font-weight=\"720\" letter-spacing=\"-1.2\" x=\"39\" y=\"26\">rUSD</text></svg>",
       "css": ".ds-rusd-mark { display: block; width: 112px; height: 36px; }"
     }
   ],
   "narrative": {
     "northStar": "The Friendly Credit Desk",
-    "overview": "rUSD presents collateralized borrowing as a short, understandable conversation at a calm credit desk. Its pale lavender field, paper-white work surfaces, periwinkle actions, and deep ink typography make sophisticated financial mechanics feel approachable without making risk feel casual.\n\nThe system is narrow, friendly, and direct. It borrows the approachable spirit of Liquity V1, but its looped rUSD mark and periwinkle-lavender world are original. Interfaces remain compact and readable rather than becoming dense trading terminals, glossy fintech showcases, or black corporate dashboards.",
+    "overview": "rUSD presents collateralized borrowing as a short, understandable conversation at a calm credit desk. Its pale mint field, paper-white work surfaces, deep turquoise actions, and teal-black typography make sophisticated financial mechanics feel approachable without making risk feel casual.\n\nThe system is narrow, friendly, and direct. It borrows the approachable spirit of Liquity V1, but its looped rUSD mark, turquoise-mint world, and Bricolage display voice are original. Interfaces remain compact and readable rather than becoming dense trading terminals, glossy fintech showcases, or black corporate dashboards.",
     "keyCharacteristics": [
       "A single centered frame with generous breathing room and compact information surfaces.",
       "Plain-language hierarchy led by one decisive display statement.",
@@ -286,7 +230,7 @@
     "rules": [
       {
         "name": "The One Action Voice Rule",
-        "body": "Periwinkle Action carries the primary interaction hierarchy; do not introduce a competing brand accent for routine actions.",
+        "body": "Turquoise Action carries the primary interaction hierarchy; Turquoise Bright is reserved for non-text brand geometry.",
         "section": "colors"
       },
       {
@@ -322,8 +266,9 @@
     ],
     "dos": [
       "Do keep primary workflows within the centered 1040px frame and preserve breathing room around the display promise.",
-      "Do use Periwinkle Action for the primary interaction hierarchy and Lavender Soft for supportive, non-blocking emphasis.",
-      "Do keep financial data in continuous, scan-friendly structures with fine Lavender Line separators.",
+      "Do use Turquoise Action for the primary interaction hierarchy, Turquoise Bright for non-text brand geometry, and Mint Soft for supportive emphasis.",
+      "Do keep financial data in continuous, scan-friendly structures with fine Mint Line separators.",
+      "Do use Bricolage Grotesque for promises, navigation, actions, and compact market names; keep long copy and tabular data in Geist.",
       "Do pair risk and network status color with explicit language and visible keyboard focus.",
       "Do keep motion to fast hover, focus, and press feedback between 50ms and 160ms."
     ],
@@ -332,7 +277,8 @@
       "Don't use glossy gradients, layered hard shadows, or multiple depth effects on one surface.",
       "Don't scatter pills, cards, or accent colors across data that reads more clearly as a table.",
       "Don't hide liquidation, oracle, market-closure, or testnet state behind color alone.",
-      "Don't copy Liquity or Robinhood marks, typography, or brand geometry."
+      "Don't copy Liquity or Robinhood marks, typography, or brand geometry.",
+      "Don't use generic bank, classical-building, or safe-door pictograms for the collateral mechanism."
     ]
   }
 }

@@ -9,12 +9,13 @@ function FlowArrow() {
   return (
     <svg aria-hidden="true" className="rusd-flow-arrow" fill="none" viewBox="0 0 48 16">
       <path
-        d="M1 8h43M37 2l7 6-7 6"
+        d="M2 8h40M36 3l6 5-6 5"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.75"
+        strokeWidth="2"
       />
+      <circle cx="8" cy="8" fill="currentColor" r="2" />
     </svg>
   );
 }
@@ -22,9 +23,34 @@ function FlowArrow() {
 function StockTokenIcon() {
   return (
     <svg aria-hidden="true" fill="none" viewBox="0 0 36 36">
-      <path d="m5 13 13-7 13 7H5Z" stroke="currentColor" strokeLinejoin="round" strokeWidth="1.8" />
+      <rect height="21" rx="4" stroke="currentColor" strokeWidth="1.7" width="25" x="4.5" y="6.5" />
+      <rect height="21" opacity="0.45" rx="4" stroke="currentColor" strokeWidth="1.5" width="25" x="7.5" y="9.5" />
       <path
-        d="M8 28h20M6 31h24M10 14v14M15 14v14M21 14v14M26 14v14"
+        d="m9 22 4-4 3 2 5-7 4 3"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <path d="M9 12h6" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function VaultIcon() {
+  return (
+    <svg aria-hidden="true" fill="none" viewBox="0 0 36 36">
+      <path
+        d="M18 3.5 30 10v16L18 32.5 6 26V10L18 3.5Z"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <circle cx="18" cy="18" r="7" stroke="currentColor" strokeDasharray="3 2.2" strokeWidth="1.8" />
+      <path d="M18 13.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z" fill="currentColor" opacity="0.16" />
+      <circle cx="18" cy="18" fill="currentColor" r="2" />
+      <path
+        d="M18 4v4M30 10l-3.5 2M30 26l-3.5-2M18 32v-4M6 26l3.5-2M6 10l3.5 2"
         stroke="currentColor"
         strokeLinecap="round"
         strokeWidth="1.8"
@@ -33,33 +59,18 @@ function StockTokenIcon() {
   );
 }
 
-function VaultIcon() {
-  return (
-    <svg aria-hidden="true" fill="none" viewBox="0 0 36 36">
-      <rect height="28" rx="3" stroke="currentColor" strokeWidth="1.8" width="28" x="4" y="4" />
-      <rect height="22" rx="2" stroke="currentColor" strokeWidth="1.4" width="22" x="7" y="7" />
-      <circle cx="18" cy="18" r="6" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="18" cy="18" fill="currentColor" r="1.8" />
-      <path
-        d="M18 12v3M24 18h-3M18 24v-3M12 18h3M30 12h2M30 24h2"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.5"
-      />
-    </svg>
-  );
-}
-
 function RusdIcon() {
   return (
     <svg aria-hidden="true" fill="none" viewBox="0 0 36 36">
+      <circle cx="18" cy="18" fill="currentColor" opacity="0.12" r="14" />
+      <circle cx="18" cy="18" r="14" stroke="currentColor" strokeWidth="1.5" />
       <path
-        d="M5 29V16c0-5.6 3.7-9 9-9s9 3.4 9 9v4c0 3.6 2.3 6 6 6"
+        d="M10 25V16c0-4 2.7-6.5 6.3-6.5s6.3 2.5 6.3 6.5v2.5c0 2.5 1.6 4 4.1 4"
         stroke="currentColor"
         strokeLinecap="round"
-        strokeWidth="3.5"
+        strokeWidth="2.8"
       />
-      <circle cx="14" cy="16" fill="currentColor" r="2.3" />
+      <circle cx="16.3" cy="16" fill="currentColor" r="1.8" />
     </svg>
   );
 }
