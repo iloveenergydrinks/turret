@@ -1,6 +1,7 @@
 "use client";
 
 import { Logo } from "@/src/comps/Logo/Logo";
+import { CHAIN_ID, CHAIN_NAME } from "@/src/env";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AccountButton } from "./AccountButton";
@@ -30,9 +31,10 @@ export function TopBar() {
           })}
         </nav>
         <div className="rusd-account">
-          <span className="rusd-network">
+          <span className="rusd-network" title={`Chain ID ${CHAIN_ID}`}>
             <span className="rusd-network-dot" />
-            Testnet
+            <span className="rusd-network-name">{CHAIN_NAME}</span>
+            <span className="rusd-network-name-short">RH Testnet</span>
           </span>
           <AccountButton />
         </div>

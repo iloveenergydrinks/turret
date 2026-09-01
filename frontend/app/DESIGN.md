@@ -299,6 +299,10 @@ The top bar is a sticky 64px paper shell. The AI-generated safe-harbor mark and 
 
 The market list is one continuous fixed-layout paper surface. Its 11px uppercase header uses Table Frost and Mint Line separators. Rows are 46px high on wide screens and 54px on compact screens, with a Table Frost hover transition over 160ms ease-out. The market, Max LTV, and Borrow or Not live action remain visible at every supported width; secondary market descriptions hide on compact screens. LTV values use tabular numerals and bold weight.
 
+### Borrow Workspace
+
+The borrowing route names one selected Stock Token in the headline and explicitly identifies Robinhood Chain Testnet with its chain ID. Collateral, rUSD debt, and interest configuration share one 600px paper workspace. Redemption education sits behind a native disclosure so it remains available without interrupting the transaction. A bare `/borrow` route resolves to the first supported market and replaces the URL with that explicit market route.
+
 ### Risk and Preview States
 
 The risk note is an explicit Mint Soft panel with a circular paper information mark, a two-level text hierarchy, and a visible explanatory link. On compact screens, the link moves below the copy instead of disappearing. Read-only MVP state adds a cream status notice and replaces market actions with disabled “Not live” controls; no live-contract implication is allowed.

@@ -3,7 +3,6 @@
 import type { DelegateMode } from "@/src/comps/InterestRateField/InterestRateField";
 import type { Address, Dnum } from "@/src/types";
 
-import { NBSP } from "@/src/characters";
 import { Amount } from "@/src/comps/Amount/Amount";
 import { Field } from "@/src/comps/Field/Field";
 import { FlowButton } from "@/src/comps/FlowButton/FlowButton";
@@ -15,6 +14,7 @@ import { WarningBox } from "@/src/comps/WarningBox/WarningBox";
 import { DEBT_SUGGESTIONS, ETH_MAX_RESERVE, MAX_COLLATERAL_DEPOSITS, MIN_DEBT } from "@/src/constants";
 import content from "@/src/content";
 import { dnum18, DNUM_0, dnumMax, dnumMin } from "@/src/dnum-utils";
+import { CHAIN_ID, CHAIN_NAME } from "@/src/env";
 import { useInputFieldValue } from "@/src/form-utils";
 import { fmtnum } from "@/src/formatting";
 import { getLiquidationRisk, getLoanDetails, getLtv } from "@/src/liquity-math";
@@ -54,9 +54,10 @@ import { maxUint256 } from "viem";
 
 export function BorrowScreen() {
   const branches = getBranches();
+  const routeCollateral = useParams().collateral;
   // useParams() can return an array but not with the current
   // routing setup, so we can safely cast it to a string
-  const collSymbol = `${useParams().collateral ?? branches[0]?.symbol}`.toUpperCase();
+  const collSymbol = `${routeCollateral ?? branches[0]?.symbol}`.toUpperCase();
   if (!isCollateralSymbol(collSymbol)) {
     throw new Error(`Invalid collateral symbol: ${collSymbol}`);
   }
@@ -68,6 +69,12 @@ export function BorrowScreen() {
   const collateral = getCollToken(branch.id);
   const collaterals = branches.map((b) => getCollToken(b.branchId));
   const collateralSymbols = collaterals.map(({ symbol }) => symbol);
+
+  useEffect(() => {
+    if (!routeCollateral) {
+      router.replace(`/borrow/${collSymbol.toLowerCase()}`, { scroll: false });
+    }
+  }, [collSymbol, routeCollateral, router]);
 
   const maxCollDeposit = MAX_COLLATERAL_DEPOSITS[collSymbol];
 
@@ -234,44 +241,25 @@ export function BorrowScreen() {
 
   return (
     <Screen
+      back={{ href: "/", label: "All markets" }}
+      className="dockyard-borrow-screen"
+      contentClassName="dockyard-borrow-panel"
+      width={600}
       heading={{
         title: (
-          <div
-            className={css({
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexFlow: "wrap",
-              gap: "0 8px",
-            })}
-          >
-            {content.borrowScreen.headline(
-              <div
-                className={css({
-                  display: "flex",
-                  alignItems: "center",
-                })}
-              >
-                <TokenIcon.Group>
-                  {collaterals.map(({ symbol }) => (
-                    <TokenIcon
-                      key={symbol}
-                      symbol={symbol}
-                    />
-                  ))}
-                </TokenIcon.Group>
-                {NBSP}Stock Tokens
-              </div>,
-              <div
-                className={css({
-                  display: "flex",
-                  alignItems: "center",
-                })}
-              >
-                <TokenIcon symbol="BOLD" />
-                {NBSP}rUSD
-              </div>,
-            )}
+          <span className="dockyard-borrow-title">
+            Borrow rUSD against {collateral.symbol}.
+          </span>
+        ),
+        subtitle: (
+          <div className="dockyard-borrow-intro">
+            <span>Deposit {collateral.symbol} Stock Tokens and mint rUSD without selling.</span>
+            <span className="dockyard-chain-badge">
+              <span className="dockyard-chain-dot" />
+              {CHAIN_NAME}
+              <span aria-hidden="true">·</span>
+              Chain {CHAIN_ID}
+            </span>
           </div>
         ),
       }}
@@ -519,7 +507,10 @@ export function BorrowScreen() {
         }}
       />
 
-      <RedemptionInfo />
+      <details className="dockyard-redemption-details">
+        <summary>How redemptions affect this loan</summary>
+        <RedemptionInfo />
+      </details>
 
       {isShutdown.data
         ? (

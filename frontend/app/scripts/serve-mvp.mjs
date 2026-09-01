@@ -43,13 +43,19 @@ function sendFile(request, response, filePath) {
   const stats = statSync(filePath, { throwIfNoEntry: false });
   if (!stats?.isFile()) return false;
 
+  const extension = extname(filePath);
+  const isVersionedAsset = filePath.includes(`${sep}_next${sep}static${sep}`);
+  const isDocument = extension === ".html" || extension === ".txt";
+
   response.writeHead(200, {
     ...securityHeaders(),
-    "Cache-Control": filePath.includes(`${sep}_next${sep}static${sep}`)
+    "Cache-Control": isVersionedAsset
       ? "public, max-age=31536000, immutable"
-      : "public, max-age=300",
+      : isDocument
+      ? "no-store"
+      : "public, max-age=3600",
     "Content-Length": stats.size,
-    "Content-Type": contentTypes[extname(filePath)] || "application/octet-stream",
+    "Content-Type": contentTypes[extension] || "application/octet-stream",
   });
   if (request.method === "HEAD") response.end();
   else createReadStream(filePath).pipe(response);

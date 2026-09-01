@@ -11,6 +11,7 @@ export function Screen({
   back,
   children,
   className,
+  contentClassName,
   heading = null,
   paddingTop = 0,
   ready = true,
@@ -22,6 +23,7 @@ export function Screen({
   } | null;
   children: ReactNode;
   className?: string;
+  contentClassName?: string;
   heading?: ReactNode | {
     title: ReactNode;
     subtitle?: ReactNode;
@@ -215,18 +217,22 @@ export function Screen({
         </a.div>
       )}
       <a.div
-        className={css({
-          position: "relative",
-          display: "grid",
-          gap: {
-            base: 32,
-            medium: 48,
-          },
-          transformOrigin: "50% 0",
-          willChange: "transform, opacity",
-        })}
+        className={cx(
+          css({
+            position: "relative",
+            display: "grid",
+            gap: {
+              base: 32,
+              medium: 48,
+            },
+            transformOrigin: "50% 0",
+            willChange: "transform, opacity",
+          }),
+          contentClassName,
+        )}
         style={{
-          width,
+          width: typeof width === "number" ? "100%" : width,
+          maxWidth: typeof width === "number" ? width : undefined,
           ...screenSpring,
         }}
       >

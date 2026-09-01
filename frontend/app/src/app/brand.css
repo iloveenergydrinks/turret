@@ -275,6 +275,108 @@ body {
   border-radius: 50%;
 }
 
+.rusd-network-name-short {
+  display: none;
+}
+
+.dockyard-borrow-screen {
+  padding-top: 8px;
+}
+
+.dockyard-borrow-title {
+  color: var(--rusd-ink);
+  font-family: var(--rusd-display);
+  font-size: clamp(38px, 5vw, 54px);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.dockyard-borrow-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 560px;
+  color: var(--rusd-muted);
+  font-size: 15px;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+.dockyard-chain-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 0 12px;
+  color: var(--rusd-primary);
+  background: var(--rusd-soft);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 720;
+}
+
+.dockyard-chain-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--rusd-warning);
+  border-radius: 50%;
+}
+
+.dockyard-borrow-panel {
+  gap: 32px !important;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 18px;
+  box-shadow: 0 10px 34px rgba(15, 68, 63, 0.09);
+}
+
+.dockyard-redemption-details {
+  overflow: hidden;
+  background: var(--rusd-frost);
+  border-radius: 12px;
+}
+
+.dockyard-redemption-details > summary {
+  position: relative;
+  padding: 16px 44px 16px 18px;
+  color: var(--rusd-primary);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 720;
+  list-style: none;
+}
+
+.dockyard-redemption-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.dockyard-redemption-details > summary::after {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  transform: translateY(-65%) rotate(45deg);
+  transition: transform 160ms ease-out;
+}
+
+.dockyard-redemption-details[open] > summary::after {
+  transform: translateY(-35%) rotate(225deg);
+}
+
+.dockyard-redemption-details > section {
+  border: 0;
+  border-top: 1px solid var(--rusd-line);
+  border-radius: 0;
+}
+
 .rusd-home {
   display: flex;
   flex-direction: column;
@@ -662,8 +764,48 @@ body {
     border-radius: 14px;
   }
 
-  .rusd-nav, .rusd-network {
+  .rusd-nav {
     display: none;
+  }
+
+  .rusd-account {
+    gap: 8px;
+  }
+
+  .rusd-network {
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  .rusd-network-name {
+    display: none;
+  }
+
+  .rusd-network-name-short {
+    display: inline;
+  }
+
+  .dockyard-borrow-screen {
+    padding-top: 2px;
+  }
+
+  .dockyard-borrow-title {
+    font-size: clamp(34px, 10.5vw, 46px);
+  }
+
+  .dockyard-borrow-intro {
+    padding: 0 8px;
+    font-size: 14px;
+  }
+
+  .dockyard-chain-badge {
+    text-align: left;
+  }
+
+  .dockyard-borrow-panel {
+    gap: 28px !important;
+    padding: 18px 14px;
+    border-radius: 14px;
   }
 
   .rusd-hero {
