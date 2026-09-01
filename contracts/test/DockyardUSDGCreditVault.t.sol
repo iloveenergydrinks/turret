@@ -152,6 +152,22 @@ contract DockyardUSDGCreditVaultTest is Test {
         assertEq(aapl.balanceOf(address(vault)), 0);
     }
 
+    function testFuzzUnfundedAtomicBorrowNeverPullsCollateral(uint256 collateralAmount, uint256 borrowAmount) public {
+        collateralAmount = bound(collateralAmount, 1, 100 * STOCK_UNIT);
+        borrowAmount = bound(borrowAmount, 1, 1_000_000 * USDG_UNIT);
+        vault.withdrawLiquidity(address(this), vault.availableLiquidity());
+
+        vm.prank(borrower);
+        vm.expectRevert(DockyardUSDGCreditVault.InsufficientLiquidity.selector);
+        vault.depositAndBorrow(address(aapl), collateralAmount, borrowAmount);
+
+        (uint128 collateral, uint128 debt) = vault.positions(address(aapl), borrower);
+        assertEq(collateral, 0);
+        assertEq(debt, 0);
+        assertEq(aapl.balanceOf(borrower), 100 * STOCK_UNIT);
+        assertEq(aapl.balanceOf(address(vault)), 0);
+    }
+
     function testBorrowCannotExceedMaximumLtv() public {
         vm.startPrank(borrower);
         vault.depositCollateral(address(aapl), 10 * STOCK_UNIT);
