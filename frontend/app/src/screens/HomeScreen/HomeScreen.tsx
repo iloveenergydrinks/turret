@@ -151,7 +151,8 @@ export function HomeScreen() {
         <div className="rusd-hero-message">
           <h1>Borrow USDG against Stock Tokens.</h1>
           <p className="rusd-hero-copy">
-            Deposit AAPL, NVDA, TSLA, or another supported Stock Token. Keep the price exposure without selling.
+            Deposit AAPL, NVDA, TSLA, or another supported Stock Token as collateral. Borrow USDG without selling it, so
+            its value can still rise or fall while your loan is open.
           </p>
           <div className="rusd-hero-proof">
             <span>10 Stock Tokens</span>
