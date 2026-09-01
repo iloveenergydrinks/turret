@@ -128,6 +128,30 @@ contract DockyardUSDGCreditVaultTest is Test {
         assertEq(aapl.balanceOf(borrower), 100 * STOCK_UNIT);
     }
 
+    function testDepositAndBorrowIsAtomic() public {
+        vm.prank(borrower);
+        vault.depositAndBorrow(address(aapl), 10 * STOCK_UNIT, 400 * USDG_UNIT);
+
+        (uint128 collateral, uint128 debt) = vault.positions(address(aapl), borrower);
+        assertEq(collateral, 10 * STOCK_UNIT);
+        assertEq(debt, 402 * USDG_UNIT);
+        assertEq(usdg.balanceOf(borrower), 400 * USDG_UNIT);
+    }
+
+    function testUnfundedAtomicBorrowLeavesCollateralWithBorrower() public {
+        vault.withdrawLiquidity(address(this), vault.availableLiquidity());
+
+        vm.prank(borrower);
+        vm.expectRevert(DockyardUSDGCreditVault.InsufficientLiquidity.selector);
+        vault.depositAndBorrow(address(aapl), 10 * STOCK_UNIT, 400 * USDG_UNIT);
+
+        (uint128 collateral, uint128 debt) = vault.positions(address(aapl), borrower);
+        assertEq(collateral, 0);
+        assertEq(debt, 0);
+        assertEq(aapl.balanceOf(borrower), 100 * STOCK_UNIT);
+        assertEq(aapl.balanceOf(address(vault)), 0);
+    }
+
     function testBorrowCannotExceedMaximumLtv() public {
         vm.startPrank(borrower);
         vault.depositCollateral(address(aapl), 10 * STOCK_UNIT);

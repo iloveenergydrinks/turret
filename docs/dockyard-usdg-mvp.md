@@ -5,8 +5,8 @@ Dockyard's production MVP is an owner-funded USDG credit facility on Robinhood C
 ## Product flow
 
 1. The vault owner supplies canonical USDG.
-2. A borrower deposits one supported canonical Robinhood Stock Token.
-3. The borrower draws USDG up to that market's maximum LTV.
+2. A borrower atomically deposits one supported canonical Robinhood Stock Token and draws USDG up to that market's maximum LTV.
+3. If the vault lacks enough USDG, the transaction fails before any collateral or debt remains in the vault.
 4. The borrower repays USDG and withdraws the Stock Token.
 5. If the position crosses its liquidation LTV, a liquidator repays USDG and receives collateral with the configured bonus.
 
@@ -24,6 +24,7 @@ The deployment preflight fails if USDG or a Stock Token is missing, a Stock Toke
 
 - New borrowing starts 500 basis points below the liquidation LTV.
 - Each market has an isolated USDG debt ceiling.
+- The primary opening flow is atomic: insufficient USDG liquidity reverts the complete deposit-and-borrow transaction.
 - Both Chainlink feeds must be fresh; one may provide failover if the other is unavailable.
 - If both feeds are live, their prices must agree within 200 basis points.
 - The lower valid price is used when both feeds are available.

@@ -191,13 +191,31 @@ contract DockyardUSDGCreditVault is Ownable, Pausable, ReentrancyGuard {
     }
 
     function depositCollateral(address collateral, uint256 amount) external whenNotPaused nonReentrant {
+        _depositCollateral(collateral, msg.sender, amount);
+    }
+
+    /// @notice Deposits collateral and borrows USDG in one transaction.
+    /// @dev The upfront liquidity check avoids pulling collateral when the
+    /// vault cannot satisfy the requested loan. Any later failure also reverts
+    /// the collateral transfer because both actions share one transaction.
+    function depositAndBorrow(address collateral, uint256 collateralAmount, uint256 borrowAmount)
+        external
+        whenNotPaused
+        nonReentrant
+    {
+        if (borrowAmount > availableLiquidity()) revert InsufficientLiquidity();
+        _depositCollateral(collateral, msg.sender, collateralAmount);
+        _borrow(collateral, msg.sender, borrowAmount);
+    }
+
+    function _depositCollateral(address collateral, address borrower, uint256 amount) internal {
         Market memory market = _enabledMarket(collateral);
         if (amount == 0) revert ZeroAmount();
         _requireStockTokenLive(collateral);
-        Position storage position = positions[collateral][msg.sender];
+        Position storage position = positions[collateral][borrower];
         position.collateral = _toUint128(uint256(position.collateral) + amount);
-        IERC20(collateral).safeTransferFrom(msg.sender, address(this), amount);
-        emit CollateralDeposited(collateral, msg.sender, amount);
+        IERC20(collateral).safeTransferFrom(borrower, address(this), amount);
+        emit CollateralDeposited(collateral, borrower, amount);
 
         // Reading the price here prevents deposits into a market whose oracle
         // configuration has silently become unusable.
@@ -229,10 +247,14 @@ contract DockyardUSDGCreditVault is Ownable, Pausable, ReentrancyGuard {
     }
 
     function borrow(address collateral, uint256 amount) external whenNotPaused nonReentrant {
+        _borrow(collateral, msg.sender, amount);
+    }
+
+    function _borrow(address collateral, address borrower, uint256 amount) internal {
         if (amount == 0) revert ZeroAmount();
         if (amount > availableLiquidity()) revert InsufficientLiquidity();
         Market memory market = _enabledMarket(collateral);
-        Position storage position = positions[collateral][msg.sender];
+        Position storage position = positions[collateral][borrower];
         (uint256 debtIncrease, uint256 fee) = quoteDebt(amount);
         uint256 newDebt = uint256(position.debt) + debtIncrease;
         uint256 newMarketDebt = marketDebt[collateral] + debtIncrease;
@@ -246,8 +268,8 @@ contract DockyardUSDGCreditVault is Ownable, Pausable, ReentrancyGuard {
         position.debt = _toUint128(newDebt);
         marketDebt[collateral] = newMarketDebt;
         totalDebt += debtIncrease;
-        IERC20(address(usdg)).safeTransfer(msg.sender, amount);
-        emit Borrowed(collateral, msg.sender, amount, fee, newDebt);
+        IERC20(address(usdg)).safeTransfer(borrower, amount);
+        emit Borrowed(collateral, borrower, amount, fee, newDebt);
     }
 
     function repay(address collateral, address borrower, uint256 amount)
