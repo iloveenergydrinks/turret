@@ -164,7 +164,7 @@ function PositionPreview({ market }: { market: PreviewMarket }) {
         <span>Dual-oracle safeguards</span>
       </div>
 
-      <button className="rusd-position-cta" disabled type="submit">Illustration only</button>
+      <button className="rusd-position-cta" disabled type="submit">Borrow USDG</button>
     </form>
   );
 }
