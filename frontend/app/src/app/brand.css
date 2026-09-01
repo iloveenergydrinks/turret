@@ -969,7 +969,6 @@ body {
   }
 }
 
-.rusd-position-head,
 .rusd-position-risk-heading,
 .rusd-position-risk-scale,
 .rusd-position-safeguards {
@@ -982,33 +981,15 @@ body {
   margin-bottom: 24px;
 }
 
-.rusd-position-head > div {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 .rusd-position-head strong {
   font-size: 21px;
   font-weight: 710;
   letter-spacing: -0.02em;
 }
 
-.rusd-position-mode {
-  padding: 7px 10px;
-  color: #b8eee4;
-  background: rgba(184, 238, 228, 0.11);
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 680;
-}
-
 .rusd-position-path {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1.14fr) 38px minmax(
-    0,
-    1fr
-  );
+  grid-template-columns: minmax(0, 1fr) 52px minmax(0, 1fr);
   align-items: stretch;
   gap: 8px;
 }
@@ -1050,12 +1031,6 @@ body {
   line-height: 1.2;
 }
 
-.rusd-position-vault {
-  background: rgba(101, 219, 201, 0.13);
-  outline: 1px solid rgba(184, 238, 228, 0.16);
-  outline-offset: -1px;
-}
-
 .rusd-position-route {
   display: grid;
   width: 100%;
@@ -1066,7 +1041,7 @@ body {
 
 .rusd-position-route svg {
   display: block;
-  width: 38px;
+  width: 44px;
   height: 14px;
   overflow: visible;
 }
@@ -1153,7 +1128,7 @@ body {
 
 .rusd-borrow-flow {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   counter-reset: dockyard-step;
   overflow: hidden;
   margin: 0;
@@ -1212,13 +1187,6 @@ body {
   color: var(--rusd-muted);
   font-size: 13px;
   line-height: 1.42;
-}
-
-.rusd-explainer-risk {
-  margin: 12px 4px 0;
-  color: var(--rusd-muted);
-  font-size: 13px;
-  line-height: 1.5;
 }
 
 .rusd-market-panel {
@@ -1490,11 +1458,6 @@ body {
 
   .rusd-position-preview {
     padding: 18px 14px;
-  }
-
-  .rusd-position-mode {
-    padding: 6px 8px;
-    font-size: 10px;
   }
 
   .rusd-position-node {

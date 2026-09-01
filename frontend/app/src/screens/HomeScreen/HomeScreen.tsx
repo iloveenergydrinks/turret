@@ -79,7 +79,7 @@ function PreviewMarketRow({
           onClick={() => onSelect(market)}
           type="button"
         >
-          {selected ? "Viewing" : "Inspect"}
+          {selected ? "Selected" : "View"}
         </button>
       </td>
     </tr>
@@ -90,19 +90,16 @@ function PositionMechanism({ market }: { market: PreviewMarket }) {
   return (
     <figure className="rusd-position-preview">
       <div className="rusd-position-head">
-        <div>
-          <strong>{market.symbol}-backed credit</strong>
-        </div>
-        <span className="rusd-position-mode">How it works</span>
+        <strong>{market.symbol} backs your USDG loan.</strong>
       </div>
 
       <div
-        aria-label={`${market.symbol} Stock Tokens are locked in an isolated vault, which lends existing USDG liquidity`}
+        aria-label={`Deposit a ${market.symbol} Stock Token as collateral and borrow USDG against it`}
         className="rusd-position-path"
         role="img"
       >
         <div className="rusd-position-node">
-          <span>Collateral</span>
+          <span>Deposit</span>
           <strong>{market.symbol}</strong>
           <small>Stock Token</small>
         </div>
@@ -111,44 +108,34 @@ function PositionMechanism({ market }: { market: PreviewMarket }) {
             <path d="M2 7h37M34 2l5 5-5 5" />
           </svg>
         </span>
-        <div className="rusd-position-node rusd-position-vault">
-          <span>Locked in</span>
-          <strong>Isolated vault</strong>
-          <small>One stock market</small>
-        </div>
-        <span aria-hidden="true" className="rusd-position-route">
-          <svg fill="none" viewBox="0 0 44 14">
-            <path d="M2 7h37M34 2l5 5-5 5" />
-          </svg>
-        </span>
         <div className="rusd-position-node">
-          <span>You receive</span>
+          <span>Borrow</span>
           <strong>USDG</strong>
-          <small>Existing liquidity</small>
+          <small>From Dockyard</small>
         </div>
       </div>
 
       <div className="rusd-position-risk">
         <div className="rusd-position-risk-heading">
-          <span>Maximum opening LTV</span>
+          <span>Max LTV</span>
           <strong>{market.maxLtv}</strong>
         </div>
         <span aria-hidden="true" className="rusd-position-risk-track">
           <span />
         </span>
         <div className="rusd-position-risk-scale">
-          <span>More collateral</span>
-          <span>Opening limit</span>
+          <span>Safer</span>
+          <span>Borrowing limit</span>
         </div>
       </div>
 
       <figcaption>
-        Your Stock Token stays locked while the debt is open. Repay the USDG to withdraw it.
+        Repay the USDG to get your {market.symbol} Stock Token back.
       </figcaption>
 
       <div className="rusd-position-safeguards">
-        <span>Existing USDG only</span>
-        <span>Two price feeds</span>
+        <span>One token per loan</span>
+        <span>Two price checks</span>
       </div>
     </figure>
   );
@@ -162,13 +149,13 @@ export function HomeScreen() {
     <div className="rusd-home">
       <section className="rusd-hero">
         <div className="rusd-hero-message">
-          <h1>Borrow against Wall Street.</h1>
+          <h1>Borrow USDG against Stock Tokens.</h1>
           <p className="rusd-hero-copy">
-            Turn your Stock Tokens into dollar liquidity without selling your market exposure.
+            Deposit AAPL, NVDA, TSLA, or another supported Stock Token. Keep the price exposure without selling.
           </p>
           <div className="rusd-hero-proof">
-            <span>10 isolated markets</span>
-            <span>One Stock Token per vault</span>
+            <span>10 Stock Tokens</span>
+            <span>Robinhood Chain</span>
           </div>
         </div>
         <PositionMechanism market={selectedMarket} />
@@ -177,38 +164,31 @@ export function HomeScreen() {
       <section className="rusd-explainer" id="how-it-works">
         <div className="rusd-explainer-heading">
           <h2>How it works</h2>
-          <p>One stock, one loan. No selling.</p>
+          <p>Stock Token in. USDG out.</p>
         </div>
         <ol aria-label="How borrowing works" className="rusd-borrow-flow">
           <li>
-            <strong>Choose a stock</strong>
-            <p>Pick the Stock Token you already hold.</p>
+            <strong>Deposit a Stock Token</strong>
+            <p>Use one supported token as collateral.</p>
           </li>
           <li>
-            <strong>Lock the token</strong>
-            <p>It stays in its own vault while your loan is open.</p>
+            <strong>Borrow USDG</strong>
+            <p>USDG goes to your wallet. Your token stays locked.</p>
           </li>
           <li>
-            <strong>Receive USDG</strong>
-            <p>Borrow existing USDG supplied to Dockyard.</p>
-          </li>
-          <li>
-            <strong>Repay and unlock</strong>
-            <p>Return the USDG to withdraw your Stock Token.</p>
+            <strong>Repay and withdraw</strong>
+            <p>Return the USDG and get your Stock Token back.</p>
           </li>
         </ol>
-        <p className="rusd-explainer-risk">
-          If the Stock Token falls too far, it can be sold to repay the loan.
-        </p>
       </section>
 
       <section className="rusd-market-panel">
         <div className="rusd-market-heading">
           <div>
-            <h2 className="rusd-market-title">Markets</h2>
-            <p>Compare isolated borrowing parameters.</p>
+            <h2 className="rusd-market-title">Choose your Stock Token</h2>
+            <p>See the maximum LTV for each token.</p>
           </div>
-          {READ_ONLY_DEPLOYMENT && <span className="rusd-market-selected">Viewing {selectedMarket.symbol}</span>}
+          {READ_ONLY_DEPLOYMENT && <span className="rusd-market-selected">Selected {selectedMarket.symbol}</span>}
         </div>
         <table className="rusd-market-table">
           <caption className="sr-only">
@@ -242,10 +222,10 @@ export function HomeScreen() {
       <aside className="rusd-info">
         <span aria-hidden="true" className="rusd-info-icon">i</span>
         <div>
-          <strong>Your positions stay separate.</strong>
+          <strong>Your Stock Token backs the loan.</strong>
           <p>
-            Each loan is backed by one Stock Token. If its value falls too far, your collateral may be sold to repay the
-            loan. Some actions may pause when markets are closed or prices cannot be updated.
+            If its price falls too much, it can be sold to repay the USDG. Borrowing may pause when the market is closed
+            or price data is unavailable.
           </p>
         </div>
         {READ_ONLY_DEPLOYMENT
