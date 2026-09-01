@@ -8,7 +8,7 @@ export default {
   // Used in the top bar and other places
   appName: "rUSD",
   appDescription: `
-    Borrow rUSD against tokenized equities without selling your market exposure.
+    Borrow rUSD against Stock Tokens without selling your market exposure.
   `,
   appUrl: typeof window === "undefined"
     ? "https://github.com/iloveenergydrinks/liquityv3"
@@ -180,7 +180,7 @@ export default {
     actions: {
       borrow: {
         title: "Borrow",
-        description: "Borrow rUSD against tokenized equities at your chosen interest rate",
+        description: "Borrow rUSD against Stock Token collateral at your chosen interest rate",
       },
       multiply: {
         title: "Multiply",

@@ -5,6 +5,7 @@ pragma solidity 0.8.24;
 import "../Dependencies/AggregatorV3Interface.sol";
 import "../Interfaces/IBorrowerOperations.sol";
 import "../Interfaces/IPriceFeed.sol";
+import {Math} from "openzeppelin-contracts/contracts/utils/math/Math.sol";
 
 /// @notice Chainlink adapter for Robinhood Stock Tokens.
 /// @dev Robinhood's Stock Token feed is expected to include the ERC-8056
@@ -95,7 +96,11 @@ contract StockTokenPriceFeed is IPriceFeed {
                 || block.timestamp - updatedAt >= stalenessThreshold || answeredInRound < roundId
         ) return (0, false);
 
-        return (uint256(answer) * 10 ** (18 - oracleDecimals), true);
+        uint256 scale = 10 ** (18 - oracleDecimals);
+        uint256 unsignedAnswer = uint256(answer);
+        if (unsignedAnswer > type(uint256).max / scale) return (0, false);
+
+        return (unsignedAnswer * scale, true);
     }
 
     function _sequencerIsHealthy() internal view returns (bool) {
@@ -109,7 +114,7 @@ contract StockTokenPriceFeed is IPriceFeed {
     function _deviationTooLarge(uint256 price) internal view returns (bool) {
         uint256 previous = lastGoodPrice;
         uint256 difference = price > previous ? price - previous : previous - price;
-        return difference * BPS > previous * maxDeviationBps;
+        return difference > Math.mulDiv(previous, maxDeviationBps, BPS);
     }
 
     function _readOracle(AggregatorV3Interface oracle)

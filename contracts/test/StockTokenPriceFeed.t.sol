@@ -31,6 +31,10 @@ contract OracleMock is AggregatorV3Interface {
         shouldRevert = value;
     }
 
+    function setAnsweredInRound(uint80 value) external {
+        answeredInRound = value;
+    }
+
     function latestRoundData() external view returns (uint80, int256, uint256, uint256, uint80) {
         require(!shouldRevert, "oracle unavailable");
         return (roundId, answer, startedAt, updatedAt, answeredInRound);
@@ -64,13 +68,12 @@ contract OracleMock is AggregatorV3Interface {
             stockOracle.setRound(120e8, block.timestamp, block.timestamp);
             sequencerOracle.setRound(0, block.timestamp - GRACE_PERIOD - 1, block.timestamp);
 
-            priceFeed = new StockTokenPriceFeed(
-                address(stockOracle),
-                STALENESS,
-                address(sequencerOracle),
-                GRACE_PERIOD,
-                MAX_DEVIATION_BPS,
-                address(borrowerOperations)
+            priceFeed = _deployPriceFeed(address(sequencerOracle));
+        }
+
+        function _deployPriceFeed(address sequencer) internal returns (StockTokenPriceFeed) {
+            return new StockTokenPriceFeed(
+                address(stockOracle), STALENESS, sequencer, GRACE_PERIOD, MAX_DEVIATION_BPS, address(borrowerOperations)
             );
         }
 
@@ -85,7 +88,7 @@ contract OracleMock is AggregatorV3Interface {
             assertFalse(borrowerOperations.shutDown());
         }
 
-        function testStalePriceShutsDownAndFreezesLastGoodPrice() public {
+        function testStalenessBoundaryShutsDownAndFreezesLastGoodPrice() public {
             vm.warp(block.timestamp + STALENESS);
 
             (uint256 price, bool failed) = priceFeed.fetchPrice();
@@ -114,6 +117,24 @@ contract OracleMock is AggregatorV3Interface {
             assertTrue(borrowerOperations.shutDown());
         }
 
+        function testExactUpwardDeviationBoundaryIsAccepted() public {
+            stockOracle.setRound(144e8, block.timestamp, block.timestamp);
+
+            (uint256 price, bool failed) = priceFeed.fetchPrice();
+
+            assertEq(price, 144e18);
+            assertFalse(failed);
+        }
+
+        function testExactDownwardDeviationBoundaryIsAccepted() public {
+            stockOracle.setRound(96e8, block.timestamp, block.timestamp);
+
+            (uint256 price, bool failed) = priceFeed.fetchPrice();
+
+            assertEq(price, 96e18);
+            assertFalse(failed);
+        }
+
         function testExcessiveSingleUpdateDeviationShutsDown() public {
             stockOracle.setRound(145e8, block.timestamp, block.timestamp);
 
@@ -122,6 +143,77 @@ contract OracleMock is AggregatorV3Interface {
             assertEq(price, 120e18);
             assertTrue(failed);
             assertTrue(borrowerOperations.shutDown());
+        }
+
+        function testZeroAnswerShutsDown() public {
+            stockOracle.setRound(0, block.timestamp, block.timestamp);
+
+            (, bool failed) = priceFeed.fetchPrice();
+
+            assertTrue(failed);
+            assertTrue(borrowerOperations.shutDown());
+        }
+
+        function testNegativeAnswerShutsDown() public {
+            stockOracle.setRound(-1, block.timestamp, block.timestamp);
+
+            (, bool failed) = priceFeed.fetchPrice();
+
+            assertTrue(failed);
+            assertTrue(borrowerOperations.shutDown());
+        }
+
+        function testFutureTimestampShutsDown() public {
+            stockOracle.setRound(120e8, block.timestamp, block.timestamp + 1);
+
+            (, bool failed) = priceFeed.fetchPrice();
+
+            assertTrue(failed);
+            assertTrue(borrowerOperations.shutDown());
+        }
+
+        function testIncompleteRoundShutsDown() public {
+            stockOracle.setRound(120e8, block.timestamp, block.timestamp);
+            stockOracle.setAnsweredInRound(stockOracle.roundId() - 1);
+
+            (, bool failed) = priceFeed.fetchPrice();
+
+            assertTrue(failed);
+            assertTrue(borrowerOperations.shutDown());
+        }
+
+        function testExtremeAnswerShutsDownWithoutReverting() public {
+            stockOracle.setRound(type(int256).max, block.timestamp, block.timestamp);
+
+            (uint256 price, bool failed) = priceFeed.fetchPrice();
+
+            assertEq(price, 120e18);
+            assertTrue(failed);
+            assertTrue(borrowerOperations.shutDown());
+        }
+
+        function testShutdownIsPermanentAfterOracleRecovery() public {
+            stockOracle.setRound(0, block.timestamp, block.timestamp);
+            priceFeed.fetchPrice();
+            stockOracle.setRound(125e8, block.timestamp, block.timestamp);
+
+            (uint256 price, bool failed) = priceFeed.fetchPrice();
+
+            assertEq(price, 120e18);
+            assertFalse(failed);
+            assertEq(priceFeed.lastGoodPrice(), 120e18);
+            assertTrue(priceFeed.usingLastGoodPrice());
+            assertTrue(borrowerOperations.shutDown());
+        }
+
+        function testPriceFeedCanRunWithoutSequencerOracle() public {
+            StockTokenPriceFeed priceFeedWithoutSequencer = _deployPriceFeed(address(0));
+
+            stockOracle.setRound(125e8, block.timestamp, block.timestamp);
+            (uint256 price, bool failed) = priceFeedWithoutSequencer.fetchPrice();
+
+            assertEq(price, 125e18);
+            assertFalse(failed);
         }
 
         function testOracleRevertShutsDown() public {

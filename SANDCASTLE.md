@@ -1,23 +1,23 @@
 # rUSD Stock Token Sandcastle
 
-This branch is a non-production Liquity V2 fork for borrowing `rUSD` against tokenized-equity collateral on Robinhood Chain.
+This branch is a non-production Liquity V2 fork for borrowing `rUSD` against Stock Token collateral on Robinhood Chain.
 
 ## Product boundary
 
 The first version uses ten isolated collateral branches sharing one stablecoin:
 
 | Branch | Initial maximum LTV | Branch debt ceiling |
-| --- | ---: | ---: |
-| AAPL | 57.1% | $15.0m |
-| MSFT | 57.1% | $15.0m |
-| GOOGL | 55.6% | $12.5m |
-| AMZN | 54.1% | $10.0m |
-| META | 52.6% | $10.0m |
-| NVDA | 50.0% | $10.0m |
-| AVGO | 50.0% | $7.5m |
-| LLY | 50.0% | $7.5m |
-| MU | 44.4% | $5.0m |
-| TSLA | 40.0% | $5.0m |
+| ------ | ------------------: | ------------------: |
+| AAPL   |               57.1% |              $15.0m |
+| MSFT   |               57.1% |              $15.0m |
+| GOOGL  |               55.6% |              $12.5m |
+| AMZN   |               54.1% |              $10.0m |
+| META   |               52.6% |              $10.0m |
+| NVDA   |               50.0% |              $10.0m |
+| AVGO   |               50.0% |               $7.5m |
+| LLY    |               50.0% |               $7.5m |
+| MU     |               44.4% |               $5.0m |
+| TSLA   |               40.0% |               $5.0m |
 
 Each position contains one collateral. A portfolio vault containing a basket such as SPY, AAPL, and ETH is not implemented; it requires a separate risk engine and liquidation design.
 
@@ -33,6 +33,8 @@ The code and product are independent and must not be presented as an official Ro
 - Leverage and collateral-to-rUSD swaps are deliberately disabled in the sandcastle. Basic borrow, repay, collateral adjustment, liquidation, Stability Pool, and redemption mechanics remain available.
 
 The ratios and ceilings are placeholders for simulation, not production risk parameters.
+
+The one-hour oracle staleness threshold is also test-only. Stock Token feeds operate 24/5 and may hold their last price without heartbeats during weekends, holidays, thin overnight sessions, and corporate-action pauses. With the current conservative failure model, an ordinary market closure can therefore permanently shut down a branch. Production requires a reviewed market-session and temporary-pause policy; merely increasing the threshold is not a sufficient fix. See the [Robinhood Chain oracle documentation](https://docs.robinhood.com/chain/oracles-and-price-feeds/) and [Chainlink's Robinhood feed guidance](https://docs.chain.link/data-feeds/tokenized-equity-feeds/robinhood).
 
 ## Local deployment
 
@@ -102,9 +104,10 @@ There is intentionally no mainnet deployment script. Production work starts only
 
 1. Liquity production-use licensing or friendly-fork permission is documented.
 2. Canonical token and Chainlink feed addresses are re-read from Robinhood immediately before deployment.
-3. Stock-market closure, gap, halt, corporate-action, sequencer, stablecoin-depeg, and liquidation-liquidity simulations pass.
-4. Parameters, access control, monitoring, and emergency procedures receive independent review.
-5. Contracts receive an external audit and a public testnet soak period.
-6. A new hardware-backed multisig deployer is used. No development key is reused.
+3. A market-session policy defines borrowing, liquidation, redemption, and recovery behavior during overnight sessions, weekends, holidays, halts, and corporate-action pauses.
+4. Stock-market closure, gap, halt, corporate-action, sequencer, stablecoin-depeg, and liquidation-liquidity simulations pass.
+5. Parameters, access control, monitoring, and emergency procedures receive independent review.
+6. Contracts receive an external audit and a public testnet soak period.
+7. A new hardware-backed multisig deployer is used. No development key is reused.
 
 Do not enable production merely because the sandcastle tests pass.

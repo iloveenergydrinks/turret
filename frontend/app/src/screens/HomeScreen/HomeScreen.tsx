@@ -122,7 +122,7 @@ function BorrowTable({
   return (
     <div className={css({ gridArea: "borrow" })}>
       <HomeTable
-        title="Borrow rUSD against tokenized equities"
+        title="Borrow rUSD against Stock Tokens"
         subtitle="You can adjust your loans, including your interest rate, at any time"
         icon={<IconBorrow />}
         columns={columns}
