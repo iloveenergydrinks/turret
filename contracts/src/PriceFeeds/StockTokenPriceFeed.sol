@@ -12,7 +12,8 @@ import {Math} from "openzeppelin-contracts/contracts/utils/math/Math.sol";
 /// @dev Robinhood's Stock Token feed is expected to include the ERC-8056
 /// corporate-action multiplier. This adapter intentionally does not apply it
 /// again. Expected liveness interruptions revert temporarily; malformed data
-/// and excessive unconfirmed price movement permanently shut down the branch.
+/// permanently shuts down the branch. Large price movements require delayed
+/// confirmation by a later oracle round before they can become the live price.
 contract StockTokenPriceFeed is IPriceFeed {
     uint256 internal constant BPS = 10_000;
 
@@ -23,15 +24,24 @@ contract StockTokenPriceFeed is IPriceFeed {
     uint256 public immutable stalenessThreshold;
     uint256 public immutable sequencerGracePeriod;
     uint256 public immutable maxDeviationBps;
+    uint256 public immutable largeChangeConfirmationDelay;
+    uint256 public immutable confirmationDeviationBps;
     uint8 public immutable oracleDecimals;
 
     uint256 public lastGoodPrice;
+    uint256 public pendingPrice;
+    uint256 public pendingSince;
+    uint80 public pendingRoundId;
     bool public usingLastGoodPrice;
 
     error InvalidConfiguration();
     error InvalidInitialPrice();
     error InsufficientGasForExternalCall();
     error OracleTemporarilyUnavailable(address source);
+    error LargePriceChangeUnconfirmed(uint256 price);
+    error PriceChangeDoesNotRequireConfirmation();
+    error InvalidPriceForConfirmation();
+    error BranchAlreadyShutDown();
 
     enum ReadStatus {
         valid,
@@ -40,6 +50,8 @@ contract StockTokenPriceFeed is IPriceFeed {
     }
 
     event LastGoodPriceUpdated(uint256 price);
+    event LargePriceChangeStaged(uint256 price, uint80 roundId, uint256 stagedAt);
+    event LargePriceChangeConfirmed(uint256 price, uint80 roundId);
     event ShutDownFromOracleFailure(address indexed failedOracle);
 
     constructor(
@@ -49,11 +61,15 @@ contract StockTokenPriceFeed is IPriceFeed {
         address _sequencerUptimeFeed,
         uint256 _sequencerGracePeriod,
         uint256 _maxDeviationBps,
+        uint256 _largeChangeConfirmationDelay,
+        uint256 _confirmationDeviationBps,
         address _borrowerOperations
     ) {
         if (
             _stockToken == address(0) || _stockTokenUsdOracle == address(0) || _borrowerOperations == address(0)
                 || _stalenessThreshold == 0 || _maxDeviationBps == 0 || _maxDeviationBps > BPS
+                || _largeChangeConfirmationDelay == 0 || _confirmationDeviationBps == 0
+                || _confirmationDeviationBps > _maxDeviationBps
         ) revert InvalidConfiguration();
         if (_sequencerUptimeFeed != address(0) && _sequencerGracePeriod == 0) revert InvalidConfiguration();
 
@@ -64,13 +80,15 @@ contract StockTokenPriceFeed is IPriceFeed {
         stalenessThreshold = _stalenessThreshold;
         sequencerGracePeriod = _sequencerGracePeriod;
         maxDeviationBps = _maxDeviationBps;
+        largeChangeConfirmationDelay = _largeChangeConfirmationDelay;
+        confirmationDeviationBps = _confirmationDeviationBps;
 
         uint8 decimals = stockTokenUsdOracle.decimals();
         if (decimals > 18) revert InvalidConfiguration();
         oracleDecimals = decimals;
 
         (bool pauseReadSucceeded, bool paused) = _readOraclePause();
-        (uint256 initialPrice, ReadStatus status) = _readStockPrice();
+        (uint256 initialPrice,, ReadStatus status) = _readStockPrice();
         if (!pauseReadSucceeded || paused || status != ReadStatus.valid) revert InvalidInitialPrice();
         lastGoodPrice = initialPrice;
         emit LastGoodPriceUpdated(initialPrice);
@@ -84,14 +102,18 @@ contract StockTokenPriceFeed is IPriceFeed {
         (bool pauseReadSucceeded, bool paused) = _readOraclePause();
         if (!pauseReadSucceeded || paused) revert OracleTemporarilyUnavailable(address(stockToken));
 
-        (uint256 price, ReadStatus status) = _readStockPrice();
+        (uint256 price, uint80 roundId, ReadStatus status) = _readStockPrice();
         if (status == ReadStatus.temporaryUnavailable) {
             revert OracleTemporarilyUnavailable(address(stockTokenUsdOracle));
         }
-        if (status == ReadStatus.invalid || _deviationTooLarge(price)) {
-            return _shutdown(address(stockTokenUsdOracle));
+        if (status == ReadStatus.invalid) return _shutdown(address(stockTokenUsdOracle));
+
+        if (_deviationTooLarge(price)) {
+            if (!_largeChangeIsConfirmed(price, roundId)) revert LargePriceChangeUnconfirmed(price);
+            emit LargePriceChangeConfirmed(price, roundId);
         }
 
+        _clearPendingPrice();
         lastGoodPrice = price;
         emit LastGoodPriceUpdated(price);
         return (price, false);
@@ -101,6 +123,30 @@ contract StockTokenPriceFeed is IPriceFeed {
         return fetchPrice();
     }
 
+    /// @notice Permissionlessly records the first valid round of a large move.
+    /// @dev A later fresh round must remain within confirmationDeviationBps of
+    /// this candidate and the confirmation delay must pass before fetchPrice
+    /// accepts the move. Repeated calls for the same candidate do not reset it.
+    function stageLargePriceChange() external returns (uint256 price, uint80 roundId) {
+        if (usingLastGoodPrice) revert BranchAlreadyShutDown();
+
+        _requireSourcesAvailable();
+        ReadStatus status;
+        (price, roundId, status) = _readStockPrice();
+        if (status == ReadStatus.temporaryUnavailable) {
+            revert OracleTemporarilyUnavailable(address(stockTokenUsdOracle));
+        }
+        if (status == ReadStatus.invalid) revert InvalidPriceForConfirmation();
+        if (!_deviationTooLarge(price)) revert PriceChangeDoesNotRequireConfirmation();
+
+        if (pendingPrice == 0 || _deviationTooLargeFrom(price, pendingPrice, confirmationDeviationBps)) {
+            pendingPrice = price;
+            pendingRoundId = roundId;
+            pendingSince = block.timestamp;
+            emit LargePriceChangeStaged(price, roundId, block.timestamp);
+        }
+    }
+
     function _shutdown(address failedOracle) internal returns (uint256, bool) {
         borrowerOperations.shutdownFromOracleFailure();
         usingLastGoodPrice = true;
@@ -108,20 +154,29 @@ contract StockTokenPriceFeed is IPriceFeed {
         return (lastGoodPrice, true);
     }
 
-    function _readStockPrice() internal view returns (uint256, ReadStatus) {
+    function _readStockPrice() internal view returns (uint256, uint80, ReadStatus) {
         (bool success, uint80 roundId, int256 answer, uint256 updatedAt, uint80 answeredInRound) =
             _readOracle(stockTokenUsdOracle);
-        if (!success) return (0, ReadStatus.temporaryUnavailable);
+        if (!success) return (0, 0, ReadStatus.temporaryUnavailable);
         if (answer <= 0 || updatedAt == 0 || updatedAt > block.timestamp || answeredInRound < roundId) {
-            return (0, ReadStatus.invalid);
+            return (0, roundId, ReadStatus.invalid);
         }
-        if (block.timestamp - updatedAt >= stalenessThreshold) return (0, ReadStatus.temporaryUnavailable);
+        if (block.timestamp - updatedAt >= stalenessThreshold) {
+            return (0, roundId, ReadStatus.temporaryUnavailable);
+        }
 
         uint256 scale = 10 ** (18 - oracleDecimals);
         uint256 unsignedAnswer = uint256(answer);
-        if (unsignedAnswer > type(uint256).max / scale) return (0, ReadStatus.invalid);
+        if (unsignedAnswer > type(uint256).max / scale) return (0, roundId, ReadStatus.invalid);
 
-        return (unsignedAnswer * scale, ReadStatus.valid);
+        return (unsignedAnswer * scale, roundId, ReadStatus.valid);
+    }
+
+    function _requireSourcesAvailable() internal view {
+        if (!_sequencerIsHealthy()) revert OracleTemporarilyUnavailable(address(sequencerUptimeFeed));
+
+        (bool pauseReadSucceeded, bool paused) = _readOraclePause();
+        if (!pauseReadSucceeded || paused) revert OracleTemporarilyUnavailable(address(stockToken));
     }
 
     function _readOraclePause() internal view returns (bool success, bool paused) {
@@ -143,9 +198,29 @@ contract StockTokenPriceFeed is IPriceFeed {
     }
 
     function _deviationTooLarge(uint256 price) internal view returns (bool) {
-        uint256 previous = lastGoodPrice;
-        uint256 difference = price > previous ? price - previous : previous - price;
-        return difference > Math.mulDiv(previous, maxDeviationBps, BPS);
+        return _deviationTooLargeFrom(price, lastGoodPrice, maxDeviationBps);
+    }
+
+    function _deviationTooLargeFrom(uint256 price, uint256 referencePrice, uint256 deviationBps)
+        internal
+        pure
+        returns (bool)
+    {
+        uint256 difference = price > referencePrice ? price - referencePrice : referencePrice - price;
+        return difference > Math.mulDiv(referencePrice, deviationBps, BPS);
+    }
+
+    function _largeChangeIsConfirmed(uint256 price, uint80 roundId) internal view returns (bool) {
+        return pendingPrice != 0 && roundId > pendingRoundId
+            && block.timestamp >= pendingSince + largeChangeConfirmationDelay
+            && !_deviationTooLargeFrom(price, pendingPrice, confirmationDeviationBps);
+    }
+
+    function _clearPendingPrice() internal {
+        if (pendingPrice == 0) return;
+        delete pendingPrice;
+        delete pendingSince;
+        delete pendingRoundId;
     }
 
     function _readOracle(AggregatorV3Interface oracle)

@@ -71,6 +71,8 @@ contract OracleMock is AggregatorV3Interface {
         uint256 internal constant STALENESS = 1 hours;
         uint256 internal constant GRACE_PERIOD = 1 hours;
         uint256 internal constant MAX_DEVIATION_BPS = 2_000;
+        uint256 internal constant CONFIRMATION_DELAY = 30 minutes;
+        uint256 internal constant CONFIRMATION_DEVIATION_BPS = 500;
 
         OracleMock internal stockOracle;
         OracleMock internal sequencerOracle;
@@ -99,6 +101,8 @@ contract OracleMock is AggregatorV3Interface {
                 sequencer,
                 GRACE_PERIOD,
                 MAX_DEVIATION_BPS,
+                CONFIRMATION_DELAY,
+                CONFIRMATION_DEVIATION_BPS,
                 address(borrowerOperations)
             );
         }
@@ -235,14 +239,104 @@ contract OracleMock is AggregatorV3Interface {
             assertFalse(failed);
         }
 
-        function testExcessiveSingleUpdateDeviationShutsDown() public {
+        function testUnconfirmedLargePriceChangeTemporarilyFreezes() public {
             stockOracle.setRound(145e8, block.timestamp, block.timestamp);
 
+            vm.expectRevert(abi.encodeWithSelector(StockTokenPriceFeed.LargePriceChangeUnconfirmed.selector, 145e18));
+            priceFeed.fetchPrice();
+
+            assertEq(priceFeed.lastGoodPrice(), 120e18);
+            assertFalse(borrowerOperations.shutDown());
+            assertFalse(priceFeed.usingLastGoodPrice());
+        }
+
+        function testLargePriceChangeRequiresLaterRoundAndDelay() public {
+            stockOracle.setRound(84e8, block.timestamp, block.timestamp);
+            priceFeed.stageLargePriceChange();
+
+            vm.warp(block.timestamp + CONFIRMATION_DELAY);
+            vm.expectRevert(abi.encodeWithSelector(StockTokenPriceFeed.LargePriceChangeUnconfirmed.selector, 84e18));
+            priceFeed.fetchPrice();
+
+            stockOracle.setRound(85e8, block.timestamp, block.timestamp);
             (uint256 price, bool failed) = priceFeed.fetchPrice();
 
-            assertEq(price, 120e18);
-            assertTrue(failed);
-            assertTrue(borrowerOperations.shutDown());
+            assertEq(price, 85e18);
+            assertFalse(failed);
+            assertEq(priceFeed.lastGoodPrice(), 85e18);
+            assertEq(priceFeed.pendingPrice(), 0);
+        }
+
+        function testLaterRoundCannotConfirmBeforeDelay() public {
+            stockOracle.setRound(84e8, block.timestamp, block.timestamp);
+            priceFeed.stageLargePriceChange();
+            stockOracle.setRound(85e8, block.timestamp, block.timestamp);
+            vm.warp(block.timestamp + CONFIRMATION_DELAY - 1);
+
+            vm.expectRevert(abi.encodeWithSelector(StockTokenPriceFeed.LargePriceChangeUnconfirmed.selector, 85e18));
+            priceFeed.fetchPrice();
+        }
+
+        function testMaterialCandidateDriftRestartsConfirmation() public {
+            stockOracle.setRound(84e8, block.timestamp, block.timestamp);
+            priceFeed.stageLargePriceChange();
+            uint256 firstStagedAt = priceFeed.pendingSince();
+
+            vm.warp(block.timestamp + 10 minutes);
+            stockOracle.setRound(70e8, block.timestamp, block.timestamp);
+            priceFeed.stageLargePriceChange();
+
+            assertEq(priceFeed.pendingPrice(), 70e18);
+            assertGt(priceFeed.pendingSince(), firstStagedAt);
+            assertEq(priceFeed.pendingRoundId(), stockOracle.roundId());
+        }
+
+        function testRepeatedStagingDoesNotResetSameCandidate() public {
+            stockOracle.setRound(84e8, block.timestamp, block.timestamp);
+            priceFeed.stageLargePriceChange();
+            uint256 firstStagedAt = priceFeed.pendingSince();
+
+            vm.warp(block.timestamp + 10 minutes);
+            priceFeed.stageLargePriceChange();
+
+            assertEq(priceFeed.pendingSince(), firstStagedAt);
+        }
+
+        function testNormalPriceClearsPendingCandidate() public {
+            stockOracle.setRound(84e8, block.timestamp, block.timestamp);
+            priceFeed.stageLargePriceChange();
+            stockOracle.setRound(119e8, block.timestamp, block.timestamp);
+
+            (uint256 price,) = priceFeed.fetchPrice();
+
+            assertEq(price, 119e18);
+            assertEq(priceFeed.pendingPrice(), 0);
+            assertEq(priceFeed.pendingSince(), 0);
+            assertEq(priceFeed.pendingRoundId(), 0);
+        }
+
+        function testCannotStagePriceInsideNormalDeviationBand() public {
+            stockOracle.setRound(125e8, block.timestamp, block.timestamp);
+
+            vm.expectRevert(StockTokenPriceFeed.PriceChangeDoesNotRequireConfirmation.selector);
+            priceFeed.stageLargePriceChange();
+        }
+
+        function testCannotStageMalformedPrice() public {
+            stockOracle.setRound(0, block.timestamp, block.timestamp);
+
+            vm.expectRevert(StockTokenPriceFeed.InvalidPriceForConfirmation.selector);
+            priceFeed.stageLargePriceChange();
+
+            assertFalse(borrowerOperations.shutDown());
+        }
+
+        function testCannotStageAfterPermanentShutdown() public {
+            stockOracle.setRound(0, block.timestamp, block.timestamp);
+            priceFeed.fetchPrice();
+
+            vm.expectRevert(StockTokenPriceFeed.BranchAlreadyShutDown.selector);
+            priceFeed.stageLargePriceChange();
         }
 
         function testZeroAnswerShutsDown() public {

@@ -132,6 +132,8 @@ contract SandcastleOracle is AggregatorV3Interface {
         uint256 internal constant LIQUIDATION_PENALTY_REDISTRIBUTION = 10e16;
         uint256 internal constant ORACLE_STALENESS = 1 hours;
         uint256 internal constant SEQUENCER_GRACE_PERIOD = 1 hours;
+        uint256 internal constant LARGE_CHANGE_CONFIRMATION_DELAY = 30 minutes;
+        uint256 internal constant CONFIRMATION_DEVIATION_BPS = 500;
 
         struct BranchAddresses {
             address borrowerOperations;
@@ -269,6 +271,8 @@ contract SandcastleOracle is AggregatorV3Interface {
                 address(d.sequencerFeed),
                 SEQUENCER_GRACE_PERIOD,
                 d.configs[i].maxOracleDeviationBps,
+                LARGE_CHANGE_CONFIRMATION_DELAY,
+                CONFIRMATION_DEVIATION_BPS,
                 predicted.borrowerOperations
             );
 

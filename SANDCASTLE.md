@@ -27,7 +27,8 @@ The code and product are independent and must not be presented as an official Ro
 
 - Every branch has a hard debt ceiling enforced on opening and debt increases.
 - The Stock Token/USD adapter checks the token's corporate-action pause flag, positive answers, timestamp freshness, round completeness, sequencer health, and maximum single-update deviation.
-- Expected liveness interruptions (corporate-action pause, stale market feed, sequencer outage, or transient oracle-call failure) temporarily reject price-dependent actions and recover automatically. Malformed data or an excessive unconfirmed update permanently shuts down only the affected branch and freezes its last good price for urgent redemptions.
+- Expected liveness interruptions (corporate-action pause, stale market feed, sequencer outage, or transient oracle-call failure) temporarily reject price-dependent actions and recover automatically. Malformed data permanently shuts down only the affected branch and freezes its last good price for urgent redemptions.
+- A price move above the branch deviation cutoff temporarily freezes the branch. Anyone can stage the candidate; after 30 minutes, a later fresh oracle round must corroborate it within 5% before it becomes the new live price. Same-round or materially drifting candidates cannot bypass or preserve the timer. These test-only values still require historical simulation and independent review.
 - Robinhood's onchain feeds already include the ERC-8056 corporate-action multiplier; the adapter does not apply it again.
 - The sandcastle deployer uses faucet collateral tokens and operator-updatable mock feeds. It accepts only Anvil (`31337`) and Robinhood Chain testnet (`46630`), so it cannot deploy to mainnet.
 - Leverage and collateral-to-rUSD swaps are deliberately disabled in the sandcastle. Basic borrow, repay, collateral adjustment, liquidation, Stability Pool, and redemption mechanics remain available.
@@ -53,7 +54,7 @@ The one-hour oracle staleness threshold is test-only. Stock Token feeds operate 
 | MU     |      44.44% |                       51.11% |                  25.00% |
 | TSLA   |      40.00% |                       56.00% |                  25.00% |
 
-The model exposes a deliberate unresolved conflict: all ten branches still cover the 10% redistribution penalty after a 30% gap, but a single 30% oracle update exceeds every configured deviation cutoff and currently causes permanent shutdown before normal liquidation can use the new price. A production design needs an independently validated secondary price or an explicitly reviewed gap-handling mechanism; the cutoff must not simply be removed.
+The model exposes a deliberate risk tradeoff: all ten branches still cover the 10% redistribution penalty after a 30% gap, but a single 30% oracle update exceeds every configured deviation cutoff. The delayed two-round confirmation path prevents permanent shutdown while blocking normal liquidation until the move is corroborated. Production still needs historical testing and an independent price path such as Chainlink Data Streams; two rounds from one feed are not independent confirmation.
 
 ## Local deployment
 
