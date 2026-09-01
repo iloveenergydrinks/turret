@@ -7,7 +7,7 @@
   "bugs": "https://github.com/liquity/bold/issues",
   "homepage": "https://github.com/liquity/bold#readme",
   "scripts": {
-    "build": "NEXT_PUBLIC_MVP_READ_ONLY=true MVP_READ_ONLY=true pnpm --dir frontend/app build:mvp",
+    "build": "NEXT_PUBLIC_MVP_READ_ONLY=true MVP_READ_ONLY=true NEXT_PUBLIC_SUBGRAPH_URL=https://preview.invalid NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=preview pnpm --dir frontend/app build:mvp",
     "start": "MVP_READ_ONLY=true node frontend/app/scripts/serve-mvp.mjs"
   },
   "devDependencies": {
