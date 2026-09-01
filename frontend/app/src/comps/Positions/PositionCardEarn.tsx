@@ -53,7 +53,7 @@ export function PositionCardEarn({
               fallback="−"
               format={2}
             />
-            <TokenIcon size="medium" symbol="BOLD" />
+            <TokenIcon size="medium" symbol="BOLD" title="rUSD" />
           </HFlex>
         ),
         label: token && (

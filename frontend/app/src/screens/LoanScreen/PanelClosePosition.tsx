@@ -87,10 +87,10 @@ export function PanelClosePosition({
     } else {
       if (boldBalance.data && dn.lt(boldBalance.data, loan.borrowed)) {
         return {
-          name: "Insufficient BOLD balance",
+          name: "Insufficient rUSD balance",
           message: `The balance held by the account (${
             fmtnum(boldBalance.data)
-          } BOLD) is insufficient to repay the loan.`,
+          } rUSD) is insufficient to repay the loan.`,
         };
       }
     }
@@ -142,7 +142,7 @@ export function PanelClosePosition({
                   items={[
                     {
                       icon: <TokenIcon symbol="BOLD" />,
-                      label: <div className={css({ whiteSpace: "nowrap" })}>BOLD (account)</div>,
+                      label: <div className={css({ whiteSpace: "nowrap" })}>rUSD (account)</div>,
                       value: fmtnum(boldBalance.data),
                     },
                     {
@@ -162,7 +162,7 @@ export function PanelClosePosition({
               end: repayWithCollateral && (
                 <Field.FooterInfoPriceImpact
                   inputTokenName={collateral.name}
-                  outputTokenName="BOLD"
+                  outputTokenName="rUSD"
                   priceImpact={collToRepay.data?.priceImpact}
                 />
               ),

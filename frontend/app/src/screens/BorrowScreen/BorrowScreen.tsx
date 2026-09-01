@@ -271,7 +271,7 @@ export function BorrowScreen() {
                 })}
               >
                 <TokenIcon symbol="BOLD" />
-                {NBSP}BOLD
+                {NBSP}rUSD
               </div>,
             )}
           </div>
@@ -360,14 +360,14 @@ export function BorrowScreen() {
             contextual={
               <InputField.Badge
                 icon={<TokenIcon symbol="BOLD" />}
-                label="BOLD"
+                label="rUSD"
               />
             }
             drawer={debt.isFocused ? null : (
               isBelowMinDebt
                 ? {
                   mode: "error",
-                  message: `You must borrow at least ${fmtnum(MIN_DEBT, 2)} BOLD.`,
+                  message: `You must borrow at least ${fmtnum(MIN_DEBT, 2)} rUSD.`,
                 }
                 : isAboveMaxLtv
                 ? {
@@ -422,9 +422,9 @@ export function BorrowScreen() {
                     key="end"
                     fallback="…"
                     value={upfrontFee.data}
-                    suffix=" BOLD creation fee"
+                    suffix=" rUSD creation fee"
                   />
-                  <InfoTooltip heading="BOLD creation fee">
+                  <InfoTooltip heading="rUSD creation fee">
                     This fee is charged when you open a new loan or increase your debt. It corresponds to 7 days of
                     average interest for the respective collateral asset.
                   </InfoTooltip>

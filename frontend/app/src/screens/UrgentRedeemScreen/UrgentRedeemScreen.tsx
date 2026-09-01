@@ -200,7 +200,7 @@ export function UrgentRedeemScreen() {
                   contextual={
                     <InputField.Badge
                       icon={<TokenIcon symbol="BOLD" />}
-                      label="BOLD"
+                      label="rUSD"
                     />
                   }
                   drawer={boldAmount.isFocused || !account.isConnected
@@ -222,7 +222,7 @@ export function UrgentRedeemScreen() {
                     end: (
                       boldBalance.data && dn.gt(boldBalance.data, 0) && (
                         <TextButton
-                          label={`Max ${fmtnum(boldBalance.data)} BOLD`}
+                          label={`Max ${fmtnum(boldBalance.data)} rUSD`}
                           onClick={() => {
                             if (boldBalance.data) {
                               boldAmount.setValue(dn.toString(boldBalance.data));

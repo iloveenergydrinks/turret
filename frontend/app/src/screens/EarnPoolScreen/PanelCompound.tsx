@@ -133,7 +133,7 @@ export function PanelCompound({
               "Back to earn position",
             ],
             successLink: ["/", "Go to the Dashboard"],
-            successMessage: "The BOLD rewards have been successfully compounded.",
+            successMessage: "The rUSD rewards were added to your deposit.",
             earnPosition: position,
             compound: true,
           }}

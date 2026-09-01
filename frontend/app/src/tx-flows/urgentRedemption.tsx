@@ -2,13 +2,13 @@ import type { FlowDeclaration } from "@/src/services/TransactionFlow";
 import type { BranchId } from "@/src/types";
 
 import { Amount } from "@/src/comps/Amount/Amount";
-import { getBranchContract, getProtocolContract } from "@/src/contracts";
 import content from "@/src/content";
+import { getBranchContract, getProtocolContract } from "@/src/contracts";
 import { dnum18 } from "@/src/dnum-utils";
-import { URGENT_REDEMPTION_BONUS_PCT } from "@/src/urgent-redemption-utils";
 import { getBranch, getCollToken } from "@/src/liquity-utils";
 import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionStatus";
 import { usePrice } from "@/src/services/Prices";
+import { URGENT_REDEMPTION_BONUS_PCT } from "@/src/urgent-redemption-utils";
 import { vDnum } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
 import { HFlex, InfoTooltip, TokenIcon, VFlex } from "@liquity2/uikit";
@@ -60,7 +60,7 @@ export const urgentRedemption: FlowDeclaration<UrgentRedemptionRequest> = {
           </HFlex>
           <VFlex gap={4} alignItems="flex-end">
             <HFlex gap={6} className={css({ fontSize: 18 })}>
-              <Amount format="2z" value={boldAmount} fallback="−" title={{ suffix: " BOLD" }} />
+              <Amount format="2z" value={boldAmount} fallback="−" title={{ suffix: " rUSD" }} />
               <TokenIcon symbol="BOLD" size={20} />
             </HFlex>
           </VFlex>
@@ -88,7 +88,9 @@ export const urgentRedemption: FlowDeclaration<UrgentRedemptionRequest> = {
 
         <HFlex justifyContent="space-between" alignItems="start">
           <HFlex gap={4}>
-            <div className={css({ color: "contentAlt" })}>{content.urgentRedeemScreen.bonusLabel(URGENT_REDEMPTION_BONUS_PCT)}</div>
+            <div className={css({ color: "contentAlt" })}>
+              {content.urgentRedeemScreen.bonusLabel(URGENT_REDEMPTION_BONUS_PCT)}
+            </div>
           </HFlex>
           <VFlex gap={4} alignItems="flex-end">
             <HFlex gap={6} className={css({ fontSize: 18, color: "contentAlt" })}>

@@ -6,13 +6,12 @@ import { css } from "@/styled-system/css";
 
 export default {
   // Used in the top bar and other places
-  appName: "Liquity V2",
+  appName: "rUSD",
   appDescription: `
-    Liquity V2 is a new borrowing protocol that lets users
-    deposit ETH or LSTs as collateral and mint the stablecoin BOLD.
+    Borrow rUSD against tokenized equities without selling your market exposure.
   `,
   appUrl: typeof window === "undefined"
-    ? "https://www.liquity.org/"
+    ? "https://github.com/iloveenergydrinks/liquityv3"
     : window.location.origin,
   appIcon: (
     typeof window === "undefined" ? "" : window.location.origin
@@ -44,21 +43,21 @@ export default {
     loanRedemptionRisk: [
       "Redemption risk",
       <>
-        Users paying the lowest interest rate can get redeemed, if the price of BOLD falls below $1. By raising your
+        Users paying the lowest interest rate can get redeemed if the price of rUSD falls below $1. By raising your
         interest rate, you reduce this risk.
       </>,
     ],
     loanLtv: [
       "Loan-to-value ratio",
       <>
-        The ratio between the amount of BOLD borrowed and the deposited collateral (in USD).
+        The ratio between the amount of rUSD borrowed and the deposited collateral (in USD).
       </>,
     ],
     loanMaxLtv: [
       "Maximum Loan-To-Value (LTV) Ratio",
       <>
-        The maximum ratio between the USD value of a loan (in BOLD) and the collateral backing it. The LTV will
-        fluctuate as the price of the collateral changes. To decrease the LTV add more colateral or reduce debt.
+        The maximum ratio between the USD value of a loan (in rUSD) and the collateral backing it. The LTV will
+        fluctuate as the price of the collateral changes. To decrease the LTV, add more collateral or reduce debt.
       </>,
     ],
     loanLiquidationPrice: [
@@ -66,16 +65,15 @@ export default {
       <>The collateral price at which a loan can be liquidated.</>,
     ],
     ethPrice: [
-      "ETH Price",
+      "Collateral price",
       <>
-        The current price of ETH, as reported by the oracle. The ETH price is used to calculate the Loan-To-Value (LTV)
-        ratio of a loan.
+        The current collateral price reported by the oracle. It is used to calculate the loan-to-value ratio.
       </>,
     ],
     interestRateBoldPerYear: [
       "Interest rate",
       <>
-        The annualized interest amount in BOLD for the selected interest rate. The accumulated interest is added to the
+        The annualized interest amount in rUSD for the selected interest rate. The accumulated interest is added to the
         loan.
       </>,
     ],
@@ -90,8 +88,8 @@ export default {
       heading: "Your collateral and debt are reduced by the same value.",
       body: (
         <>
-          When BOLD trades for under $1, anyone can redeem positions to get BOLD back at $1. Positions with the lowest
-          interest rate get redeemed first.
+          When rUSD trades below $1, holders can redeem rUSD for collateral worth $1. Positions with the lowest interest
+          rate get redeemed first.
         </>
       ),
       footerLink: {
@@ -106,14 +104,14 @@ export default {
     title: "Redemptions in a nutshell",
     subtitle: (
       <>
-        Redemptions help maintain BOLD’s peg in a decentralized way. If a user is redeemed, their collateral and debt
-        are reduced equally, resulting in no net loss.
+        Redemptions help maintain the rUSD peg. If a position is redeemed, its collateral and debt are reduced equally,
+        resulting in no net loss.
       </>
     ),
     infoItems: [
       {
         icon: "bold",
-        text: "Redemptions occur when BOLD drops below $1.",
+        text: "Redemptions occur when rUSD trades below $1.",
       },
       {
         icon: "redemption",
@@ -182,15 +180,15 @@ export default {
     actions: {
       borrow: {
         title: "Borrow",
-        description: "Mint BOLD against your collateral at whatever interest rate you want",
+        description: "Borrow rUSD against tokenized equities at your chosen interest rate",
       },
       multiply: {
         title: "Multiply",
         description: "Increase your exposure to ETH and its staking yield with a single click",
       },
       earn: {
-        title: "Earn with BOLD",
-        description: "Deposit BOLD to earn protocol revenues and liquidation proceeds",
+        title: "Earn with rUSD",
+        description: "Deposit rUSD to earn protocol revenue and liquidation proceeds",
       },
       stake: {
         title: "Stake LQTY",
@@ -211,12 +209,13 @@ export default {
       detailCompact: " Borrow at the ",
       learnMore: {
         text: "Learn more",
-        href: "https://docs.liquity.org/v2-faq/redemptions-and-delegation#docs-internal-guid-441d8c3f-7fff-4efa-6319-4ba00d908597-2",
+        href:
+          "https://docs.liquity.org/v2-faq/redemptions-and-delegation#docs-internal-guid-441d8c3f-7fff-4efa-6319-4ba00d908597-2",
       },
     },
     earnTable: {
-      title: "Earn rewards with BOLD",
-      subtitle: "Earn BOLD & (staked) ETH rewards by depositing your BOLD in a stability pool",
+      title: "Earn rewards with rUSD",
+      subtitle: "Deposit rUSD in a Stability Pool to earn rUSD and Stock Token rewards",
     },
     yieldTable: {
       title: "Top 3 external yield opportunities",
@@ -239,7 +238,7 @@ export default {
       ],
       spTvl: [
         "Total Value Locked",
-        "The total amount of BOLD deposited in each stability pool.",
+        "The total amount of rUSD deposited in each Stability Pool.",
       ],
       borrowTvl: [
         "Total Value Locked",
@@ -267,7 +266,7 @@ export default {
     action: "Next: Summary",
     infoTooltips: {
       interestRateSuggestions: [
-        "Positions with lower interest rates are the first to be redeemed by BOLD holders.",
+        "Positions with lower interest rates are redeemed first by rUSD holders.",
       ],
     },
   },
@@ -299,7 +298,7 @@ export default {
       ],
       interestRateSuggestions: [
         <>
-          Positions with lower interest rates are the first to be redeemed by BOLD holders.
+          Positions with lower interest rates are redeemed first by rUSD holders.
         </>,
       ],
       exposure: [
@@ -316,14 +315,14 @@ export default {
     headline: (rewards: N, bold: N) => (
       <>
         Deposit
-        <NoWrap>{bold} BOLD</NoWrap>
+        <NoWrap>{bold} rUSD</NoWrap>
         to earn <NoWrap>rewards {rewards}</NoWrap>
       </>
     ),
     subheading: (
       <>
-        A BOLD deposit in a stability pool earns rewards from the fees that users pay on their loans. Also, the BOLD may
-        be swapped to collateral in case the system needs to liquidate positions.
+        An rUSD deposit earns a share of borrower interest. During liquidations, the Stability Pool uses deposited rUSD
+        to cancel debt and distributes the liquidated Stock Token collateral to depositors.
       </>
     ),
     learnMore: ["https://docs.liquity.org/v2-faq/bold-and-earn", "Learn more"],
@@ -334,7 +333,7 @@ export default {
     },
     infoTooltips: {
       tvl: (collateral: N) => [
-        <>Total BOLD covering {collateral}-backed position liquidations</>,
+        <>Total rUSD available for {collateral}-backed position liquidations</>,
       ],
     },
   },
@@ -374,34 +373,34 @@ export default {
       action: "Next: Summary",
     },
     rewardsPanel: {
-      boldRewardsLabel: "Your BOLD rewards will be paid out",
+      boldRewardsLabel: "Your rUSD rewards will be paid out",
       collRewardsLabel: (collateral: N) => <>Your {collateral} rewards will be paid out</>,
       expectedGasFeeLabel: "Expected gas fee",
       action: "Next: Summary",
     },
     compoundPanel: {
-      boldRewardsLabel: "Your BOLD rewards will be used to top-up your deposit",
+      boldRewardsLabel: "Your rUSD rewards will be added to your deposit",
       collRewardsLabel: (collateral: N) => <>Your {collateral} rewards will remain in your deposit</>,
       expectedGasFeeLabel: "Expected gas fee",
       action: "Next: Summary",
     },
     infoTooltips: {
       tvl: (collateral: N) => [
-        <>Total BOLD covering {collateral}-backed position liquidations.</>,
+        <>Total rUSD available for {collateral}-backed position liquidations.</>,
       ],
       depositPoolShare: [
-        "Percentage of your BOLD deposit compared to the total deposited in this stability pool.",
+        "Your rUSD deposit as a percentage of the Stability Pool.",
       ],
       alsoClaimRewardsDeposit: (collateral: N) => [
         <>
-          If checked, rewards will be paid out as part of the deposit transaction. Otherwise, BOLD rewards will be
+          If checked, rewards will be paid out as part of the deposit transaction. Otherwise, rUSD rewards will be
           compounded and {collateral} rewards will remain claimable.
         </>,
       ],
       alsoClaimRewardsWithdraw: (collateral: N) => [
         <>
           <div>
-            If checked, rewards will be paid out as part of the withdrawal transaction. Otherwise, BOLD rewards will be
+            If checked, rewards will be paid out as part of the withdrawal transaction. Otherwise, rUSD rewards will be
             compounded and {collateral} rewards will remain claimable.
           </div>
           <div className={css({ color: "content" })}>
@@ -410,14 +409,14 @@ export default {
         </>,
       ],
       currentApr: [
-        "Average annualized return for BOLD deposits over the past 7 days.",
+        "Average annualized return for rUSD deposits over the past 7 days.",
       ],
       rewardsEth: [
         "ETH rewards",
         "Your proceeds from liquidations conducted by this stability pool.",
       ],
       rewardsBold: [
-        "BOLD rewards",
+        "rUSD rewards",
         "Your earnings from protocol revenue distributions to this stability pool.",
       ],
     },
@@ -475,8 +474,8 @@ export default {
       title: "Allocate your voting power",
       intro: (
         <>
-          Vote on initiatives and direct incentives from Liquity V2 protocol revenues towards liquidity venues for BOLD.
-          Upvote from Thursday to Tuesday. Downvote all week. Get and claim bribes for some of them.
+          Vote on initiatives and direct incentives from protocol revenue toward rUSD liquidity venues. Upvote from
+          Thursday to Tuesday. Downvote all week. Get and claim bribes for some of them.
         </>
       ),
       resources: {
@@ -622,8 +621,8 @@ export default {
     headingTitleActive: "Shutdown Redemption",
     selectBranchLabel: "Select branch",
     redeemFieldLabel: "You redeem",
-    insufficientBalance: (balance: string) => `Insufficient BOLD balance. You have ${balance} BOLD.`,
-    amountCapped: (amount: string) => `Capped to ${amount} BOLD (max amount redeemable).`,
+    insufficientBalance: (balance: string) => `Insufficient rUSD balance. You have ${balance} rUSD.`,
+    amountCapped: (amount: string) => `Capped to ${amount} rUSD (maximum redeemable amount).`,
     youReceive: "You receive",
     bonusLabel: (bonusPct: string) => `Including ${bonusPct} bonus`,
     bonusTooltip: (bonusPct: string) => `Shutdown redemptions include a ${bonusPct} bonus on the collateral received.`,
@@ -654,7 +653,7 @@ export default {
     troveTable: {
       trovesSelected: (count: number) => `${count} ${count === 1 ? "trove" : "troves"} selected`,
       totalDebt: "Total debt:",
-      totalDebtUnit: "BOLD",
+      totalDebtUnit: "rUSD",
       totalColl: "Total coll:",
       deselectAll: "Clear all",
       selectAllOnPage: "Select all on page",
@@ -670,7 +669,7 @@ export default {
     },
     txFlow: {
       title: "Review & Send Transaction",
-      youRedeemBold: "You redeem BOLD",
+      youRedeemBold: "You redeem rUSD",
       redeemTooltip: (bonusPct: string) =>
         `Shutdown redemptions have 0% fee and include a ${bonusPct} collateral bonus.`,
       youReceiveToken: (tokenName: string) => `You receive ${tokenName}`,
@@ -691,7 +690,7 @@ export default {
           of the expected amount, the transaction will revert.
         </>
       ),
-      approveStep: "Approve BOLD",
+      approveStep: "Approve rUSD",
       redeemStep: "Execute Shutdown Redemption",
     },
   },

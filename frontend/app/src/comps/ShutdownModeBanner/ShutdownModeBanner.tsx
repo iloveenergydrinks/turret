@@ -17,8 +17,8 @@ export function ShutdownModeBanner() {
       icon={<IconWarning size={16} />}
       messageDesktop={
         <>
-          The {branchNames} branch{branchesInShutdown.length > 1 ? "es are" : " is"} in Shutdown Mode.
-          You can only close positions or redeem BOLD.
+          The {branchNames} branch{branchesInShutdown.length > 1 ? "es are" : " is"}{" "}
+          in Shutdown Mode. You can only close positions or redeem rUSD.
         </>
       }
       linkLabel="Learn more"

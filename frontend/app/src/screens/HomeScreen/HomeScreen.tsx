@@ -122,11 +122,13 @@ function BorrowTable({
   return (
     <div className={css({ gridArea: "borrow" })}>
       <HomeTable
-        title="Borrow BOLD against ETH and staked ETH"
+        title="Borrow rUSD against tokenized equities"
         subtitle="You can adjust your loans, including your interest rate, at any time"
         icon={<IconBorrow />}
         columns={columns}
-        banner={shieldedBranches.length > 0 && <RedemptionShieldedBanner compact={compact} shieldedBranches={shieldedBranches} />}
+        banner={shieldedBranches.length > 0 && (
+          <RedemptionShieldedBanner compact={compact} shieldedBranches={shieldedBranches} />
+        )}
         rows={getBranches().map(({ symbol }) => {
           const branch = redemptionShielded.data?.find((b) => b.symbol === symbol);
           return (
@@ -393,7 +395,7 @@ function BorrowingRow({
                   <TokenIcon symbol="BOLD" size="mini" />
                 </div>
               }
-              title={`Borrow BOLD from ${symbol}`}
+              title={`Borrow rUSD against ${symbol}`}
             />
           </div>
         </td>
@@ -528,7 +530,7 @@ function EarnRewardsRow({
                 </TokenIcon.Group>
               </div>
             }
-            title={`Earn BOLD with ${token?.name}`}
+            title={`Earn rUSD with ${token?.name}`}
           />
         </td>
       )}

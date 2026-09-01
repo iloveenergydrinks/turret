@@ -8,6 +8,7 @@ import content from "@/src/content";
 import { DNUM_0, jsonStringifyWithDnum } from "@/src/dnum-utils";
 import { useInputFieldValue } from "@/src/form-utils";
 import { fmtnum } from "@/src/formatting";
+import { useSubgraphIsDown } from "@/src/indicators/subgraph-indicator";
 import { useDelegateDisplayName } from "@/src/liquity-delegate";
 import { getRedemptionRisk } from "@/src/liquity-math";
 import {
@@ -18,7 +19,6 @@ import {
   useDebtInFrontOfLoan,
   useInterestRateChartData,
 } from "@/src/liquity-utils";
-import { useSubgraphIsDown } from "@/src/indicators/subgraph-indicator";
 import { infoTooltipProps } from "@/src/uikit-utils";
 import { noop } from "@/src/utils";
 import { css } from "@/styled-system/css";
@@ -319,7 +319,7 @@ export const InterestRateField = memo(
                 >
                   {boldInterestPerYear && (mode === "manual" || delegate !== null)
                     ? fmtnum(boldInterestPerYear, breakpoint === "small" ? "compact" : "2z")
-                    : "−"} BOLD / year
+                    : "−"} rUSD / year
                 </div>
                 <InfoTooltip {...infoTooltipProps(content.generalInfotooltips.interestRateBoldPerYear)} />
               </div>
@@ -331,7 +331,7 @@ export const InterestRateField = memo(
                     (mode === "manual" || delegate !== null)
                       ? fmtnum(debtInFront?.debtInFront, "compact")
                       : "−"
-                  } BOLD`}
+                  } rUSD`}
                   className={css({
                     overflow: "hidden",
                     whiteSpace: "nowrap",
@@ -351,7 +351,7 @@ export const InterestRateField = memo(
                         ? fmtnum(debtInFront?.debtInFront, "compact")
                         : "−"}
                     </span>
-                    {breakpoint === "large" && <span>{" BOLD"}</span>}
+                    {breakpoint === "large" && <span>{" rUSD"}</span>}
                   </span>
                 </a.div>
               )

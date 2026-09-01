@@ -1,11 +1,11 @@
-import { css } from "@/styled-system/css";
-import { fmtnum } from "@/src/formatting";
-import * as dn from "dnum";
-import { TokenIcon } from "@liquity2/uikit";
 import { CrossedText } from "@/src/comps/CrossedText";
+import { fmtnum } from "@/src/formatting";
+import { css } from "@/styled-system/css";
+import { TokenIcon } from "@liquity2/uikit";
+import * as dn from "dnum";
 
-import type { FC } from "react";
 import type { PositionLoan } from "@/src/types";
+import type { FC } from "react";
 
 interface TotalDebtProps {
   positive?: boolean;
@@ -31,7 +31,7 @@ export const TotalDebt: FC<TotalDebtProps> = ({ positive, loan, prevLoan }) => (
       })}
     >
       <div
-        title={`${fmtnum(loan.borrowed, "full")} BOLD`}
+        title={`${fmtnum(loan.borrowed, "full")} rUSD`}
         className={css({
           display: "flex",
           alignItems: "center",
@@ -47,7 +47,7 @@ export const TotalDebt: FC<TotalDebtProps> = ({ positive, loan, prevLoan }) => (
         </div>
         <TokenIcon symbol="BOLD" size={32} />
         {prevLoan && !dn.eq(prevLoan.borrowed, loan.borrowed) && (
-          <CrossedText title={`${fmtnum(prevLoan.borrowed, "full")} BOLD`}>
+          <CrossedText title={`${fmtnum(prevLoan.borrowed, "full")} rUSD`}>
             {fmtnum(prevLoan.borrowed)}
           </CrossedText>
         )}

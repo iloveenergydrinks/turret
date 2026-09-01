@@ -86,7 +86,7 @@ export function RedeemScreen() {
     : !balanceSufficient
     ? {
       mode: "error" as const,
-      message: `Insufficient BOLD balance. You have ${fmtnum(boldBalance.data)} BOLD.`,
+      message: `Insufficient rUSD balance. You have ${fmtnum(boldBalance.data)} rUSD.`,
     }
     : truncatedAmount
     ? {
@@ -100,7 +100,7 @@ export function RedeemScreen() {
             execution of your redemption.
             <br />
             <br />
-            You will be able to redeem the rest of your BOLD in a follow-up transaction.
+            You can redeem the rest of your rUSD in a follow-up transaction.
           </InfoTooltip>
         </HFlex>
       ),
@@ -118,7 +118,7 @@ export function RedeemScreen() {
           <HFlex>
             Redeem
             <TokenIcon symbol="BOLD" />
-            BOLD for
+            rUSD for
             <TokenIcon.Group>
               {collTokens.map(({ symbol }) => <TokenIcon key={symbol} symbol={symbol} />)}
             </TokenIcon.Group>
@@ -142,7 +142,7 @@ export function RedeemScreen() {
                 contextual={
                   <InputField.Badge
                     icon={<TokenIcon symbol="BOLD" />}
-                    label="BOLD"
+                    label="rUSD"
                   />
                 }
                 drawer={drawer}
@@ -153,7 +153,7 @@ export function RedeemScreen() {
                   end: (
                     boldBalance.data && dn.gt(boldBalance.data, 0) && (
                       <TextButton
-                        label={`Max ${fmtnum(boldBalance.data)} BOLD`}
+                        label={`Max ${fmtnum(boldBalance.data)} rUSD`}
                         onClick={() => {
                           if (boldBalance.data) {
                             boldRedeemed.setValue(dn.toString(boldBalance.data));
@@ -209,7 +209,7 @@ export function RedeemScreen() {
                     prefix="-"
                     value={redemptionFee}
                     fallback="−"
-                    title={{ prefix: "-", suffix: " BOLD" }}
+                    title={{ prefix: "-", suffix: " rUSD" }}
                   />
                 </Value>
                 <TokenIcon symbol="BOLD" size={24} />
@@ -280,7 +280,7 @@ export function RedeemScreen() {
             <HFlex gap={4}>
               Profit/loss
               <InfoTooltip>
-                This is the estimated USD value of all the tokens you will receive minus the value of the BOLD you are
+                This is the estimated USD value of all the tokens you will receive minus the value of the rUSD you are
                 paying.
               </InfoTooltip>
             </HFlex>
@@ -296,8 +296,8 @@ export function RedeemScreen() {
         </VFlex>
 
         <InfoBox title="Important note">
-          Your BOLD will be taken at face value and converted to a mix of{" "}
-          {listOfCollTokenNames}, minus the redemption fee. Unless BOLD is trading significantly below $1, you will get
+          Your rUSD is redeemed at face value for a mix of{" "}
+          {listOfCollTokenNames}, minus the redemption fee. Unless rUSD is trading significantly below $1, you will get
           a better rate by swapping on an exchange.
 
           <LinkTextButton

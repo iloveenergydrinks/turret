@@ -4,6 +4,7 @@ import { Amount } from "@/src/comps/Amount/Amount";
 import { ETH_GAS_COMPENSATION } from "@/src/constants";
 import { dnum18 } from "@/src/dnum-utils";
 import { fmtnum } from "@/src/formatting";
+import { subgraphIndicator } from "@/src/indicators/subgraph-indicator";
 import { useDelegateDisplayName } from "@/src/liquity-delegate";
 import {
   getBranch,
@@ -12,12 +13,15 @@ import {
   useInterestBatchDelegate,
   usePredictOpenTroveUpfrontFee,
 } from "@/src/liquity-utils";
+import { getPrefixedTroveId } from "@/src/liquity-utils";
 import { AccountButton } from "@/src/screens/TransactionsScreen/AccountButton";
 import { LoanCard } from "@/src/screens/TransactionsScreen/LoanCard";
 import { TransactionDetailsRow } from "@/src/screens/TransactionsScreen/TransactionsScreen";
 import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionStatus";
 import { usePrice } from "@/src/services/Prices";
+import { addPrefixedTroveIdsToStoredState } from "@/src/services/StoredState";
 import { getIndexedTroveById } from "@/src/subgraph";
+import { TroveId } from "@/src/types";
 import { sleep } from "@/src/utils";
 import { vAddress, vBranchId, vDnum } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
@@ -27,10 +31,6 @@ import * as v from "valibot";
 import { maxUint256, parseEventLogs } from "viem";
 import { readContract } from "wagmi/actions";
 import { createRequestSchema, verifyTransaction, withOwnerIndexRetry } from "./shared";
-import { subgraphIndicator } from "@/src/indicators/subgraph-indicator";
-import { addPrefixedTroveIdsToStoredState } from "@/src/services/StoredState";
-import { getPrefixedTroveId } from "@/src/liquity-utils";
-import { TroveId } from "@/src/types";
 
 const RequestSchema = createRequestSchema(
   "openBorrowPosition",
@@ -128,7 +128,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
               key="start"
               fallback="…"
               value={boldAmountWithFee}
-              suffix=" BOLD"
+              suffix=" rUSD"
             />,
             <div
               key="end"
@@ -142,9 +142,9 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
                 fallback="…"
                 prefix="Incl. "
                 value={upfrontFee.data}
-                suffix=" BOLD creation fee"
+                suffix=" rUSD creation fee"
               />
-              <InfoTooltip heading="BOLD creation fee">
+              <InfoTooltip heading="rUSD creation fee">
                 This fee is charged when you open a new loan or increase your debt. It corresponds to 7 days of average
                 interest for the respective collateral asset.
               </InfoTooltip>
@@ -183,7 +183,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
                         <Amount
                           format="2z"
                           prefix="~"
-                          suffix=" BOLD per year"
+                          suffix=" rUSD per year"
                           value={yearlyBoldInterest}
                         />
                       </>
@@ -208,7 +208,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
                     boldAmountWithFee,
                     request.annualInterestRate,
                   )}
-                  suffix=" BOLD per year"
+                  suffix=" rUSD per year"
                 />,
               ]}
             />
@@ -299,8 +299,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
               receiver: ADDRESS_ZERO,
             }],
             value: ETH_GAS_COMPENSATION[0],
-          }),
-        );
+          }));
       },
 
       async verify(ctx, hash) {
@@ -324,7 +323,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
 
         const subgraphIsDown = subgraphIndicator.hasError();
         if (!subgraphIsDown) {
-        // wait for the trove to appear in the subgraph
+          // wait for the trove to appear in the subgraph
           while (true) {
             const trove = await getIndexedTroveById(branch.branchId, troveId);
             if (trove !== null) break;
@@ -371,8 +370,7 @@ export const openBorrowPosition: FlowDeclaration<OpenBorrowPositionRequest> = {
               receiver: ADDRESS_ZERO,
             }],
             value: ctx.request.collAmount[0] + ETH_GAS_COMPENSATION[0],
-          }),
-        );
+          }));
       },
 
       async verify(...args) {

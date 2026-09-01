@@ -41,21 +41,23 @@ export type TokenSymbol =
   | "YBOLD"
   | "WSTETH";
 
-export type CollateralSymbol = TokenSymbol & (
-  | "AAPL"
-  | "AMZN"
-  | "AVGO"
-  | "ETH"
-  | "GOOGL"
-  | "LLY"
-  | "META"
-  | "MSFT"
-  | "MU"
-  | "NVDA"
-  | "RETH"
-  | "TSLA"
-  | "WSTETH"
-);
+export type CollateralSymbol =
+  & TokenSymbol
+  & (
+    | "AAPL"
+    | "AMZN"
+    | "AVGO"
+    | "ETH"
+    | "GOOGL"
+    | "LLY"
+    | "META"
+    | "MSFT"
+    | "MU"
+    | "NVDA"
+    | "RETH"
+    | "TSLA"
+    | "WSTETH"
+  );
 
 export function isTokenSymbol(symbolOrUrl: string): symbolOrUrl is TokenSymbol {
   return (
@@ -109,7 +111,7 @@ export const LUSD: Token = {
 
 export const BOLD: Token = {
   icon: tokenBold,
-  name: "BOLD",
+  name: "rUSD",
   symbol: "BOLD" as const,
 } as const;
 
