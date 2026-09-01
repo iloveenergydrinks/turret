@@ -21,7 +21,6 @@ import { StoredState } from "@/src/services/StoredState";
 import { TransactionFlow } from "@/src/services/TransactionFlow";
 import { UiKit } from "@liquity2/uikit";
 import { Analytics } from "@vercel/analytics/react";
-import { GeistSans } from "geist/font/sans";
 
 export const metadata: Metadata = {
   title: content.appName,
@@ -40,16 +39,16 @@ export default function Layout({
 }) {
   return (
     <html lang="en">
-      <body className={GeistSans.className}>
+      <body>
         <template
           data-design-contract="dockyard-gradient-desk-v1-0326060a"
           dangerouslySetInnerHTML={{
             __html: `<!--
 THESIS: Dockyard turns ten isolated stock markets into one approachable borrowing desk; it refuses the wide corporate trading terminal and literal nautical theme.
-OWN-WORLD: a slow sea-glass mesh gradient, white rounded work surfaces, deep teal actions, blue-green ink, open Figtree display lettering, quiet depth, and a four-part safe-harbor mark protecting a central berth.
-STORY: understand Stock Token to isolated vault to rUSD, compare honest max-LTV parameters, then choose a market and borrow.
-FIRST VIEWPORT: compact floating navigation over a centered promise and tide-line mechanism, followed by one narrow ten-market panel with direct Borrow actions.
-FORM: centered harbor wayfinding desk, assigned grounded direction 3, approved composition B, seed 0326060a.
+OWN-WORLD: a slow sea-glass mesh gradient, white data surfaces, one deep-teal position composer, blue-green ink, fluid Figtree lettering, quiet depth, and a four-part safe-harbor mark protecting a central berth.
+STORY: preview Stock Token to isolated vault to rUSD in the first view, then compare honest max-LTV parameters and choose a market.
+FIRST VIEWPORT: compact floating navigation over an asymmetrical promise-and-position desk, a three-move borrowing rail, then one continuous ten-market panel with selectable preview rows.
+FORM: safe-harbor control deck, assigned grounded direction 3, evolved from approved composition B, seed 0326060a.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->`,
           }}

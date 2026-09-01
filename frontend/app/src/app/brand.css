@@ -1,11 +1,3 @@
-@font-face {
-  font-family: "Qubic Grid Variable";
-  src: url("/fonts/qubic-grid-variable.woff2") format("woff2");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 100 900;
-}
-
 :root {
   --rusd-bg: #f0faf8;
   --rusd-surface: #ffffff;
@@ -18,7 +10,7 @@
   --rusd-soft: #ddf5f0;
   --rusd-frost: #f7fcfb;
   --rusd-warning: #d97645;
-  --rusd-display: "Qubic Grid Variable", "Avenir Next", Arial, sans-serif;
+  --rusd-display: "Figtree Variable", "Avenir Next", Arial, sans-serif;
   --rusd-max-width: 1040px;
 }
 
@@ -29,6 +21,7 @@ html, body {
 body {
   margin: 0;
   color: var(--rusd-ink);
+  font-family: "Figtree Variable", "Avenir Next", Arial, sans-serif;
 }
 
 .dockyard-logo {
@@ -600,130 +593,6 @@ body {
   white-space: nowrap;
 }
 
-.rusd-how {
-  padding: 54px 0 18px;
-}
-
-.rusd-how-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-  align-items: end;
-  gap: 48px;
-  margin-bottom: 24px;
-}
-
-.rusd-how-heading h2 {
-  max-width: 560px;
-  margin: 0;
-  color: var(--rusd-ink);
-  font-family: var(--rusd-display);
-  font-size: clamp(38px, 5vw, 58px);
-  font-weight: 650;
-  letter-spacing: -0.03em;
-  line-height: 0.98;
-  text-wrap: balance;
-}
-
-.rusd-how-heading p {
-  max-width: 46ch;
-  margin: 0 0 4px;
-  color: var(--rusd-muted);
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-.rusd-how-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  min-height: 620px;
-}
-
-.rusd-how-card {
-  display: grid;
-  overflow: hidden;
-  min-width: 0;
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 18px;
-  box-shadow: 0 10px 34px rgba(15, 68, 63, 0.09);
-}
-
-.rusd-how-card-market {
-  grid-row: 1 / 3;
-  grid-template-rows: minmax(0, 1fr) auto;
-}
-
-.rusd-how-card-isolated,
-.rusd-how-card-borrow {
-  grid-template-rows: minmax(0, 1fr) auto;
-}
-
-.rusd-how-media {
-  position: relative;
-  min-height: 0;
-  overflow: hidden;
-  background: var(--rusd-soft);
-}
-
-.rusd-how-media img {
-  filter: saturate(0.78) contrast(1.04);
-  object-fit: cover;
-}
-
-.rusd-how-card-market .rusd-how-media img {
-  object-position: center;
-}
-
-.rusd-how-card-isolated .rusd-how-media img {
-  object-position: 50% 54%;
-}
-
-.rusd-how-card-borrow .rusd-how-media img {
-  object-position: 50% 58%;
-}
-
-.rusd-how-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-}
-
-.rusd-how-card-market .rusd-how-copy {
-  min-height: 176px;
-  padding: 28px;
-}
-
-.rusd-how-card-isolated .rusd-how-copy,
-.rusd-how-card-borrow .rusd-how-copy {
-  min-height: 132px;
-}
-
-.rusd-how-copy h3 {
-  margin: 0;
-  color: var(--rusd-ink);
-  font-family: var(--rusd-display);
-  font-size: 24px;
-  font-weight: 650;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-  text-wrap: balance;
-}
-
-.rusd-how-card-market .rusd-how-copy h3 {
-  max-width: 12ch;
-  font-size: 34px;
-}
-
-.rusd-how-copy p {
-  max-width: 42ch;
-  margin: 10px 0 0;
-  color: var(--rusd-muted);
-  font-size: 14px;
-  line-height: 1.55;
-}
-
 .rusd-footer {
   padding: 0 0 28px;
 }
@@ -903,8 +772,687 @@ body {
     font-size: 26px;
   }
 
+  .rusd-how-market-visual {
+    padding: 16px;
+  }
+
+  .rusd-how-market-pick {
+    grid-template-columns: 52px 1fr auto;
+    min-height: 49px;
+    padding: 0 12px;
+  }
+
+  .rusd-how-mini-name small {
+    display: none;
+  }
+
+  .rusd-how-position-visual {
+    padding: 22px;
+  }
+
+  .rusd-how-position-assets strong {
+    font-size: 17px;
+  }
+
+  .rusd-how-borrow-visual {
+    grid-template-columns: 1fr 30px 1fr;
+    padding: 30px 18px;
+  }
+
   .rusd-footer-inner {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+/* Safe Harbor control deck */
+.rusd-home {
+  gap: 20px;
+}
+
+.rusd-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
+  align-items: center;
+  gap: clamp(44px, 7vw, 88px);
+  min-height: 520px;
+  padding: 52px 8px 36px;
+  text-align: left;
+}
+
+.rusd-hero-message {
+  position: relative;
+  z-index: 1;
+}
+
+.rusd-hero h1 {
+  max-width: 660px;
+  font-size: clamp(58px, 6.5vw, 84px);
+  font-weight: 690;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
+  text-wrap: balance;
+}
+
+.rusd-hero-copy {
+  max-width: 500px;
+  margin-top: 24px;
+  color: #405f5c;
+  font-size: clamp(18px, 2vw, 21px);
+  font-weight: 450;
+  line-height: 1.48;
+  text-wrap: pretty;
+}
+
+.rusd-hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 28px;
+  color: var(--rusd-primary);
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.rusd-hero-proof span {
+  position: relative;
+  padding-left: 15px;
+}
+
+.rusd-hero-proof span::before {
+  position: absolute;
+  top: 0.48em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--rusd-bright);
+  border-radius: 50%;
+  content: "";
+}
+
+.rusd-position-preview {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+  padding: 28px;
+  color: #fff;
+  background: #073e3a;
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(7, 62, 58, 0.24);
+  animation: dockyard-composer-arrive 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.rusd-position-preview::before {
+  position: absolute;
+  z-index: -1;
+  right: -70px;
+  bottom: -92px;
+  width: 310px;
+  height: 310px;
+  background: url("/brand/dockyard-safe-harbor-ai.png") center / contain no-repeat;
+  content: "";
+  filter: brightness(0) invert(1);
+  opacity: 0.045;
+  transform: rotate(-8deg);
+}
+
+@keyframes dockyard-composer-arrive {
+  from {
+    clip-path: inset(0 0 100% 0 round 16px);
+    filter: blur(8px);
+    transform: translateY(18px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 16px);
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.rusd-position-head,
+.rusd-position-risk > div:first-child,
+.rusd-position-risk-scale,
+.rusd-position-safeguards {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rusd-position-head {
+  margin-bottom: 24px;
+}
+
+.rusd-position-head > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rusd-position-label {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 12px;
+  font-weight: 570;
+}
+
+.rusd-position-head strong {
+  font-size: 21px;
+  font-weight: 710;
+  letter-spacing: -0.02em;
+}
+
+.rusd-position-mode {
+  padding: 7px 10px;
+  color: #b8eee4;
+  background: rgba(184, 238, 228, 0.11);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 680;
+}
+
+.rusd-position-field {
+  display: block;
+  padding: 13px 15px 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.rusd-position-field > span:first-child {
+  display: block;
+  margin-bottom: 3px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 11px;
+  font-weight: 590;
+}
+
+.rusd-position-input {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.rusd-position-input input {
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  font-size: 25px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.rusd-position-input input::-webkit-inner-spin-button,
+.rusd-position-input input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.rusd-position-input strong {
+  flex: 0 0 auto;
+  color: #b8eee4;
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.rusd-position-field:focus-within {
+  outline: 2px solid rgba(184, 238, 228, 0.64);
+  outline-offset: 2px;
+}
+
+.rusd-position-exchange {
+  display: grid;
+}
+
+.rusd-position-flow {
+  display: grid;
+  width: 100%;
+  height: 22px;
+  color: #65dbc9;
+  place-items: center;
+}
+
+.rusd-position-flow svg {
+  display: block;
+  width: 16px;
+  height: 18px;
+  overflow: visible;
+}
+
+.rusd-position-flow path {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.75;
+}
+
+.rusd-position-risk {
+  margin-top: 22px;
+}
+
+.rusd-position-risk > div:first-child {
+  margin-bottom: 9px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+.rusd-position-risk > div:first-child strong {
+  color: #fff;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rusd-position-risk-track {
+  display: block;
+  overflow: hidden;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.13);
+  border-radius: 999px;
+}
+
+.rusd-position-risk-track > span {
+  display: block;
+  height: 100%;
+  background: #65dbc9;
+  border-radius: inherit;
+  transition: width 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rusd-position-risk-scale {
+  margin-top: 7px;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 10px;
+}
+
+.rusd-position-safeguards {
+  justify-content: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+  color: #b8eee4;
+  font-size: 11px;
+  font-weight: 610;
+}
+
+.rusd-position-safeguards span {
+  position: relative;
+  padding-left: 13px;
+}
+
+.rusd-position-safeguards span::before {
+  position: absolute;
+  top: 0.45em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: #65dbc9;
+  border-radius: 50%;
+  content: "";
+}
+
+.rusd-position-cta {
+  width: 100%;
+  height: 46px;
+  margin-top: 22px;
+  color: #436d68;
+  background: #b9d8d2;
+  border: 0;
+  border-radius: 11px;
+  cursor: not-allowed;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.rusd-borrow-flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 16px;
+  box-shadow: 0 12px 34px rgba(15, 68, 63, 0.08);
+  list-style: none;
+}
+
+.rusd-borrow-flow li {
+  position: relative;
+  display: flex;
+  min-height: 78px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 28px;
+}
+
+.rusd-borrow-flow li:not(:last-child)::after {
+  position: absolute;
+  top: 22px;
+  right: 0;
+  bottom: 22px;
+  width: 1px;
+  background: var(--rusd-line);
+  content: "";
+}
+
+.rusd-borrow-flow span {
+  color: var(--rusd-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rusd-borrow-flow strong {
+  margin-top: 3px;
+  color: var(--rusd-ink);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.rusd-market-panel {
+  background: #fff;
+}
+
+.rusd-market-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 28px 18px;
+}
+
+.rusd-market-title {
+  padding: 0;
+  font-size: 22px;
+  font-weight: 680;
+  letter-spacing: -0.025em;
+}
+
+.rusd-market-heading p {
+  margin: 5px 0 0;
+  color: var(--rusd-muted);
+  font-size: 13px;
+}
+
+.rusd-market-selected {
+  color: var(--rusd-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rusd-market-table tbody tr[data-selected="true"] {
+  background: #e8f7f3;
+  box-shadow: inset 3px 0 0 var(--rusd-primary);
+}
+
+.rusd-market-table tbody tr[data-selected="true"] .rusd-ticker {
+  color: #fff;
+  background: var(--rusd-primary);
+}
+
+.rusd-market-company {
+  color: var(--rusd-ink);
+  font-weight: 690;
+}
+
+.rusd-preview-action {
+  cursor: pointer;
+}
+
+.rusd-preview-action[aria-pressed="true"] {
+  color: #fff;
+  background: var(--rusd-primary);
+  border-color: var(--rusd-primary);
+}
+
+.rusd-preview-action:focus-visible {
+  outline: 3px solid rgba(8, 120, 110, 0.28);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .rusd-hero {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    min-height: 0;
+    padding-top: 58px;
+  }
+
+  .rusd-hero-message {
+    max-width: 700px;
+  }
+
+  .rusd-position-preview {
+    width: min(100%, 560px);
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 760px) {
+  .rusd-main {
+    padding-top: 18px;
+  }
+
+  .rusd-hero {
+    gap: 28px;
+    padding: 34px 4px 12px;
+  }
+
+  .rusd-hero h1 {
+    max-width: 10ch;
+    font-size: clamp(48px, 14.2vw, 66px);
+    letter-spacing: -0.04em;
+  }
+
+  .rusd-hero-copy {
+    margin-top: 18px;
+    font-size: 17px;
+  }
+
+  .rusd-hero-proof {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .rusd-position-preview {
+    padding: 20px 16px;
+    border-radius: 14px;
+  }
+
+  .rusd-position-head {
+    margin-bottom: 18px;
+  }
+
+  .rusd-position-head strong {
+    font-size: 19px;
+  }
+
+  .rusd-position-exchange {
+    grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .rusd-position-field {
+    min-width: 0;
+    padding: 12px;
+  }
+
+  .rusd-position-input {
+    gap: 6px;
+  }
+
+  .rusd-position-input input {
+    font-size: 22px;
+  }
+
+  .rusd-position-input strong {
+    font-size: 11px;
+  }
+
+  .rusd-position-flow {
+    width: 30px;
+    height: auto;
+  }
+
+  .rusd-position-flow svg {
+    transform: rotate(-90deg);
+  }
+
+  .rusd-position-risk {
+    margin-top: 18px;
+  }
+
+  .rusd-position-safeguards {
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 16px;
+    font-size: 10px;
+  }
+
+  .rusd-position-cta {
+    height: 44px;
+    margin-top: 18px;
+  }
+
+  .rusd-borrow-flow {
+    grid-template-columns: 1fr;
+    padding: 8px 0;
+  }
+
+  .rusd-borrow-flow li {
+    min-height: 58px;
+    padding: 0 20px;
+  }
+
+  .rusd-borrow-flow li:not(:last-child)::after {
+    top: auto;
+    right: 20px;
+    bottom: 0;
+    left: 20px;
+    width: auto;
+    height: 1px;
+  }
+
+  .rusd-market-heading {
+    align-items: flex-start;
+    padding: 18px 16px 14px;
+  }
+
+  .rusd-market-title {
+    padding: 0;
+    font-size: 20px;
+  }
+
+  .rusd-market-heading p {
+    max-width: 24ch;
+  }
+
+  .rusd-market-selected {
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+
+  .rusd-market-meta {
+    display: none;
+  }
+
+  .rusd-market-table th:nth-child(2),
+  .rusd-market-table td:nth-child(2) {
+    width: 72px;
+  }
+
+  .rusd-market-table th:last-child,
+  .rusd-market-table td:last-child {
+    width: 88px;
+  }
+
+  .rusd-market-table th,
+  .rusd-market-table td {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .rusd-action {
+    min-width: 68px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .rusd-info {
+    gap: 14px;
+  }
+
+  .rusd-info .rusd-preview-status {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 360px) {
+  .rusd-frame {
+    width: calc(100% - 16px);
+  }
+
+  .rusd-topbar-inner {
+    padding-right: 8px;
+    padding-left: 10px;
+  }
+
+  .dockyard-logo-wordmark {
+    display: none;
+  }
+
+  .rusd-preview-badge {
+    padding: 0 9px;
+    font-size: 10px;
+  }
+
+  .rusd-hero,
+  .rusd-hero-message {
+    min-width: 0;
+  }
+
+  .rusd-hero h1 {
+    font-size: 44px;
+  }
+
+  .rusd-position-preview {
+    padding: 18px 14px;
+  }
+
+  .rusd-position-mode {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+
+  .rusd-position-exchange {
+    grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+  }
+
+  .rusd-position-field {
+    padding: 10px;
+  }
+
+  .rusd-position-input input {
+    font-size: 20px;
+  }
+
+  .rusd-position-flow {
+    width: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rusd-position-preview {
+    animation: none;
+  }
+
+  .rusd-position-risk-track > span {
+    transition: none;
   }
 }

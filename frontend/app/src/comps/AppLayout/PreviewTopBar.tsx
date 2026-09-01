@@ -12,7 +12,7 @@ export function PreviewTopBar() {
           <Link className="rusd-nav-link" data-active="true" href="/">Markets</Link>
         </nav>
         <div className="rusd-account">
-          <span className="rusd-preview-badge">MVP preview</span>
+          <span className="rusd-preview-badge">Preview · not live</span>
         </div>
       </div>
     </header>

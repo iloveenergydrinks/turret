@@ -24,56 +24,56 @@ colors:
   mesh-sand: "#F5E8C3"
 typography:
   display:
-    fontFamily: "Qubic Grid Variable, Avenir Next, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "clamp(50px, 4.75vw, 72px)"
     fontWeight: 650
     lineHeight: 0.98
     letterSpacing: "-0.03em"
   mobile-display:
-    fontFamily: "Qubic Grid Variable, Avenir Next, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "clamp(44px, 13vw, 60px)"
     fontWeight: 650
     lineHeight: 0.98
     letterSpacing: "-0.03em"
   lead:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "clamp(17px, 2vw, 20px)"
     fontWeight: 400
     lineHeight: 1.55
   market-title:
-    fontFamily: "Qubic Grid Variable, Avenir Next, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "18px"
     fontWeight: 650
     lineHeight: 1
   title:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "15px"
     fontWeight: 700
     lineHeight: 1.55
   body:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "14px"
     fontWeight: 400
     lineHeight: 1.55
   navigation:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "14px"
     fontWeight: 660
   action:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "13px"
     fontWeight: 700
   label:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "11px"
     fontWeight: 700
     letterSpacing: "0.08em"
   metadata:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "12px"
     fontWeight: 400
   info-mark:
-    fontFamily: "Geist, Arial, sans-serif"
+    fontFamily: "Figtree Variable, Avenir Next, Arial, sans-serif"
     fontSize: "21px"
     fontWeight: 750
 rounded:
@@ -153,8 +153,8 @@ The system is narrow, friendly, and direct. It inherits Liquity V1's approachabl
 
 **Key Characteristics:**
 
-- A single centered 1040px frame with generous hero breathing room and compact information surfaces.
-- One oversized, plain-language Qubic Grid promise followed by a concise collateral-to-rUSD mechanism.
+- A single 1040px frame with an asymmetrical first viewport and compact information surfaces.
+- One oversized, plain-language Figtree promise paired with a deep-teal illustrative position composer.
 - A living sea-glass mesh behind translucent paper surfaces, never contours or pointer-reactive effects.
 - Fine mint separators, rounded practical controls, and one quiet ambient depth device per surface.
 - An AI-generated safe-harbor mark built from four rounded dock modules protecting a central berth.
@@ -204,20 +204,18 @@ The palette combines a deep turquoise action voice with misted mint surfaces and
 
 ## Typography
 
-**Display Font:** Qubic Grid Variable (with Avenir Next, Arial, and sans-serif fallbacks)
+**Display and Body Font:** Figtree Variable (with Avenir Next, Arial, and sans-serif fallbacks)
 
-**Body Font:** Geist (with Arial and sans-serif fallbacks)
-
-**Character:** Qubic Grid gives Dockyard a precise, engineered voice with enough warmth to stay approachable. Its squared details subtly echo market infrastructure and dock construction without becoming a sci-fi costume. Geist remains the reading, interface, and numeric workhorse so financial information stays stable and familiar.
+**Character:** Figtree gives Dockyard a fluid, open voice without the industrial grid character of the discarded display face. Its broad apertures keep small financial labels clear while its variable weights give the promise and wordmark enough authority to share one coherent typographic system.
 
 ### Hierarchy
 
-- **Display** (650, `clamp(50px, 4.75vw, 72px)`, 0.98): The dominant Qubic Grid promise on wide screens, with `-0.03em` tracking. At 760px and below it becomes `clamp(44px, 13vw, 60px)`.
+- **Display** (690, `clamp(58px, 6.5vw, 84px)`, 0.94): The dominant Figtree promise on wide screens, with `-0.04em` tracking. At 760px and below it becomes `clamp(48px, 14.2vw, 66px)`.
 - **Lead** (400, `clamp(17px, 2vw, 20px)`, 1.55): Short literal explanation under the display statement, balanced and capped at 620px.
-- **Market Title** (650, 18px, 1): Compact section signage in Qubic Grid; it becomes 17px on compact screens.
+- **Market Title** (680, 22px, 1): Compact section signage in Figtree; it becomes 20px on compact screens.
 - **Title** (700, 15px, 1.55): Emphasis inside explanatory surfaces and market names.
-- **Body** (400, 14px, 1.55 where prose needs it): Market data and practical interface copy in Geist.
-- **Navigation** (660, 14px): Geist route labels with an open, stable rhythm.
+- **Body** (400, 14px, 1.55 where prose needs it): Market data and practical interface copy in Figtree.
+- **Navigation** (660, 14px): Figtree route labels with an open, stable rhythm.
 - **Action** (700, 13px): Borrow actions, flow labels, and explanatory links.
 - **Label** (700, 11px, `0.08em`): Uppercase table headings only.
 - **Metadata** (400, 12px): Secondary market, network, and footer copy; ticker identifiers increase weight to 760.
@@ -232,11 +230,11 @@ The palette combines a deep turquoise action voice with misted mint surfaces and
 
 ## Layout
 
-The spatial model is one narrow centerline: a fluid frame capped at 1040px and inset 16px per side on wide screens. The main region uses 28px top and 48px bottom padding, and the home stack uses an 18px vertical rhythm. The hero is centered, while data and risk content remain left-aligned for scanning. The fixed, full-viewport shader sits behind the shell; content remains in a higher isolated layer.
+The spatial model is one narrow centerline: a fluid frame capped at 1040px and inset 16px per side on wide screens. The first viewport is an asymmetrical control deck: the promise sits left and one deep-teal position preview sits right. The fixed, full-viewport shader remains behind the shell; data and risk content stay left-aligned for scanning.
 
-The top bar uses a three-column grid so the Dockyard brand, centered route navigation, and account state balance without widening the content. The borrowing mechanism uses three steps—Stock Token, Vault, rUSD—connected by compact beaded wave arrows. The ten markets remain one continuous fixed-layout table rather than splitting into cards.
+The top bar uses a three-column grid so the Dockyard brand, centered route navigation, and account state balance without widening the content. A condensed three-move rail—choose, deposit, borrow—bridges the hero and market list. The ten markets remain one continuous fixed-layout table rather than splitting into cards.
 
-At the single implemented breakpoint (760px), the frame inset tightens from 16px to 10px. The top bar becomes a 56px, two-column shell with 14px corners; route navigation and the textual network state hide while the Dockyard logo and account action remain. The hero type and mechanism icons scale down. The market table preserves ticker, Max LTV, and Borrow/Not live action, hides secondary market descriptions, narrows numeric and action columns, and increases row height to 54px. The risk link moves under its copy, and the footer stacks vertically.
+At 900px, the hero stacks while keeping the position preview capped at 560px. At 760px, the frame inset tightens from 16px to 10px, the top bar becomes a 56px two-column shell, and the borrowing rail stacks vertically. The market table preserves ticker, Max LTV, and Preview action, hides company metadata, narrows numeric and action columns, and keeps 54px rows.
 
 **The One Centerline Rule.** Brand, message, mechanism, market list, risk note, and footer align to the same capped frame.
 
@@ -262,7 +260,7 @@ Depth is ambient and layered over the mesh. The top bar uses a translucent paper
 
 The form language combines rounded working surfaces with authored line geometry. Primary floating surfaces use 18px corners; mechanism tiles use 24px on wide screens and 15px on compact screens; controls use 10px; ticker chips use 9px; preview notices use 12px; and the compact top bar uses 14px. The account control and preview badges are full pills, while status dots and the information mark are circular. Borders are one pixel and low contrast; they divide information instead of boxing every element.
 
-The Dockyard mark is an AI-generated safe harbor refined through reference-led identity exploration. Four rounded deep-teal dock modules converge around a protected central berth, creating one compact symbol without a letterform or literal maritime illustration. The lowercase Qubic Grid “dockyard.” wordmark sits to its right. The same transparent raster mark is used for the favicon and navigation; the 512px web asset and high-resolution original are preserved under `public/brand/`. The borrowing flow has its own semantic icons—stacked market cards, a hexagonal collateral aperture, and a minted rUSD coin—but none of these replaces the protocol mark.
+The Dockyard mark is an AI-generated safe harbor refined through reference-led identity exploration. Four rounded deep-teal dock modules converge around a protected central berth, creating one compact symbol without a letterform or literal maritime illustration. The lowercase Figtree “dockyard.” wordmark sits to its right. The same transparent raster mark is used for the favicon, navigation, and a faint structural watermark inside the position preview; the 512px web asset and high-resolution original are preserved under `public/brand/`.
 
 **The Protected Berth Rule.** The logo uses four equal visual masses around one central negative-space berth; do not add lettering, anchors, ships, rope, portholes, or decorative waves.
 
@@ -277,11 +275,11 @@ Buttons feel compact, direct, and responsive.
 - **Shape:** Working controls use 10–16px corners; reserve full pills for compact status only. Market Borrow actions use 10px corners and transaction actions use 16px corners.
 - **Primary:** Transaction and account actions use Paper text on Turquoise Action. Market Borrow actions use a sea-glass mint fill, turquoise text, and one low-contrast turquoise keyline so repeated rows stay calm.
 - **Hover / Focus / Active:** Hover darkens primary actions, inverts market actions to Turquoise Action, and lifts enabled controls by 1px over 160ms ease-out. Active controls settle down by 1px. Keyboard focus uses a 3px translucent turquoise outline with a 3px offset.
-- **Disabled Preview:** “Not live” retains the primary silhouette at 55% opacity, uses a not-allowed cursor, and does not lift or compress.
+- **Preview Selection:** Read-only market actions remain enabled as “Preview” so they can update the illustrative composer. The actual transaction action inside that composer is disabled and explicitly says “Contracts not live.”
 
 ### Chips
 
-Ticker chips are compact identifiers, not ornamental tags: 52px by 32px on wide screens and 46px wide on compact screens, with Mint Soft fill, Turquoise Action text, 9px corners, and 760-weight Geist. Preview and contract-status badges are full pills with the same mint/turquoise relationship.
+Ticker chips are compact identifiers, not ornamental tags: 52px by 32px on wide screens and 46px wide on compact screens, with Mint Soft fill, Turquoise Action text, 9px corners, and 760-weight Figtree. Preview and contract-status badges are full pills with the same mint/turquoise relationship.
 
 ### Cards / Containers
 
@@ -293,11 +291,11 @@ Ticker chips are compact identifiers, not ornamental tags: 52px by 32px on wide 
 
 ### Navigation
 
-The top bar is a sticky 64px paper shell. The AI-generated safe-harbor mark and Qubic Grid wordmark anchor the left, Geist routes occupy the center, and network plus wallet state occupy the right. Inactive links use Quiet Slate; the active route switches to Teal Ink and receives a 3px Turquoise Action underline. At 760px and below, route links and network text hide while brand and wallet action stay visible.
+The top bar is a sticky 64px paper shell. The AI-generated safe-harbor mark and Figtree wordmark anchor the left, Figtree routes occupy the center, and network plus wallet state occupy the right. Inactive links use Quiet Slate; the active route switches to Teal Ink and receives a 3px Turquoise Action underline. At 760px and below, route links and network text hide while brand and wallet action stay visible.
 
 ### Market Table
 
-The market list is one continuous fixed-layout paper surface. Its 11px uppercase header uses Table Frost and Mint Line separators. Rows are 46px high on wide screens and 54px on compact screens, with a Table Frost hover transition over 160ms ease-out. The market, Max LTV, and Borrow or Not live action remain visible at every supported width; secondary market descriptions hide on compact screens. LTV values use tabular numerals and bold weight.
+The market list is one continuous fixed-layout paper surface. Its 11px uppercase header uses Table Frost and Mint Line separators. Rows are 46px high on wide screens and 54px on compact screens, with a Table Frost hover transition over 160ms ease-out. Each ticker appears only once, followed by its company name and “Isolated market” metadata. Read-only rows use Preview/Selected actions and a stronger selected state; LTV values use tabular numerals and bold weight.
 
 ### Borrow Workspace
 
@@ -305,7 +303,7 @@ The borrowing route names one selected Stock Token in the headline and explicitl
 
 ### Risk and Preview States
 
-The risk note is an explicit Mint Soft panel with a circular paper information mark, a two-level text hierarchy, and a visible explanatory link. On compact screens, the link moves below the copy instead of disappearing. Read-only MVP state adds a cream status notice and replaces market actions with disabled “Not live” controls; no live-contract implication is allowed.
+The risk note is an explicit Mint Soft panel with a circular paper information mark and a two-level text hierarchy. Read-only state is consolidated into the top-bar “Preview · not live” badge, the composer’s disabled “Contracts not live” action, and the concluding “Preview · contracts pending” status; no duplicate cream notice or live-contract implication remains.
 
 ### Mesh Gradient
 
@@ -313,7 +311,7 @@ The signature environmental component is Paper Shaders `MeshGradient`, fixed to 
 
 ### Dockyard Logo
 
-The signature logo is the AI-generated four-part safe-harbor mark with the lowercase Qubic Grid “dockyard.” wordmark. The mark uses Turquoise Action and the wordmark uses Teal Ink. Its accessible name is “Dockyard.” rUSD may appear as a minted coin icon in borrowing flows, but it is never substituted for the protocol logo.
+The signature logo is the AI-generated four-part safe-harbor mark with the lowercase Figtree “dockyard.” wordmark. The mark uses Turquoise Action and the wordmark uses Teal Ink. Its accessible name is “Dockyard.” rUSD may appear as a minted coin icon in borrowing flows, but it is never substituted for the protocol logo.
 
 ## Do's and Don'ts
 
@@ -324,7 +322,7 @@ The signature logo is the AI-generated four-part safe-harbor mark with the lower
 - **Do** use the Paper Shaders mesh as the full-viewport ambient field and freeze it for reduced-motion users.
 - **Do** use Turquoise Action for primary interaction hierarchy, Turquoise Bright for wave and flow geometry, and Mint Soft for supportive emphasis.
 - **Do** keep financial data in continuous, scan-friendly structures with fine Mint Line separators.
-- **Do** use Qubic Grid for the promise, Dockyard wordmark, and compact section signage; keep navigation, actions, prose, and numeric data in Geist.
+- **Do** use the Figtree variable family across promise, wordmark, controls, prose, and numeric data; hierarchy comes from scale and weight rather than a second display face.
 - **Do** preserve the AI-generated four-part safe-harbor mark across the wordmark and favicon.
 - **Do** pair risk, network, and preview status color with explicit language and visible keyboard focus.
 - **Do** allow internal `rusd-` CSS class and token prefixes to remain where renaming would create implementation churn; keep them invisible to users.
