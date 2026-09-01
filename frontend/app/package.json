@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm build-deps && pnpm clean && next build",
-    "build:mvp": "pnpm build-uikit && pnpm build-banner && pnpm build-panda && pnpm clean && next build",
+    "build:mvp": "pnpm build-uikit && pnpm build-banner && pnpm build-panda && next build",
     "build-analyze": "ANALYZE=true pnpm build",
     "build-banner": "test -f ./Banner.tsx || cp ./Banner.example.tsx ./Banner.tsx",
     "build-deps": "pnpm build-graphql && pnpm build-uikit && pnpm build-banner && pnpm build-panda",
