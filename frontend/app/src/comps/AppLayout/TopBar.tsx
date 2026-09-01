@@ -5,6 +5,7 @@ import type { MenuItem } from "./Menu";
 import { Logo } from "@/src/comps/Logo/Logo";
 import { Tag } from "@/src/comps/Tag/Tag";
 import content from "@/src/content";
+import { DEPLOYMENT_FEATURES } from "@/src/deployment-config";
 import { DEPLOYMENT_FLAVOR } from "@/src/env";
 import { css } from "@/styled-system/css";
 import { IconBorrow, IconDashboard, IconEarn, IconLeverage, IconStake } from "@liquity2/uikit";
@@ -16,9 +17,13 @@ import { MenuDrawerButton } from "./MenuDrawer";
 const menuItems: MenuItem[] = [
   [content.menu.dashboard, "/", IconDashboard],
   [content.menu.borrow, "/borrow", IconBorrow],
-  [content.menu.multiply, "/multiply", IconLeverage],
+  ...(DEPLOYMENT_FEATURES.leverage
+    ? [[content.menu.multiply, "/multiply", IconLeverage] satisfies MenuItem]
+    : []),
   [content.menu.earn, "/earn", IconEarn],
-  [content.menu.stake, "/stake", IconStake],
+  ...(DEPLOYMENT_FEATURES.staking
+    ? [[content.menu.stake, "/stake", IconStake] satisfies MenuItem]
+    : []),
 ];
 
 export function TopBar() {

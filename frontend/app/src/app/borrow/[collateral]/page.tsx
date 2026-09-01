@@ -1,9 +1,7 @@
+import { getBorrowStaticParams } from "@/src/deployment-config";
+
 export function generateStaticParams() {
-  return [
-    { collateral: "eth" },
-    { collateral: "reth" },
-    { collateral: "wsteth" },
-  ];
+  return getBorrowStaticParams();
 }
 
 export default function BorrowCollateralPage() {

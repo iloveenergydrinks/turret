@@ -51,6 +51,16 @@ forge script script/DeployStockTokenSandcastle.s.sol:DeployStockTokenSandcastle 
 
 The script writes `contracts/deployment-stock-sandcastle.json`. The arrays use this fixed order: AAPL, MSFT, GOOGL, AMZN, META, NVDA, AVGO, LLY, MU, TSLA.
 
+Generate the contract portion of the frontend environment from that manifest:
+
+```sh
+cd contracts
+pnpm tsx utils/deployment-manifest-to-app-env.ts \
+  deployment-stock-sandcastle.json ../frontend/app/.env.sandcastle.local
+```
+
+Then add the chain RPC, block explorer, native currency, multicall address, subgraph URL, and WalletConnect project ID for the target network. The generated configuration disables leverage, governance staking, legacy checks, and the inherited sBOLD/yBOLD pools. It never contains a deployer key.
+
 ## Robinhood Chain testnet
 
 Fund a dedicated throwaway deployer with testnet ETH, keep its key outside the repository, and run:

@@ -2,8 +2,8 @@ import { z } from "zod";
 import { echo, fs, minimist } from "zx";
 
 const HELP = `
-Converts the deployment manifest created by scripts/DeployLiquity2.s.sol into 
-environment variables meant to be used by the Next.js app located in frontend/app.
+Converts a deployment manifest created by DeployLiquity2 or the Stock Token
+sandcastle deployer into environment variables for frontend/app.
 
 Usage:
   ./deployment-manifest-to-app-env.ts <MANIFEST_JSON> [OUTPUT_ENV] [OPTIONS]
@@ -68,7 +68,46 @@ const ZDeploymentManifest = z.object({
   ),
 });
 
+const ZStockSandcastleManifest = z.object({
+  chainId: z.union([z.literal(31337), z.literal(46630)]),
+  stablecoin: ZAddress,
+  collateralRegistry: ZAddress,
+  hintHelpers: ZAddress,
+  multiTroveGetter: ZAddress,
+  debtInFrontHelper: ZAddress,
+  redemptionHelper: ZAddress,
+  disabledExchange: ZAddress,
+  weth: ZAddress,
+  stockTokens: z.array(ZAddress).length(10),
+  addressRegistries: z.array(ZAddress).length(10),
+  borrowerOperations: z.array(ZAddress).length(10),
+  stabilityPools: z.array(ZAddress).length(10),
+  troveNFTs: z.array(ZAddress).length(10),
+  activePools: z.array(ZAddress).length(10),
+  defaultPools: z.array(ZAddress).length(10),
+  collSurplusPools: z.array(ZAddress).length(10),
+  sortedTroves: z.array(ZAddress).length(10),
+  troveManagers: z.array(ZAddress).length(10),
+  zappers: z.array(ZAddress).length(10),
+  priceFeeds: z.array(ZAddress).length(10),
+});
+
 type DeploymentManifest = z.infer<typeof ZDeploymentManifest>;
+type StockSandcastleManifest = z.infer<typeof ZStockSandcastleManifest>;
+
+const STOCK_SYMBOLS = [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "AMZN",
+  "META",
+  "NVDA",
+  "AVGO",
+  "LLY",
+  "MU",
+  "TSLA",
+] as const;
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function main() {
   const options = {
@@ -93,7 +132,9 @@ export function main() {
   );
 
   const outputEnv = objectToEnvironmentVariables(
-    deployedContractsToAppEnvVariables(manifest),
+    "stockTokens" in manifest
+      ? stockSandcastleToAppEnvVariables(manifest)
+      : deployedContractsToAppEnvVariables(manifest),
   );
 
   if (!options.outputEnvPath) {
@@ -172,6 +213,65 @@ function deployedContractsToAppEnvVariables(manifest: DeploymentManifest) {
   return appEnvVariables;
 }
 
+function stockSandcastleToAppEnvVariables(manifest: StockSandcastleManifest) {
+  const appEnvVariables: Record<string, string | boolean> = {
+    NEXT_PUBLIC_ACCOUNT_SCREEN: true,
+    NEXT_PUBLIC_AIRDROP_VAULTS: false,
+    NEXT_PUBLIC_AIRDROP_VAULTS_URL: "",
+    NEXT_PUBLIC_DEPLOYMENT_FLAVOR: "Stock Token Sandcastle",
+    NEXT_PUBLIC_ENABLE_LEVERAGE: false,
+    NEXT_PUBLIC_ENABLE_STAKING: false,
+    NEXT_PUBLIC_LEGACY_CHECK: false,
+    NEXT_PUBLIC_KNOWN_DELEGATES_URL: "",
+    NEXT_PUBLIC_KNOWN_INITIATIVES_URL: "",
+    NEXT_PUBLIC_LIQUITY_GOVERNANCE_URL: "",
+    NEXT_PUBLIC_LIQUITY_STATS_URL: "",
+    NEXT_PUBLIC_SAFE_API_URL: "",
+    NEXT_PUBLIC_SAFETY_MODE_CHECK: true,
+    NEXT_PUBLIC_SBOLD: "",
+    NEXT_PUBLIC_SUBGRAPH_CHECK: false,
+    NEXT_PUBLIC_TROVE_EXPLORER_0: "",
+    NEXT_PUBLIC_TROVE_EXPLORER_1: "",
+    NEXT_PUBLIC_V1_STABILITY_POOL_CHECK: false,
+    NEXT_PUBLIC_V1_STAKING_CHECK: false,
+    NEXT_PUBLIC_YBOLD: false,
+    NEXT_PUBLIC_CONTRACT_BOLD_TOKEN: manifest.stablecoin,
+    NEXT_PUBLIC_CONTRACT_COLLATERAL_REGISTRY: manifest.collateralRegistry,
+    NEXT_PUBLIC_CONTRACT_DEBT_IN_FRONT_HELPER: manifest.debtInFrontHelper,
+    NEXT_PUBLIC_CONTRACT_EXCHANGE_HELPERS: manifest.disabledExchange,
+    NEXT_PUBLIC_CONTRACT_EXCHANGE_HELPERS_V2: manifest.disabledExchange,
+    NEXT_PUBLIC_CONTRACT_GOVERNANCE: ZERO_ADDRESS,
+    NEXT_PUBLIC_CONTRACT_HINT_HELPERS: manifest.hintHelpers,
+    NEXT_PUBLIC_CONTRACT_LQTY_STAKING: ZERO_ADDRESS,
+    NEXT_PUBLIC_CONTRACT_LQTY_TOKEN: ZERO_ADDRESS,
+    NEXT_PUBLIC_CONTRACT_LUSD_TOKEN: ZERO_ADDRESS,
+    NEXT_PUBLIC_CONTRACT_MULTI_TROVE_GETTER: manifest.multiTroveGetter,
+    NEXT_PUBLIC_CONTRACT_REDEMPTION_HELPER: manifest.redemptionHelper,
+    NEXT_PUBLIC_CONTRACT_V1_STABILITY_POOL: ZERO_ADDRESS,
+    NEXT_PUBLIC_CONTRACT_WETH: manifest.weth,
+  };
+
+  for (const [index, symbol] of STOCK_SYMBOLS.entries()) {
+    const prefix = `NEXT_PUBLIC_COLL_${index}`;
+    appEnvVariables[`${prefix}_TOKEN_ID`] = symbol;
+    appEnvVariables[`${prefix}_IC_STRATEGIES`] = false;
+    appEnvVariables[`${prefix}_CONTRACT_ACTIVE_POOL`] = manifest.activePools[index];
+    appEnvVariables[`${prefix}_CONTRACT_ADDRESSES_REGISTRY`] = manifest.addressRegistries[index];
+    appEnvVariables[`${prefix}_CONTRACT_BORROWER_OPERATIONS`] = manifest.borrowerOperations[index];
+    appEnvVariables[`${prefix}_CONTRACT_COLL_SURPLUS_POOL`] = manifest.collSurplusPools[index];
+    appEnvVariables[`${prefix}_CONTRACT_COLL_TOKEN`] = manifest.stockTokens[index];
+    appEnvVariables[`${prefix}_CONTRACT_DEFAULT_POOL`] = manifest.defaultPools[index];
+    appEnvVariables[`${prefix}_CONTRACT_LEVERAGE_ZAPPER`] = manifest.zappers[index];
+    appEnvVariables[`${prefix}_CONTRACT_PRICE_FEED`] = manifest.priceFeeds[index];
+    appEnvVariables[`${prefix}_CONTRACT_SORTED_TROVES`] = manifest.sortedTroves[index];
+    appEnvVariables[`${prefix}_CONTRACT_STABILITY_POOL`] = manifest.stabilityPools[index];
+    appEnvVariables[`${prefix}_CONTRACT_TROVE_MANAGER`] = manifest.troveManagers[index];
+    appEnvVariables[`${prefix}_CONTRACT_TROVE_NFT`] = manifest.troveNFTs[index];
+  }
+
+  return appEnvVariables;
+}
+
 function contractNameToAppEnvVariable(contractName: string, prefix: string = "") {
   prefix = `NEXT_PUBLIC_${prefix}`;
   switch (contractName) {
@@ -232,7 +332,7 @@ function contractNameToAppEnvVariable(contractName: string, prefix: string = "")
   return null;
 }
 
-function parseDeploymentManifest(content: string) {
+function parseDeploymentManifest(content: string): DeploymentManifest | StockSandcastleManifest {
   if (!content.trim()) {
     console.error("\nNo deployment manifest provided.\n");
     process.exit(1);
@@ -246,7 +346,7 @@ function parseDeploymentManifest(content: string) {
     process.exit(1);
   }
 
-  const manifest = ZDeploymentManifest.safeParse(json);
+  const manifest = z.union([ZDeploymentManifest, ZStockSandcastleManifest]).safeParse(json);
   if (!manifest.success) {
     console.error("\nInvalid deployment manifest provided.\n");
     console.error(
