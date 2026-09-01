@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "label": "Synthetic one-session gap screening — not production calibration",
+  "trials": 100000,
+  "seed": 20260901,
+  "startingBufferBps": 500,
+  "liquidationPenaltyBps": 1000,
+  "jumpProbabilityBps": 100,
+  "jumpVolatilityBps": 1200,
+  "dailyDriftBps": 0,
+  "dailyVolatilityBps": {
+    "AAPL": 220,
+    "MSFT": 210,
+    "GOOGL": 230,
+    "AMZN": 260,
+    "META": 280,
+    "NVDA": 340,
+    "AMD": 380,
+    "ORCL": 240,
+    "MU": 330,
+    "TSLA": 420
+  }
+}

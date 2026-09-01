@@ -60,6 +60,15 @@ The model exposes a deliberate risk tradeoff: all ten branches still cover the 1
 
 `StockTokenLiquidationSimulation.t.sol` connects the production-shaped dual-endpoint adapter to a complete Liquity branch configured with NVDA-style 200% MCR and 230% CCR parameters. It verifies that an unconfirmed 25% gap cannot liquidate, that a later corroborating round can liquidate through the Stability Pool, and that the secondary endpoint can drive a liquidation at the exact 20% circuit-breaker boundary when the primary is unavailable. This closes the deterministic integration scenario only; it is not the required historical, Monte Carlo, or live-testnet soak evidence.
 
+The seeded synthetic runner reads all MCR and deviation cutoffs directly from `StockTokenConfig.sol` and evaluates a one-session return distribution for every branch:
+
+```sh
+pnpm --dir contracts test:stock-risk
+pnpm --dir contracts simulate:stock-risk
+```
+
+Its volatility, jump, buffer, penalty, seed, and trial assumptions live in `contracts/utils/stock-risk-scenario.sandcastle.json`, separate from the engine. The runner reports raw occurrence counts as well as rates so rare penalty shortfalls are not rounded away. These assumptions are intentionally labeled synthetic and unreviewed; the output is a reproducible screening baseline, not a production parameter recommendation or a substitute for sourced historical data.
+
 ## Local deployment
 
 Prerequisites: Foundry and the repository submodules.
