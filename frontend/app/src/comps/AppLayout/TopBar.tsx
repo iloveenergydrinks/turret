@@ -7,7 +7,6 @@ import { AccountButton } from "./AccountButton";
 
 const links = [
   { href: "/", label: "Markets" },
-  { href: "/borrow", label: "Positions" },
   { href: "/earn", label: "Earn" },
 ] as const;
 

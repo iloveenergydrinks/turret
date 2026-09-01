@@ -556,7 +556,8 @@ body {
 }
 
 .rusd-how-media img {
-  object-fit: contain;
+  filter: saturate(0.78) contrast(1.04);
+  object-fit: cover;
 }
 
 .rusd-how-card-market .rusd-how-media img {
@@ -564,13 +565,11 @@ body {
 }
 
 .rusd-how-card-isolated .rusd-how-media img {
-  object-position: center;
-  transform: scale(1.45);
+  object-position: 50% 54%;
 }
 
 .rusd-how-card-borrow .rusd-how-media img {
-  object-position: center;
-  transform: scale(1.45);
+  object-position: 50% 58%;
 }
 
 .rusd-how-copy {
@@ -751,11 +750,6 @@ body {
   .rusd-how-copy h3 {
     max-width: none;
     font-size: 26px;
-  }
-
-  .rusd-how-card-isolated .rusd-how-media img,
-  .rusd-how-card-borrow .rusd-how-media img {
-    transform: scale(1.15);
   }
 
   .rusd-footer-inner {

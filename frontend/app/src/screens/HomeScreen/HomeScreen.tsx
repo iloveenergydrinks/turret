@@ -132,10 +132,10 @@ export function HomeScreen() {
           <article className="rusd-how-card rusd-how-card-market">
             <div className="rusd-how-media">
               <Image
-                alt="An abstract Stock Token selected from a field of market assets"
+                alt="Teal architectural walkways forming a layered geometric field"
                 fill
                 sizes="(max-width: 760px) calc(100vw - 20px), 58vw"
-                src="/how-it-works/choose-market-logo-style-ai.png"
+                src="/how-it-works/choose-market-unsplash.jpg"
               />
             </div>
             <div className="rusd-how-copy">
@@ -147,10 +147,10 @@ export function HomeScreen() {
           <article className="rusd-how-card rusd-how-card-isolated">
             <div className="rusd-how-media">
               <Image
-                alt="An abstract Stock Token held inside its own isolated chamber"
+                alt="A dark doorway isolated within concrete walls"
                 fill
                 sizes="(max-width: 760px) calc(100vw - 20px), 42vw"
-                src="/how-it-works/isolated-position-logo-style-ai.png"
+                src="/how-it-works/isolated-position-unsplash.jpg"
               />
             </div>
             <div className="rusd-how-copy">
@@ -162,10 +162,10 @@ export function HomeScreen() {
           <article className="rusd-how-card rusd-how-card-borrow">
             <div className="rusd-how-media">
               <Image
-                alt="An abstract sea-glass liquidity module released while collateral remains secured"
+                alt="White architectural planes opening onto a teal sky"
                 fill
                 sizes="(max-width: 760px) calc(100vw - 20px), 42vw"
-                src="/how-it-works/borrow-rusd-logo-style-ai.png"
+                src="/how-it-works/borrow-rusd-unsplash.jpg"
               />
             </div>
             <div className="rusd-how-copy">

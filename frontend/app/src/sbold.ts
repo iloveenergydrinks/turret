@@ -1,6 +1,7 @@
 import type { Address, Dnum, PositionSbold } from "@/src/types";
 
 import { dnum18, DNUM_0 } from "@/src/dnum-utils";
+import { DEPLOYMENT_FEATURES } from "@/src/deployment-config";
 import { SBOLD } from "@/src/env";
 import { getBranch, getBranchesCount, useLiquityStats } from "@/src/liquity-utils";
 import { isBranchId } from "@/src/types";
@@ -34,7 +35,7 @@ export const SboldContract = {
 };
 
 export function isSboldEnabled() {
-  return Boolean(SBOLD);
+  return DEPLOYMENT_FEATURES.staking && Boolean(SBOLD);
 }
 
 export function useSboldPosition(address: Address | null) {
