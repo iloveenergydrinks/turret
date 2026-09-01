@@ -229,6 +229,34 @@ body {
   font-weight: 720;
 }
 
+.rusd-explainer {
+  scroll-margin-top: 96px;
+  padding: 26px 0 6px;
+}
+
+.rusd-explainer-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 4px 16px;
+}
+
+.rusd-explainer-heading h2 {
+  margin: 0;
+  color: var(--rusd-ink);
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 690;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.rusd-explainer-heading p {
+  margin: 0;
+  color: var(--rusd-muted);
+  font-size: 14px;
+}
+
 .rusd-preview-notice {
   margin-top: 18px;
   padding: 10px 14px;
@@ -977,7 +1005,10 @@ body {
 
 .rusd-position-path {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1.14fr) 38px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1.14fr) 38px minmax(
+    0,
+    1fr
+  );
   align-items: stretch;
   gap: 8px;
 }
@@ -1122,7 +1153,8 @@ body {
 
 .rusd-borrow-flow {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  counter-reset: dockyard-step;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -1135,33 +1167,58 @@ body {
 .rusd-borrow-flow li {
   position: relative;
   display: flex;
-  min-height: 78px;
+  min-height: 132px;
   flex-direction: column;
   justify-content: center;
-  padding: 0 28px;
+  padding: 22px 24px 22px 56px;
+  counter-increment: dockyard-step;
+}
+
+.rusd-borrow-flow li::before {
+  position: absolute;
+  top: 25px;
+  left: 22px;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  background: var(--rusd-primary);
+  border-radius: 50%;
+  content: counter(dockyard-step);
+  font-size: 11px;
+  font-weight: 760;
+  place-items: center;
 }
 
 .rusd-borrow-flow li:not(:last-child)::after {
   position: absolute;
-  top: 22px;
+  top: 20px;
   right: 0;
-  bottom: 22px;
+  bottom: 20px;
   width: 1px;
   background: var(--rusd-line);
   content: "";
 }
 
-.rusd-borrow-flow span {
-  color: var(--rusd-primary);
-  font-size: 12px;
-  font-weight: 700;
-}
-
 .rusd-borrow-flow strong {
-  margin-top: 3px;
   color: var(--rusd-ink);
   font-size: 15px;
-  font-weight: 650;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.rusd-borrow-flow p {
+  margin: 7px 0 0;
+  color: var(--rusd-muted);
+  font-size: 13px;
+  line-height: 1.42;
+}
+
+.rusd-explainer-risk {
+  margin: 12px 4px 0;
+  color: var(--rusd-muted);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .rusd-market-panel {
@@ -1315,12 +1372,16 @@ body {
 
   .rusd-borrow-flow {
     grid-template-columns: 1fr;
-    padding: 8px 0;
   }
 
   .rusd-borrow-flow li {
-    min-height: 58px;
-    padding: 0 20px;
+    min-height: 0;
+    padding: 20px 20px 20px 60px;
+  }
+
+  .rusd-borrow-flow li::before {
+    top: 22px;
+    left: 20px;
   }
 
   .rusd-borrow-flow li:not(:last-child)::after {
@@ -1330,6 +1391,22 @@ body {
     left: 20px;
     width: auto;
     height: 1px;
+  }
+
+  .rusd-explainer {
+    padding-top: 32px;
+  }
+
+  .rusd-explainer-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+
+  .rusd-explainer-heading h2 {
+    font-size: 36px;
   }
 
   .rusd-market-heading {

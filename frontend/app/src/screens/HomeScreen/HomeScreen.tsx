@@ -174,20 +174,33 @@ export function HomeScreen() {
         <PositionMechanism market={selectedMarket} />
       </section>
 
-      <ol aria-label="How borrowing works" className="rusd-borrow-flow">
-        <li>
-          <span>Choose</span>
-          <strong>a stock market</strong>
-        </li>
-        <li>
-          <span>Deposit</span>
-          <strong>its Stock Token</strong>
-        </li>
-        <li>
-          <span>Borrow</span>
-          <strong>USDG liquidity</strong>
-        </li>
-      </ol>
+      <section className="rusd-explainer" id="how-it-works">
+        <div className="rusd-explainer-heading">
+          <h2>How it works</h2>
+          <p>One stock, one loan. No selling.</p>
+        </div>
+        <ol aria-label="How borrowing works" className="rusd-borrow-flow">
+          <li>
+            <strong>Choose a stock</strong>
+            <p>Pick the Stock Token you already hold.</p>
+          </li>
+          <li>
+            <strong>Lock the token</strong>
+            <p>It stays in its own vault while your loan is open.</p>
+          </li>
+          <li>
+            <strong>Receive USDG</strong>
+            <p>Borrow existing USDG supplied to Dockyard.</p>
+          </li>
+          <li>
+            <strong>Repay and unlock</strong>
+            <p>Return the USDG to withdraw your Stock Token.</p>
+          </li>
+        </ol>
+        <p className="rusd-explainer-risk">
+          If the Stock Token falls too far, it can be sold to repay the loan.
+        </p>
+      </section>
 
       <section className="rusd-market-panel">
         <div className="rusd-market-heading">

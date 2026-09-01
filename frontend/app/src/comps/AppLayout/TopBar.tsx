@@ -8,6 +8,7 @@ import { AccountButton } from "./AccountButton";
 
 const links = [
   { href: "/", label: "Markets" },
+  { href: "/#how-it-works", label: "How it works" },
 ] as const;
 
 export function TopBar() {
