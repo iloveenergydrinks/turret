@@ -8,7 +8,7 @@ export type RiskConfig = {
 };
 
 export type RiskScenario = {
-  schemaVersion: 1;
+  schemaVersion: 2;
   label: string;
   trials: number;
   seed: number;
@@ -18,6 +18,10 @@ export type RiskScenario = {
   jumpVolatilityBps: number;
   dailyDriftBps: number;
   dailyVolatilityBps: Record<string, number>;
+  confirmationDeviationBps: number;
+  confirmationWindowVolatilityBps: Record<string, number>;
+  confirmationWindowJumpProbabilityBps: number;
+  confirmationWindowJumpVolatilityBps: number;
 };
 
 export type GapClassification = {
@@ -27,11 +31,23 @@ export type GapClassification = {
   penaltyShortfall: boolean;
 };
 
+export type ConfirmationWindowClassification = {
+  combinedReturnBps: number;
+  collateralRatioBps: number;
+  confirmationRestarts: boolean;
+  confirmed: boolean;
+  recoveredWithoutConfirmation: boolean;
+  penaltyShortfallDuringDelay: boolean;
+};
+
 export type SimulationResult = RiskConfig & {
   trials: number;
   liquidationCount: number;
   delayedLiquidationCount: number;
   penaltyShortfallCount: number;
+  confirmationRestartCount: number;
+  confirmationRecoveryCount: number;
+  confirmationShortfallCount: number;
   liquidationRateBps: number;
   delayedLiquidationRateBps: number;
   penaltyShortfallRateBps: number;
@@ -71,6 +87,39 @@ export function classifyGap(
   };
 }
 
+export function classifyConfirmationWindow(
+  config: RiskConfig,
+  scenario: Pick<
+    RiskScenario,
+    "startingBufferBps" | "liquidationPenaltyBps" | "confirmationDeviationBps"
+  >,
+  initialReturnBps: number,
+  confirmationWindowReturnBps: number,
+): ConfirmationWindowClassification {
+  const initial = classifyGap(config, scenario, initialReturnBps);
+  const combinedPriceBps = Math.max(
+    0,
+    Math.floor((BPS + initialReturnBps) * (BPS + confirmationWindowReturnBps) / BPS),
+  );
+  const combinedReturnBps = combinedPriceBps - BPS;
+  const afterWindow = classifyGap(config, scenario, combinedReturnBps);
+  const recoveredWithoutConfirmation = initial.confirmationRequired
+    && Math.abs(combinedReturnBps) <= config.maxOracleDeviationBps;
+  const confirmationRestarts = initial.confirmationRequired
+    && !recoveredWithoutConfirmation
+    && Math.abs(confirmationWindowReturnBps) > scenario.confirmationDeviationBps;
+
+  return {
+    combinedReturnBps,
+    collateralRatioBps: afterWindow.collateralRatioBps,
+    confirmationRestarts,
+    confirmed: initial.confirmationRequired && !recoveredWithoutConfirmation && !confirmationRestarts,
+    recoveredWithoutConfirmation,
+    penaltyShortfallDuringDelay: initial.confirmationRequired
+      && (initial.penaltyShortfall || afterWindow.penaltyShortfall),
+  };
+}
+
 function seededRandom(seed: number): () => number {
   let state = seed >>> 0;
   return () => {
@@ -96,13 +145,26 @@ function symbolSeed(seed: number, symbol: string): number {
 
 export function simulateBranch(config: RiskConfig, scenario: RiskScenario): SimulationResult {
   const volatility = scenario.dailyVolatilityBps[config.symbol];
+  const confirmationWindowVolatility = scenario.confirmationWindowVolatilityBps[config.symbol];
   if (!Number.isFinite(volatility)) throw new Error(`missing daily volatility for ${config.symbol}`);
+  if (!Number.isFinite(confirmationWindowVolatility)) {
+    throw new Error(`missing confirmation-window volatility for ${config.symbol}`);
+  }
+  if (
+    !Number.isFinite(scenario.confirmationWindowJumpProbabilityBps)
+    || !Number.isFinite(scenario.confirmationWindowJumpVolatilityBps)
+  ) {
+    throw new Error("missing confirmation-window jump assumptions");
+  }
   if (!Number.isInteger(scenario.trials) || scenario.trials <= 0) throw new Error("trials must be a positive integer");
 
   const random = seededRandom(symbolSeed(scenario.seed, config.symbol));
   let liquidations = 0;
   let delayedLiquidations = 0;
   let penaltyShortfalls = 0;
+  let confirmationRestarts = 0;
+  let confirmationRecoveries = 0;
+  let confirmationShortfalls = 0;
   let worstCollateralRatioBps = Number.POSITIVE_INFINITY;
 
   for (let trial = 0; trial < scenario.trials; ++trial) {
@@ -117,6 +179,19 @@ export function simulateBranch(config: RiskConfig, scenario: RiskScenario): Simu
     if (outcome.confirmationRequired) delayedLiquidations++;
     if (outcome.penaltyShortfall) penaltyShortfalls++;
     worstCollateralRatioBps = Math.min(worstCollateralRatioBps, outcome.collateralRatioBps);
+
+    if (outcome.confirmationRequired) {
+      let windowReturnBps = normal(random) * confirmationWindowVolatility;
+      if (random() * BPS < scenario.confirmationWindowJumpProbabilityBps) {
+        windowReturnBps += normal(random) * scenario.confirmationWindowJumpVolatilityBps;
+      }
+      windowReturnBps = Math.max(-9_900, Math.min(BPS, Math.round(windowReturnBps)));
+      const window = classifyConfirmationWindow(config, scenario, returnBps, windowReturnBps);
+      if (window.confirmationRestarts) confirmationRestarts++;
+      if (window.recoveredWithoutConfirmation) confirmationRecoveries++;
+      if (window.penaltyShortfallDuringDelay) confirmationShortfalls++;
+      worstCollateralRatioBps = Math.min(worstCollateralRatioBps, window.collateralRatioBps);
+    }
   }
 
   const rate = (count: number) => Math.round(count * BPS / scenario.trials);
@@ -126,6 +201,9 @@ export function simulateBranch(config: RiskConfig, scenario: RiskScenario): Simu
     liquidationCount: liquidations,
     delayedLiquidationCount: delayedLiquidations,
     penaltyShortfallCount: penaltyShortfalls,
+    confirmationRestartCount: confirmationRestarts,
+    confirmationRecoveryCount: confirmationRecoveries,
+    confirmationShortfallCount: confirmationShortfalls,
     liquidationRateBps: rate(liquidations),
     delayedLiquidationRateBps: rate(delayedLiquidations),
     penaltyShortfallRateBps: rate(penaltyShortfalls),
@@ -134,7 +212,7 @@ export function simulateBranch(config: RiskConfig, scenario: RiskScenario): Simu
 }
 
 export function runSimulation(configs: RiskConfig[], scenario: RiskScenario): SimulationResult[] {
-  if (scenario.schemaVersion !== 1) throw new Error(`unsupported scenario schema: ${scenario.schemaVersion}`);
+  if (scenario.schemaVersion !== 2) throw new Error(`unsupported scenario schema: ${scenario.schemaVersion}`);
   if (configs.length !== 10) throw new Error(`expected 10 Stock Token branches, found ${configs.length}`);
   return configs.map((config) => simulateBranch(config, scenario));
 }
@@ -162,7 +240,10 @@ export async function main(): Promise<void> {
     cutoff: percent(result.maxOracleDeviationBps),
     liquidated: occurrence(result.liquidationCount, result.trials),
     delayed: occurrence(result.delayedLiquidationCount, result.trials),
-    shortfall: occurrence(result.penaltyShortfallCount, result.trials),
+    gap_shortfall: occurrence(result.penaltyShortfallCount, result.trials),
+    delay_shortfall: occurrence(result.confirmationShortfallCount, result.trials),
+    delay_restart: occurrence(result.confirmationRestartCount, result.trials),
+    delay_recovery: occurrence(result.confirmationRecoveryCount, result.trials),
     worst_CR: percent(result.worstCollateralRatioBps),
   })));
   console.log("Synthetic screening only. Do not use these results as production calibration or historical evidence.");

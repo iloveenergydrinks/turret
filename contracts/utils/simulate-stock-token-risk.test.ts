@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { test } from "node:test";
 import {
+  classifyConfirmationWindow,
   classifyGap,
   parseRiskManifest,
   RiskScenario,
@@ -11,7 +12,7 @@ import {
 } from "./simulate-stock-token-risk";
 
 const scenario: RiskScenario = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   label: "test",
   trials: 1_000,
   seed: 42,
@@ -21,6 +22,10 @@ const scenario: RiskScenario = {
   jumpVolatilityBps: 1_200,
   dailyDriftBps: 0,
   dailyVolatilityBps: { NVDA: 340 },
+  confirmationDeviationBps: 500,
+  confirmationWindowVolatilityBps: { NVDA: 95 },
+  confirmationWindowJumpProbabilityBps: 1_000,
+  confirmationWindowJumpVolatilityBps: 800,
 };
 
 const nvda = { symbol: "NVDA", mcrBps: 20_000, maxOracleDeviationBps: 2_000 };
@@ -38,6 +43,20 @@ test("classifies the exact oracle cutoff without rounding it into a delayed liqu
 
 test("seeded simulations are reproducible", () => {
   assert.deepEqual(simulateBranch(nvda, scenario), simulateBranch(nvda, scenario));
+});
+
+test("models confirmation, material drift, recovery, and blocked shortfall", () => {
+  const confirmed = classifyConfirmationWindow(nvda, scenario, -5_000, 100);
+  assert.equal(confirmed.confirmed, true);
+  assert.equal(confirmed.penaltyShortfallDuringDelay, true);
+
+  const restarted = classifyConfirmationWindow(nvda, scenario, -5_000, 600);
+  assert.equal(restarted.confirmationRestarts, true);
+  assert.equal(restarted.confirmed, false);
+
+  const recovered = classifyConfirmationWindow(nvda, scenario, -5_000, 6_000);
+  assert.equal(recovered.recoveredWithoutConfirmation, true);
+  assert.equal(recovered.confirmationRestarts, false);
 });
 
 test("fails closed when an asset volatility assumption is missing", () => {
