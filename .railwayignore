@@ -1,5 +1,7 @@
 .git/
 **/.DS_Store
+**/.env
+**/.env.*
 **/node_modules/
 **/.next/
 **/out/
@@ -8,6 +10,7 @@ contracts/broadcast/
 contracts/cache/
 contracts/lib/
 contracts/out/
+contracts/deployment-dockyard-usdg-mainnet.json
 frontend/app/.claude-design/
 frontend/app/.impeccable/
 frontend/app/public/brand/dockyard-bow-wash-ai-original.png
