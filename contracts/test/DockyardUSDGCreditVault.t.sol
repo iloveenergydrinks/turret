@@ -254,6 +254,25 @@ contract DockyardUSDGCreditVaultTest is Test {
         assertEq(usdg.balanceOf(address(this)), balanceBefore + 10 * USDG_UNIT);
     }
 
+    function testOnlyOwnerCanFundUSDG() public {
+        usdg.mint(borrower, USDG_UNIT);
+        vm.startPrank(borrower);
+        usdg.approve(address(vault), USDG_UNIT);
+        vm.expectRevert("Ownable: caller is not the owner");
+        vault.fund(USDG_UNIT);
+        vm.stopPrank();
+
+        assertEq(usdg.balanceOf(borrower), USDG_UNIT);
+    }
+
+    function testOwnerCannotRenounceAndStrandUSDG() public {
+        vm.expectRevert();
+        vault.renounceOwnership();
+
+        assertEq(vault.owner(), address(this));
+        assertEq(vault.availableLiquidity(), 1_000_000 * USDG_UNIT);
+    }
+
     function testPauseStopsNewRiskButRepaymentRemainsAvailable() public {
         vm.startPrank(borrower);
         vault.depositCollateral(address(aapl), 10 * STOCK_UNIT);
@@ -273,6 +292,25 @@ contract DockyardUSDGCreditVaultTest is Test {
         vm.stopPrank();
 
         assertEq(aapl.balanceOf(borrower), 100 * STOCK_UNIT);
+    }
+
+    function testBorrowerCanRepayAllAndRecoverCollateralWhilePaused() public {
+        vm.prank(borrower);
+        vault.depositAndBorrow(address(aapl), 10 * STOCK_UNIT, 400 * USDG_UNIT);
+        vault.pause();
+
+        usdg.mint(borrower, 2 * USDG_UNIT);
+        vm.startPrank(borrower);
+        usdg.approve(address(vault), type(uint256).max);
+        (uint256 repaid, uint256 withdrawn) = vault.repayAllAndWithdrawCollateral(address(aapl), borrower);
+        vm.stopPrank();
+
+        assertEq(repaid, 402 * USDG_UNIT);
+        assertEq(withdrawn, 10 * STOCK_UNIT);
+        assertEq(aapl.balanceOf(borrower), 100 * STOCK_UNIT);
+        (uint128 collateral, uint128 debt) = vault.positions(address(aapl), borrower);
+        assertEq(collateral, 0);
+        assertEq(debt, 0);
     }
 
     function testPausedMarketStillAllowsLiquidation() public {

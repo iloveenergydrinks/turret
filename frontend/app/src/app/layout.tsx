@@ -14,6 +14,7 @@ import { Blocking } from "@/src/comps/Blocking/Blocking";
 import { DataSources } from "@/src/comps/DataSources/DataSources";
 import content from "@/src/content";
 import { READ_ONLY_DEPLOYMENT } from "@/src/deployment-config";
+import { DOCKYARD_STANDALONE_DEPLOYMENT } from "@/src/dockyard-config";
 import { Ethereum } from "@/src/services/Ethereum";
 import { IndicatorManager } from "@/src/services/IndicatorManager";
 import { ReactQuery } from "@/src/services/ReactQuery";
@@ -58,6 +59,16 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
             <UiKit>
               <PreviewAppLayout>{children}</PreviewAppLayout>
             </UiKit>
+          )
+          : DOCKYARD_STANDALONE_DEPLOYMENT
+          ? (
+            <ReactQuery>
+              <UiKit>
+                <Ethereum>
+                  <PreviewAppLayout interactive>{children}</PreviewAppLayout>
+                </Ethereum>
+              </UiKit>
+            </ReactQuery>
           )
           : (
             <ReactQuery>

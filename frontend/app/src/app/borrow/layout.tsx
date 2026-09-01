@@ -1,11 +1,15 @@
-import { BorrowScreen } from "@/src/screens/BorrowScreen/BorrowScreen";
 import { READ_ONLY_DEPLOYMENT } from "@/src/deployment-config";
+import { DOCKYARD_STANDALONE_DEPLOYMENT } from "@/src/dockyard-config";
+import { BorrowScreen } from "@/src/screens/BorrowScreen/BorrowScreen";
 import { redirect } from "next/navigation";
+import type { ReactNode } from "react";
 
-export default function Page() {
+export default function BorrowLayout({ children }: { children: ReactNode }) {
   if (READ_ONLY_DEPLOYMENT) {
     redirect("/");
   }
+
+  if (DOCKYARD_STANDALONE_DEPLOYMENT) return children;
 
   return <BorrowScreen />;
 }

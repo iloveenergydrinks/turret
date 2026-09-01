@@ -3,6 +3,7 @@
 import type { BranchId, CollateralSymbol } from "@/src/types";
 
 import { READ_ONLY_DEPLOYMENT } from "@/src/deployment-config";
+import { DOCKYARD_STANDALONE_DEPLOYMENT } from "@/src/dockyard-config";
 import { getBranches, getCollToken } from "@/src/liquity-utils";
 import Link from "next/link";
 import { useState } from "react";
@@ -157,10 +158,12 @@ function MarketRow({ symbol, branchId }: { symbol: CollateralSymbol; branchId: B
 
 function PreviewMarketRow({
   market,
+  live,
   selected,
   onSelect,
 }: {
   market: PreviewMarket;
+  live: boolean;
   selected: boolean;
   onSelect: (market: PreviewMarket) => void;
 }) {
@@ -171,14 +174,18 @@ function PreviewMarketRow({
       </td>
       <td className="rusd-ltv">{market.maxLtv}</td>
       <td>
-        <button
-          aria-pressed={selected}
-          className="rusd-action rusd-preview-action"
-          onClick={() => onSelect(market)}
-          type="button"
-        >
-          {selected ? "Selected" : "View"}
-        </button>
+        {live
+          ? <Link className="rusd-action" href={`/borrow/${market.symbol.toLowerCase()}`}>Borrow</Link>
+          : (
+            <button
+              aria-pressed={selected}
+              className="rusd-action rusd-preview-action"
+              onClick={() => onSelect(market)}
+              type="button"
+            >
+              {selected ? "Selected" : "View"}
+            </button>
+          )}
       </td>
     </tr>
   );
@@ -241,7 +248,8 @@ function PositionMechanism({ market }: { market: PreviewMarket }) {
 }
 
 export function HomeScreen() {
-  const branches = READ_ONLY_DEPLOYMENT ? [] : getBranches();
+  const standaloneMarkets = READ_ONLY_DEPLOYMENT || DOCKYARD_STANDALONE_DEPLOYMENT;
+  const branches = standaloneMarkets ? [] : getBranches();
   const [selectedMarket, setSelectedMarket] = useState<PreviewMarket>(MVP_MARKETS[0]);
 
   return (
@@ -292,7 +300,7 @@ export function HomeScreen() {
         </div>
         <table className="rusd-market-table">
           <caption className="sr-only">
-            Choose your collateral from {READ_ONLY_DEPLOYMENT ? MVP_MARKETS.length : branches.length}{" "}
+            Choose your collateral from {standaloneMarkets ? MVP_MARKETS.length : branches.length}{" "}
             isolated Stock Token markets
           </caption>
           <thead>
@@ -305,10 +313,11 @@ export function HomeScreen() {
             </tr>
           </thead>
           <tbody>
-            {READ_ONLY_DEPLOYMENT
+            {standaloneMarkets
               ? MVP_MARKETS.map((market) => (
                 <PreviewMarketRow
                   key={market.symbol}
+                  live={DOCKYARD_STANDALONE_DEPLOYMENT}
                   market={market}
                   onSelect={setSelectedMarket}
                   selected={selectedMarket.symbol === market.symbol}

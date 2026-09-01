@@ -3,8 +3,9 @@
 import { Logo } from "@/src/comps/Logo/Logo";
 import { CHAIN_ID, CHAIN_NAME } from "@/src/env";
 import Link from "next/link";
+import { AccountButton } from "./AccountButton";
 
-export function PreviewTopBar() {
+export function PreviewTopBar({ interactive = false }: { interactive?: boolean }) {
   return (
     <header className="rusd-topbar">
       <div className="rusd-frame rusd-topbar-inner rusd-topbar-preview">
@@ -20,6 +21,7 @@ export function PreviewTopBar() {
             <span className="rusd-network-name">{CHAIN_NAME}</span>
             <span className="rusd-network-name-short">Robinhood</span>
           </span>
+          {interactive && <AccountButton />}
         </div>
       </div>
     </header>

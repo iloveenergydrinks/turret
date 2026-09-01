@@ -4,13 +4,13 @@ import { DockyardGradient } from "./DockyardGradient";
 import { PreviewBottomBar } from "./PreviewBottomBar";
 import { PreviewTopBar } from "./PreviewTopBar";
 
-export function PreviewAppLayout({ children }: { children: ReactNode }) {
+export function PreviewAppLayout({ children, interactive = false }: { children: ReactNode; interactive?: boolean }) {
   return (
     <div className="rusd-shell">
       <DockyardGradient />
-      <PreviewTopBar />
+      <PreviewTopBar interactive={interactive} />
       <main className="rusd-frame rusd-main">{children}</main>
-      <PreviewBottomBar />
+      <PreviewBottomBar interactive={interactive} />
     </div>
   );
 }

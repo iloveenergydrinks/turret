@@ -66,6 +66,7 @@ contract DockyardUSDGCreditVault is Ownable, Pausable, ReentrancyGuard {
     error ZeroAddress();
     error ZeroAmount();
     error InvalidUSDGDecimals();
+    error OwnershipCannotBeRenounced();
     error InvalidMarket();
     error MarketAlreadyExists();
     error MarketDisabled();
@@ -176,7 +177,7 @@ contract DockyardUSDGCreditVault is Ownable, Pausable, ReentrancyGuard {
         return availableLiquidity() + totalDebt;
     }
 
-    function fund(uint256 amount) external nonReentrant {
+    function fund(uint256 amount) external onlyOwner nonReentrant {
         if (amount == 0) revert ZeroAmount();
         IERC20(address(usdg)).safeTransferFrom(msg.sender, address(this), amount);
         emit LiquidityFunded(msg.sender, amount);
@@ -289,6 +290,34 @@ contract DockyardUSDGCreditVault is Ownable, Pausable, ReentrancyGuard {
         emit Repaid(collateral, borrower, msg.sender, repaid, position.debt);
     }
 
+    /// @notice Repays the caller's full debt and returns all of their collateral.
+    /// @dev This exit remains available while the vault or market is paused and
+    /// does not depend on live oracle data because no debt remains afterward.
+    function repayAllAndWithdrawCollateral(address collateral, address recipient)
+        external
+        nonReentrant
+        returns (uint256 repaid, uint256 withdrawn)
+    {
+        if (recipient == address(0)) revert ZeroAddress();
+        Position storage position = positions[collateral][msg.sender];
+        repaid = position.debt;
+        withdrawn = position.collateral;
+        if (repaid == 0 && withdrawn == 0) revert ZeroAmount();
+
+        position.debt = 0;
+        position.collateral = 0;
+        if (repaid != 0) {
+            marketDebt[collateral] -= repaid;
+            totalDebt -= repaid;
+            IERC20(address(usdg)).safeTransferFrom(msg.sender, address(this), repaid);
+            emit Repaid(collateral, msg.sender, msg.sender, repaid, 0);
+        }
+        if (withdrawn != 0) {
+            IERC20(collateral).safeTransfer(recipient, withdrawn);
+            emit CollateralWithdrawn(collateral, msg.sender, recipient, withdrawn);
+        }
+    }
+
     function liquidate(address collateral, address borrower, uint256 maxRepay, address recipient)
         external
         nonReentrant
@@ -354,6 +383,13 @@ contract DockyardUSDGCreditVault is Ownable, Pausable, ReentrancyGuard {
 
     function unpause() external onlyOwner {
         _unpause();
+    }
+
+    /// @dev A funded vault must always retain an account capable of recovering
+    /// unused USDG and managing emergency controls. Ownership can still be
+    /// transferred to another non-zero address through Ownable.
+    function renounceOwnership() public pure override {
+        revert OwnershipCannotBeRenounced();
     }
 
     function price(address collateral) external view returns (uint256) {

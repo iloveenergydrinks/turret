@@ -41,11 +41,12 @@ contract DeployDockyardUSDGCreditVault is Script {
         uint16 originationFeeBps = uint16(originationFee);
         uint256 oracleStaleness = vm.envOr("DOCKYARD_ORACLE_STALENESS", uint256(1 days));
         uint256 initialUsdg = vm.envOr("DOCKYARD_INITIAL_USDG", uint256(0)) * 1e6;
+        bool startPaused = vm.envOr("DOCKYARD_START_PAUSED", true);
         StockTokenConfig.Config[] memory configs = StockTokenConfig.all();
         _preflight(configs);
 
         vm.startBroadcast(deployerKey);
-        vault = new DockyardUSDGCreditVault(ROBINHOOD_USDG, owner, originationFeeBps, oracleStaleness);
+        vault = new DockyardUSDGCreditVault(ROBINHOOD_USDG, deployer, originationFeeBps, oracleStaleness);
         for (uint256 i = 0; i < configs.length; ++i) {
             StockTokenConfig.Config memory config = configs[i];
             uint16 liquidationLtvBps = uint16(10_000 * 1e18 / config.MCR);
@@ -66,12 +67,15 @@ contract DeployDockyardUSDGCreditVault is Script {
             IERC20(ROBINHOOD_USDG).approve(address(vault), initialUsdg);
             vault.fund(initialUsdg);
         }
+        if (startPaused) vault.pause();
+        if (owner != deployer) vault.transferOwnership(owner);
         vm.stopBroadcast();
 
         console2.log("Dockyard USDG vault", address(vault));
         console2.log("Owner", owner);
         console2.log("USDG", ROBINHOOD_USDG);
         console2.log("Initial USDG liquidity", initialUsdg);
+        console2.log("Starts paused", startPaused);
         _writeManifest(address(vault), owner, configs);
     }
 

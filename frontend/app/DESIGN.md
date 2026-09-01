@@ -1,6 +1,6 @@
 ---
 name: "Dockyard"
-description: "A sea-glass borrowing desk for turning tokenized equity collateral into rUSD liquidity."
+description: "A sea-glass borrowing desk for turning tokenized equity collateral into USDG liquidity."
 colors:
   turquoise-action: "#08786E"
   turquoise-action-hover: "#05675F"
@@ -145,7 +145,7 @@ components:
 
 Dockyard turns isolated Stock Token markets into one approachable borrowing desk. A slowly shifting sea-glass field establishes place, while a narrow centerline of white work surfaces, deep turquoise controls, and blue-green ink keeps the product practical. The atmosphere is maritime through light, tide-like motion, and the protected central berth inside the safe-harbor mark—not through anchors, ships, rope, or decorative nautical scenery.
 
-The protocol is Dockyard; rUSD is the dollar-denominated stablecoin users borrow. Dockyard owns the navigation, logo, shell, and overall visual world. rUSD appears as the output currency in the borrowing mechanism, balances, debt, repayment, and redemption. Internal CSS custom properties and class names may retain the `rusd-` prefix for implementation stability; that prefix is not user-facing identity and must never be used to rename the protocol in copy or visual assets.
+The protocol is Dockyard; USDG is the existing dollar-denominated token users borrow from an owner-funded vault. Dockyard does not issue or mint USDG. Dockyard owns the navigation, logo, shell, and overall visual world. USDG appears as the output currency in the borrowing mechanism, balances, debt, and repayment. Internal CSS custom properties and class names may retain the `rusd-` prefix for implementation stability; that prefix is not user-facing identity and must never be used to rename the protocol in copy or visual assets.
 
 The system is narrow, friendly, and direct. It inherits Liquity V1's approachable simplicity without copying Liquity or Robinhood identity. It refuses exchange-terminal density, black corporate panels, glossy fintech spectacle, and the rejected contour-line background. The approved background is the Paper Shaders `MeshGradient`, kept low-contrast and subordinate to risk comprehension and borrowing actions.
 
@@ -224,7 +224,7 @@ The palette combines a deep turquoise action voice with misted mint surfaces and
 
 **The Plain Promise Rule.** Let one short, high-contrast display line carry the page; supporting copy stays smaller, calmer, and literal.
 
-**The Protocol-and-Currency Rule.** Set “Dockyard” as the protocol wordmark and shell identity. Set “rUSD” as a currency label, never as the product name.
+**The Protocol-and-Currency Rule.** Set “Dockyard” as the protocol wordmark and shell identity. Set “USDG” as the borrowed asset, never as the product name or a token issued by Dockyard.
 
 **The Practical Label Rule.** Uppercase and wide tracking belong to table metadata, not body copy or calls to action.
 
@@ -299,11 +299,11 @@ The market list is one continuous fixed-layout paper surface. Its 11px uppercase
 
 ### Borrow Workspace
 
-The borrowing route names one selected Stock Token in the headline and explicitly identifies Robinhood Chain Testnet with its chain ID. Collateral, rUSD debt, and interest configuration share one 600px paper workspace. Redemption education sits behind a native disclosure so it remains available without interrupting the transaction. A bare `/borrow` route resolves to the first supported market and replaces the URL with that explicit market route.
+The standalone borrowing route names one selected Stock Token in the headline and explicitly identifies Robinhood Chain mainnet with its chain ID. Collateral input, USDG output, borrowing limits, vault liquidity, position balances, and the atomic full-repayment exit share one narrow two-column workspace. A bare `/borrow` route resolves to AAPL, while each explicit market route reads live state from the deployed vault.
 
 ### Earn Desk
 
-The Earn route reuses the control-deck composition instead of the inherited centered icon headline and stacked position cards. A plain-language promise sits left while one deep-teal mechanism panel shows the actual return path: rUSD enters one isolated Stability Pool, borrower interest returns as rUSD, and liquidation proceeds return as Stock Tokens. A continuous white pool ledger follows with company name, current APR, pool deposits, and one Deposit or Manage action per market. In read-only deployments the same surface renders ten honest preview rows without calling wallet or market-data hooks, and every action explicitly remains not live. At 760px the hero stacks and the pool ledger hides the pool-deposit column while preserving market, APR, and status.
+Public Earn deposits are not enabled for the standalone USDG vault. The current Earn route states that liquidity is owner supplied and does not expose deposit actions until share accounting, withdrawal rights, and yield distribution exist.
 
 ### Risk and Preview States
 
@@ -315,13 +315,13 @@ The signature environmental component is Paper Shaders `MeshGradient`, fixed to 
 
 ### Dockyard Logo
 
-The signature logo is the AI-generated four-part safe-harbor mark with the lowercase Figtree “dockyard.” wordmark. The mark uses Turquoise Action and the wordmark uses Teal Ink. Its accessible name is “Dockyard.” rUSD may appear as a minted coin icon in borrowing flows, but it is never substituted for the protocol logo.
+The signature logo is the AI-generated four-part safe-harbor mark with the lowercase Figtree “dockyard.” wordmark. The mark uses Turquoise Action and the wordmark uses Teal Ink. Its accessible name is “Dockyard.” USDG may appear as the borrowed asset in transaction flows, but it is never substituted for the protocol logo.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** identify the protocol as Dockyard and rUSD as the stablecoin it issues.
+- **Do** identify the protocol as Dockyard and USDG as existing liquidity supplied to its vault.
 - **Do** keep primary workflows within the centered 1040px frame and preserve breathing room around the display promise.
 - **Do** use the Paper Shaders mesh as the full-viewport ambient field and freeze it for reduced-motion users.
 - **Do** use Turquoise Action for primary interaction hierarchy, Turquoise Bright for wave and flow geometry, and Mint Soft for supportive emphasis.
@@ -333,7 +333,7 @@ The signature logo is the AI-generated four-part safe-harbor mark with the lower
 
 ### Don't:
 
-- **Don't** call the protocol rUSD; rUSD is the borrowed currency.
+- **Don't** imply that Dockyard issues or mints USDG; it lends USDG already held by the vault.
 - **Don't** reintroduce contour lines, topographic maps, pointer-reactive backgrounds, or hard chart-like paths.
 - **Don't** turn the interface into a wide, dense exchange terminal or a black corporate dashboard.
 - **Don't** use glossy foreground gradients, layered hard shadows, or multiple depth effects on one surface.
