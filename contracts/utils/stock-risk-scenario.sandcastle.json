@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "label": "Synthetic gap and 30-minute confirmation stress — not production calibration",
   "trials": 100000,
   "seed": 20260901,
@@ -34,5 +34,6 @@
     "TSLA": 120
   },
   "confirmationWindowJumpProbabilityBps": 1000,
-  "confirmationWindowJumpVolatilityBps": 800
+  "confirmationWindowJumpVolatilityBps": 800,
+  "maxConfirmationWindows": 8
 }

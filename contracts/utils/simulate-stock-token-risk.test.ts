@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { test } from "node:test";
 import {
+  classifyConfirmationPath,
   classifyConfirmationWindow,
   classifyGap,
   parseRiskManifest,
@@ -12,7 +13,7 @@ import {
 } from "./simulate-stock-token-risk";
 
 const scenario: RiskScenario = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   label: "test",
   trials: 1_000,
   seed: 42,
@@ -26,6 +27,7 @@ const scenario: RiskScenario = {
   confirmationWindowVolatilityBps: { NVDA: 95 },
   confirmationWindowJumpProbabilityBps: 1_000,
   confirmationWindowJumpVolatilityBps: 800,
+  maxConfirmationWindows: 8,
 };
 
 const nvda = { symbol: "NVDA", mcrBps: 20_000, maxOracleDeviationBps: 2_000 };
@@ -39,6 +41,15 @@ test("classifies the exact oracle cutoff without rounding it into a delayed liqu
   });
   assert.equal(classifyGap(nvda, scenario, -2_001).confirmationRequired, true);
   assert.equal(classifyGap(nvda, scenario, -5_000).penaltyShortfall, true);
+  assert.deepEqual(
+    classifyGap(nvda, scenario, 3_000),
+    {
+      collateralRatioBps: 26_650,
+      liquidatable: false,
+      confirmationRequired: true,
+      penaltyShortfall: false,
+    },
+  );
 });
 
 test("seeded simulations are reproducible", () => {
@@ -57,6 +68,21 @@ test("models confirmation, material drift, recovery, and blocked shortfall", () 
   const recovered = classifyConfirmationWindow(nvda, scenario, -5_000, 6_000);
   assert.equal(recovered.recoveredWithoutConfirmation, true);
   assert.equal(recovered.confirmationRestarts, false);
+});
+
+test("models repeated confirmation windows until resolution or timeout", () => {
+  const confirmed = classifyConfirmationPath(nvda, scenario, -5_000, [600, 600, 100]);
+  assert.equal(confirmed.resolution, "confirmed");
+  assert.equal(confirmed.windowsUsed, 3);
+  assert.equal(confirmed.restartCount, 2);
+  assert.equal(confirmed.penaltyShortfallDuringDelay, true);
+
+  const recovered = classifyConfirmationPath(nvda, scenario, -5_000, [6_000]);
+  assert.equal(recovered.resolution, "recovered");
+
+  const unresolved = classifyConfirmationPath(nvda, scenario, -5_000, [600, 600]);
+  assert.equal(unresolved.resolution, "unresolved");
+  assert.equal(unresolved.restartCount, 2);
 });
 
 test("fails closed when an asset volatility assumption is missing", () => {

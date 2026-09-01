@@ -8,7 +8,7 @@ export type RiskConfig = {
 };
 
 export type RiskScenario = {
-  schemaVersion: 2;
+  schemaVersion: 3;
   label: string;
   trials: number;
   seed: number;
@@ -22,6 +22,7 @@ export type RiskScenario = {
   confirmationWindowVolatilityBps: Record<string, number>;
   confirmationWindowJumpProbabilityBps: number;
   confirmationWindowJumpVolatilityBps: number;
+  maxConfirmationWindows: number;
 };
 
 export type GapClassification = {
@@ -40,6 +41,14 @@ export type ConfirmationWindowClassification = {
   penaltyShortfallDuringDelay: boolean;
 };
 
+export type ConfirmationPathClassification = {
+  resolution: "not-required" | "confirmed" | "recovered" | "unresolved";
+  windowsUsed: number;
+  restartCount: number;
+  penaltyShortfallDuringDelay: boolean;
+  worstCollateralRatioBps: number;
+};
+
 export type SimulationResult = RiskConfig & {
   trials: number;
   liquidationCount: number;
@@ -48,6 +57,8 @@ export type SimulationResult = RiskConfig & {
   confirmationRestartCount: number;
   confirmationRecoveryCount: number;
   confirmationShortfallCount: number;
+  unresolvedConfirmationCount: number;
+  averageConfirmationWindows: number;
   liquidationRateBps: number;
   delayedLiquidationRateBps: number;
   penaltyShortfallRateBps: number;
@@ -82,7 +93,7 @@ export function classifyGap(
   return {
     collateralRatioBps,
     liquidatable,
-    confirmationRequired: liquidatable && Math.abs(returnBps) > config.maxOracleDeviationBps,
+    confirmationRequired: Math.abs(returnBps) > config.maxOracleDeviationBps,
     penaltyShortfall: collateralRatioBps < BPS + scenario.liquidationPenaltyBps,
   };
 }
@@ -117,6 +128,73 @@ export function classifyConfirmationWindow(
     recoveredWithoutConfirmation,
     penaltyShortfallDuringDelay: initial.confirmationRequired
       && (initial.penaltyShortfall || afterWindow.penaltyShortfall),
+  };
+}
+
+export function classifyConfirmationPath(
+  config: RiskConfig,
+  scenario: Pick<
+    RiskScenario,
+    "startingBufferBps" | "liquidationPenaltyBps" | "confirmationDeviationBps"
+  >,
+  initialReturnBps: number,
+  confirmationWindowReturnsBps: number[],
+): ConfirmationPathClassification {
+  const initial = classifyGap(config, scenario, initialReturnBps);
+  if (!initial.confirmationRequired) {
+    return {
+      resolution: "not-required",
+      windowsUsed: 0,
+      restartCount: 0,
+      penaltyShortfallDuringDelay: false,
+      worstCollateralRatioBps: initial.collateralRatioBps,
+    };
+  }
+
+  let candidateReturnBps = initialReturnBps;
+  let restartCount = 0;
+  let penaltyShortfallDuringDelay = initial.penaltyShortfall;
+  let worstCollateralRatioBps = initial.collateralRatioBps;
+
+  for (let index = 0; index < confirmationWindowReturnsBps.length; ++index) {
+    const window = classifyConfirmationWindow(
+      config,
+      scenario,
+      candidateReturnBps,
+      confirmationWindowReturnsBps[index],
+    );
+    penaltyShortfallDuringDelay = penaltyShortfallDuringDelay || window.penaltyShortfallDuringDelay;
+    worstCollateralRatioBps = Math.min(worstCollateralRatioBps, window.collateralRatioBps);
+
+    if (window.recoveredWithoutConfirmation) {
+      return {
+        resolution: "recovered",
+        windowsUsed: index + 1,
+        restartCount,
+        penaltyShortfallDuringDelay,
+        worstCollateralRatioBps,
+      };
+    }
+    if (window.confirmationRestarts) {
+      restartCount++;
+      candidateReturnBps = window.combinedReturnBps;
+      continue;
+    }
+    return {
+      resolution: "confirmed",
+      windowsUsed: index + 1,
+      restartCount,
+      penaltyShortfallDuringDelay,
+      worstCollateralRatioBps,
+    };
+  }
+
+  return {
+    resolution: "unresolved",
+    windowsUsed: confirmationWindowReturnsBps.length,
+    restartCount,
+    penaltyShortfallDuringDelay,
+    worstCollateralRatioBps,
   };
 }
 
@@ -156,6 +234,9 @@ export function simulateBranch(config: RiskConfig, scenario: RiskScenario): Simu
   ) {
     throw new Error("missing confirmation-window jump assumptions");
   }
+  if (!Number.isInteger(scenario.maxConfirmationWindows) || scenario.maxConfirmationWindows <= 0) {
+    throw new Error("maxConfirmationWindows must be a positive integer");
+  }
   if (!Number.isInteger(scenario.trials) || scenario.trials <= 0) throw new Error("trials must be a positive integer");
 
   const random = seededRandom(symbolSeed(scenario.seed, config.symbol));
@@ -165,6 +246,8 @@ export function simulateBranch(config: RiskConfig, scenario: RiskScenario): Simu
   let confirmationRestarts = 0;
   let confirmationRecoveries = 0;
   let confirmationShortfalls = 0;
+  let unresolvedConfirmations = 0;
+  let totalConfirmationWindows = 0;
   let worstCollateralRatioBps = Number.POSITIVE_INFINITY;
 
   for (let trial = 0; trial < scenario.trials; ++trial) {
@@ -175,22 +258,28 @@ export function simulateBranch(config: RiskConfig, scenario: RiskScenario): Simu
     returnBps = Math.max(-9_900, Math.min(BPS, Math.round(returnBps)));
 
     const outcome = classifyGap(config, scenario, returnBps);
+    const liquidationDelayed = outcome.liquidatable && outcome.confirmationRequired;
     if (outcome.liquidatable) liquidations++;
-    if (outcome.confirmationRequired) delayedLiquidations++;
+    if (liquidationDelayed) delayedLiquidations++;
     if (outcome.penaltyShortfall) penaltyShortfalls++;
     worstCollateralRatioBps = Math.min(worstCollateralRatioBps, outcome.collateralRatioBps);
 
-    if (outcome.confirmationRequired) {
-      let windowReturnBps = normal(random) * confirmationWindowVolatility;
-      if (random() * BPS < scenario.confirmationWindowJumpProbabilityBps) {
-        windowReturnBps += normal(random) * scenario.confirmationWindowJumpVolatilityBps;
+    if (liquidationDelayed) {
+      const windowReturnsBps: number[] = [];
+      for (let window = 0; window < scenario.maxConfirmationWindows; ++window) {
+        let windowReturnBps = normal(random) * confirmationWindowVolatility;
+        if (random() * BPS < scenario.confirmationWindowJumpProbabilityBps) {
+          windowReturnBps += normal(random) * scenario.confirmationWindowJumpVolatilityBps;
+        }
+        windowReturnsBps.push(Math.max(-9_900, Math.min(BPS, Math.round(windowReturnBps))));
       }
-      windowReturnBps = Math.max(-9_900, Math.min(BPS, Math.round(windowReturnBps)));
-      const window = classifyConfirmationWindow(config, scenario, returnBps, windowReturnBps);
-      if (window.confirmationRestarts) confirmationRestarts++;
-      if (window.recoveredWithoutConfirmation) confirmationRecoveries++;
-      if (window.penaltyShortfallDuringDelay) confirmationShortfalls++;
-      worstCollateralRatioBps = Math.min(worstCollateralRatioBps, window.collateralRatioBps);
+      const path = classifyConfirmationPath(config, scenario, returnBps, windowReturnsBps);
+      if (path.restartCount > 0) confirmationRestarts++;
+      if (path.resolution === "recovered") confirmationRecoveries++;
+      if (path.resolution === "unresolved") unresolvedConfirmations++;
+      if (path.penaltyShortfallDuringDelay) confirmationShortfalls++;
+      totalConfirmationWindows += path.windowsUsed;
+      worstCollateralRatioBps = Math.min(worstCollateralRatioBps, path.worstCollateralRatioBps);
     }
   }
 
@@ -204,6 +293,8 @@ export function simulateBranch(config: RiskConfig, scenario: RiskScenario): Simu
     confirmationRestartCount: confirmationRestarts,
     confirmationRecoveryCount: confirmationRecoveries,
     confirmationShortfallCount: confirmationShortfalls,
+    unresolvedConfirmationCount: unresolvedConfirmations,
+    averageConfirmationWindows: delayedLiquidations === 0 ? 0 : totalConfirmationWindows / delayedLiquidations,
     liquidationRateBps: rate(liquidations),
     delayedLiquidationRateBps: rate(delayedLiquidations),
     penaltyShortfallRateBps: rate(penaltyShortfalls),
@@ -212,7 +303,7 @@ export function simulateBranch(config: RiskConfig, scenario: RiskScenario): Simu
 }
 
 export function runSimulation(configs: RiskConfig[], scenario: RiskScenario): SimulationResult[] {
-  if (scenario.schemaVersion !== 2) throw new Error(`unsupported scenario schema: ${scenario.schemaVersion}`);
+  if (scenario.schemaVersion !== 3) throw new Error(`unsupported scenario schema: ${scenario.schemaVersion}`);
   if (configs.length !== 10) throw new Error(`expected 10 Stock Token branches, found ${configs.length}`);
   return configs.map((config) => simulateBranch(config, scenario));
 }
@@ -244,6 +335,8 @@ export async function main(): Promise<void> {
     delay_shortfall: occurrence(result.confirmationShortfallCount, result.trials),
     delay_restart: occurrence(result.confirmationRestartCount, result.trials),
     delay_recovery: occurrence(result.confirmationRecoveryCount, result.trials),
+    unresolved: occurrence(result.unresolvedConfirmationCount, result.trials),
+    avg_windows: result.averageConfirmationWindows.toFixed(2),
     worst_CR: percent(result.worstCollateralRatioBps),
   })));
   console.log("Synthetic screening only. Do not use these results as production calibration or historical evidence.");
