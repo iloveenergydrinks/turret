@@ -13,8 +13,6 @@ export function PreviewTopBar() {
         </Link>
         <nav aria-label="Primary" className="rusd-nav">
           <Link className="rusd-nav-link" data-active="true" href="/">Markets</Link>
-          <Link className="rusd-nav-link" href="/#how-it-works">How it works</Link>
-          <Link className="rusd-nav-link" href="/#faq">FAQ</Link>
         </nav>
         <div className="rusd-account">
           <span className="rusd-network" title={`Chain ID ${CHAIN_ID}`}>
