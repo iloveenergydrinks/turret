@@ -567,8 +567,24 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
         vars.activePool = activePool;
         vars.boldToken = boldToken;
 
-        vars.price = _requireOraclesLive();
-        vars.isBelowCriticalThreshold = _checkBelowCriticalThreshold(vars.price, CCR);
+        // Adding collateral and/or repaying debt can only improve both the
+        // Trove's ICR and the branch TCR at every positive price. Keep these
+        // escape-hatch operations available if the price feed temporarily
+        // reverts, while preserving all normal checks whenever it is live.
+        // Any collateral withdrawal or debt increase always requires a live
+        // oracle.
+        bool isPureRiskReducingAdjustment = _troveChange.collDecrease == 0 && _troveChange.debtIncrease == 0;
+        bool oracleTemporarilyUnavailable;
+        try priceFeed.fetchPrice() returns (uint256 price, bool newOracleFailureDetected) {
+            if (newOracleFailureDetected) revert NewOracleFailureDetected();
+            vars.price = price;
+        } catch (bytes memory revertData) {
+            if (!isPureRiskReducingAdjustment) _revertBytes(revertData);
+            oracleTemporarilyUnavailable = true;
+        }
+        if (!oracleTemporarilyUnavailable) {
+            vars.isBelowCriticalThreshold = _checkBelowCriticalThreshold(vars.price, CCR);
+        }
 
         // --- Checks ---
 
@@ -655,10 +671,12 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
         // Now the max repayment is capped to stay above MIN_DEBT, so this only applies to adjustZombieTrove
         _requireAtLeastMinDebt(vars.newDebt);
 
-        vars.newICR = LiquityMath._computeCR(vars.newColl, vars.newDebt, vars.price);
+        if (!oracleTemporarilyUnavailable) {
+            vars.newICR = LiquityMath._computeCR(vars.newColl, vars.newDebt, vars.price);
 
-        // Check the adjustment satisfies all conditions for the current system mode
-        _requireValidAdjustmentInCurrentMode(_troveChange, vars, isTroveInBatch);
+            // Check the adjustment satisfies all conditions for the current system mode
+            _requireValidAdjustmentInCurrentMode(_troveChange, vars, isTroveInBatch);
+        }
 
         // --- Effects and interactions ---
 
@@ -678,6 +696,12 @@ contract BorrowerOperations is LiquityBase, AddRemoveManagers, IBorrowerOperatio
 
         vars.activePool.mintAggInterestAndAccountForTroveChange(_troveChange, batchManager);
         _moveTokensFromAdjustment(receiver, _troveChange, vars.boldToken, vars.activePool);
+    }
+
+    function _revertBytes(bytes memory _revertData) internal pure {
+        assembly {
+            revert(add(_revertData, 0x20), mload(_revertData))
+        }
     }
 
     function closeTrove(uint256 _troveId) external override {

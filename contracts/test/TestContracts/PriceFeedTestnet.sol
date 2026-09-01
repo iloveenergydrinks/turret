@@ -5,13 +5,16 @@ pragma solidity 0.8.24;
 import "./Interfaces/IPriceFeedTestnet.sol";
 
 /*
-* PriceFeed placeholder for testnet and development. The price is simply set manually and saved in a state 
-* variable. The contract does not connect to a live Chainlink price feed. 
+* PriceFeed placeholder for testnet and development. The price is simply set manually and saved in a state
+* variable. The contract does not connect to a live Chainlink price feed.
 */
 contract PriceFeedTestnet is IPriceFeedTestnet {
     event LastGoodPriceUpdated(uint256 _lastGoodPrice);
 
     uint256 private _price = 200 * 1e18;
+    bool private _shouldRevert;
+
+    error PriceTemporarilyUnavailable();
 
     // --- Functions ---
 
@@ -25,6 +28,8 @@ contract PriceFeedTestnet is IPriceFeedTestnet {
     }
 
     function fetchPrice() external override returns (uint256, bool) {
+        if (_shouldRevert) revert PriceTemporarilyUnavailable();
+
         // Fire an event just like the mainnet version would.
         // This lets the subgraph rely on events to get the latest price even when developing locally.
         emit LastGoodPriceUpdated(_price);
@@ -32,6 +37,8 @@ contract PriceFeedTestnet is IPriceFeedTestnet {
     }
 
     function fetchRedemptionPrice() external override returns (uint256, bool) {
+        if (_shouldRevert) revert PriceTemporarilyUnavailable();
+
         // Fire an event just like the mainnet version would.
         // This lets the subgraph rely on events to get the latest price even when developing locally.
         emit LastGoodPriceUpdated(_price);
@@ -42,5 +49,9 @@ contract PriceFeedTestnet is IPriceFeedTestnet {
     function setPrice(uint256 price) external returns (bool) {
         _price = price;
         return true;
+    }
+
+    function setShouldRevert(bool shouldRevert) external {
+        _shouldRevert = shouldRevert;
     }
 }

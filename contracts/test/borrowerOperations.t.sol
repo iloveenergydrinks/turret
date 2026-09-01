@@ -5,6 +5,64 @@ pragma solidity ^0.8.18;
 import "./TestContracts/DevTestSetup.sol";
 
 contract BorrowerOperationsTest is DevTestSetup {
+    function testRiskReducingAdjustmentsRemainAvailableDuringOracleOutage() public {
+        uint256 troveId = openTroveNoHints100pct(A, 100 ether, 10_000 ether, 0.05 ether);
+        deal(address(boldToken), A, 1_000 ether);
+
+        uint256 collBefore = getTroveEntireColl(troveId);
+        uint256 debtBefore = getTroveEntireDebt(troveId);
+        priceFeed.setShouldRevert(true);
+
+        vm.startPrank(A);
+        borrowerOperations.addColl(troveId, 1 ether);
+        borrowerOperations.repayBold(troveId, 1_000 ether);
+        vm.stopPrank();
+
+        assertEq(getTroveEntireColl(troveId), collBefore + 1 ether);
+        assertEq(getTroveEntireDebt(troveId), debtBefore - 1_000 ether);
+    }
+
+    function testCombinedRiskReducingAdjustmentRemainsAvailableDuringOracleOutage() public {
+        uint256 troveId = openTroveNoHints100pct(A, 100 ether, 10_000 ether, 0.05 ether);
+        deal(address(boldToken), A, 1_000 ether);
+
+        uint256 collBefore = getTroveEntireColl(troveId);
+        uint256 debtBefore = getTroveEntireDebt(troveId);
+        priceFeed.setShouldRevert(true);
+
+        vm.prank(A);
+        borrowerOperations.adjustTrove(troveId, 1 ether, true, 1_000 ether, false, 0);
+
+        assertEq(getTroveEntireColl(troveId), collBefore + 1 ether);
+        assertEq(getTroveEntireDebt(troveId), debtBefore - 1_000 ether);
+    }
+
+    function testRiskIncreasingAdjustmentsRemainFrozenDuringOracleOutage() public {
+        uint256 troveId = openTroveNoHints100pct(A, 100 ether, 10_000 ether, 0.05 ether);
+        priceFeed.setShouldRevert(true);
+
+        vm.startPrank(A);
+        vm.expectRevert(PriceFeedTestnet.PriceTemporarilyUnavailable.selector);
+        borrowerOperations.withdrawBold(troveId, 1_000 ether, type(uint256).max);
+
+        vm.expectRevert(PriceFeedTestnet.PriceTemporarilyUnavailable.selector);
+        borrowerOperations.withdrawColl(troveId, 1 ether);
+
+        vm.expectRevert(PriceFeedTestnet.PriceTemporarilyUnavailable.selector);
+        borrowerOperations.adjustTrove(troveId, 1 ether, true, 1_000 ether, true, type(uint256).max);
+        vm.stopPrank();
+    }
+
+    function testRepayWithCollateralWithdrawalRemainsFrozenDuringOracleOutage() public {
+        uint256 troveId = openTroveNoHints100pct(A, 100 ether, 10_000 ether, 0.05 ether);
+        deal(address(boldToken), A, 1_000 ether);
+        priceFeed.setShouldRevert(true);
+
+        vm.prank(A);
+        vm.expectRevert(PriceFeedTestnet.PriceTemporarilyUnavailable.selector);
+        borrowerOperations.adjustTrove(troveId, 1 ether, false, 1_000 ether, false, 0);
+    }
+
     function testCloseLastTroveReverts() public {
         priceFeed.setPrice(2000e18);
         uint256 ATroveId = openTroveNoHints100pct(A, 100 ether, 100000e18, 1e17);
