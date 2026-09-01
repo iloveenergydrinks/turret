@@ -26,7 +26,7 @@ The code and product are independent and must not be presented as an official Ro
 ## Safety model
 
 - Every branch has a hard debt ceiling enforced on opening and debt increases.
-- The Stock Token/USD adapter checks the token's corporate-action pause flag, positive answers, timestamp freshness, round completeness, sequencer health, and maximum single-update deviation.
+- The Stock Token/USD adapter checks the token's corporate-action pause flag, positive answers, timestamp freshness, round completeness, sequencer health, and maximum single-update deviation. Both reviewed Chainlink endpoints must be healthy at deployment; if the primary later fails, the adapter uses the secondary endpoint and emits a monitoring event. A branch shuts down for malformed oracle data only when neither endpoint remains usable.
 - Expected liveness interruptions (corporate-action pause, stale market feed, sequencer outage, or transient oracle-call failure) temporarily reject price-dependent actions and recover automatically. Malformed data permanently shuts down only the affected branch and freezes its last good price for urgent redemptions.
 - Purely risk-reducing adjustments remain available during temporary oracle outages: borrowers may add collateral, repay rUSD, or do both. Borrowing, collateral withdrawal, and mixed adjustments that can reduce collateralization still require a live price.
 - A price move above the branch deviation cutoff temporarily freezes the branch. Anyone can stage the candidate; after 30 minutes, a later fresh oracle round must corroborate it within 5% before it becomes the new live price. Same-round or materially drifting candidates cannot bypass or preserve the timer. These test-only values still require historical simulation and independent review.
@@ -37,7 +37,7 @@ The code and product are independent and must not be presented as an official Ro
 
 The ratios and ceilings are placeholders for simulation, not production risk parameters.
 
-The one-hour oracle staleness threshold is test-only. Stock Token feeds operate 24/5 and may hold their last price without heartbeats during weekends, holidays, thin overnight sessions, and corporate-action pauses. Staleness now causes temporary unavailability rather than irreversible shutdown, allowing the branch to recover when a fresh price arrives. Production still requires historical and Monte Carlo testing of this freeze policy, and a Data Streams or secondary-price path before safe off-hours liquidations can be enabled. See the [Robinhood Chain oracle documentation](https://docs.robinhood.com/chain/oracles-and-price-feeds/), [Robinhood Chain Data Streams documentation](https://docs.robinhood.com/chain/data-streams/), and [Chainlink's Robinhood feed guidance](https://docs.chain.link/data-feeds/tokenized-equity-feeds/robinhood).
+The one-hour oracle staleness threshold is test-only. Stock Token feeds operate 24/5 and may hold their last price without heartbeats during weekends, holidays, thin overnight sessions, and corporate-action pauses. Staleness now causes temporary unavailability rather than irreversible shutdown, allowing the branch to recover when a fresh price arrives. Production still requires historical and Monte Carlo testing of this freeze policy. The secondary Chainlink endpoint improves availability but is not an independent price methodology; Data Streams or another independently reviewed path is still required before safe off-hours liquidations can be enabled. See the [Robinhood Chain oracle documentation](https://docs.robinhood.com/chain/oracles-and-price-feeds/), [Robinhood Chain Data Streams documentation](https://docs.robinhood.com/chain/data-streams/), and [Chainlink's Robinhood feed guidance](https://docs.chain.link/data-feeds/tokenized-equity-feeds/robinhood).
 
 ## Executable gap model
 
@@ -56,7 +56,9 @@ The one-hour oracle staleness threshold is test-only. Stock Token feeds operate 
 | MU     |      44.44% |                       51.11% |                  25.00% |
 | TSLA   |      40.00% |                       56.00% |                  25.00% |
 
-The model exposes a deliberate risk tradeoff: all ten branches still cover the 10% redistribution penalty after a 30% gap, but a single 30% oracle update exceeds every configured deviation cutoff. The delayed two-round confirmation path prevents permanent shutdown while blocking normal liquidation until the move is corroborated. Production still needs historical testing and an independent price path such as Chainlink Data Streams; two rounds from one feed are not independent confirmation.
+The model exposes a deliberate risk tradeoff: all ten branches still cover the 10% redistribution penalty after a 30% gap, but a single 30% oracle update exceeds every configured deviation cutoff. The delayed two-round confirmation path prevents permanent shutdown while blocking normal liquidation until the move is corroborated by a later round from the same endpoint. Production still needs historical testing and an independent price path such as Chainlink Data Streams; sequential rounds or two endpoints from the same provider are not independent confirmation.
+
+`StockTokenLiquidationSimulation.t.sol` connects the production-shaped dual-endpoint adapter to a complete Liquity branch configured with NVDA-style 200% MCR and 230% CCR parameters. It verifies that an unconfirmed 25% gap cannot liquidate, that a later corroborating round can liquidate through the Stability Pool, and that the secondary endpoint can drive a liquidation at the exact 20% circuit-breaker boundary when the primary is unavailable. This closes the deterministic integration scenario only; it is not the required historical, Monte Carlo, or live-testnet soak evidence.
 
 ## Local deployment
 
