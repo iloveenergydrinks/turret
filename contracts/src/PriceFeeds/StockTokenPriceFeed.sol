@@ -8,17 +8,19 @@ import "../Interfaces/IPriceFeed.sol";
 import "../Interfaces/IStockToken.sol";
 import {Math} from "openzeppelin-contracts/contracts/utils/math/Math.sol";
 
-/// @notice Chainlink adapter for Robinhood Stock Tokens.
+/// @notice Chainlink adapter with primary and secondary endpoints for Robinhood Stock Tokens.
 /// @dev Robinhood's Stock Token feed is expected to include the ERC-8056
 /// corporate-action multiplier. This adapter intentionally does not apply it
 /// again. Expected liveness interruptions revert temporarily; malformed data
-/// permanently shuts down the branch. Large price movements require delayed
+/// falls back to the secondary endpoint before permanently shutting down the
+/// branch. Large price movements require delayed
 /// confirmation by a later oracle round before they can become the live price.
 contract StockTokenPriceFeed is IPriceFeed {
     uint256 internal constant BPS = 10_000;
 
     IStockToken public immutable stockToken;
     AggregatorV3Interface public immutable stockTokenUsdOracle;
+    AggregatorV3Interface public immutable secondaryStockTokenUsdOracle;
     AggregatorV3Interface public immutable sequencerUptimeFeed;
     IBorrowerOperations public immutable borrowerOperations;
     uint256 public immutable stalenessThreshold;
@@ -27,11 +29,13 @@ contract StockTokenPriceFeed is IPriceFeed {
     uint256 public immutable largeChangeConfirmationDelay;
     uint256 public immutable confirmationDeviationBps;
     uint8 public immutable oracleDecimals;
+    uint8 public immutable secondaryOracleDecimals;
 
     uint256 public lastGoodPrice;
     uint256 public pendingPrice;
     uint256 public pendingSince;
     uint80 public pendingRoundId;
+    address public pendingOracle;
     bool public usingLastGoodPrice;
 
     error InvalidConfiguration();
@@ -50,6 +54,7 @@ contract StockTokenPriceFeed is IPriceFeed {
     }
 
     event LastGoodPriceUpdated(uint256 price);
+    event SecondaryOracleUsed(uint256 price, uint80 roundId);
     event LargePriceChangeStaged(uint256 price, uint80 roundId, uint256 stagedAt);
     event LargePriceChangeConfirmed(uint256 price, uint80 roundId);
     event ShutDownFromOracleFailure(address indexed failedOracle);
@@ -57,6 +62,7 @@ contract StockTokenPriceFeed is IPriceFeed {
     constructor(
         address _stockToken,
         address _stockTokenUsdOracle,
+        address _secondaryStockTokenUsdOracle,
         uint256 _stalenessThreshold,
         address _sequencerUptimeFeed,
         uint256 _sequencerGracePeriod,
@@ -66,15 +72,17 @@ contract StockTokenPriceFeed is IPriceFeed {
         address _borrowerOperations
     ) {
         if (
-            _stockToken == address(0) || _stockTokenUsdOracle == address(0) || _borrowerOperations == address(0)
-                || _stalenessThreshold == 0 || _maxDeviationBps == 0 || _maxDeviationBps > BPS
-                || _largeChangeConfirmationDelay == 0 || _confirmationDeviationBps == 0
+            _stockToken == address(0) || _stockTokenUsdOracle == address(0)
+                || _secondaryStockTokenUsdOracle == address(0) || _stockTokenUsdOracle == _secondaryStockTokenUsdOracle
+                || _borrowerOperations == address(0) || _stalenessThreshold == 0 || _maxDeviationBps == 0
+                || _maxDeviationBps > BPS || _largeChangeConfirmationDelay == 0 || _confirmationDeviationBps == 0
                 || _confirmationDeviationBps > _maxDeviationBps
         ) revert InvalidConfiguration();
         if (_sequencerUptimeFeed != address(0) && _sequencerGracePeriod == 0) revert InvalidConfiguration();
 
         stockToken = IStockToken(_stockToken);
         stockTokenUsdOracle = AggregatorV3Interface(_stockTokenUsdOracle);
+        secondaryStockTokenUsdOracle = AggregatorV3Interface(_secondaryStockTokenUsdOracle);
         sequencerUptimeFeed = AggregatorV3Interface(_sequencerUptimeFeed);
         borrowerOperations = IBorrowerOperations(_borrowerOperations);
         stalenessThreshold = _stalenessThreshold;
@@ -84,12 +92,17 @@ contract StockTokenPriceFeed is IPriceFeed {
         confirmationDeviationBps = _confirmationDeviationBps;
 
         uint8 decimals = stockTokenUsdOracle.decimals();
-        if (decimals > 18) revert InvalidConfiguration();
+        uint8 secondaryDecimals = secondaryStockTokenUsdOracle.decimals();
+        if (decimals > 18 || secondaryDecimals > 18) revert InvalidConfiguration();
         oracleDecimals = decimals;
+        secondaryOracleDecimals = secondaryDecimals;
 
         (bool pauseReadSucceeded, bool paused) = _readOraclePause();
-        (uint256 initialPrice,, ReadStatus status) = _readStockPrice();
-        if (!pauseReadSucceeded || paused || status != ReadStatus.valid) revert InvalidInitialPrice();
+        (uint256 initialPrice,, ReadStatus primaryStatus) = _readStockPrice(stockTokenUsdOracle, oracleDecimals);
+        (,, ReadStatus secondaryStatus) = _readStockPrice(secondaryStockTokenUsdOracle, secondaryOracleDecimals);
+        if (!pauseReadSucceeded || paused || primaryStatus != ReadStatus.valid || secondaryStatus != ReadStatus.valid) {
+            revert InvalidInitialPrice();
+        }
         lastGoodPrice = initialPrice;
         emit LastGoodPriceUpdated(initialPrice);
     }
@@ -102,14 +115,15 @@ contract StockTokenPriceFeed is IPriceFeed {
         (bool pauseReadSucceeded, bool paused) = _readOraclePause();
         if (!pauseReadSucceeded || paused) revert OracleTemporarilyUnavailable(address(stockToken));
 
-        (uint256 price, uint80 roundId, ReadStatus status) = _readStockPrice();
+        (uint256 price, uint80 roundId, address source, ReadStatus status) = _readStockPrice();
         if (status == ReadStatus.temporaryUnavailable) {
             revert OracleTemporarilyUnavailable(address(stockTokenUsdOracle));
         }
         if (status == ReadStatus.invalid) return _shutdown(address(stockTokenUsdOracle));
+        if (source == address(secondaryStockTokenUsdOracle)) emit SecondaryOracleUsed(price, roundId);
 
         if (_deviationTooLarge(price)) {
-            if (!_largeChangeIsConfirmed(price, roundId)) revert LargePriceChangeUnconfirmed(price);
+            if (!_largeChangeIsConfirmed(price, roundId, source)) revert LargePriceChangeUnconfirmed(price);
             emit LargePriceChangeConfirmed(price, roundId);
         }
 
@@ -132,16 +146,21 @@ contract StockTokenPriceFeed is IPriceFeed {
 
         _requireSourcesAvailable();
         ReadStatus status;
-        (price, roundId, status) = _readStockPrice();
+        address source;
+        (price, roundId, source, status) = _readStockPrice();
         if (status == ReadStatus.temporaryUnavailable) {
             revert OracleTemporarilyUnavailable(address(stockTokenUsdOracle));
         }
         if (status == ReadStatus.invalid) revert InvalidPriceForConfirmation();
         if (!_deviationTooLarge(price)) revert PriceChangeDoesNotRequireConfirmation();
 
-        if (pendingPrice == 0 || _deviationTooLargeFrom(price, pendingPrice, confirmationDeviationBps)) {
+        if (
+            pendingPrice == 0 || source != pendingOracle
+                || _deviationTooLargeFrom(price, pendingPrice, confirmationDeviationBps)
+        ) {
             pendingPrice = price;
             pendingRoundId = roundId;
+            pendingOracle = source;
             pendingSince = block.timestamp;
             emit LargePriceChangeStaged(price, roundId, block.timestamp);
         }
@@ -154,9 +173,32 @@ contract StockTokenPriceFeed is IPriceFeed {
         return (lastGoodPrice, true);
     }
 
-    function _readStockPrice() internal view returns (uint256, uint80, ReadStatus) {
-        (bool success, uint80 roundId, int256 answer, uint256 updatedAt, uint80 answeredInRound) =
-            _readOracle(stockTokenUsdOracle);
+    function _readStockPrice() internal view returns (uint256, uint80, address, ReadStatus) {
+        (uint256 primaryPrice, uint80 primaryRoundId, ReadStatus primaryStatus) =
+            _readStockPrice(stockTokenUsdOracle, oracleDecimals);
+        if (primaryStatus == ReadStatus.valid) {
+            return (primaryPrice, primaryRoundId, address(stockTokenUsdOracle), ReadStatus.valid);
+        }
+
+        (uint256 secondaryPrice, uint80 secondaryRoundId, ReadStatus secondaryStatus) =
+            _readStockPrice(secondaryStockTokenUsdOracle, secondaryOracleDecimals);
+        if (secondaryStatus == ReadStatus.valid) {
+            return (secondaryPrice, secondaryRoundId, address(secondaryStockTokenUsdOracle), ReadStatus.valid);
+        }
+
+        // Do not permanently shut a branch while either endpoint may recover.
+        if (primaryStatus == ReadStatus.temporaryUnavailable || secondaryStatus == ReadStatus.temporaryUnavailable) {
+            return (0, 0, address(0), ReadStatus.temporaryUnavailable);
+        }
+        return (0, 0, address(0), ReadStatus.invalid);
+    }
+
+    function _readStockPrice(AggregatorV3Interface oracle, uint8 decimals)
+        internal
+        view
+        returns (uint256, uint80, ReadStatus)
+    {
+        (bool success, uint80 roundId, int256 answer, uint256 updatedAt, uint80 answeredInRound) = _readOracle(oracle);
         if (!success) return (0, 0, ReadStatus.temporaryUnavailable);
         if (answer <= 0 || updatedAt == 0 || updatedAt > block.timestamp || answeredInRound < roundId) {
             return (0, roundId, ReadStatus.invalid);
@@ -165,7 +207,7 @@ contract StockTokenPriceFeed is IPriceFeed {
             return (0, roundId, ReadStatus.temporaryUnavailable);
         }
 
-        uint256 scale = 10 ** (18 - oracleDecimals);
+        uint256 scale = 10 ** (18 - decimals);
         uint256 unsignedAnswer = uint256(answer);
         if (unsignedAnswer > type(uint256).max / scale) return (0, roundId, ReadStatus.invalid);
 
@@ -210,8 +252,8 @@ contract StockTokenPriceFeed is IPriceFeed {
         return difference > Math.mulDiv(referencePrice, deviationBps, BPS);
     }
 
-    function _largeChangeIsConfirmed(uint256 price, uint80 roundId) internal view returns (bool) {
-        return pendingPrice != 0 && roundId > pendingRoundId
+    function _largeChangeIsConfirmed(uint256 price, uint80 roundId, address source) internal view returns (bool) {
+        return pendingPrice != 0 && source == pendingOracle && roundId > pendingRoundId
             && block.timestamp >= pendingSince + largeChangeConfirmationDelay
             && !_deviationTooLargeFrom(price, pendingPrice, confirmationDeviationBps);
     }
@@ -221,6 +263,7 @@ contract StockTokenPriceFeed is IPriceFeed {
         delete pendingPrice;
         delete pendingSince;
         delete pendingRoundId;
+        delete pendingOracle;
     }
 
     function _readOracle(AggregatorV3Interface oracle)

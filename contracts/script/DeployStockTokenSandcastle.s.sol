@@ -159,6 +159,7 @@ contract SandcastleOracle is AggregatorV3Interface {
             IAddressesRegistry[] registries;
             ITroveManager[] troveManagers;
             SandcastleOracle[] oracles;
+            SandcastleOracle[] secondaryOracles;
             CollateralRegistry collateralRegistry;
             HintHelpers hintHelpers;
             MultiTroveGetter multiTroveGetter;
@@ -219,10 +220,12 @@ contract SandcastleOracle is AggregatorV3Interface {
             d.registries = new IAddressesRegistry[](d.configs.length);
             d.troveManagers = new ITroveManager[](d.configs.length);
             d.oracles = new SandcastleOracle[](d.configs.length);
+            d.secondaryOracles = new SandcastleOracle[](d.configs.length);
 
             for (uint256 i = 0; i < d.configs.length; ++i) {
                 d.collaterals[i] = new SandcastleStockToken(_bytes32ToString(d.configs[i].symbol), deployer);
                 d.oracles[i] = new SandcastleOracle(8, int256(_initialPrice(i) * 1e8), deployer);
+                d.secondaryOracles[i] = new SandcastleOracle(8, int256(_initialPrice(i) * 1e8), deployer);
                 d.registries[i] = _deployAddressesRegistry(d.configs[i], deployer);
                 d.troveManagers[i] =
                     ITroveManager(_computeCreate2Address(type(TroveManager).creationCode, d.registries[i], salt));
@@ -267,6 +270,7 @@ contract SandcastleOracle is AggregatorV3Interface {
             StockTokenPriceFeed priceFeed = new StockTokenPriceFeed(
                 address(d.collaterals[i]),
                 address(d.oracles[i]),
+                address(d.secondaryOracles[i]),
                 ORACLE_STALENESS,
                 address(d.sequencerFeed),
                 SEQUENCER_GRACE_PERIOD,
@@ -363,6 +367,7 @@ contract SandcastleOracle is AggregatorV3Interface {
             address[] memory registryAddresses = _toAddresses(d.registries);
             address[] memory troveManagerAddresses = _toAddresses(d.troveManagers);
             address[] memory oracleAddresses = _toAddresses(d.oracles);
+            address[] memory secondaryOracleAddresses = _toAddresses(d.secondaryOracles);
 
             vm.serializeUint("deployment", "chainId", block.chainid);
             vm.serializeUint("deployment", "deploymentBlock", deploymentBlock);
@@ -388,6 +393,7 @@ contract SandcastleOracle is AggregatorV3Interface {
             vm.serializeAddress("deployment", "sortedTroves", d.sortedTroves);
             vm.serializeAddress("deployment", "zappers", d.zappers);
             vm.serializeAddress("deployment", "stockOracles", oracleAddresses);
+            vm.serializeAddress("deployment", "secondaryStockOracles", secondaryOracleAddresses);
             string memory json = vm.serializeAddress("deployment", "priceFeeds", d.priceFeeds);
             vm.writeJson(json, "deployment-stock-sandcastle.json");
         }
