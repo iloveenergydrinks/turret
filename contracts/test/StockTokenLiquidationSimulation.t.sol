@@ -37,6 +37,10 @@ contract StockLiquidationOracleMock is AggregatorV3Interface {
 
 contract StockLiquidationPauseMock {
     bool public oraclePaused;
+
+    function setOraclePaused(bool value) external {
+        oraclePaused = value;
+    }
 }
 
 /// @notice Exercises a Stock Token oracle through the actual borrowing,
@@ -51,6 +55,7 @@ contract StockTokenLiquidationSimulationTest is DevTestSetup {
 
     StockLiquidationOracleMock internal primaryOracle;
     StockLiquidationOracleMock internal secondaryOracle;
+    StockLiquidationPauseMock internal pauseSource;
     StockTokenPriceFeed internal stockPriceFeed;
 
     function setUp() public override {
@@ -110,7 +115,7 @@ contract StockTokenLiquidationSimulationTest is DevTestSetup {
 
         primaryOracle = new StockLiquidationOracleMock(200e8);
         secondaryOracle = new StockLiquidationOracleMock(200e8);
-        StockLiquidationPauseMock pauseSource = new StockLiquidationPauseMock();
+        pauseSource = new StockLiquidationPauseMock();
         StockTokenPriceFeed implementation = new StockTokenPriceFeed(
             address(pauseSource),
             address(primaryOracle),
@@ -161,6 +166,57 @@ contract StockTokenLiquidationSimulationTest is DevTestSetup {
         primaryOracle.setShouldRevert(true);
         secondaryOracle.setAnswer(160e8);
 
+        troveManager.liquidate(riskyTroveId);
+
+        assertEq(uint8(troveManager.getTroveStatus(riskyTroveId)), uint8(ITroveManager.Status.closedByLiquidation));
+        assertEq(stockPriceFeed.lastGoodPrice(), 160e18);
+        assertFalse(borrowerOperations.hasBeenShutDown());
+    }
+
+    function testCorporateActionPauseKeepsEscapeHatchesOpenAndRecovers() public {
+        uint256 riskyTroveId = _openLiquidationScenario();
+        uint256 debtBefore = getTroveEntireDebt(riskyTroveId);
+        uint256 collBefore = getTroveEntireColl(riskyTroveId);
+        primaryOracle.setAnswer(160e8);
+        pauseSource.setOraclePaused(true);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(pauseSource))
+        );
+        troveManager.liquidate(riskyTroveId);
+
+        repayBold(A, riskyTroveId, 100e18);
+        addColl(A, riskyTroveId, 1e18);
+        assertLt(getTroveEntireDebt(riskyTroveId), debtBefore);
+        assertGt(getTroveEntireColl(riskyTroveId), collBefore);
+
+        vm.startPrank(A);
+        vm.expectRevert(
+            abi.encodeWithSelector(StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(pauseSource))
+        );
+        borrowerOperations.withdrawColl(riskyTroveId, 1e18);
+        vm.stopPrank();
+
+        pauseSource.setOraclePaused(false);
+        troveManager.liquidate(riskyTroveId);
+
+        assertEq(uint8(troveManager.getTroveStatus(riskyTroveId)), uint8(ITroveManager.Status.closedByLiquidation));
+        assertFalse(borrowerOperations.hasBeenShutDown());
+    }
+
+    function testStaleMarketClosureFreezesThenRecoversThroughSecondaryFeed() public {
+        uint256 riskyTroveId = _openLiquidationScenario();
+        vm.warp(block.timestamp + STALENESS);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(primaryOracle))
+        );
+        troveManager.liquidate(riskyTroveId);
+
+        repayBold(A, riskyTroveId, 100e18);
+        assertEq(uint8(troveManager.getTroveStatus(riskyTroveId)), uint8(ITroveManager.Status.active));
+
+        secondaryOracle.setAnswer(160e8);
         troveManager.liquidate(riskyTroveId);
 
         assertEq(uint8(troveManager.getTroveStatus(riskyTroveId)), uint8(ITroveManager.Status.closedByLiquidation));
