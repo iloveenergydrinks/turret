@@ -47,6 +47,7 @@ import {WETHTester} from "test/TestContracts/WETHTester.sol";
 contract SandcastleStockToken is ERC20 {
     address public immutable operator;
     mapping(address => uint256) public lastTap;
+    bool public oraclePaused;
 
     error NotOperator();
     error FaucetCooldown();
@@ -64,6 +65,11 @@ contract SandcastleStockToken is ERC20 {
     function mint(address to, uint256 amount) external {
         if (msg.sender != operator) revert NotOperator();
         _mint(to, amount);
+    }
+
+    function setOraclePaused(bool paused) external {
+        if (msg.sender != operator) revert NotOperator();
+        oraclePaused = paused;
     }
 }
 
@@ -257,6 +263,7 @@ contract SandcastleOracle is AggregatorV3Interface {
         {
             BranchAddresses memory predicted = _predictBranchAddresses(d.registries[i], salt);
             StockTokenPriceFeed priceFeed = new StockTokenPriceFeed(
+                address(d.collaterals[i]),
                 address(d.oracles[i]),
                 ORACLE_STALENESS,
                 address(d.sequencerFeed),

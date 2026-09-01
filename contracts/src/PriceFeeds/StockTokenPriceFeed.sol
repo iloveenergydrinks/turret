@@ -5,16 +5,18 @@ pragma solidity 0.8.24;
 import "../Dependencies/AggregatorV3Interface.sol";
 import "../Interfaces/IBorrowerOperations.sol";
 import "../Interfaces/IPriceFeed.sol";
+import "../Interfaces/IStockToken.sol";
 import {Math} from "openzeppelin-contracts/contracts/utils/math/Math.sol";
 
 /// @notice Chainlink adapter for Robinhood Stock Tokens.
 /// @dev Robinhood's Stock Token feed is expected to include the ERC-8056
 /// corporate-action multiplier. This adapter intentionally does not apply it
-/// again. Any oracle safety failure permanently shuts down the branch, matching
-/// Liquity V2's conservative failure model.
+/// again. Expected liveness interruptions revert temporarily; malformed data
+/// and excessive unconfirmed price movement permanently shut down the branch.
 contract StockTokenPriceFeed is IPriceFeed {
     uint256 internal constant BPS = 10_000;
 
+    IStockToken public immutable stockToken;
     AggregatorV3Interface public immutable stockTokenUsdOracle;
     AggregatorV3Interface public immutable sequencerUptimeFeed;
     IBorrowerOperations public immutable borrowerOperations;
@@ -29,11 +31,19 @@ contract StockTokenPriceFeed is IPriceFeed {
     error InvalidConfiguration();
     error InvalidInitialPrice();
     error InsufficientGasForExternalCall();
+    error OracleTemporarilyUnavailable(address source);
+
+    enum ReadStatus {
+        valid,
+        temporaryUnavailable,
+        invalid
+    }
 
     event LastGoodPriceUpdated(uint256 price);
     event ShutDownFromOracleFailure(address indexed failedOracle);
 
     constructor(
+        address _stockToken,
         address _stockTokenUsdOracle,
         uint256 _stalenessThreshold,
         address _sequencerUptimeFeed,
@@ -42,11 +52,12 @@ contract StockTokenPriceFeed is IPriceFeed {
         address _borrowerOperations
     ) {
         if (
-            _stockTokenUsdOracle == address(0) || _borrowerOperations == address(0) || _stalenessThreshold == 0
-                || _maxDeviationBps == 0 || _maxDeviationBps > BPS
+            _stockToken == address(0) || _stockTokenUsdOracle == address(0) || _borrowerOperations == address(0)
+                || _stalenessThreshold == 0 || _maxDeviationBps == 0 || _maxDeviationBps > BPS
         ) revert InvalidConfiguration();
         if (_sequencerUptimeFeed != address(0) && _sequencerGracePeriod == 0) revert InvalidConfiguration();
 
+        stockToken = IStockToken(_stockToken);
         stockTokenUsdOracle = AggregatorV3Interface(_stockTokenUsdOracle);
         sequencerUptimeFeed = AggregatorV3Interface(_sequencerUptimeFeed);
         borrowerOperations = IBorrowerOperations(_borrowerOperations);
@@ -58,8 +69,9 @@ contract StockTokenPriceFeed is IPriceFeed {
         if (decimals > 18) revert InvalidConfiguration();
         oracleDecimals = decimals;
 
-        (uint256 initialPrice, bool valid) = _readStockPrice();
-        if (!valid) revert InvalidInitialPrice();
+        (bool pauseReadSucceeded, bool paused) = _readOraclePause();
+        (uint256 initialPrice, ReadStatus status) = _readStockPrice();
+        if (!pauseReadSucceeded || paused || status != ReadStatus.valid) revert InvalidInitialPrice();
         lastGoodPrice = initialPrice;
         emit LastGoodPriceUpdated(initialPrice);
     }
@@ -67,10 +79,18 @@ contract StockTokenPriceFeed is IPriceFeed {
     function fetchPrice() public returns (uint256, bool) {
         if (usingLastGoodPrice) return (lastGoodPrice, false);
 
-        if (!_sequencerIsHealthy()) return _shutdown(address(sequencerUptimeFeed));
+        if (!_sequencerIsHealthy()) revert OracleTemporarilyUnavailable(address(sequencerUptimeFeed));
 
-        (uint256 price, bool valid) = _readStockPrice();
-        if (!valid || _deviationTooLarge(price)) return _shutdown(address(stockTokenUsdOracle));
+        (bool pauseReadSucceeded, bool paused) = _readOraclePause();
+        if (!pauseReadSucceeded || paused) revert OracleTemporarilyUnavailable(address(stockToken));
+
+        (uint256 price, ReadStatus status) = _readStockPrice();
+        if (status == ReadStatus.temporaryUnavailable) {
+            revert OracleTemporarilyUnavailable(address(stockTokenUsdOracle));
+        }
+        if (status == ReadStatus.invalid || _deviationTooLarge(price)) {
+            return _shutdown(address(stockTokenUsdOracle));
+        }
 
         lastGoodPrice = price;
         emit LastGoodPriceUpdated(price);
@@ -88,19 +108,30 @@ contract StockTokenPriceFeed is IPriceFeed {
         return (lastGoodPrice, true);
     }
 
-    function _readStockPrice() internal view returns (uint256, bool) {
+    function _readStockPrice() internal view returns (uint256, ReadStatus) {
         (bool success, uint80 roundId, int256 answer, uint256 updatedAt, uint80 answeredInRound) =
             _readOracle(stockTokenUsdOracle);
-        if (
-            !success || answer <= 0 || updatedAt == 0 || updatedAt > block.timestamp
-                || block.timestamp - updatedAt >= stalenessThreshold || answeredInRound < roundId
-        ) return (0, false);
+        if (!success) return (0, ReadStatus.temporaryUnavailable);
+        if (answer <= 0 || updatedAt == 0 || updatedAt > block.timestamp || answeredInRound < roundId) {
+            return (0, ReadStatus.invalid);
+        }
+        if (block.timestamp - updatedAt >= stalenessThreshold) return (0, ReadStatus.temporaryUnavailable);
 
         uint256 scale = 10 ** (18 - oracleDecimals);
         uint256 unsignedAnswer = uint256(answer);
-        if (unsignedAnswer > type(uint256).max / scale) return (0, false);
+        if (unsignedAnswer > type(uint256).max / scale) return (0, ReadStatus.invalid);
 
-        return (unsignedAnswer * scale, true);
+        return (unsignedAnswer * scale, ReadStatus.valid);
+    }
+
+    function _readOraclePause() internal view returns (bool success, bool paused) {
+        uint256 gasBefore = gasleft();
+        try stockToken.oraclePaused() returns (bool _paused) {
+            return (true, _paused);
+        } catch {
+            if (gasleft() <= gasBefore / 64) revert InsufficientGasForExternalCall();
+            return (false, true);
+        }
     }
 
     function _sequencerIsHealthy() internal view returns (bool) {

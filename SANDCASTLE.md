@@ -26,15 +26,15 @@ The code and product are independent and must not be presented as an official Ro
 ## Safety model
 
 - Every branch has a hard debt ceiling enforced on opening and debt increases.
-- The Stock Token/USD adapter checks positive answers, timestamp freshness, round completeness, sequencer health, and maximum single-update deviation.
-- Oracle failure permanently shuts down only the affected branch and freezes its last good price for urgent redemptions.
+- The Stock Token/USD adapter checks the token's corporate-action pause flag, positive answers, timestamp freshness, round completeness, sequencer health, and maximum single-update deviation.
+- Expected liveness interruptions (corporate-action pause, stale market feed, sequencer outage, or transient oracle-call failure) temporarily reject price-dependent actions and recover automatically. Malformed data or an excessive unconfirmed update permanently shuts down only the affected branch and freezes its last good price for urgent redemptions.
 - Robinhood's onchain feeds already include the ERC-8056 corporate-action multiplier; the adapter does not apply it again.
 - The sandcastle deployer uses faucet collateral tokens and operator-updatable mock feeds. It accepts only Anvil (`31337`) and Robinhood Chain testnet (`46630`), so it cannot deploy to mainnet.
 - Leverage and collateral-to-rUSD swaps are deliberately disabled in the sandcastle. Basic borrow, repay, collateral adjustment, liquidation, Stability Pool, and redemption mechanics remain available.
 
 The ratios and ceilings are placeholders for simulation, not production risk parameters.
 
-The one-hour oracle staleness threshold is also test-only. Stock Token feeds operate 24/5 and may hold their last price without heartbeats during weekends, holidays, thin overnight sessions, and corporate-action pauses. With the current conservative failure model, an ordinary market closure can therefore permanently shut down a branch. Production requires a reviewed market-session and temporary-pause policy; merely increasing the threshold is not a sufficient fix. See the [Robinhood Chain oracle documentation](https://docs.robinhood.com/chain/oracles-and-price-feeds/) and [Chainlink's Robinhood feed guidance](https://docs.chain.link/data-feeds/tokenized-equity-feeds/robinhood).
+The one-hour oracle staleness threshold is test-only. Stock Token feeds operate 24/5 and may hold their last price without heartbeats during weekends, holidays, thin overnight sessions, and corporate-action pauses. Staleness now causes temporary unavailability rather than irreversible shutdown, allowing the branch to recover when a fresh price arrives. Production still requires historical and Monte Carlo testing of this freeze policy, and a Data Streams or secondary-price path before safe off-hours liquidations can be enabled. See the [Robinhood Chain oracle documentation](https://docs.robinhood.com/chain/oracles-and-price-feeds/), [Robinhood Chain Data Streams documentation](https://docs.robinhood.com/chain/data-streams/), and [Chainlink's Robinhood feed guidance](https://docs.chain.link/data-feeds/tokenized-equity-feeds/robinhood).
 
 ## Executable gap model
 

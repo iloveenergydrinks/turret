@@ -41,6 +41,24 @@ contract OracleMock is AggregatorV3Interface {
     }
 }
 
+    contract StockTokenMock {
+        bool internal paused;
+        bool public shouldRevert;
+
+        function setOraclePaused(bool value) external {
+            paused = value;
+        }
+
+        function setShouldRevert(bool value) external {
+            shouldRevert = value;
+        }
+
+        function oraclePaused() external view returns (bool) {
+            require(!shouldRevert, "token unavailable");
+            return paused;
+        }
+    }
+
     contract BorrowerOperationsShutdownMock {
         bool public shutDown;
 
@@ -56,6 +74,7 @@ contract OracleMock is AggregatorV3Interface {
 
         OracleMock internal stockOracle;
         OracleMock internal sequencerOracle;
+        StockTokenMock internal stockToken;
         BorrowerOperationsShutdownMock internal borrowerOperations;
         StockTokenPriceFeed internal priceFeed;
 
@@ -63,6 +82,7 @@ contract OracleMock is AggregatorV3Interface {
             vm.warp(10 days);
             stockOracle = new OracleMock(8);
             sequencerOracle = new OracleMock(0);
+            stockToken = new StockTokenMock();
             borrowerOperations = new BorrowerOperationsShutdownMock();
 
             stockOracle.setRound(120e8, block.timestamp, block.timestamp);
@@ -73,7 +93,13 @@ contract OracleMock is AggregatorV3Interface {
 
         function _deployPriceFeed(address sequencer) internal returns (StockTokenPriceFeed) {
             return new StockTokenPriceFeed(
-                address(stockOracle), STALENESS, sequencer, GRACE_PERIOD, MAX_DEVIATION_BPS, address(borrowerOperations)
+                address(stockToken),
+                address(stockOracle),
+                STALENESS,
+                sequencer,
+                GRACE_PERIOD,
+                MAX_DEVIATION_BPS,
+                address(borrowerOperations)
             );
         }
 
@@ -88,33 +114,107 @@ contract OracleMock is AggregatorV3Interface {
             assertFalse(borrowerOperations.shutDown());
         }
 
-        function testStalenessBoundaryShutsDownAndFreezesLastGoodPrice() public {
+        function testConstructorRejectsPausedStockToken() public {
+            stockToken.setOraclePaused(true);
+
+            vm.expectRevert(StockTokenPriceFeed.InvalidInitialPrice.selector);
+            _deployPriceFeed(address(sequencerOracle));
+        }
+
+        function testConstructorRejectsStockTokenPauseReadFailure() public {
+            stockToken.setShouldRevert(true);
+
+            vm.expectRevert(StockTokenPriceFeed.InvalidInitialPrice.selector);
+            _deployPriceFeed(address(sequencerOracle));
+        }
+
+        function testStalenessBoundaryTemporarilyFreezesAndRecovers() public {
             vm.warp(block.timestamp + STALENESS);
 
+            vm.expectRevert(
+                abi.encodeWithSelector(StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(stockOracle))
+            );
+            priceFeed.fetchPrice();
+
+            assertFalse(borrowerOperations.shutDown());
+            assertFalse(priceFeed.usingLastGoodPrice());
+
+            stockOracle.setRound(125e8, block.timestamp, block.timestamp);
             (uint256 price, bool failed) = priceFeed.fetchPrice();
 
-            assertEq(price, 120e18);
-            assertTrue(failed);
-            assertTrue(borrowerOperations.shutDown());
-            assertTrue(priceFeed.usingLastGoodPrice());
+            assertEq(price, 125e18);
+            assertFalse(failed);
         }
 
-        function testSequencerDownShutsDown() public {
+        function testSequencerDownTemporarilyFreezesAndRecovers() public {
             sequencerOracle.setRound(1, block.timestamp, block.timestamp);
 
-            (, bool failed) = priceFeed.fetchPrice();
+            vm.expectRevert(
+                abi.encodeWithSelector(
+                    StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(sequencerOracle)
+                )
+            );
+            priceFeed.fetchPrice();
 
-            assertTrue(failed);
-            assertTrue(borrowerOperations.shutDown());
+            assertFalse(borrowerOperations.shutDown());
+
+            sequencerOracle.setRound(0, block.timestamp - GRACE_PERIOD - 1, block.timestamp);
+            (, bool failed) = priceFeed.fetchPrice();
+            assertFalse(failed);
         }
 
-        function testSequencerGracePeriodShutsDown() public {
+        function testSequencerGracePeriodTemporarilyFreezes() public {
             sequencerOracle.setRound(0, block.timestamp - GRACE_PERIOD, block.timestamp);
 
-            (, bool failed) = priceFeed.fetchPrice();
+            vm.expectRevert(
+                abi.encodeWithSelector(
+                    StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(sequencerOracle)
+                )
+            );
+            priceFeed.fetchPrice();
 
-            assertTrue(failed);
-            assertTrue(borrowerOperations.shutDown());
+            assertFalse(borrowerOperations.shutDown());
+        }
+
+        function testSequencerReadFailureTemporarilyFreezesAndRecovers() public {
+            sequencerOracle.setShouldRevert(true);
+
+            vm.expectRevert(
+                abi.encodeWithSelector(
+                    StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(sequencerOracle)
+                )
+            );
+            priceFeed.fetchPrice();
+
+            assertFalse(borrowerOperations.shutDown());
+            sequencerOracle.setShouldRevert(false);
+            (, bool failed) = priceFeed.fetchPrice();
+            assertFalse(failed);
+        }
+
+        function testCorporateActionPauseTemporarilyFreezesAndRecovers() public {
+            stockToken.setOraclePaused(true);
+
+            vm.expectRevert(
+                abi.encodeWithSelector(StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(stockToken))
+            );
+            priceFeed.fetchPrice();
+
+            assertFalse(borrowerOperations.shutDown());
+            stockToken.setOraclePaused(false);
+            (, bool failed) = priceFeed.fetchPrice();
+            assertFalse(failed);
+        }
+
+        function testCorporateActionPauseReadFailureTemporarilyFreezes() public {
+            stockToken.setShouldRevert(true);
+
+            vm.expectRevert(
+                abi.encodeWithSelector(StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(stockToken))
+            );
+            priceFeed.fetchPrice();
+
+            assertFalse(borrowerOperations.shutDown());
         }
 
         function testExactUpwardDeviationBoundaryIsAccepted() public {
@@ -216,12 +316,18 @@ contract OracleMock is AggregatorV3Interface {
             assertFalse(failed);
         }
 
-        function testOracleRevertShutsDown() public {
+        function testOracleRevertTemporarilyFreezesAndRecovers() public {
             stockOracle.setShouldRevert(true);
 
-            (, bool failed) = priceFeed.fetchPrice();
+            vm.expectRevert(
+                abi.encodeWithSelector(StockTokenPriceFeed.OracleTemporarilyUnavailable.selector, address(stockOracle))
+            );
+            priceFeed.fetchPrice();
 
-            assertTrue(failed);
-            assertTrue(borrowerOperations.shutDown());
+            assertFalse(borrowerOperations.shutDown());
+
+            stockOracle.setShouldRevert(false);
+            (, bool failed) = priceFeed.fetchPrice();
+            assertFalse(failed);
         }
     }
