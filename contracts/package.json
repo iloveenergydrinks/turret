@@ -15,6 +15,8 @@
     "test:stock-registry": "tsx --test utils/validate-stock-token-registry.test.ts",
     "simulate:stock-risk": "tsx utils/simulate-stock-token-risk.ts",
     "test:stock-risk": "tsx --test utils/simulate-stock-token-risk.test.ts",
+    "analyze:stock-history": "tsx utils/analyze-stock-token-history.ts",
+    "test:stock-history": "tsx --test utils/analyze-stock-token-history.test.ts",
     "fuzz": "tsx utils/fuzz.ts",
     "fuzz-repro": "tsx utils/fuzz-repro.ts",
     "fuzz-start": "pm2 start --time --interpreter node --interpreter-args '--import tsx' utils/fuzz.ts",

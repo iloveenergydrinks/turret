@@ -69,6 +69,14 @@ pnpm --dir contracts simulate:stock-risk
 
 Its volatility, jump, buffer, penalty, seed, and trial assumptions live in `contracts/utils/stock-risk-scenario.sandcastle.json`, separate from the engine. The runner reports raw occurrence counts as well as rates so rare penalty shortfalls are not rounded away. These assumptions are intentionally labeled synthetic and unreviewed; the output is a reproducible screening baseline, not a production parameter recommendation or a substitute for sourced historical data.
 
+The historical analyzer accepts a provenance manifest plus one checksummed CSV per configured stock. It rejects synthetic datasets by default, requires a concrete license and HTTPS source, verifies every SHA-256 digest, and measures session gaps, continuous 30-minute losses, circuit-breaker events, closure duration, and liquidation-penalty shortfalls against the Solidity parameters:
+
+```sh
+pnpm --dir contracts analyze:stock-history -- /absolute/path/to/provenance.json
+```
+
+Each CSV must use the exact header `timestamp,session,open,high,low,close` and the manifest must cover all ten symbols. Licensed historical data is deliberately not committed to this repository; until a sourced dataset is supplied and the report is independently reviewed, the historical-data production gate remains open.
+
 ## Local deployment
 
 Prerequisites: Foundry and the repository submodules.
