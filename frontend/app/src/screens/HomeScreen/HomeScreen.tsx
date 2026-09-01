@@ -1,539 +1,161 @@
 "use client";
 
-import type { CollateralSymbol } from "@/src/types";
-import type { ReactNode } from "react";
+import type { BranchId, CollateralSymbol } from "@/src/types";
 
-import { useBreakpoint } from "@/src/breakpoints";
-import { Amount } from "@/src/comps/Amount/Amount";
-import { LinkTextButton } from "@/src/comps/LinkTextButton/LinkTextButton";
-import { Positions } from "@/src/comps/Positions/Positions";
-import { RedemptionShieldedBanner } from "@/src/comps/RedemptionShieldedBanner/RedemptionShieldedBanner";
-import content from "@/src/content";
-import { DNUM_1 } from "@/src/dnum-utils";
-import {
-  getBranch,
-  getBranches,
-  getCollToken,
-  getToken,
-  getTokenDisplayName,
-  useAirdropVaults,
-  useAverageInterestRate,
-  useBranchesRedemptionShielded,
-  useEarnPool,
-  useLiquityStats,
-} from "@/src/liquity-utils";
-import { isSboldEnabled } from "@/src/sbold";
-import { useAccount } from "@/src/wagmi-utils";
-import { isYboldEnabled } from "@/src/ybold";
-import { css } from "@/styled-system/css";
-import { IconBorrow, IconEarn, IconShieldCheck, TokenIcon } from "@liquity2/uikit";
-import * as dn from "dnum";
-import Image from "next/image";
-import { useMemo, useState } from "react";
-import { HomeTable } from "./HomeTable";
-import { YieldSourceTable } from "./YieldSourceTable";
+import { getBranches, getCollToken } from "@/src/liquity-utils";
+import Link from "next/link";
+
+function FlowArrow() {
+  return (
+    <svg aria-hidden="true" className="rusd-flow-arrow" fill="none" viewBox="0 0 48 16">
+      <path
+        d="M1 8h43M37 2l7 6-7 6"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.75"
+      />
+    </svg>
+  );
+}
+
+function StockTokenIcon() {
+  return (
+    <svg aria-hidden="true" fill="none" viewBox="0 0 36 36">
+      <path d="m5 13 13-7 13 7H5Z" stroke="currentColor" strokeLinejoin="round" strokeWidth="1.8" />
+      <path
+        d="M8 28h20M6 31h24M10 14v14M15 14v14M21 14v14M26 14v14"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.8"
+      />
+    </svg>
+  );
+}
+
+function VaultIcon() {
+  return (
+    <svg aria-hidden="true" fill="none" viewBox="0 0 36 36">
+      <rect height="28" rx="3" stroke="currentColor" strokeWidth="1.8" width="28" x="4" y="4" />
+      <rect height="22" rx="2" stroke="currentColor" strokeWidth="1.4" width="22" x="7" y="7" />
+      <circle cx="18" cy="18" r="6" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="18" cy="18" fill="currentColor" r="1.8" />
+      <path
+        d="M18 12v3M24 18h-3M18 24v-3M12 18h3M30 12h2M30 24h2"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+function RusdIcon() {
+  return (
+    <svg aria-hidden="true" fill="none" viewBox="0 0 36 36">
+      <path
+        d="M5 29V16c0-5.6 3.7-9 9-9s9 3.4 9 9v4c0 3.6 2.3 6 6 6"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="3.5"
+      />
+      <circle cx="14" cy="16" fill="currentColor" r="2.3" />
+    </svg>
+  );
+}
+
+function MarketRow({ symbol, branchId }: { symbol: CollateralSymbol; branchId: BranchId }) {
+  const collateral = getCollToken(branchId);
+  const maxLtv = collateral?.collateralRatio
+    ? `${(100 / collateral.collateralRatio).toFixed(1).replace(".0", "")}%`
+    : "—";
+
+  return (
+    <tr>
+      <td>
+        <div className="rusd-market-name">
+          <span className="rusd-ticker">{symbol}</span>
+          <span className="rusd-market-meta">
+            <span className="rusd-market-symbol">{symbol}</span>
+            <span className="rusd-market-type">Isolated Stock Token market</span>
+          </span>
+        </div>
+      </td>
+      <td className="rusd-ltv">{maxLtv}</td>
+      <td>
+        <Link className="rusd-action" href={`/borrow/${symbol.toLowerCase()}`}>
+          Borrow
+        </Link>
+      </td>
+    </tr>
+  );
+}
 
 export function HomeScreen() {
-  const account = useAccount();
-
-  const [compact, setCompact] = useState(false);
-  useBreakpoint(({ medium }) => {
-    setCompact(!medium);
-  });
+  const branches = getBranches();
 
   return (
-    <div
-      className={css({
-        flexGrow: 1,
-        display: "flex",
-        flexDirection: "column",
-        gap: {
-          base: 40,
-          medium: 40,
-          large: 64,
-        },
-        width: "100%",
-      })}
-    >
-      <Positions address={account.address ?? null} />
-      <div
-        className={css({
-          display: "grid",
-          gap: 24,
-          gridTemplateColumns: {
-            base: "1fr",
-            large: "1fr 1fr",
-          },
-          gridTemplateAreas: {
-            base: `
-              "borrow"
-              "earn"
-              "yield"
-            `,
-            large: `
-              "borrow earn"
-              "borrow yield"
-            `,
-          },
-        })}
-      >
-        <BorrowTable compact={compact} />
-        <EarnTable compact={compact} />
-        <YieldSourceTable compact={compact} />
-      </div>
-    </div>
-  );
-}
-
-function BorrowTable({
-  compact,
-}: {
-  compact: boolean;
-}) {
-  const redemptionShielded = useBranchesRedemptionShielded();
-  const shieldedBranches = redemptionShielded.data?.filter((b) => b.isShielded) ?? [];
-
-  const columns: ReactNode[] = [
-    "Collateral",
-    <span
-      key="avg-interest-rate"
-      title="Average interest rate, per annum"
-    >
-      {compact ? "Rate" : "Avg rate, p.a."}
-    </span>,
-    <span
-      key="max-ltv"
-      title="Maximum Loan-to-Value ratio"
-    >
-      Max LTV
-    </span>,
-    <span
-      key="total-debt"
-      title="Total debt"
-    >
-      {compact ? "Debt" : "Total debt"}
-    </span>,
-  ];
-
-  if (!compact) {
-    columns.push(null);
-  }
-
-  return (
-    <div className={css({ gridArea: "borrow" })}>
-      <HomeTable
-        title="Borrow rUSD against Stock Tokens"
-        subtitle="You can adjust your loans, including your interest rate, at any time"
-        icon={<IconBorrow />}
-        columns={columns}
-        banner={shieldedBranches.length > 0 && (
-          <RedemptionShieldedBanner compact={compact} shieldedBranches={shieldedBranches} />
-        )}
-        rows={getBranches().map(({ symbol }) => {
-          const branch = redemptionShielded.data?.find((b) => b.symbol === symbol);
-          return (
-            <BorrowingRow
-              key={symbol}
-              compact={compact}
-              symbol={symbol}
-              isShielded={branch?.isShielded ?? false}
-              branchDebt={branch?.branchDebt ?? null}
-            />
-          );
-        })}
-      />
-    </div>
-  );
-}
-
-function EarnTable({
-  compact,
-}: {
-  compact: boolean;
-}) {
-  const columns: ReactNode[] = [
-    "Pool",
-    <abbr
-      key="apr1d"
-      title="Annual Percentage Rate over the last 24 hours"
-    >
-      APR
-    </abbr>,
-    <abbr
-      key="apr7d"
-      title="Annual Percentage Rate over the last 7 days"
-    >
-      7d APR
-    </abbr>,
-    "Pool size",
-  ];
-
-  if (!compact) {
-    columns.push(null);
-  }
-
-  return (
-    <div
-      className={css({
-        gridArea: "earn",
-      })}
-    >
-      <div
-        className={css({
-          position: "relative",
-          zIndex: 2,
-        })}
-      >
-        <HomeTable
-          title={content.home.earnTable.title}
-          subtitle={content.home.earnTable.subtitle}
-          icon={<IconEarn />}
-          columns={columns}
-          rows={[
-            ...getBranches(),
-            ...(isSboldEnabled() ? [{ symbol: "SBOLD" as const }] : []),
-            ...(isYboldEnabled() ? [{ symbol: "YBOLD" as const }] : []),
-          ].map(({ symbol }) => (
-            <EarnRewardsRow
-              key={symbol}
-              compact={compact}
-              symbol={symbol}
-            />
-          ))}
-        />
-      </div>
-      <div
-        className={css({
-          position: "relative",
-          zIndex: 1,
-        })}
-      >
-        <AirdropVaultsDrawer />
-      </div>
-    </div>
-  );
-}
-
-function AirdropVaultsDrawer() {
-  const airdropVaults = useAirdropVaults();
-
-  if (!airdropVaults.data || airdropVaults.data.length === 0) {
-    return null;
-  }
-
-  return (
-    <div
-      className={css({
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        marginTop: -20,
-        paddingTop: 20,
-        background: "#F7F7FF",
-        borderRadius: 8,
-        userSelect: "none",
-      })}
-    >
-      {airdropVaults.data.map((vault) => (
-        <div
-          key={vault.name}
-          className={css({
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: 16,
-            height: 44,
-            padding: "0 16px",
-            whiteSpace: "nowrap",
-          })}
-        >
-          <div
-            className={css({
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              fontSize: 14,
-            })}
-          >
-            {vault.icon && (
-              <div
-                className={css({
-                  display: "grid",
-                  placeItems: "center",
-                  width: 18,
-                  height: 18,
-                })}
-              >
-                <Image
-                  loading="eager"
-                  unoptimized
-                  alt={vault.name}
-                  title={vault.name}
-                  height={18}
-                  src={vault.icon}
-                  width={18}
-                />
-              </div>
-            )}
-            <span>{vault.name}</span>
+    <div className="rusd-home">
+      <section className="rusd-hero">
+        <h1>Borrow against Wall Street.</h1>
+        <p className="rusd-hero-copy">
+          Deposit a Stock Token. Borrow rUSD. Keep your market exposure.
+        </p>
+        <div aria-label="Stock Token to vault to rUSD" className="rusd-flow">
+          <div className="rusd-flow-step">
+            <span className="rusd-flow-icon">
+              <StockTokenIcon />
+            </span>
+            Stock Token
           </div>
-          <div
-            className={css({
-              display: "flex",
-              alignItems: "center",
-            })}
-          >
-            <LinkTextButton
-              external
-              href={vault.link}
-              label="Earn"
-              title={`Earn on ${vault.name}`}
-              className={css({
-                fontSize: 14,
-              })}
-            >
-              Earn
-            </LinkTextButton>
+          <FlowArrow />
+          <div className="rusd-flow-step">
+            <span className="rusd-flow-icon">
+              <VaultIcon />
+            </span>
+            Vault
+          </div>
+          <FlowArrow />
+          <div className="rusd-flow-step">
+            <span className="rusd-flow-icon">
+              <RusdIcon />
+            </span>
+            rUSD
           </div>
         </div>
-      ))}
+      </section>
+
+      <section className="rusd-market-panel">
+        <table className="rusd-market-table">
+          <caption className="sr-only">
+            Choose your collateral from {branches.length} isolated Stock Token markets
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Market</th>
+              <th scope="col">Max LTV</th>
+              <th scope="col">
+                <span className="sr-only">Action</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {branches.map(({ id, symbol }) => <MarketRow branchId={id} key={symbol} symbol={symbol} />)}
+          </tbody>
+        </table>
+      </section>
+
+      <aside className="rusd-info">
+        <span aria-hidden="true" className="rusd-info-icon">i</span>
+        <div>
+          <strong>Your risk stays isolated.</strong>
+          <p>
+            If a vault crosses its maximum LTV, it can be liquidated. Market closures and oracle pauses can temporarily
+            limit risky actions.
+          </p>
+        </div>
+        <Link className="rusd-text-link" href="/borrow">How borrowing works</Link>
+      </aside>
     </div>
-  );
-}
-
-function BorrowingRow({
-  compact,
-  symbol,
-  isShielded,
-  branchDebt,
-}: {
-  compact: boolean;
-  symbol: CollateralSymbol;
-  isShielded: boolean;
-  branchDebt: dn.Dnum | null;
-}) {
-  const branch = getBranch(symbol);
-  const collateral = getCollToken(branch.id);
-  const avgInterestRate = useAverageInterestRate(branch.id);
-
-  const maxLtv = collateral?.collateralRatio && dn.gt(collateral.collateralRatio, 0)
-    ? dn.div(DNUM_1, collateral.collateralRatio)
-    : null;
-
-  return (
-    <tr>
-      <td>
-        <div
-          className={css({
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          })}
-        >
-          <TokenIcon symbol={symbol} size="mini" />
-          <span>{collateral?.name}</span>
-          {isShielded && (
-            <div
-              className={css({
-                display: "flex",
-                alignItems: "center",
-                gap: 4,
-                fontSize: 12,
-                fontWeight: 500,
-                lineHeight: 1,
-                color: "positive",
-              })}
-            >
-              <IconShieldCheck size={14} />
-              {content.home.redemptionShieldBanner.badgeLabel}
-            </div>
-          )}
-        </div>
-      </td>
-      <td>
-        <Amount
-          fallback="…"
-          percentage
-          value={avgInterestRate.data}
-        />
-      </td>
-      <td>
-        <Amount
-          value={maxLtv}
-          percentage
-        />
-      </td>
-      <td>
-        <Amount
-          format="compact"
-          prefix="$"
-          fallback="…"
-          value={branchDebt}
-        />
-      </td>
-      {!compact && (
-        <td>
-          <div
-            className={css({
-              display: "flex",
-              gap: 16,
-              justifyContent: "flex-end",
-            })}
-          >
-            <LinkTextButton
-              href={`/borrow/${symbol.toLowerCase()}`}
-              label={
-                <div
-                  className={css({
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 4,
-                    fontSize: 14,
-                  })}
-                >
-                  Borrow
-                  <TokenIcon symbol="BOLD" size="mini" />
-                </div>
-              }
-              title={`Borrow rUSD against ${symbol}`}
-            />
-          </div>
-        </td>
-      )}
-    </tr>
-  );
-}
-
-function EarnRewardsRow({
-  compact,
-  symbol,
-}: {
-  compact: boolean;
-  symbol: CollateralSymbol | "SBOLD" | "YBOLD";
-}) {
-  const branch = symbol === "SBOLD" || symbol === "YBOLD" ? null : getBranch(symbol);
-  const token = getToken(symbol);
-  const earnPool = useEarnPool(branch?.id ?? null);
-
-  const liquityStats = useLiquityStats();
-
-  /**
-   * Case-specific stat normalization
-   * for display purposes
-   */
-  const normalizedStats:
-    | {
-      apr: dn.Dnum | string | null;
-      apr7d: dn.Dnum | null;
-      totalDeposited: dn.Dnum | null;
-      link?: string | null;
-    }
-    | null
-    | undefined = useMemo(() => {
-      if (symbol === "SBOLD") {
-        const sbold = liquityStats.data?.sBOLD;
-
-        if (!sbold) {
-          return null;
-        }
-
-        return {
-          apr: "N/A",
-          apr7d: sbold.weeklyApr,
-          totalDeposited: sbold.tvl,
-          link: sbold.link,
-        };
-      }
-      if (symbol === "YBOLD") {
-        const ybold = liquityStats.data?.yBOLD;
-
-        if (!ybold) {
-          return null;
-        }
-
-        return {
-          apr: "N/A",
-          apr7d: ybold.weeklyApr,
-          totalDeposited: ybold.tvl,
-          link: ybold.link,
-        };
-      }
-      return earnPool.data;
-    }, [symbol, liquityStats.data, earnPool.data]);
-
-  return (
-    <tr>
-      <td>
-        <div
-          className={css({
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          })}
-        >
-          <TokenIcon symbol={symbol} size="mini" />
-          <span>{getTokenDisplayName(symbol)}</span>
-        </div>
-      </td>
-      <td>
-        {typeof normalizedStats?.apr === "string"
-          ? <span>{normalizedStats?.apr}</span>
-          : (
-            <Amount
-              fallback="…"
-              percentage
-              value={normalizedStats?.apr}
-            />
-          )}
-      </td>
-      <td>
-        <Amount
-          fallback="…"
-          percentage
-          value={normalizedStats?.apr7d}
-        />
-      </td>
-      <td>
-        <Amount
-          fallback="…"
-          format="compact"
-          prefix="$"
-          value={normalizedStats?.totalDeposited}
-        />
-      </td>
-      {!compact && (
-        <td>
-          <LinkTextButton
-            href={normalizedStats?.link ?? `/earn/${symbol.toLowerCase()}`}
-            target={normalizedStats?.link ? "_blank" : undefined}
-            label={
-              <div
-                className={css({
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 4,
-                  fontSize: 14,
-                })}
-              >
-                Earn
-                <TokenIcon.Group size="mini">
-                  <TokenIcon symbol="BOLD" />
-                  {symbol === "SBOLD" || symbol === "YBOLD"
-                    ? (
-                      <div
-                        className={css({
-                          width: 16,
-                        })}
-                      />
-                    )
-                    : <TokenIcon symbol={symbol} />}
-                </TokenIcon.Group>
-              </div>
-            }
-            title={`Earn rUSD with ${token?.name}`}
-          />
-        </td>
-      )}
-    </tr>
   );
 }

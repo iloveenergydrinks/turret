@@ -113,23 +113,13 @@ function ButtonNotConnected({
   } as const;
 
   return (
-    <>
-      <Button
-        {...props}
-        size="medium"
-        className={css({
-          hideBelow: "medium",
-        })}
-      />
-      <Button
-        {...props}
-        size="medium"
-        className={css({
-          hideFrom: "medium",
-          height: "32px!",
-        })}
-      />
-    </>
+    <Button
+      {...props}
+      size="medium"
+      className={css({
+        height: { base: "32px!", medium: "40px!" },
+      })}
+    />
   );
 }
 

@@ -1,0 +1,11 @@
+{
+  "approved": true,
+  "mode": "operate",
+  "direction": "Friendly narrow credit desk",
+  "prompt": "Narrow centered rUSD app, Liquity V1-inspired friendly DeFi tone, light lavender background, white rounded market panel, periwinkle actions, original rUSD logo, ten Stock Token markets, no fake metrics.",
+  "source": "imagegen",
+  "viewport": {
+    "width": 1536,
+    "height": 1024
+  }
+}
