@@ -17,7 +17,7 @@ export function TopBar() {
   return (
     <header className="rusd-topbar">
       <div className="rusd-frame rusd-topbar-inner">
-        <Link aria-label="rUSD markets" className="rusd-brand-link" href="/">
+        <Link aria-label="Dockyard markets" className="rusd-brand-link" href="/">
           <Logo size={36} />
         </Link>
         <nav aria-label="Primary" className="rusd-nav">

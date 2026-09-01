@@ -12,7 +12,7 @@ People who already hold tokenized US equities and want dollar liquidity without 
 
 ## Product Purpose
 
-rUSD lets users deposit supported Stock Tokens into isolated vaults and borrow a dollar-denominated stablecoin against them. Success means a user can understand the risk, choose a stock, open or manage a position, and repay or redeem without confusing the tokenized exposure for ownership of the underlying share.
+Dockyard lets users deposit supported Stock Tokens into isolated vaults and borrow the dollar-denominated rUSD stablecoin against them. Success means a user can understand the risk, choose a stock, open or manage a position, and repay or redeem without confusing the tokenized exposure for ownership of the underlying share.
 
 ## Positioning
 
@@ -34,7 +34,7 @@ Users connect an EVM wallet on Robinhood Chain, choose one supported Stock Token
 
 ## Brand Commitments
 
-The product name is rUSD. The core message is “Borrow against Wall Street.” The identity should be minimal, narrow, friendly, and direct. It should inherit the approachable simplicity of Liquity V1 without copying its logo or becoming a corporate trading terminal. A new original logo and complete frontend visual world are required.
+The protocol name is Dockyard. rUSD is the stablecoin issued by the protocol. The core message is “Borrow against Wall Street.” The identity should be minimal, narrow, friendly, and direct, with an understated maritime influence rather than literal nautical decoration. A subtle animated wave shader may give the page ambient motion, but it must remain secondary to the borrowing task and respect reduced-motion preferences. The interface should inherit the approachable simplicity of Liquity V1 without copying its logo or becoming a corporate trading terminal. A new original Dockyard logo and complete frontend visual world are required.
 
 ## Evidence on Hand
 

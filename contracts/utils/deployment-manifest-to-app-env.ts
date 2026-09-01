@@ -1,3 +1,5 @@
+import { createPublicClient, http, parseAbi } from "viem";
+import type { Address } from "viem";
 import { z } from "zod";
 import { echo, fs, minimist } from "zx";
 
@@ -18,6 +20,9 @@ Options:
   --help, -h                               Show this help message.
   --append                                 Append to the output file instead of
                                            overwriting it (requires OUTPUT_ENV).
+  --verify-rpc URL                         Verify every Stock Token deployment
+                                           contract and core wiring at URL before
+                                           enabling interactive frontend flows.
 `;
 
 const argv = minimist(process.argv.slice(2), {
@@ -28,9 +33,10 @@ const argv = minimist(process.argv.slice(2), {
     "help",
     "append",
   ],
+  string: ["verify-rpc"],
 });
 
-const ZAddress = z.string().regex(/^0x[0-9a-fA-F]{40}$/);
+const ZAddress = z.string().regex(/^0x[0-9a-fA-F]{40}$/).transform((value) => value as Address);
 const ZDeploymentManifest = z.object({
   collateralRegistry: ZAddress,
   boldToken: ZAddress,
@@ -85,6 +91,7 @@ const ZStockDeploymentManifest = z.object({
   troveNFTs: z.array(ZAddress).length(10),
   activePools: z.array(ZAddress).length(10),
   defaultPools: z.array(ZAddress).length(10),
+  gasPools: z.array(ZAddress).length(10),
   collSurplusPools: z.array(ZAddress).length(10),
   sortedTroves: z.array(ZAddress).length(10),
   troveManagers: z.array(ZAddress).length(10),
@@ -109,10 +116,11 @@ const STOCK_SYMBOLS = [
 ] as const;
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
-export function main() {
+export async function main() {
   const options = {
     help: argv["help"],
     append: argv["append"],
+    verifyRpc: argv["verify-rpc"],
     inputJsonPath: argv._[0],
     outputEnvPath: argv._[1],
   };
@@ -131,11 +139,16 @@ export function main() {
     fs.readFileSync(options.inputJsonPath, "utf-8"),
   );
 
-  const outputEnv = objectToEnvironmentVariables(
-    "stockTokens" in manifest
-      ? stockDeploymentToAppEnvVariables(manifest)
-      : deployedContractsToAppEnvVariables(manifest),
-  );
+  const appEnv = "stockTokens" in manifest
+    ? stockDeploymentToAppEnvVariables(manifest)
+    : deployedContractsToAppEnvVariables(manifest);
+
+  if ("stockTokens" in manifest && options.verifyRpc) {
+    await verifyStockDeployment(manifest, options.verifyRpc);
+    appEnv.NEXT_PUBLIC_DEPLOYMENT_VERIFIED = true;
+  }
+
+  const outputEnv = objectToEnvironmentVariables(appEnv);
 
   if (!options.outputEnvPath) {
     console.log(outputEnv);
@@ -152,7 +165,7 @@ export function main() {
   console.log(`\nEnvironment variables written to ${options.outputEnvPath}.\n`);
 }
 
-function objectToEnvironmentVariables(object: Record<string, unknown>) {
+export function objectToEnvironmentVariables(object: Record<string, unknown>) {
   return Object.entries(object)
     .map(([key, value]) => `${key}=${value}`)
     .sort()
@@ -213,22 +226,26 @@ function deployedContractsToAppEnvVariables(manifest: DeploymentManifest) {
   return appEnvVariables;
 }
 
-function stockDeploymentToAppEnvVariables(manifest: StockDeploymentManifest) {
+export function stockDeploymentToAppEnvVariables(manifest: StockDeploymentManifest) {
   const isRobinhoodMainnet = manifest.chainId === 4663;
+  const isLocal = manifest.chainId === 31337;
   const appEnvVariables: Record<string, string | boolean> = {
     NEXT_PUBLIC_ACCOUNT_SCREEN: true,
     NEXT_PUBLIC_AIRDROP_VAULTS: false,
     NEXT_PUBLIC_AIRDROP_VAULTS_URL: "",
-    NEXT_PUBLIC_CHAIN_BLOCK_EXPLORER: isRobinhoodMainnet
-      ? "Robinhood Chain Explorer|https://robinhoodchain.blockscout.com"
-      : "Robinhood Chain Testnet Explorer|https://explorer.testnet.chain.robinhood.com",
     NEXT_PUBLIC_CHAIN_CURRENCY: "Ether|ETH|18",
     NEXT_PUBLIC_CHAIN_ID: String(manifest.chainId),
-    NEXT_PUBLIC_CHAIN_NAME: isRobinhoodMainnet ? "Robinhood Chain" : "Robinhood Chain Testnet",
-    NEXT_PUBLIC_CHAIN_RPC_URL: isRobinhoodMainnet
+    NEXT_PUBLIC_CHAIN_NAME: isLocal ? "Anvil" : isRobinhoodMainnet ? "Robinhood Chain" : "Robinhood Chain Testnet",
+    NEXT_PUBLIC_CHAIN_RPC_URL: isLocal
+      ? "http://127.0.0.1:8545"
+      : isRobinhoodMainnet
       ? "https://rpc.mainnet.chain.robinhood.com"
       : "https://rpc.testnet.chain.robinhood.com",
-    NEXT_PUBLIC_DEPLOYMENT_FLAVOR: isRobinhoodMainnet ? "rUSD Robinhood Mainnet" : "Stock Token Sandcastle",
+    NEXT_PUBLIC_DEPLOYMENT_FLAVOR: isLocal
+      ? "Local Stock Token Sandcastle"
+      : isRobinhoodMainnet
+      ? "rUSD Robinhood Mainnet"
+      : "Stock Token Sandcastle",
     NEXT_PUBLIC_ENABLE_LEVERAGE: false,
     NEXT_PUBLIC_ENABLE_STAKING: false,
     NEXT_PUBLIC_LEGACY_CHECK: false,
@@ -261,6 +278,12 @@ function stockDeploymentToAppEnvVariables(manifest: StockDeploymentManifest) {
     NEXT_PUBLIC_CONTRACT_WETH: manifest.weth,
   };
 
+  if (!isLocal) {
+    appEnvVariables.NEXT_PUBLIC_CHAIN_BLOCK_EXPLORER = isRobinhoodMainnet
+      ? "Robinhood Chain Explorer|https://robinhoodchain.blockscout.com"
+      : "Robinhood Chain Testnet Explorer|https://explorer.testnet.chain.robinhood.com";
+  }
+
   for (const [index, symbol] of STOCK_SYMBOLS.entries()) {
     const prefix = `NEXT_PUBLIC_COLL_${index}`;
     appEnvVariables[`${prefix}_TOKEN_ID`] = symbol;
@@ -280,6 +303,169 @@ function stockDeploymentToAppEnvVariables(manifest: StockDeploymentManifest) {
   }
 
   return appEnvVariables;
+}
+
+const ownableAbi = parseAbi([
+  "function owner() view returns (address)",
+]);
+const stablecoinAbi = parseAbi([
+  "function name() view returns (string)",
+  "function symbol() view returns (string)",
+  "function collateralRegistryAddress() view returns (address)",
+  "function owner() view returns (address)",
+]);
+const collateralRegistryAbi = parseAbi([
+  "function totalCollaterals() view returns (uint256)",
+  "function boldToken() view returns (address)",
+]);
+const addressesRegistryAbi = parseAbi([
+  "function collToken() view returns (address)",
+  "function borrowerOperations() view returns (address)",
+  "function troveManager() view returns (address)",
+  "function troveNFT() view returns (address)",
+  "function stabilityPool() view returns (address)",
+  "function priceFeed() view returns (address)",
+  "function activePool() view returns (address)",
+  "function defaultPool() view returns (address)",
+  "function gasPoolAddress() view returns (address)",
+  "function collSurplusPool() view returns (address)",
+  "function sortedTroves() view returns (address)",
+  "function collateralRegistry() view returns (address)",
+  "function boldToken() view returns (address)",
+  "function WETH() view returns (address)",
+]);
+const stockPriceFeedAbi = parseAbi([
+  "function stockToken() view returns (address)",
+  "function lastGoodPrice() view returns (uint256)",
+]);
+
+const sameAddress = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
+
+export async function verifyStockDeployment(manifest: StockDeploymentManifest, rpcUrl: string) {
+  const client = createPublicClient({ transport: http(rpcUrl) });
+  const chainId = await client.getChainId();
+  if (chainId !== manifest.chainId) {
+    throw new Error(`Deployment verification failed: expected chain ${manifest.chainId}, received ${chainId}`);
+  }
+
+  const codeTargets = new Set([
+    manifest.stablecoin,
+    manifest.collateralRegistry,
+    manifest.hintHelpers,
+    manifest.multiTroveGetter,
+    manifest.debtInFrontHelper,
+    manifest.redemptionHelper,
+    manifest.disabledExchange,
+    manifest.weth,
+    ...manifest.stockTokens,
+    ...manifest.addressRegistries,
+    ...manifest.borrowerOperations,
+    ...manifest.stabilityPools,
+    ...manifest.troveNFTs,
+    ...manifest.activePools,
+    ...manifest.defaultPools,
+    ...manifest.gasPools,
+    ...manifest.collSurplusPools,
+    ...manifest.sortedTroves,
+    ...manifest.troveManagers,
+    ...manifest.zappers,
+    ...manifest.priceFeeds,
+  ]);
+
+  for (const address of codeTargets) {
+    const bytecode = await client.getBytecode({ address });
+    if (!bytecode || bytecode === "0x") {
+      throw new Error(`Deployment verification failed: no bytecode at ${address}`);
+    }
+  }
+
+  const [name, symbol, stablecoinRegistry, stablecoinOwner, totalCollaterals, registryStablecoin] = await Promise.all([
+    client.readContract({ address: manifest.stablecoin, abi: stablecoinAbi, functionName: "name" }),
+    client.readContract({ address: manifest.stablecoin, abi: stablecoinAbi, functionName: "symbol" }),
+    client.readContract({
+      address: manifest.stablecoin,
+      abi: stablecoinAbi,
+      functionName: "collateralRegistryAddress",
+    }),
+    client.readContract({ address: manifest.stablecoin, abi: ownableAbi, functionName: "owner" }),
+    client.readContract({
+      address: manifest.collateralRegistry,
+      abi: collateralRegistryAbi,
+      functionName: "totalCollaterals",
+    }),
+    client.readContract({
+      address: manifest.collateralRegistry,
+      abi: collateralRegistryAbi,
+      functionName: "boldToken",
+    }),
+  ]);
+  if (name !== "rUSD Stablecoin" || symbol !== "rUSD") {
+    throw new Error(`Deployment verification failed: unexpected stablecoin identity ${name} (${symbol})`);
+  }
+  if (!sameAddress(stablecoinRegistry, manifest.collateralRegistry)) {
+    throw new Error("Deployment verification failed: stablecoin registry mismatch");
+  }
+  if (!sameAddress(stablecoinOwner, ZERO_ADDRESS)) {
+    throw new Error("Deployment verification failed: stablecoin ownership was not renounced");
+  }
+  if (totalCollaterals !== 10n || !sameAddress(registryStablecoin, manifest.stablecoin)) {
+    throw new Error("Deployment verification failed: collateral registry wiring mismatch");
+  }
+
+  for (let index = 0; index < manifest.addressRegistries.length; index++) {
+    const address = manifest.addressRegistries[index];
+    const reads = await Promise.all([
+      client.readContract({ address, abi: ownableAbi, functionName: "owner" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "collToken" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "borrowerOperations" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "troveManager" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "troveNFT" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "stabilityPool" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "priceFeed" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "activePool" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "defaultPool" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "gasPoolAddress" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "collSurplusPool" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "sortedTroves" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "collateralRegistry" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "boldToken" }),
+      client.readContract({ address, abi: addressesRegistryAbi, functionName: "WETH" }),
+      client.readContract({ address: manifest.priceFeeds[index], abi: stockPriceFeedAbi, functionName: "stockToken" }),
+      client.readContract({
+        address: manifest.priceFeeds[index],
+        abi: stockPriceFeedAbi,
+        functionName: "lastGoodPrice",
+      }),
+    ]);
+    const expected = [
+      ZERO_ADDRESS,
+      manifest.stockTokens[index],
+      manifest.borrowerOperations[index],
+      manifest.troveManagers[index],
+      manifest.troveNFTs[index],
+      manifest.stabilityPools[index],
+      manifest.priceFeeds[index],
+      manifest.activePools[index],
+      manifest.defaultPools[index],
+      manifest.gasPools[index],
+      manifest.collSurplusPools[index],
+      manifest.sortedTroves[index],
+      manifest.collateralRegistry,
+      manifest.stablecoin,
+      manifest.weth,
+      manifest.stockTokens[index],
+    ];
+    for (let readIndex = 0; readIndex < expected.length; readIndex++) {
+      if (!sameAddress(String(reads[readIndex]), expected[readIndex])) {
+        throw new Error(`Deployment verification failed: branch ${index} wiring mismatch at check ${readIndex}`);
+      }
+    }
+    if ((reads[16] as bigint) <= 0n) {
+      throw new Error(`Deployment verification failed: branch ${index} has no usable initial price`);
+    }
+  }
+
+  console.log(`Verified ${manifest.addressRegistries.length} Stock Token branches on chain ${chainId}.`);
 }
 
 function contractNameToAppEnvVariable(contractName: string, prefix: string = "") {
@@ -342,7 +528,7 @@ function contractNameToAppEnvVariable(contractName: string, prefix: string = "")
   return null;
 }
 
-function parseDeploymentManifest(content: string): DeploymentManifest | StockDeploymentManifest {
+export function parseDeploymentManifest(content: string): DeploymentManifest | StockDeploymentManifest {
   if (!content.trim()) {
     console.error("\nNo deployment manifest provided.\n");
     process.exit(1);
@@ -374,4 +560,7 @@ function parseDeploymentManifest(content: string): DeploymentManifest | StockDep
   return manifest.data;
 }
 
-main();
+void main().catch((error: unknown) => {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exit(1);
+});

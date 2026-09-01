@@ -2,10 +2,10 @@
 
 import type { BranchId, CollateralSymbol } from "@/src/types";
 
+import { READ_ONLY_DEPLOYMENT } from "@/src/deployment-config";
 import { getBranches, getCollToken } from "@/src/liquity-utils";
 import Link from "next/link";
 
-const READ_ONLY_MVP = process.env.NEXT_PUBLIC_MVP_READ_ONLY === "true";
 const MVP_MARKETS = [
   { symbol: "AAPL", maxLtv: "57.1%" },
   { symbol: "MSFT", maxLtv: "57.1%" },
@@ -21,15 +21,15 @@ const MVP_MARKETS = [
 
 function FlowArrow() {
   return (
-    <svg aria-hidden="true" className="rusd-flow-arrow" fill="none" viewBox="0 0 48 16">
+    <svg aria-hidden="true" className="rusd-flow-arrow" fill="none" viewBox="0 0 80 20">
       <path
-        d="M2 8h40M36 3l6 5-6 5"
+        d="M2 11c13-8 25 8 38 0s25 7 34 0M69 6l5 5-5 5"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="2"
+        strokeWidth="1.8"
       />
-      <circle cx="8" cy="8" fill="currentColor" r="2" />
+      <circle cx="40" cy="11" fill="currentColor" r="2" />
     </svg>
   );
 }
@@ -137,7 +137,7 @@ function PreviewMarketRow({ symbol, maxLtv }: { symbol: string; maxLtv: string }
 }
 
 export function HomeScreen() {
-  const branches = READ_ONLY_MVP ? [] : getBranches();
+  const branches = READ_ONLY_DEPLOYMENT ? [] : getBranches();
 
   return (
     <div className="rusd-home">
@@ -146,7 +146,7 @@ export function HomeScreen() {
         <p className="rusd-hero-copy">
           Deposit a Stock Token. Borrow rUSD. Keep your market exposure.
         </p>
-        {READ_ONLY_MVP && (
+        {READ_ONLY_DEPLOYMENT && (
           <div className="rusd-preview-notice" role="status">
             Product preview only. No contracts are live and no funds can be deposited.
           </div>
@@ -176,9 +176,10 @@ export function HomeScreen() {
       </section>
 
       <section className="rusd-market-panel">
+        <h2 className="rusd-market-title">Markets</h2>
         <table className="rusd-market-table">
           <caption className="sr-only">
-            Choose your collateral from {READ_ONLY_MVP ? MVP_MARKETS.length : branches.length}{" "}
+            Choose your collateral from {READ_ONLY_DEPLOYMENT ? MVP_MARKETS.length : branches.length}{" "}
             isolated Stock Token markets
           </caption>
           <thead>
@@ -191,7 +192,7 @@ export function HomeScreen() {
             </tr>
           </thead>
           <tbody>
-            {READ_ONLY_MVP
+            {READ_ONLY_DEPLOYMENT
               ? MVP_MARKETS.map((market) => <PreviewMarketRow key={market.symbol} {...market} />)
               : branches.map(({ id, symbol }) => <MarketRow branchId={id} key={symbol} symbol={symbol} />)}
           </tbody>
@@ -207,7 +208,7 @@ export function HomeScreen() {
             limit risky actions.
           </p>
         </div>
-        {READ_ONLY_MVP
+        {READ_ONLY_DEPLOYMENT
           ? <span className="rusd-preview-status">Contracts pending</span>
           : <Link className="rusd-text-link" href="/borrow">How borrowing works</Link>}
       </aside>

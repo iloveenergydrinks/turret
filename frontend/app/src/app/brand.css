@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Qubic Grid Variable";
+  src: url("/fonts/qubic-grid-variable.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 100 900;
+}
+
 :root {
   --rusd-bg: #f0faf8;
   --rusd-surface: #ffffff;
@@ -10,7 +18,7 @@
   --rusd-soft: #ddf5f0;
   --rusd-frost: #f7fcfb;
   --rusd-warning: #d97645;
-  --rusd-display: "Bricolage Grotesque Variable", "Arial Narrow", sans-serif;
+  --rusd-display: "Qubic Grid Variable", "Avenir Next", Arial, sans-serif;
   --rusd-max-width: 1040px;
 }
 
@@ -21,6 +29,27 @@ html, body {
 body {
   margin: 0;
   color: var(--rusd-ink);
+}
+
+.dockyard-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--rusd-ink);
+  font-family: var(--rusd-display);
+  white-space: nowrap;
+}
+
+.dockyard-logo-mark {
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.dockyard-logo-wordmark {
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  line-height: 1;
 }
 
 ::selection {
@@ -41,14 +70,37 @@ body {
 }
 
 .rusd-shell {
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
-  background:
-    radial-gradient(
-    circle at 50% -10%,
-    rgba(15, 174, 155, 0.1),
-    transparent 36rem
-  ),
-    var(--rusd-bg);
+  background: transparent;
+}
+
+.dockyard-gradient {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  width: 100vw;
+  height: 100dvh;
+}
+
+.dockyard-gradient::after {
+  position: absolute;
+  inset: 0;
+  background: rgba(247, 252, 251, 0.16);
+  content: "";
+}
+
+.dockyard-gradient > div, .dockyard-gradient canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.rusd-main, .rusd-footer {
+  position: relative;
+  z-index: 1;
 }
 
 .rusd-frame {
@@ -74,7 +126,7 @@ body {
   align-items: center;
   min-height: 64px;
   padding: 0 14px 0 18px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 18px;
   box-shadow: 0 8px 28px rgba(15, 68, 63, 0.08);
 }
@@ -106,9 +158,8 @@ body {
   display: inline-flex;
   align-items: center;
   color: var(--rusd-muted);
-  font-family: var(--rusd-display);
+  font-family: inherit;
   font-size: 14px;
-  font-variation-settings: "opsz" 20, "wdth" 95;
   font-weight: 660;
   text-decoration: none;
 }
@@ -139,13 +190,17 @@ body {
   color: #fff;
   background: var(--rusd-primary);
   border-radius: 999px;
-  font-family: var(--rusd-display);
-  font-variation-settings: "opsz" 18, "wdth" 96;
+  font-family: inherit;
   font-weight: 680;
+  transition: background 140ms ease-out, transform 140ms ease-out;
 }
 
 .rusd-account button:hover {
   background: var(--rusd-primary-hover);
+}
+
+.rusd-account button:active {
+  transform: scale(0.98);
 }
 
 .rusd-account button:focus-visible {
@@ -161,7 +216,7 @@ body {
   color: var(--rusd-primary);
   background: var(--rusd-soft);
   border-radius: 999px;
-  font-family: var(--rusd-display);
+  font-family: inherit;
   font-size: 12px;
   font-weight: 720;
 }
@@ -185,6 +240,10 @@ body {
 .rusd-action-disabled:hover {
   color: #fff;
   background: var(--rusd-primary);
+  transform: none;
+}
+
+.rusd-action-disabled:active {
   transform: none;
 }
 
@@ -224,10 +283,9 @@ body {
   color: var(--rusd-ink);
   font-family: var(--rusd-display);
   font-size: clamp(50px, 4.75vw, 72px);
-  font-variation-settings: "opsz" 72, "wdth" 91;
-  font-weight: 720;
-  letter-spacing: -0.035em;
-  line-height: 0.94;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
   text-wrap: balance;
 }
 
@@ -253,9 +311,8 @@ body {
   gap: 10px;
   min-width: 116px;
   color: var(--rusd-ink);
-  font-family: var(--rusd-display);
+  font-family: inherit;
   font-size: 13px;
-  font-variation-settings: "opsz" 18, "wdth" 96;
   font-weight: 700;
 }
 
@@ -283,9 +340,19 @@ body {
 
 .rusd-market-panel {
   overflow: hidden;
-  background: var(--rusd-surface);
+  background: rgba(255, 255, 255, 0.94);
   border-radius: 18px;
   box-shadow: 0 10px 34px rgba(15, 68, 63, 0.09);
+}
+
+.rusd-market-title {
+  margin: 0;
+  padding: 18px 28px 12px;
+  color: var(--rusd-ink);
+  font-family: var(--rusd-display);
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1;
 }
 
 .rusd-market-table {
@@ -364,8 +431,7 @@ body {
 
 .rusd-market-symbol {
   color: var(--rusd-ink);
-  font-family: var(--rusd-display);
-  font-variation-settings: "opsz" 16, "wdth" 96;
+  font-family: inherit;
   font-weight: 700;
 }
 
@@ -393,9 +459,8 @@ body {
   color: #fff;
   background: var(--rusd-primary);
   border-radius: 10px;
-  font-family: var(--rusd-display);
+  font-family: inherit;
   font-size: 13px;
-  font-variation-settings: "opsz" 18, "wdth" 96;
   font-weight: 700;
   text-decoration: none;
   transition: background 140ms ease-out, transform 140ms ease-out;
@@ -406,6 +471,10 @@ body {
   transform: translateY(-1px);
 }
 
+.rusd-action:active {
+  transform: scale(0.98);
+}
+
 .rusd-info {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -413,7 +482,7 @@ body {
   gap: 18px;
   padding: 22px 26px;
   color: #18554f;
-  background: var(--rusd-soft);
+  background: rgba(221, 245, 240, 0.9);
   border: 1px solid rgba(8, 120, 110, 0.14);
   border-radius: 18px;
 }
@@ -434,9 +503,8 @@ body {
   display: block;
   margin-bottom: 4px;
   color: var(--rusd-ink);
-  font-family: var(--rusd-display);
+  font-family: inherit;
   font-size: 15px;
-  font-variation-settings: "opsz" 18, "wdth" 96;
 }
 
 .rusd-info p {
@@ -447,9 +515,8 @@ body {
 
 .rusd-text-link {
   color: var(--rusd-primary);
-  font-family: var(--rusd-display);
+  font-family: inherit;
   font-size: 13px;
-  font-variation-settings: "opsz" 18, "wdth" 96;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -505,7 +572,11 @@ body {
 
   .rusd-hero h1 {
     font-size: clamp(44px, 13vw, 60px);
-    font-variation-settings: "opsz" 56, "wdth" 88;
+  }
+
+  .rusd-market-title {
+    padding: 16px 16px 10px;
+    font-size: 17px;
   }
 
   .rusd-flow {

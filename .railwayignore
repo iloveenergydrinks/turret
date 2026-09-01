@@ -1,0 +1,10 @@
+.git/
+**/.DS_Store
+**/node_modules/
+**/.next/
+**/out/
+frontend/uikit/dist/
+contracts/broadcast/
+contracts/cache/
+contracts/lib/
+contracts/out/

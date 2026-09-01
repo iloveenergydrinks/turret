@@ -4,6 +4,7 @@ import {
   getConfiguredCollateralSymbols,
   getDeploymentFeatures,
   getEarnPoolStaticParams,
+  isReadOnlyDeployment,
 } from "./deployment-config";
 
 const stockEnv = {
@@ -75,5 +76,16 @@ describe("deployment route configuration", () => {
       NEXT_PUBLIC_ENABLE_LEVERAGE: "false",
       NEXT_PUBLIC_ENABLE_STAKING: "0",
     })).toEqual({ leverage: false, staking: false });
+  });
+
+  test("fails closed until a deployment has been verified onchain", () => {
+    expect(isReadOnlyDeployment({})).toBe(true);
+    expect(isReadOnlyDeployment({
+      NEXT_PUBLIC_DEPLOYMENT_VERIFIED: "true",
+    })).toBe(false);
+    expect(isReadOnlyDeployment({
+      NEXT_PUBLIC_DEPLOYMENT_VERIFIED: "true",
+      NEXT_PUBLIC_MVP_READ_ONLY: "true",
+    })).toBe(true);
   });
 });

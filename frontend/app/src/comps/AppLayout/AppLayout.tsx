@@ -11,6 +11,7 @@ import { V1StabilityPoolBanner } from "@/src/comps/V1StabilityPoolBanner/V1Stabi
 import { V1StakingBanner } from "@/src/comps/V1StakingBanner/V1StakingBanner";
 import { LEGACY_CHECK, SAFETY_MODE_CHECK, SUBGRAPH_CHECK, V1_STABILITY_POOL_CHECK, V1_STAKING_CHECK } from "@/src/env";
 import { BottomBar } from "./BottomBar";
+import { DockyardGradient } from "./DockyardGradient";
 import { TopBar } from "./TopBar";
 
 export const LAYOUT_WIDTH = 1040;
@@ -18,6 +19,7 @@ export const LAYOUT_WIDTH = 1040;
 export function AppLayout({ children }: { children: ReactNode }) {
   return (
     <div className="rusd-shell">
+      <DockyardGradient />
       {V1_STAKING_CHECK && <V1StakingBanner />}
       {V1_STABILITY_POOL_CHECK && <V1StabilityPoolBanner />}
       {LEGACY_CHECK && <LegacyPositionsBanner />}

@@ -37,7 +37,7 @@ The code and product are independent and must not be presented as an official Ro
 
 The ratios and ceilings are placeholders for simulation, not production risk parameters.
 
-The one-hour oracle staleness threshold is test-only. Stock Token feeds operate 24/5 and may hold their last price without heartbeats during weekends, holidays, thin overnight sessions, and corporate-action pauses. Staleness now causes temporary unavailability rather than irreversible shutdown, allowing the branch to recover when a fresh price arrives. Production still requires historical and Monte Carlo testing of this freeze policy. The secondary Chainlink endpoint improves availability but is not an independent price methodology; Data Streams or another independently reviewed path is still required before safe off-hours liquidations can be enabled. See the [Robinhood Chain oracle documentation](https://docs.robinhood.com/chain/oracles-and-price-feeds/), [Robinhood Chain Data Streams documentation](https://docs.robinhood.com/chain/data-streams/), and [Chainlink's Robinhood feed guidance](https://docs.chain.link/data-feeds/tokenized-equity-feeds/robinhood).
+The one-hour oracle staleness threshold and five-minute sequencer grace period are test-only. Keeping the grace period below the staleness window ensures a new testnet deployment becomes usable before its mock price rounds expire. Stock Token feeds operate 24/5 and may hold their last price without heartbeats during weekends, holidays, thin overnight sessions, and corporate-action pauses. Staleness now causes temporary unavailability rather than irreversible shutdown, allowing the branch to recover when a fresh price arrives. Production still requires historical and Monte Carlo testing of this freeze policy. The secondary Chainlink endpoint improves availability but is not an independent price methodology; Data Streams or another independently reviewed path is still required before safe off-hours liquidations can be enabled. See the [Robinhood Chain oracle documentation](https://docs.robinhood.com/chain/oracles-and-price-feeds/), [Robinhood Chain Data Streams documentation](https://docs.robinhood.com/chain/data-streams/), and [Chainlink's Robinhood feed guidance](https://docs.chain.link/data-feeds/tokenized-equity-feeds/robinhood).
 
 ## Executable gap model
 
@@ -110,6 +110,21 @@ pnpm tsx utils/deployment-manifest-to-app-env.ts \
   deployment-stock-sandcastle.json ../frontend/app/.env.sandcastle.local
 ```
 
+This unverified conversion remains read-only. After a broadcast succeeds, verify
+the deployed bytecode, ownership renunciation, stablecoin identity, all ten
+branch registries, and initial prices before enabling wallet and borrowing flows:
+
+```sh
+cd contracts
+pnpm verify:stock-deployment \
+  deployment-stock-sandcastle.json ../frontend/app/.env.sandcastle.local \
+  --verify-rpc "$RH_TESTNET_RPC_URL"
+```
+
+Only the verified command emits `NEXT_PUBLIC_DEPLOYMENT_VERIFIED=true`. The
+frontend fails closed without it, even when a simulated manifest contains
+plausible nonzero addresses.
+
 Then add the chain RPC, block explorer, native currency, multicall address, subgraph URL, and WalletConnect project ID for the target network. The generated configuration disables leverage, governance staking, legacy checks, and the inherited sBOLD/yBOLD pools. It never contains a deployer key.
 
 Build the ten-branch subgraph configuration without publishing it:
@@ -147,9 +162,34 @@ forge test --match-path 'test/StockToken*.t.sol'
 forge test --match-path test/BranchDebtCeiling.t.sol
 ```
 
+## Production deployment
+
+`DeployStockTokenProduction.s.sol` is the mainnet-only deployment path. It
+accepts only Robinhood Chain ID 4663, canonical live Stock Tokens and reviewed
+Chainlink feeds, and requires an explicit production-license confirmation. A
+typical broadcast is:
+
+```sh
+cd contracts
+export RH_RPC_URL=https://rpc.mainnet.chain.robinhood.com
+export LIQUITY_PRODUCTION_LICENSE_CONFIRMED=true
+export ACKNOWLEDGE_NO_SEQUENCER_UPTIME_FEED=true
+forge script script/DeployStockTokenProduction.s.sol:DeployStockTokenProduction \
+  --rpc-url "$RH_RPC_URL" \
+  --broadcast \
+  --slow
+pnpm verify:stock-deployment \
+  deployment-stock-robinhood-mainnet.json ../frontend/app/.env.production.local \
+  --verify-rpc "$RH_RPC_URL"
+```
+
+The private key must be supplied through `DEPLOYER_PRIVATE_KEY` at runtime and
+must never be committed. The public RPC is suitable for verification but a
+dedicated provider endpoint is recommended for broadcasting.
+
 ## Production gates
 
-There is intentionally no mainnet deployment script. Production work starts only after all of these are complete:
+Production proceeds only after all of these are complete:
 
 1. Liquity production-use licensing or friendly-fork permission is documented.
 2. Canonical token and Chainlink feed addresses are re-read from Robinhood immediately before deployment.
@@ -157,6 +197,7 @@ There is intentionally no mainnet deployment script. Production work starts only
 4. Stock-market closure, gap, halt, corporate-action, sequencer, stablecoin-depeg, and liquidation-liquidity simulations pass.
 5. Parameters, access control, monitoring, and emergency procedures receive independent review.
 6. Contracts receive an external audit and a public testnet soak period.
-7. A new hardware-backed multisig deployer is used. No development key is reused.
+7. A new dedicated deployer is used. No development key or key exposed in logs,
+   chat, or source control is reused.
 
 Do not enable production merely because the sandcastle tests pass.

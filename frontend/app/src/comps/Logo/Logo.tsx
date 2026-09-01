@@ -4,32 +4,13 @@ export function Logo({
   size?: number;
 }) {
   return (
-    <svg
-      aria-label="rUSD"
-      height={size}
-      role="img"
-      viewBox="0 0 112 36"
-      width={Math.round(size * 3.11)}
+    <span
+      className="dockyard-logo"
+      style={{ height: size }}
     >
-      <path
-        d="M5 27V14.5C5 8.7 8.8 5 14.5 5S24 8.7 24 14.5v3.8c0 3.4 2.2 5.7 5.5 5.7H34"
-        fill="none"
-        stroke="var(--rusd-bright, #0fae9b)"
-        strokeLinecap="round"
-        strokeWidth="4"
-      />
-      <circle cx="14.5" cy="14.5" fill="var(--rusd-bright, #0fae9b)" r="2.5" />
-      <text
-        fill="var(--rusd-ink, #102b2a)"
-        fontFamily="Bricolage Grotesque Variable, Arial Narrow, sans-serif"
-        fontSize="22"
-        fontWeight="720"
-        letterSpacing="-1.2"
-        x="39"
-        y="26"
-      >
-        rUSD
-      </text>
-    </svg>
+      <span className="dockyard-logo-wordmark" style={{ fontSize: size * 0.66 }}>
+        Dockyard
+      </span>
+    </span>
   );
 }

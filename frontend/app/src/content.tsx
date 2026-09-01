@@ -6,7 +6,7 @@ import { css } from "@/styled-system/css";
 
 export default {
   // Used in the top bar and other places
-  appName: "rUSD",
+  appName: "Dockyard",
   appDescription: `
     Borrow rUSD against Stock Tokens without selling your market exposure.
   `,

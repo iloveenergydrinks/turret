@@ -131,7 +131,9 @@ contract SandcastleOracle is AggregatorV3Interface {
         uint256 internal constant LIQUIDATION_PENALTY_SP = 5e16;
         uint256 internal constant LIQUIDATION_PENALTY_REDISTRIBUTION = 10e16;
         uint256 internal constant ORACLE_STALENESS = 1 hours;
-        uint256 internal constant SEQUENCER_GRACE_PERIOD = 1 hours;
+        // Keep the testnet grace period shorter than oracle staleness so a fresh
+        // deployment has a usable window without an immediate operator refresh.
+        uint256 internal constant SEQUENCER_GRACE_PERIOD = 5 minutes;
         uint256 internal constant LARGE_CHANGE_CONFIRMATION_DELAY = 30 minutes;
         uint256 internal constant CONFIRMATION_DEVIATION_BPS = 500;
 

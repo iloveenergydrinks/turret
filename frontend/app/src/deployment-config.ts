@@ -23,8 +23,10 @@ function isCollateralSymbol(value: string): value is CollateralSymbol {
 type PublicDeploymentEnv = Partial<
   Record<
     | `NEXT_PUBLIC_COLL_${number}_TOKEN_ID`
+    | "NEXT_PUBLIC_DEPLOYMENT_VERIFIED"
     | "NEXT_PUBLIC_ENABLE_LEVERAGE"
     | "NEXT_PUBLIC_ENABLE_STAKING"
+    | "NEXT_PUBLIC_MVP_READ_ONLY"
     | "NEXT_PUBLIC_SBOLD",
     string
   >
@@ -41,8 +43,10 @@ const publicDeploymentEnv: PublicDeploymentEnv = {
   NEXT_PUBLIC_COLL_7_TOKEN_ID: process.env.NEXT_PUBLIC_COLL_7_TOKEN_ID,
   NEXT_PUBLIC_COLL_8_TOKEN_ID: process.env.NEXT_PUBLIC_COLL_8_TOKEN_ID,
   NEXT_PUBLIC_COLL_9_TOKEN_ID: process.env.NEXT_PUBLIC_COLL_9_TOKEN_ID,
+  NEXT_PUBLIC_DEPLOYMENT_VERIFIED: process.env.NEXT_PUBLIC_DEPLOYMENT_VERIFIED,
   NEXT_PUBLIC_ENABLE_LEVERAGE: process.env.NEXT_PUBLIC_ENABLE_LEVERAGE,
   NEXT_PUBLIC_ENABLE_STAKING: process.env.NEXT_PUBLIC_ENABLE_STAKING,
+  NEXT_PUBLIC_MVP_READ_ONLY: process.env.NEXT_PUBLIC_MVP_READ_ONLY,
   NEXT_PUBLIC_SBOLD: process.env.NEXT_PUBLIC_SBOLD,
 };
 
@@ -99,4 +103,12 @@ export function getDeploymentFeatures(
   };
 }
 
+export function isReadOnlyDeployment(
+  env: PublicDeploymentEnv = publicDeploymentEnv,
+) {
+  return envFlag(env.NEXT_PUBLIC_MVP_READ_ONLY, false)
+    || !envFlag(env.NEXT_PUBLIC_DEPLOYMENT_VERIFIED, false);
+}
+
 export const DEPLOYMENT_FEATURES = getDeploymentFeatures();
+export const READ_ONLY_DEPLOYMENT = isReadOnlyDeployment();

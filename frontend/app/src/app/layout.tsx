@@ -1,5 +1,5 @@
 // All global styles should be imported here for easier maintenance
-import "@fontsource-variable/bricolage-grotesque/standard.css";
+import "@fontsource-variable/figtree";
 import "@liquity2/uikit/index.css";
 import "./brand.css";
 
@@ -13,6 +13,7 @@ import { PreviewAppLayout } from "@/src/comps/AppLayout/PreviewAppLayout";
 import { Blocking } from "@/src/comps/Blocking/Blocking";
 import { DataSources } from "@/src/comps/DataSources/DataSources";
 import content from "@/src/content";
+import { READ_ONLY_DEPLOYMENT } from "@/src/deployment-config";
 import { Ethereum } from "@/src/services/Ethereum";
 import { IndicatorManager } from "@/src/services/IndicatorManager";
 import { ReactQuery } from "@/src/services/ReactQuery";
@@ -37,25 +38,23 @@ export default function Layout({
 }: {
   children: ReactNode;
 }) {
-  const readOnlyMvp = process.env.NEXT_PUBLIC_MVP_READ_ONLY === "true";
-
   return (
     <html lang="en">
       <body className={GeistSans.className}>
         <template
-          data-design-contract="rusd-friendly-narrow-v1-bda2b7b3"
+          data-design-contract="dockyard-gradient-desk-v1-0326060a"
           dangerouslySetInnerHTML={{
             __html: `<!--
-THESIS: rUSD turns ten isolated stock markets into one friendly borrowing desk; it refuses the wide corporate trading terminal.
-OWN-WORLD: pale mint ground, white rounded surfaces, deep turquoise actions, teal-black type, Bricolage display lettering, soft offset depth, and an original looped rUSD mark.
-STORY: understand Stock Token to vault to rUSD, compare honest max-LTV parameters, then choose a market and borrow.
-FIRST VIEWPORT: a compact floating nav, centered promise and three-step mechanism, followed by one narrow ten-market panel with Borrow actions.
-FORM: friendly narrow credit desk, grounded direction 3, seed bda2b7b3.
+THESIS: Dockyard turns ten isolated stock markets into one approachable borrowing desk; it refuses the wide corporate trading terminal and literal nautical theme.
+OWN-WORLD: a slow sea-glass mesh gradient, white rounded work surfaces, deep teal actions, blue-green ink, open Figtree display lettering, quiet depth, and an AI-generated D shaped as a protected channel.
+STORY: understand Stock Token to isolated vault to rUSD, compare honest max-LTV parameters, then choose a market and borrow.
+FIRST VIEWPORT: compact floating navigation over a centered promise and tide-line mechanism, followed by one narrow ten-market panel with direct Borrow actions.
+FORM: centered harbor wayfinding desk, assigned grounded direction 3, approved composition B, seed 0326060a.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->`,
           }}
         />
-        {readOnlyMvp
+        {READ_ONLY_DEPLOYMENT
           ? (
             <UiKit>
               <PreviewAppLayout>{children}</PreviewAppLayout>
