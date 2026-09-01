@@ -1,0 +1,11 @@
+.git
+.github
+.DS_Store
+**/.env.local
+**/.env.*.local
+**/node_modules
+**/.next
+contracts/broadcast
+contracts/cache
+contracts/out
+contracts/lib

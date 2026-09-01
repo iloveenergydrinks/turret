@@ -2,17 +2,22 @@ import bundleAnalyzer from "@next/bundle-analyzer";
 import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
-const commitHashCmd = "git log -1 --pretty=format:%h";
+function commitHash(paths) {
+  try {
+    return String(execSync(
+      `git log -1 --pretty=format:%h -- ${paths}`,
+      { stdio: ["ignore", "pipe", "ignore"] },
+    )).trim();
+  } catch {
+    return (process.env.RAILWAY_GIT_COMMIT_SHA || process.env.GIT_COMMIT_SHA || "preview").slice(0, 8);
+  }
+}
 
 const APP_VERSION_FROM_BUILD = JSON.parse(
   readFileSync("./package.json", "utf-8"),
 ).version;
-const APP_COMMIT_HASH_FROM_BUILD = String(execSync(
-  commitHashCmd + " -- ./ ../uikit/",
-)).trim();
-const CONTRACTS_COMMIT_HASH_FROM_BUILD = String(execSync(
-  commitHashCmd + " -- ../../contracts/addresses/11155111.json",
-)).trim();
+const APP_COMMIT_HASH_FROM_BUILD = commitHash("./ ../uikit/");
+const CONTRACTS_COMMIT_HASH_FROM_BUILD = commitHash("../../contracts/addresses/11155111.json");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

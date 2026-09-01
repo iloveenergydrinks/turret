@@ -5,6 +5,20 @@ import type { BranchId, CollateralSymbol } from "@/src/types";
 import { getBranches, getCollToken } from "@/src/liquity-utils";
 import Link from "next/link";
 
+const READ_ONLY_MVP = process.env.NEXT_PUBLIC_MVP_READ_ONLY === "true";
+const MVP_MARKETS = [
+  { symbol: "AAPL", maxLtv: "57.1%" },
+  { symbol: "MSFT", maxLtv: "57.1%" },
+  { symbol: "GOOGL", maxLtv: "55.6%" },
+  { symbol: "AMZN", maxLtv: "54.1%" },
+  { symbol: "META", maxLtv: "52.6%" },
+  { symbol: "NVDA", maxLtv: "50%" },
+  { symbol: "AMD", maxLtv: "50%" },
+  { symbol: "ORCL", maxLtv: "50%" },
+  { symbol: "MU", maxLtv: "44.4%" },
+  { symbol: "TSLA", maxLtv: "40%" },
+] as const;
+
 function FlowArrow() {
   return (
     <svg aria-hidden="true" className="rusd-flow-arrow" fill="none" viewBox="0 0 48 16">
@@ -102,8 +116,28 @@ function MarketRow({ symbol, branchId }: { symbol: CollateralSymbol; branchId: B
   );
 }
 
+function PreviewMarketRow({ symbol, maxLtv }: { symbol: string; maxLtv: string }) {
+  return (
+    <tr>
+      <td>
+        <div className="rusd-market-name">
+          <span className="rusd-ticker">{symbol}</span>
+          <span className="rusd-market-meta">
+            <span className="rusd-market-symbol">{symbol}</span>
+            <span className="rusd-market-type">Isolated Stock Token market</span>
+          </span>
+        </div>
+      </td>
+      <td className="rusd-ltv">{maxLtv}</td>
+      <td>
+        <span aria-disabled="true" className="rusd-action rusd-action-disabled">Not live</span>
+      </td>
+    </tr>
+  );
+}
+
 export function HomeScreen() {
-  const branches = getBranches();
+  const branches = READ_ONLY_MVP ? [] : getBranches();
 
   return (
     <div className="rusd-home">
@@ -112,6 +146,11 @@ export function HomeScreen() {
         <p className="rusd-hero-copy">
           Deposit a Stock Token. Borrow rUSD. Keep your market exposure.
         </p>
+        {READ_ONLY_MVP && (
+          <div className="rusd-preview-notice" role="status">
+            Product preview only. No contracts are live and no funds can be deposited.
+          </div>
+        )}
         <div aria-label="Stock Token to vault to rUSD" className="rusd-flow">
           <div className="rusd-flow-step">
             <span className="rusd-flow-icon">
@@ -139,7 +178,8 @@ export function HomeScreen() {
       <section className="rusd-market-panel">
         <table className="rusd-market-table">
           <caption className="sr-only">
-            Choose your collateral from {branches.length} isolated Stock Token markets
+            Choose your collateral from {READ_ONLY_MVP ? MVP_MARKETS.length : branches.length}{" "}
+            isolated Stock Token markets
           </caption>
           <thead>
             <tr>
@@ -151,7 +191,9 @@ export function HomeScreen() {
             </tr>
           </thead>
           <tbody>
-            {branches.map(({ id, symbol }) => <MarketRow branchId={id} key={symbol} symbol={symbol} />)}
+            {READ_ONLY_MVP
+              ? MVP_MARKETS.map((market) => <PreviewMarketRow key={market.symbol} {...market} />)
+              : branches.map(({ id, symbol }) => <MarketRow branchId={id} key={symbol} symbol={symbol} />)}
           </tbody>
         </table>
       </section>
@@ -165,7 +207,9 @@ export function HomeScreen() {
             limit risky actions.
           </p>
         </div>
-        <Link className="rusd-text-link" href="/borrow">How borrowing works</Link>
+        {READ_ONLY_MVP
+          ? <span className="rusd-preview-status">Contracts pending</span>
+          : <Link className="rusd-text-link" href="/borrow">How borrowing works</Link>}
       </aside>
     </div>
   );

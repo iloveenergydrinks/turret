@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
 import { BreakpointName } from "@/src/breakpoints";
 import { About } from "@/src/comps/About/About";
 import { AppLayout } from "@/src/comps/AppLayout/AppLayout";
+import { PreviewAppLayout } from "@/src/comps/AppLayout/PreviewAppLayout";
 import { Blocking } from "@/src/comps/Blocking/Blocking";
 import { DataSources } from "@/src/comps/DataSources/DataSources";
 import content from "@/src/content";
@@ -36,6 +37,8 @@ export default function Layout({
 }: {
   children: ReactNode;
 }) {
+  const readOnlyMvp = process.env.NEXT_PUBLIC_MVP_READ_ONLY === "true";
+
   return (
     <html lang="en">
       <body className={GeistSans.className}>
@@ -52,29 +55,37 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 -->`,
           }}
         />
-        <ReactQuery>
-          <UiKit>
-            <StoredState>
-              <DataSources>
-                <BreakpointName>
-                  <Ethereum>
-                    <IndicatorManager>
-                      <Blocking>
-                        <TransactionFlow>
-                          <About>
-                            <AppLayout>
-                              {children}
-                            </AppLayout>
-                          </About>
-                        </TransactionFlow>
-                      </Blocking>
-                    </IndicatorManager>
-                  </Ethereum>
-                </BreakpointName>
-              </DataSources>
-            </StoredState>
-          </UiKit>
-        </ReactQuery>
+        {readOnlyMvp
+          ? (
+            <UiKit>
+              <PreviewAppLayout>{children}</PreviewAppLayout>
+            </UiKit>
+          )
+          : (
+            <ReactQuery>
+              <UiKit>
+                <StoredState>
+                  <DataSources>
+                    <BreakpointName>
+                      <Ethereum>
+                        <IndicatorManager>
+                          <Blocking>
+                            <TransactionFlow>
+                              <About>
+                                <AppLayout>
+                                  {children}
+                                </AppLayout>
+                              </About>
+                            </TransactionFlow>
+                          </Blocking>
+                        </IndicatorManager>
+                      </Ethereum>
+                    </BreakpointName>
+                  </DataSources>
+                </StoredState>
+              </UiKit>
+            </ReactQuery>
+          )}
         {process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === "true" && <Analytics />}
       </body>
     </html>
