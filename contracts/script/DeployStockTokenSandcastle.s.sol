@@ -171,6 +171,7 @@ contract SandcastleOracle is AggregatorV3Interface {
         function run() external {
             require(block.chainid == 31_337 || block.chainid == 46_630, "sandcastle: unsupported chain");
 
+            uint256 deploymentBlock = block.number;
             uint256 deployerKey = vm.envUint("DEPLOYER_PRIVATE_KEY");
             address deployer = vm.addr(deployerKey);
             bytes32 salt = keccak256(bytes(vm.envOr("SANDCASTLE_SALT", string("rusd-stock-token-sandcastle-v1"))));
@@ -195,7 +196,7 @@ contract SandcastleOracle is AggregatorV3Interface {
             d.redemptionHelper = new RedemptionHelper(d.collateralRegistry, d.registries);
             d.stablecoin.setCollateralRegistry(address(d.collateralRegistry));
             vm.stopBroadcast();
-            _writeManifest(d);
+            _writeManifest(d, deploymentBlock);
         }
 
         function _deployTopLevel(address deployer, bytes32 salt) internal returns (DeploymentState memory d) {
@@ -346,13 +347,14 @@ contract SandcastleOracle is AggregatorV3Interface {
             return vm.computeCreate2Address(salt, bytecodeHash);
         }
 
-        function _writeManifest(DeploymentState memory d) internal {
+        function _writeManifest(DeploymentState memory d, uint256 deploymentBlock) internal {
             address[] memory collateralAddresses = _toAddresses(d.collaterals);
             address[] memory registryAddresses = _toAddresses(d.registries);
             address[] memory troveManagerAddresses = _toAddresses(d.troveManagers);
             address[] memory oracleAddresses = _toAddresses(d.oracles);
 
             vm.serializeUint("deployment", "chainId", block.chainid);
+            vm.serializeUint("deployment", "deploymentBlock", deploymentBlock);
             vm.serializeAddress("deployment", "stablecoin", address(d.stablecoin));
             vm.serializeAddress("deployment", "collateralRegistry", address(d.collateralRegistry));
             vm.serializeAddress("deployment", "hintHelpers", address(d.hintHelpers));

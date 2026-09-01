@@ -1,8 +1,11 @@
 import { $, echo, fs, minimist, path, question } from "zx";
 
 const LATEST_DEPLOYMENT_CONTEXT_PATH = path.join(__dirname, "../../contracts/deployment-context-latest.json");
+const STOCK_SANDCASTLE_MANIFEST_PATH = path.join(__dirname, "../../contracts/deployment-stock-sandcastle.json");
 const NETWORKS_JSON_PATH = path.join(__dirname, "../networks.json");
 const GENERATED_NETWORKS_JSON_PATH = path.join(__dirname, "../networks-generated.json");
+const SUBGRAPH_MANIFEST_PATH = path.join(__dirname, "../subgraph.yaml");
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 const HELP = `
 deploy-subgraph - deploy the Liquity v2 subgraph
@@ -15,16 +18,19 @@ Arguments:
                   Options take precedence over network presets. Available presets:
                   - local: Deploy to a local network
                   - sepolia: Deploy to Ethereum Sepolia
+                  - stock-sandcastle: Build or deploy the Stock Token sandcastle
                   - mainnet: Deploy to the Ethereum mainnet (not implemented)
                   - liquity-testnet: Deploy to the Liquity v2 testnet (not implemented)
 
 
 Options:
   --create                                 Create the subgraph before deploying.
+  --build-only                             Build without creating or deploying.
   --debug                                  Show debug output.
   --graph-node <GRAPH_NODE_URL>            The Graph Node URL to use.
   --help, -h                               Show this help message.
   --ipfs-node <IPFS_NODE_URL>              The IPFS node URL to use.
+  --manifest <MANIFEST_JSON>               Stock sandcastle deployment manifest.
   --name <SUBGRAPH_NAME>                   The subgraph name to use.
   --network <SUBGRAPH_NETWORK>             The subgraph network to use.
   --version <SUBGRAPH_VERSION>             The subgraph version to use.
@@ -36,12 +42,14 @@ const argv = minimist(process.argv.slice(2), {
   },
   boolean: [
     "create",
+    "build-only",
     "debug",
     "help",
   ],
   string: [
     "graph-node",
     "ipfs-node",
+    "manifest",
     "name",
     "network",
     "version",
@@ -53,8 +61,10 @@ export async function main() {
     debug: argv["debug"],
     help: argv["help"],
     create: argv["create"],
+    buildOnly: argv["build-only"],
     graphNode: argv["graph-node"],
     ipfsNode: argv["ipfs-node"],
+    manifest: argv["manifest"],
     name: argv["name"],
     network: argv["network"], // subgraph network, not to be confused with the network preset
     version: argv["version"],
@@ -68,6 +78,7 @@ export async function main() {
   }
 
   let isLocal = false;
+  let isStockSandcastle = false;
 
   if (networkPreset === "local") {
     options.name ??= "liquity2/liquity2";
@@ -79,6 +90,12 @@ export async function main() {
   if (networkPreset === "sepolia") {
     options.name ??= "liquity2-sepolia-preview";
     options.network ??= "sepolia";
+  }
+  if (networkPreset === "stock-sandcastle") {
+    options.name ??= "rusd-stock-sandcastle";
+    options.network ??= "robinhood-testnet";
+    options.manifest ??= STOCK_SANDCASTLE_MANIFEST_PATH;
+    isStockSandcastle = true;
   }
   if (networkPreset === "mainnet-relaunch") {
     options.name ??= "liquity-2-relaunch";
@@ -101,6 +118,9 @@ export async function main() {
   if (!options.ipfsNode && !options.network) {
     throw new Error("--ipfs-node <IPFS_NODE_URL> is required");
   }
+  if (isStockSandcastle && !options.buildOnly && (!options.graphNode || !options.ipfsNode)) {
+    throw new Error("Stock sandcastle deployment requires explicit --graph-node and --ipfs-node endpoints");
+  }
 
   const graphBuildCommand: string[] = [
     "graph",
@@ -110,6 +130,7 @@ export async function main() {
     "--network-file",
     GENERATED_NETWORKS_JSON_PATH,
   ];
+  const graphCodegenCommand = ["graph", "codegen"];
 
   const graphCreateCommand: null | string[] = !options.create ? null : [
     "graph",
@@ -136,10 +157,14 @@ export async function main() {
     await updateNetworksWithLocalBoldToken();
   }
 
-  await generateNetworksJson(isLocal);
+  await generateNetworksJson({
+    isLocal,
+    stockManifestPath: isStockSandcastle ? options.manifest : undefined,
+    stockNetwork: isStockSandcastle ? options.network : undefined,
+  });
 
   echo`
-Deploying subgraph:
+${options.buildOnly ? "Building" : "Deploying"} subgraph:
 
   NAME:               ${options.name}
   VERSION:            ${options.version}
@@ -150,38 +175,93 @@ Deploying subgraph:
 `;
 
   $.verbose = options.debug;
+  const originalSubgraphManifest = await fs.readFile(SUBGRAPH_MANIFEST_PATH, "utf8");
 
-  await $`pnpm ${graphBuildCommand}`;
-  echo("");
-  echo("Subgraph build complete.");
-  echo("");
+  try {
+    await $`pnpm ${graphCodegenCommand}`;
+    echo("");
+    echo("Subgraph code generation complete.");
+    echo("");
 
-  if (graphCreateCommand) {
-    await $`pnpm ${graphCreateCommand}`;
+    await $`pnpm ${graphBuildCommand}`;
+    echo("");
+    echo("Subgraph build complete.");
+    echo("");
+
+    if (options.buildOnly) {
+      return;
+    }
+
+    if (graphCreateCommand) {
+      await $`pnpm ${graphCreateCommand}`;
+    }
+    echo("");
+    echo("Subgraph create complete.");
+    echo("");
+
+    await $`pnpm ${graphDeployCommand}`;
+    echo("");
+    echo("Subgraph deployment complete.");
+    echo("");
+  } finally {
+    await fs.writeFile(SUBGRAPH_MANIFEST_PATH, originalSubgraphManifest);
   }
-  echo("");
-  echo("Subgraph create complete.");
-  echo("");
-
-  await $`pnpm ${graphDeployCommand}`;
-  echo("");
-  echo("Subgraph deployment complete.");
-  echo("");
 }
 
-async function generateNetworksJson(isLocal = false) {
+async function generateNetworksJson({
+  isLocal = false,
+  stockManifestPath,
+  stockNetwork,
+}: {
+  isLocal?: boolean;
+  stockManifestPath?: string;
+  stockNetwork?: string;
+}) {
   const networksJson = JSON.parse(await fs.readFile(NETWORKS_JSON_PATH, "utf8"));
+  const stockNetworkConfig = stockManifestPath && stockNetwork
+    ? { [stockNetwork]: await stockManifestToNetworkConfig(stockManifestPath) }
+    : {};
   return fs.writeFile(
     GENERATED_NETWORKS_JSON_PATH,
     JSON.stringify(
       {
         ...networksJson,
+        ...stockNetworkConfig,
         mainnet: isLocal ? networksJson.local : networksJson.mainnet,
       },
       null,
       2,
     ),
   );
+}
+
+async function stockManifestToNetworkConfig(manifestPath: string) {
+  const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
+  if (manifest.chainId !== 31337 && manifest.chainId !== 46630) {
+    throw new Error(`Unsupported stock sandcastle chain ID: ${manifest.chainId}`);
+  }
+  if (typeof manifest.stablecoin !== "string" || !/^0x[0-9a-fA-F]{40}$/.test(manifest.stablecoin)) {
+    throw new Error("Invalid stablecoin address in stock sandcastle manifest");
+  }
+
+  const startBlock = manifest.deploymentBlock ?? 0;
+  if (!Number.isSafeInteger(startBlock) || startBlock < 0) {
+    throw new Error("Invalid deployment block in stock sandcastle manifest");
+  }
+  if (startBlock === 0) {
+    console.warn("Stock sandcastle manifest has no deploymentBlock; indexing will start at block 0.");
+  }
+
+  return {
+    BoldToken: {
+      address: manifest.stablecoin,
+      startBlock,
+    },
+    Governance: {
+      address: ZERO_ADDRESS,
+      startBlock,
+    },
+  };
 }
 
 async function updateNetworksWithLocalBoldToken() {

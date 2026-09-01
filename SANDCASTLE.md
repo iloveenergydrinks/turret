@@ -61,6 +61,15 @@ pnpm tsx utils/deployment-manifest-to-app-env.ts \
 
 Then add the chain RPC, block explorer, native currency, multicall address, subgraph URL, and WalletConnect project ID for the target network. The generated configuration disables leverage, governance staking, legacy checks, and the inherited sBOLD/yBOLD pools. It never contains a deployer key.
 
+Build the ten-branch subgraph configuration without publishing it:
+
+```sh
+cd subgraph
+./deploy-subgraph stock-sandcastle --build-only
+```
+
+The manifest records the deployment start block so the indexer does not scan the chain from genesis. Publishing requires a Graph Node configured with the Robinhood network plus explicit `--graph-node` and `--ipfs-node` endpoints.
+
 ## Robinhood Chain testnet
 
 Fund a dedicated throwaway deployer with testnet ETH, keep its key outside the repository, and run:
