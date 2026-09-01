@@ -12,6 +12,7 @@ fs_permissions = [
     { access = "read-write", path = "./deployment-manifest.json" },
     { access = "read-write", path = "./deployment-stock-sandcastle.json" },
     { access = "read-write", path = "./deployment-stock-robinhood-mainnet.json" },
+    { access = "read-write", path = "./deployment-dockyard-usdg-mainnet.json" },
     { access = "read", path = "./addresses/" }
 ]
 
