@@ -100,7 +100,7 @@ function PositionPreview({ market }: { market: PreviewMarket }) {
       <div className="rusd-position-head">
         <div>
           <span className="rusd-position-label">Position preview</span>
-          <strong>{market.symbol} / rUSD</strong>
+          <strong>{market.symbol} / USDG</strong>
         </div>
         <span className="rusd-position-mode">Illustrative</span>
       </div>
@@ -132,7 +132,7 @@ function PositionPreview({ market }: { market: PreviewMarket }) {
           <span>You borrow</span>
           <span className="rusd-position-input">
             <input
-              aria-label="rUSD borrow amount"
+              aria-label="USDG borrow amount"
               id="dockyard-borrow-amount"
               inputMode="decimal"
               min="0"
@@ -140,7 +140,7 @@ function PositionPreview({ market }: { market: PreviewMarket }) {
               type="number"
               value={borrowAmount}
             />
-            <strong>rUSD</strong>
+            <strong>USDG</strong>
           </span>
         </label>
       </div>
@@ -200,7 +200,7 @@ export function HomeScreen() {
         </li>
         <li>
           <span>Borrow</span>
-          <strong>rUSD liquidity</strong>
+          <strong>USDG liquidity</strong>
         </li>
       </ol>
 

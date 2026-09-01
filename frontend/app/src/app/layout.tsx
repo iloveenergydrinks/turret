@@ -46,7 +46,7 @@ export default function Layout({
             __html: `<!--
 THESIS: Dockyard turns ten isolated stock markets into one approachable borrowing desk; it refuses the wide corporate trading terminal and literal nautical theme.
 OWN-WORLD: a slow sea-glass mesh gradient, white data surfaces, one deep-teal position composer, blue-green ink, fluid Figtree lettering, quiet depth, and a four-part safe-harbor mark protecting a central berth.
-STORY: preview Stock Token to isolated vault to rUSD in the first view, then compare honest max-LTV parameters and choose a market.
+STORY: preview Stock Token to isolated vault to USDG in the first view, then compare honest max-LTV parameters and choose a market.
 FIRST VIEWPORT: compact floating navigation over an asymmetrical promise-and-position desk, a three-move borrowing rail, then one continuous ten-market panel with selectable preview rows.
 FORM: safe-harbor control deck, assigned grounded direction 3, evolved from approved composition B, seed 0326060a.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
