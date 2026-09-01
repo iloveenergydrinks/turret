@@ -99,8 +99,8 @@ components:
     textColor: "{colors.paper-surface}"
     typography: "{typography.action}"
     rounded: "{rounded.control}"
-    padding: "0 16px"
-    height: "36px"
+    padding: "0 18px"
+    height: "44px"
   button-primary-hover:
     backgroundColor: "{colors.turquoise-action-hover}"
     textColor: "{colors.paper-surface}"
@@ -109,8 +109,8 @@ components:
   account-button:
     backgroundColor: "{colors.turquoise-action}"
     textColor: "{colors.paper-surface}"
-    rounded: "{rounded.pill}"
-    padding: "0 14px"
+    rounded: "12px"
+    padding: "0 18px"
     height: "40px"
   market-panel:
     backgroundColor: "{colors.paper-surface}"
@@ -274,9 +274,9 @@ The Dockyard mark is an AI-generated safe harbor refined through reference-led i
 
 Buttons feel compact, direct, and responsive.
 
-- **Shape:** Borrow actions use 10px corners; the account action uses a full pill.
-- **Primary:** Paper text on Turquoise Action. Borrow actions are at least 88px by 36px with 16px horizontal padding; the account action is 40px high with 14px horizontal padding.
-- **Hover / Focus / Active:** Hover darkens to Turquoise Action Hover and lifts Borrow actions by 1px over 140ms ease-out. Active controls compress to 98%. Keyboard focus uses a 3px translucent turquoise outline with a 3px offset.
+- **Shape:** Working controls use 10–16px corners; reserve full pills for compact status only. Market Borrow actions use 10px corners and transaction actions use 16px corners.
+- **Primary:** Transaction and account actions use Paper text on Turquoise Action. Market Borrow actions use a sea-glass mint fill, turquoise text, and one low-contrast turquoise keyline so repeated rows stay calm.
+- **Hover / Focus / Active:** Hover darkens primary actions, inverts market actions to Turquoise Action, and lifts enabled controls by 1px over 160ms ease-out. Active controls settle down by 1px. Keyboard focus uses a 3px translucent turquoise outline with a 3px offset.
 - **Disabled Preview:** “Not live” retains the primary silhouette at 55% opacity, uses a not-allowed cursor, and does not lift or compress.
 
 ### Chips

@@ -63,28 +63,28 @@ export function useButtonStyles({
 
   const geometry = match(size)
     .with("mini", () => ({
-      height: 26,
-      padding: "0 8px",
-      fontSize: 14,
+      height: 30,
+      padding: "0 10px",
+      fontSize: 12,
       borderRadius: 8,
     }))
     .with("small", () => ({
-      height: 34,
-      padding: "0 8px",
-      fontSize: 14,
-      borderRadius: 8,
+      height: 38,
+      padding: "0 14px",
+      fontSize: 13,
+      borderRadius: 10,
     }))
     .with("medium", () => ({
-      height: 40,
-      padding: "0 14px",
-      fontSize: 16,
-      borderRadius: shape === "rectangular" ? 8 : 20,
+      height: 44,
+      padding: "0 18px",
+      fontSize: 14,
+      borderRadius: shape === "rectangular" ? 10 : 12,
     }))
     .with("large", () => ({
-      height: 74,
-      padding: "0 30px",
-      fontSize: 24,
-      borderRadius: 120,
+      height: 64,
+      padding: "0 24px",
+      fontSize: 18,
+      borderRadius: shape === "rectangular" ? 12 : 16,
     }))
     .exhaustive();
 
@@ -92,27 +92,40 @@ export function useButtonStyles({
     .with("primary", () => ({
       "--color": color("accentContent"),
       "--background": color("accent"),
-      // "--backgroundHover": color("accentHint"),
-      "--backgroundHover": color("accent"),
-      "--backgroundPressed": color("accentActive"),
+      "--backgroundHover": color("accentActive"),
+      "--backgroundPressed": "color-mix(in srgb, var(--backgroundHover) 88%, black)",
+      "--border": "transparent",
+      "--shadow": "0 5px 16px rgba(5, 103, 95, 0.16)",
+      "--shadowHover": "0 8px 22px rgba(5, 103, 95, 0.22)",
     }))
     .with(P.union("secondary", "tertiary"), (mode) => ({
       "--color": color("secondaryContent"),
       "--background": mode === "secondary" ? color("secondary") : "transparent",
       "--backgroundHover": color("secondaryHint"),
       "--backgroundPressed": color("secondaryActive"),
+      "--border": mode === "secondary"
+        ? "color-mix(in srgb, var(--color) 18%, transparent)"
+        : "transparent",
+      "--shadow": "none",
+      "--shadowHover": "none",
     }))
     .with("negative", () => ({
       "--color": color("negativeContent"),
       "--background": color("negative"),
       "--backgroundHover": color("negativeHint"),
       "--backgroundPressed": color("negativeActive"),
+      "--border": "transparent",
+      "--shadow": "none",
+      "--shadowHover": "none",
     }))
     .with("positive", () => ({
       "--color": color("positiveContent"),
       "--background": color("positive"),
       "--backgroundHover": color("positiveHint"),
       "--backgroundPressed": color("positiveActive"),
+      "--border": "transparent",
+      "--shadow": "none",
+      "--shadowHover": "none",
     }))
     .exhaustive();
 
@@ -122,7 +135,12 @@ export function useButtonStyles({
     justifyContent: "center",
     whiteSpace: "nowrap",
     cursor: "pointer",
-    transition: "background 50ms",
+    fontWeight: 700,
+    letterSpacing: "-0.01em",
+    border: "1px solid var(--border)",
+    boxShadow: "var(--shadow)",
+    transition:
+      "background 160ms cubic-bezier(0.16, 1, 0.3, 1), color 160ms ease-out, border-color 160ms ease-out, box-shadow 160ms ease-out, translate 160ms cubic-bezier(0.16, 1, 0.3, 1)",
     color: "var(--color)",
     textDecoration: "none",
     background: {
@@ -130,13 +148,20 @@ export function useButtonStyles({
       _hover: "var(--backgroundHover)",
       _active: "var(--backgroundPressed)",
     },
+    _hover: {
+      _enabled: {
+        boxShadow: "var(--shadowHover)",
+        translate: "0 -1px",
+      },
+    },
     _active: {
       _enabled: {
         translate: "0 1px",
       },
     },
     _focusVisible: {
-      outline: "2px solid token(colors.focused)",
+      outline: "3px solid color-mix(in srgb, token(colors.focused) 32%, transparent)",
+      outlineOffset: "3px!",
     },
     _disabled: {
       color: "disabledContent",
@@ -147,6 +172,8 @@ export function useButtonStyles({
       },
       cursor: "not-allowed",
       border: "1px solid token(colors.disabledBorder)",
+      boxShadow: "none",
+      translate: "none",
     },
   });
 
@@ -156,8 +183,7 @@ export function useButtonStyles({
       ...geometry,
       ...colors,
 
-      // primary mode background === focus ring color
-      outlineOffset: mode === "primary" ? 2 : 0,
+      outlineOffset: 3,
     },
   };
 }

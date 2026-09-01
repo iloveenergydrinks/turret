@@ -30,7 +30,7 @@ Direction contract: A narrow, centered borrowing interface with the approachable
 | Headline | “Borrow against Wall Street.” as the dominant two-line focal point | HTML/CSS |
 | Mechanism | Stock card → collateral aperture → minted rUSD, connected by beaded arrows | Authored inline SVG + HTML/CSS |
 | Markets | Ten isolated stock rows with ticker, max LTV, and action | Semantic HTML table + CSS |
-| Primary actions | One per market, compact deep-turquoise Borrow control | Accessible links + CSS |
+| Primary actions | One per market, compact sea-glass Borrow control that inverts to deep turquoise on hover | Accessible links + CSS |
 | Risk note | Soft mint explainer beneath the market list | HTML/CSS |
 | Footer | Independent protocol disclaimer and utility links | HTML/CSS |
 | Background | Full-viewport sea-glass mesh gradient; slow organic distortion, low contrast, no pointer reaction; static under reduced motion | Paper Shaders WebGL canvas |

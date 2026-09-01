@@ -46,9 +46,9 @@ export function FlowButton({
           wide
           style={size === "large"
             ? {
-              height: breakpointName === "small" ? 56 : 72,
-              fontSize: breakpointName === "small" ? 20 : 24,
-              borderRadius: breakpointName === "small" ? 56 : 120,
+              height: breakpointName === "small" ? 52 : 64,
+              fontSize: breakpointName === "small" ? 16 : 18,
+              borderRadius: breakpointName === "small" ? 14 : 16,
             }
             : {}}
           onClick={() => {

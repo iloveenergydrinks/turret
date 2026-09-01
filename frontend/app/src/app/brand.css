@@ -196,18 +196,23 @@ body {
 .rusd-account button {
   color: #fff;
   background: var(--rusd-primary);
-  border-radius: 999px;
+  border-radius: 12px;
+  box-shadow: 0 5px 16px rgba(5, 103, 95, 0.16);
   font-family: inherit;
-  font-weight: 680;
-  transition: background 140ms ease-out, transform 140ms ease-out;
+  font-weight: 720;
+  letter-spacing: -0.01em;
+  transition: background 160ms ease-out, box-shadow 160ms ease-out, transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .rusd-account button:hover {
   background: var(--rusd-primary-hover);
+  box-shadow: 0 8px 22px rgba(5, 103, 95, 0.22);
+  transform: translateY(-1px);
 }
 
 .rusd-account button:active {
-  transform: scale(0.98);
+  box-shadow: 0 3px 10px rgba(5, 103, 95, 0.16);
+  transform: translateY(1px);
 }
 
 .rusd-account button:focus-visible {
@@ -420,26 +425,30 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 88px;
-  min-height: 36px;
-  padding: 0 16px;
-  color: #fff;
-  background: var(--rusd-primary);
+  min-width: 82px;
+  min-height: 34px;
+  padding: 0 15px;
+  color: var(--rusd-primary);
+  background: rgba(221, 245, 240, 0.68);
+  border: 1px solid rgba(8, 120, 110, 0.2);
   border-radius: 10px;
   font-family: inherit;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 730;
+  letter-spacing: -0.01em;
   text-decoration: none;
-  transition: background 140ms ease-out, transform 140ms ease-out;
+  transition: background 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out, transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .rusd-action:hover {
+  color: #fff;
   background: var(--rusd-primary-hover);
+  border-color: var(--rusd-primary-hover);
   transform: translateY(-1px);
 }
 
 .rusd-action:active {
-  transform: scale(0.98);
+  transform: translateY(1px);
 }
 
 .rusd-info {
