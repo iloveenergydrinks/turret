@@ -23,98 +23,108 @@ const MVP_MARKETS = [
 
 const FAQ_ITEMS = [
   {
-    question: "What does Dockyard do?",
+    question: "What can I do with Dockyard?",
     answer: [
-      "Dockyard is a collateralized lending vault on Robinhood Chain. You lock one supported Stock Token in an isolated market and borrow USDG already held by the vault.",
-      "The token is not sold when the loan opens, so its value can still rise or fall while it is locked. If the position is liquidated, some or all of that token can be taken to repay the debt.",
+      "Borrow USDG against your Stock Tokens on Robinhood Chain. You deposit a supported token as collateral and receive USDG in your wallet without selling the token.",
+      "Your Stock Token stays locked while you owe USDG. You remain exposed to its price: you benefit if it rises, but a large enough fall can trigger liquidation and cost you some or all of your collateral.",
     ],
   },
   {
-    question: "Does Dockyard create USDG?",
+    question: "What do I need to get started?",
     answer: [
-      "No. USDG is an existing token; Dockyard does not mint it. The vault must already contain enough USDG to fund a loan, so a safe borrow can still fail when available liquidity is too low.",
+      "A wallet connected to Robinhood Chain, a supported Stock Token in that wallet, and ETH on Robinhood Chain to pay network fees. Choose from the ten tokens listed in Markets.",
+      "You will need USDG to repay the loan, including the borrowing fee, and ETH for the repayment transaction.",
     ],
   },
   {
-    question: "How do I open and close a loan?",
+    question: "Where does the USDG come from?",
     answer: [
-      "Choose one Stock Token market, approve the token, deposit it, and enter the amount of USDG you want to borrow. The transaction succeeds only if the resulting debt is below that market’s borrowing limit, its debt ceiling has room, the vault has USDG, and the price checks pass.",
-      "To close, repay the full USDG debt and withdraw the Stock Token. You can also repay or withdraw part of the position, provided the remaining loan stays below its borrowing limit.",
+      "Dockyard lends existing USDG supplied to the vault by its owner. It does not create a new stablecoin or mint USDG when you borrow.",
+      "The borrowing screen shows how much USDG is available. Your loan cannot exceed that amount, even if your collateral would support a larger loan.",
+    ],
+  },
+  {
+    question: "How do I open a loan?",
+    answer: [
+      "Choose a Stock Token, connect your wallet, and enter how much collateral to deposit and how much USDG to borrow. Review the fee and loan-to-value ratio, then approve the collateral token if prompted.",
+      "Select Deposit and borrow USDG and confirm in your wallet. The deposit and loan happen in one transaction: either both succeed, or neither does. If borrowing fails, that transaction does not leave your collateral locked in the vault. Network fees may still apply.",
+    ],
+  },
+  {
+    question: "How do I get my Stock Tokens back?",
+    answer: [
+      "Open the same market with the wallet that holds your position. Your position shows the full USDG debt, including the borrowing fee. Approve USDG repayment if prompted, then select Repay and reclaim to return the debt and receive all remaining collateral in one transaction.",
+      "This full-repayment exit does not need a price feed and remains available when Dockyard pauses borrowing or disables a market. It still requires enough USDG and ETH in your wallet, and the underlying tokens must allow transfers.",
     ],
   },
   {
     question: "What is LTV?",
     answer: [
-      "Loan-to-value is your USDG debt divided by the current dollar value of your deposited Stock Token. A position with $400 of debt and $1,000 of collateral has a 40% LTV.",
+      "LTV means loan-to-value: your USDG debt divided by the current dollar value of your collateral. For example, $400 of debt against $1,000 of Stock Tokens is a 40% LTV.",
       "Your LTV rises if the Stock Token price falls or you borrow more. It falls if the token price rises, you add collateral, or you repay debt.",
     ],
   },
   {
-    question: "What is the difference between the borrowing limit and liquidation level?",
+    question: "How much can I borrow before risking liquidation?",
     answer: [
-      "The borrowing limit is the highest LTV at which the standalone MVP vault lets you create or increase a loan. It sits five percentage points below the market’s liquidation level to leave a buffer.",
-      "For AAPL, the borrowing limit is 52.1% and liquidation starts above 57.1%. The limits are lower for more volatile Stock Tokens, and borrowing right at the limit leaves little room for a price drop.",
+      "Each token has two limits. The borrowing limit is the highest LTV allowed when you take out a loan. The liquidation level is the point above which your collateral can be taken to repay the debt. The borrowing limit sits five percentage points below the liquidation level.",
+      "For AAPL, these levels are approximately 52.1% and 57.1%. Other tokens have different limits, shown on the borrowing screen. Borrowing less leaves more room for a price fall, but no loan amount is free of liquidation risk.",
     ],
   },
   {
     question: "What does borrowing cost?",
     answer: [
-      "The standalone MVP deployment tooling defaults to a one-time 0.5% origination fee. You receive the USDG amount you requested, and the fee is added to your debt. That fee also counts toward your LTV.",
-      "The current standalone vault does not accrue ongoing interest. Confirm the fee, total debt, and network transaction details in the interface before signing because deployment parameters can change.",
+      "A one-time 0.5% fee is added to each amount you borrow. Borrow 100 USDG and you receive 100 USDG, with 100.50 USDG to repay. The fee counts toward your LTV.",
+      "There is no ongoing interest or scheduled repayment date. Your position must still stay below its liquidation level. You also pay network fees in ETH for transactions; review the fee and debt shown before confirming.",
     ],
   },
   {
     question: "How do liquidations work?",
     answer: [
-      "When a position moves above its market’s liquidation level, any liquidator can repay USDG against its debt. In return, the contract sends the liquidator Stock Token collateral worth the repaid amount plus a 5% liquidation bonus.",
-      "A liquidation can be partial or complete. Any collateral and debt left after a partial liquidation stay in the position. If all collateral is exhausted and debt remains, the vault owner can write off that bad debt.",
+      "If your LTV exceeds the market’s liquidation level, another participant can repay some or all of your USDG debt and receive collateral in return. The collateral includes a 5% liquidation bonus, so you lose more collateral value than the amount of debt repaid.",
+      "Liquidation can be partial or complete. Any remaining debt and collateral stay in your position; a severe price fall can leave you with no collateral. If collateral is exhausted with debt still outstanding, the owner can write off that shortfall, leaving a loss in the vault. Liquidation is not guaranteed to happen before a loss occurs.",
     ],
   },
   {
     question: "How does Dockyard decide the Stock Token price?",
     answer: [
-      "The standalone vault checks that the Stock Token itself is not oracle-paused, then reads two price feeds. When both are valid and close enough, it uses the lower price. If one feed is invalid, it can use the other. If both fail or disagree too much, price-dependent actions stop.",
-      "The current deployment tooling uses a 24-hour maximum price age and a 2% maximum difference between valid feeds. Those checks reduce oracle risk; they do not remove it.",
+      "Dockyard reads two price feeds for each Stock Token. If both are valid and within 2% of each other, it uses the lower price. If only one is valid, it can use that feed. Prices 24 hours old or older are rejected.",
+      "If neither feed is valid, they disagree too much, or the Stock Token reports an oracle pause, actions that need a price check stop. These checks reduce the chance of lending against a bad price, but cannot eliminate oracle risk.",
     ],
   },
   {
     question: "What happens when the stock market is closed or a token is paused?",
     answer: [
-      "Deposits and new borrowing stop if the Stock Token reports that its oracle is paused. Withdrawals that need a fresh safety check and liquidations can also stop when no valid price is available.",
-      "Repayment does not depend on a price feed. After the debt reaches zero, the borrower can withdraw the remaining collateral.",
+      "Market hours alone do not determine whether you can borrow. Dockyard relies on valid price data and the Stock Token’s oracle status. When those checks fail, new deposits, borrowing, liquidations, and collateral withdrawals that need a safety check are blocked.",
+      "You can still repay your debt. Full repayment lets you reclaim your remaining collateral without a price check, provided the token itself allows the transfer. Price gaps when markets reopen can increase liquidation risk.",
     ],
   },
   {
-    question: "How does Earn work?",
+    question: "Can I deposit USDG to earn yield?",
     answer: [
-      "Public Earn deposits are not enabled in this MVP. USDG liquidity is supplied by the vault owner, and the current contract does not issue pool shares or give public funders a withdrawal claim.",
-      "Do not send USDG to the funding function expecting yield. A public Earn product would require separate pool accounting, withdrawal rights, and risk disclosures before it could be enabled.",
+      "No. Dockyard does not offer public USDG deposits or an Earn account. Lending liquidity is supplied by the vault owner; there are no depositor shares or public yield claims.",
+      "Do not transfer USDG directly to the vault expecting an account balance, interest, or a withdrawal right. To repay a loan, use the repayment action on your position.",
     ],
   },
   {
     question: "Are the Stock Token markets connected?",
     answer: [
-      "Each Stock Token has its own borrowing limit, liquidation level, debt ceiling, and price feeds. AAPL collateral does not back an NVDA loan. All markets do, however, draw from the same available USDG balance in the vault.",
-    ],
-  },
-  {
-    question: "Does Dockyard use redemptions or Stability Pools?",
-    answer: [
-      "No. The standalone USDG vault does not use Liquity redemptions, Stability Pools, borrower-set interest rates, governance staking, or a protocol-issued stablecoin. Its core loop is simpler: supplied USDG goes out as loans, and repayments return USDG to the vault.",
+      "Your collateral and debt are tracked separately for each Stock Token. AAPL collateral does not support an NVDA loan, and each market has its own price feeds, LTV limits, and cap on total debt.",
+      "The markets share one USDG balance. Loans in one market reduce the USDG available to borrow elsewhere, and losses from unpaid debt affect the same vault. Separate collateral positions do not mean separate liquidity pools.",
     ],
   },
   {
     question: "What control does the vault owner have?",
     answer: [
-      "The owner can pause the vault, enable or disable individual markets, change market debt ceilings, withdraw USDG that has not been borrowed, and write off debt only after a position has no collateral left.",
-      "Those controls are part of the MVP’s trust model. They should move to stronger operational controls before the system handles meaningful value.",
+      "The vault is managed by a single owner wallet. It can pause new borrowing, enable or disable markets, add supported markets, change market debt caps, and withdraw unborrowed USDG. It can also write off debt after a position has no collateral left.",
+      "These controls can change borrowing availability. They do not allow the owner to withdraw a borrower’s Stock Token collateral directly or turn off full repayment through Dockyard’s pause controls. You still rely on the owner wallet being managed securely.",
     ],
   },
   {
     question: "What are the main risks?",
     answer: [
-      "The main risks are Stock Token price moves, liquidation, oracle failure, smart-contract bugs, limited USDG liquidity, token pauses or corporate actions, and owner-key risk. Depositing a Stock Token is not the same as holding a share in a brokerage account.",
-      "The MVP has not completed an independent audit. Only use it if you understand that the contracts and parameters can fail and that losses may be permanent.",
+      "You can lose funds through liquidation, smart-contract bugs, incorrect prices, token transfer restrictions, corporate actions, or a compromised owner wallet. USDG can also trade away from its intended dollar value. A Stock Token is not the same as holding a share in a brokerage account.",
+      "The contracts have not completed an independent security audit. Testing does not guarantee safety, and losses may be permanent. Understand the token terms, your loan’s limits, and these risks before depositing collateral.",
     ],
   },
 ] as const;
@@ -344,8 +354,8 @@ export function HomeScreen() {
 
       <section aria-labelledby="dockyard-faq-title" className="rusd-faq" id="faq">
         <div className="rusd-faq-heading">
-          <h2 id="dockyard-faq-title">How Dockyard works, in detail.</h2>
-          <p>The mechanics, limits, and risks behind borrowing USDG against Stock Tokens.</p>
+          <h2 id="dockyard-faq-title">Questions before you borrow?</h2>
+          <p>From your first deposit to repayment, fees, and liquidation.</p>
         </div>
         <div className="rusd-faq-list">
           {FAQ_ITEMS.map(({ answer, question }, index) => (
