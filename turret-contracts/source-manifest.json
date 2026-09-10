@@ -1,0 +1,129 @@
+{
+  "compiler": "0.8.24",
+  "optimizerRuns": 200,
+  "evmVersion": "cancun",
+  "files": {
+    "openzeppelin-contracts/contracts/access/Ownable.sol": {
+      "keccak256": "0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218"
+    },
+    "openzeppelin-contracts/contracts/interfaces/IERC1271.sol": {
+      "keccak256": "0x0705a4b1b86d7b0bd8432118f226ba139c44b9dcaba0a6eafba2dd7d0639c544"
+    },
+    "openzeppelin-contracts/contracts/interfaces/IERC4626.sol": {
+      "keccak256": "0x5a173dcd1c1f0074e4df6a9cdab3257e17f2e64f7b8f30ca9e17a8c5ea250e1c"
+    },
+    "openzeppelin-contracts/contracts/security/ReentrancyGuard.sol": {
+      "keccak256": "0xa535a5df777d44e945dd24aa43a11e44b024140fc340ad0dfe42acf4002aade1"
+    },
+    "openzeppelin-contracts/contracts/token/ERC20/ERC20.sol": {
+      "keccak256": "0xa56ca923f70c1748830700250b19c61b70db9a683516dc5e216694a50445d99c"
+    },
+    "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": {
+      "keccak256": "0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305"
+    },
+    "openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol": {
+      "keccak256": "0xa0ebd2a1608780392e5bc8805079b1a1961ebd73128ee23ab7149e7f6904fa53"
+    },
+    "openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+      "keccak256": "0x8de418a5503946cabe331f35fe242d3201a73f67f77aaeb7110acb1f30423aca"
+    },
+    "openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol": {
+      "keccak256": "0xb264c03a3442eb37a68ad620cefd1182766b58bee6cec40343480392d6b14d69"
+    },
+    "openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol": {
+      "keccak256": "0xabefac93435967b4d36a4fabcbdbb918d1f0b7ae3c3d85bc30923b326c927ed1"
+    },
+    "openzeppelin-contracts/contracts/utils/Address.sol": {
+      "keccak256": "0x006dd67219697fe68d7fbfdea512e7c4cb64a43565ed86171d67e844982da6fa"
+    },
+    "openzeppelin-contracts/contracts/utils/Context.sol": {
+      "keccak256": "0xa92e4fa126feb6907daa0513ddd816b2eb91f30a808de54f63c17d0e162c3439"
+    },
+    "openzeppelin-contracts/contracts/utils/Strings.sol": {
+      "keccak256": "0x3088eb2868e8d13d89d16670b5f8612c4ab9ff8956272837d8e90106c59c14a0"
+    },
+    "openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol": {
+      "keccak256": "0x809bc3edb4bcbef8263fa616c1b60ee0004b50a8a1bfa164d8f57fd31f520c58"
+    },
+    "openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol": {
+      "keccak256": "0x3af3ca86df39aac39a0514c84459d691434a108d2151c8ce9d69f32e315cab80"
+    },
+    "openzeppelin-contracts/contracts/utils/math/Math.sol": {
+      "keccak256": "0xe4455ac1eb7fc497bb7402579e7b4d64d928b846fce7d2b6fde06d366f21c2b3"
+    },
+    "openzeppelin-contracts/contracts/utils/math/SignedMath.sol": {
+      "keccak256": "0xf92515413956f529d95977adc9b0567d583c6203fc31ab1c23824c35187e3ddc"
+    },
+    "reviewed/research/DockyardIsolatedCapitalPool.sol": {
+      "keccak256": "0x6e04a70a60cd25d9ce950e193602fa2d604756d4f863689134ce78e68917e058"
+    },
+    "central/SingleSourceCreditBase.sol": {
+      "keccak256": "0x5bd60fe36d7c04dc4529dd21b20604d854ec001153e94e40fe4c54d9c1437b1d"
+    },
+    "central/TurretCreditEngine.sol": {
+      "keccak256": "0xb954ceef3eee762b34264ec39ff71fda1cdb5ec8d96792604cc62536bb069131"
+    },
+    "central/TurretCapitalPool.sol": {
+      "keccak256": "0x937ac113d8106db1852a5d3c3aff6c1a0e3cb55a3bd1d553c8510215bc6240ce"
+    },
+    "p2p/TurretP2PLending.sol": {
+      "keccak256": "0xc079b88fd83076f4903db08514ff676e86f5f861a2295ef99f261ee892640c80"
+    },
+    "p2p/TurretP2PLendingV2.sol": {
+      "keccak256": "0x67f8a210095d448f3034f42fdf6ebd1b8405c3c4928bf1d703cc5bc2f4e3f9fb"
+    },
+    "openzeppelin-contracts/contracts/proxy/Clones.sol": {
+      "keccak256": "0x01f055f5c26ba25d7f83e9aa9ba877fbea4d0bf22227de046ea67494bc932999"
+    },
+    "openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol": {
+      "keccak256": "0x9f4357008a8f7d8c8bf5d48902e789637538d8c016be5766610901b4bba81514"
+    },
+    "p2p/TurretP2PLendingV3.sol": {
+      "keccak256": "0x64d1e254613f9f092299e508e09c22fc17700f180de3f429d91db42395b8d43c"
+    },
+    "p2p/TurretP2PVaultV3.sol": {
+      "keccak256": "0x511c6891f90b8f3bd2e9ff6cb1642422837f83051cd1733bc6ecc0a8e3401808"
+    },
+    "openzeppelin-contracts/contracts/token/ERC721/IERC721.sol": {
+      "keccak256": "0x5bce51e11f7d194b79ea59fe00c9e8de9fa2c5530124960f29a24d4c740a3266"
+    },
+    "openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol": {
+      "keccak256": "0xa82b58eca1ee256be466e536706850163d2ec7821945abd6b4778cfb3bee37da"
+    },
+    "openzeppelin-contracts/contracts/utils/introspection/IERC165.sol": {
+      "keccak256": "0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1"
+    },
+    "p2p/TurretNFTLending.sol": {
+      "keccak256": "0xd8fcd5e93b9e27ccd191ade3b198ae92667d1b2dc5ed2c94aff74109cfccd01a"
+    },
+    "p2p/TurretNFTVault.sol": {
+      "keccak256": "0xa16c0d4655d3a3dc516aab84e3e9127eec3ecd702851cb44f31f5acb697dc0f0"
+    }
+  },
+  "contracts": [
+    {
+      "name": "TurretCreditEngine",
+      "source": "central/TurretCreditEngine.sol"
+    },
+    {
+      "name": "TurretCapitalPool",
+      "source": "central/TurretCapitalPool.sol"
+    },
+    {
+      "name": "TurretP2PLending",
+      "source": "p2p/TurretP2PLending.sol"
+    },
+    {
+      "name": "TurretP2PLendingV2",
+      "source": "p2p/TurretP2PLendingV2.sol"
+    },
+    {
+      "name": "TurretP2PLendingV3",
+      "source": "p2p/TurretP2PLendingV3.sol"
+    },
+    {
+      "name": "TurretNFTLending",
+      "source": "p2p/TurretNFTLending.sol"
+    }
+  ]
+}

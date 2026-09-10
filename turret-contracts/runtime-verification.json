@@ -1,0 +1,337 @@
+{
+  "chain": "robinhood",
+  "block": 59323175,
+  "method": "Compare deployed runtime with compiler artifact, masking only constructor immutable reference offsets; no metadata bytes are removed.",
+  "results": [
+    {
+      "address": "0x9c5bCa4278E3A8d464945A1113D0645d9203463c",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0x853CA2c511690A6A5beB7F16B240b9602160D97C",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0x46d7e1a043A8a2fb4315FEa0AF1da8D498192F19",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0xcc73CEc0680e8c8EdDe702404dfDF50511FFcdfC",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0x9abd97c7fA668dc92d9C9d15dAf870CE8c79a4A8",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0x65209681089Aca6A1Fd127422bEb717764CC47c6",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0x655e64DD4Dfdf5d79C1f92b5F524db4E296d2945",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0xD804Cd41816FE850426156ccaF4B418084cF4fa1",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0x70EfbaA4336F2b51A1360C6E2fdd6150bEe40b39",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0x2B9f699253cf0f6B6486EF41d16e3808ee4F2385",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0x6892b9C2777ad59ad3199EA5D0D54EEF725f5271",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0x455d2E72Cfc6C43e99056419F47c8e47d4704a1F",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0xa71072C88c75B355a530569FAE22a7729fBd553A",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0x7b3e1c0cdBba6824EE4211804E2A1fDd880cfA64",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0xe82750025Ea94ec9401658DCB6CB2b1c5F3cb925",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0xb643e1A97C0a83Af30504E0cFd27EA232d121dD7",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0xCc8dA6DD324e998660eA503E582aB9dEE8655820",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0x55216CBD97b0391B439dE683189E590F75F2128f",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0x9023FB0cA32204EE4cCe39e3e664aaEF1cD0A418",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0x5714DBc5D5c3C94c2155884C45fEA823a33bc39E",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0x27979092F64883E6322262862e30F914d284c971",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0xce2faFf543A5dE59a9967971EEe9D00E12b67B10",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0x8FeE2C05DC41765C4e3D550F1c33FAD6E679aA6a",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0xDbc56d30c61B90cD75c2e8D46FDBDb4CD25d9c16",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0xC29907317d8e78E9f6455F22577361b5184b449e",
+      "contract": "TurretCreditEngine",
+      "match": true
+    },
+    {
+      "address": "0x226a29d6F8026b367e409C332af70C318958cfe3",
+      "contract": "TurretCapitalPool",
+      "match": true
+    },
+    {
+      "address": "0xbcA2c4E897C7A988B0Aead0FBE92BCB87e190d25",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x0855f435bE9Fd3c1f42Bd773a130A5D61b0Cb6EB",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x34A9a43A5FF778B4015E24A16E963A0B5E6Cfd93",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x69c13ce4b28b936340Ce900fD35Ee5c799b7F7EC",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x781E21C6156f817aEFce9Fd868DdBc1aD226B23a",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0xC373430223CF4559530D846E3aa46268FeC05851",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0xA5059918bd0c4107E0EF6E634f7aee1BAF93940f",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x7945070E9Be31EE0fF192BD2F96B5bF1f417F0E2",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x8467cC58E4D3Fa3F48d6A522E2D119C2157Be6F2",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0xA4de9578B8E94377420BF30e53D7dB7DBc8427B8",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x36dD2b90e8e8541CcAB1258465732c4e961A9657",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x17c1B3CaBc49a196Ec39B7BA8409226eDe756A20",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x9C1eC6c0C5Ff43307EaA58408ff9674A5D4d7D09",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0xd41B87Ca091cbbf35dF36Aad9153d94248003163",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x795a763dD618f0A9868898143285B34AB0128DA8",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0x24721aA5Aef309a984552ec8aF0d3b6827d51424",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0xFf8908Fa2fDB92915a91B380769D24D119937145",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0xd47A99bE3f5217eC525F3275DF298727CdaaC38B",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0xd4F06D7Fb0fA388394ae010E59690d3B890A8451",
+      "contract": "TurretP2PLendingV3",
+      "match": true
+    },
+    {
+      "address": "0xe548566e61439E6c95231FD42c9F601257E24A4d",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x0029D5302e23BD56924F6047b385E6Dda114D3f4",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x3fA22c7FD391D1FCf682dfa64cb73f688cD7076C",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0xc686015A9F64829A4015E66D174EAC1B58490c48",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x72dE275366E6579c2Da148e24Eef24a5143f14b8",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0xD21Ac17FB08b56788C2c94e010F5f33190254810",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x1119e475d9a5609423e0b7aF4B1CcD7ef2c21034",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x1F10cf271f75a76E0698c9A02F20F88122891df2",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x2CEBccf207BFc929889dce41531eaBcf6A0cee11",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x0a4dd132f38345B4F134Cd660a9A513648F360f0",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0xCA632493fE346183243C359676356Ffb6D5aF37B",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x24718Dd2970bBD1aA58AFd05223ca247Ce33c1cA",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0xc79e3d2a66265c92e721def2162efdc21bdacfa7",
+      "contract": "TurretP2PLending",
+      "match": true
+    },
+    {
+      "address": "0x41a381b4B5A98B330d4482F8a7b1469C2F63496e",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0xed6f454080F32B3ff78F2bb048906E3dCC75f630",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x38e0deF753eCa9c98DEa1366eB48471866A4F610",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0xAbe2e6019091f159835Bbc39529CDd1484befc6F",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x621fC38DbAf5B7e6DF0e43ccB1bDCEDbB246c57F",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0xf9379ab2c2ae4C2eb02B55412d7c87D9077A3A39",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x703F9797cb31294ba583FfFB748A26f946E75515",
+      "contract": "TurretP2PLendingV2",
+      "match": true
+    },
+    {
+      "address": "0x79F986A54965EB4AB2eB317d9c5e33074793Dd28",
+      "contract": "TurretNFTLending",
+      "match": true
+    }
+  ]
+}
