@@ -1,3 +1,4 @@
+import { XLink } from "./XLink";
 import Link from "next/link";
 import { AboutButton } from "./AboutButton";
 
@@ -9,6 +10,7 @@ export function BottomBar() {
       <div className="rusd-frame rusd-footer-inner">
         <span>Independent Stock Token credit protocol · {CHAIN_NAME}</span>
         <div className="rusd-footer-links">
+          <XLink />
           <Link className="rusd-text-link" href="/redeem">Redeem rUSD</Link>
           <AboutButton />
         </div>

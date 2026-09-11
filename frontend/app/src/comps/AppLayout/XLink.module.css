@@ -1,0 +1,19 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  color: inherit;
+  border-radius: 6px;
+}
+
+.link:hover {
+  background: rgb(127 127 127 / 12%);
+}
+
+.link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
