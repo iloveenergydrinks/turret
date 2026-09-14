@@ -3,7 +3,7 @@ import type { PositionEarn } from "@/src/types";
 import { Amount } from "@/src/comps/Amount/Amount";
 import { getCollToken, useEarnPool } from "@/src/liquity-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, IconEarn, TokenIcon } from "@liquity2/uikit";
+import { HFlex, IconEarn, TokenIcon } from "@turret/uikit";
 import { PositionCard } from "./PositionCard";
 import { CardRow, CardRows } from "./shared";
 

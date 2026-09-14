@@ -1,7 +1,7 @@
 import { Amount } from "@/src/comps/Amount/Amount";
 import { getTokenDisplayName, useLiquityStats } from "@/src/liquity-utils";
 import { css } from "@/styled-system/css";
-import { InfoTooltip, TokenIcon } from "@liquity2/uikit";
+import { InfoTooltip, TokenIcon } from "@turret/uikit";
 import { EarnPositionSummaryBase } from "./EarnPositionSummaryBase";
 
 export function YboldPositionSummary() {

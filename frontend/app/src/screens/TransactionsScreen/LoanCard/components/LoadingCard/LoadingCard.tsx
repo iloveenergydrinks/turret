@@ -2,7 +2,7 @@ import { Spinner } from "@/src/comps/Spinner/Spinner.tsx";
 import { TagPreview } from "@/src/comps/TagPreview/TagPreview.tsx";
 import { css } from "@/styled-system/css";
 import { token } from "@/styled-system/tokens";
-import { Button, IconBorrow, IconLeverage } from "@liquity2/uikit";
+import { Button, IconBorrow, IconLeverage } from "@turret/uikit";
 import { a, useSpring } from "@react-spring/web";
 import { match, P } from "ts-pattern";
 

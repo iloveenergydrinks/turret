@@ -1,0 +1,17 @@
+{
+  "chainId": 4663,
+  "stakingToken": "0x99d70a25Bd7e95A30e14Bcbb64752c92227de9d7",
+  "rewardToken": "0x5fc5360d0400a0fd4f2af552add042d716f1d168",
+  "treasury": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+  "stakerShareBps": 5000,
+  "deployment": {
+    "address": "0xd13A10798a7604Ae69433be8e50750264cf4d52C",
+    "router": "0xe4D13090207bf06a6C17B340292E320afe720144",
+    "startBlock": "58903722",
+    "runtimeHash": "0x9f9718cffda52c330144eea7926eaf968b9a5c92d391734fc69a328337b19160",
+    "routerRuntimeHash": "0xaa8ad1d056d4176a8e6a0d8d2af066d6e794e958affbfcc74a3aaf287775114a",
+    "tokenRuntimeHash": "0xc6c38a3a9c1d6d15df223c863334471746f85c389a524540f2bd336bbb535d7c",
+    "usdgRuntimeHash": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+    "rewardModel": "reserve-decay-v2"
+  }
+}

@@ -7,7 +7,7 @@ import { INTEREST_RATE_START } from "@/src/constants";
 import content from "@/src/content";
 import { fmtnum } from "@/src/formatting";
 import { css } from "@/styled-system/css";
-import { IconShieldCheck } from "@liquity2/uikit";
+import { IconShieldCheck } from "@turret/uikit";
 import * as dn from "dnum";
 
 export function RedemptionShieldedBanner({

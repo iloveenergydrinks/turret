@@ -1,8 +1,8 @@
 {
-  "name": "@liquity2/uikit-gallery",
+  "name": "@turret/uikit-gallery",
   "version": "0.0.0",
   "private": true,
-  "author": "Liquity AG",
+  "author": "Turret contributors",
   "license": "MIT",
   "scripts": {
     "build": "pnpm build-uikit && pnpm panda-codegen && pnpm cosmos-export && next build",
@@ -16,7 +16,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@liquity2/uikit": "workspace:*",
+    "@turret/uikit": "workspace:*",
     "@react-spring/web": "^10.0.1",
     "dnum": "^2.15.0",
     "geist": "^1.4.2",

@@ -1,0 +1,12 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: Turret documentation
+  structure:
+    - type: space
+      key: turret-documentation
+      title: Turret
+      path: docs
+      default: true
+      content:
+        directory: ./docs/gitbook
+        language: en

@@ -22,11 +22,11 @@ git add package.json
 git commit -m "App: v[version]"
 
 # created a signed tag for the new version
-git tag -s @liquity2/app-v[version] -m '@liquity2/app-v[version]'
+git tag -s @turret/app-v[version] -m '@turret/app-v[version]'
 
 # push the version change and the new tag
 git push origin main
-git push origin @liquity2/app-v[version]
+git push origin @turret/app-v[version]
 ```
 
-Now, create a new GitHub release with the new tag (`@liquity2/app-v[version]`). The release should include a summary of the changes in the new version, following the format used in previous releases if possible.
+Now, create a new GitHub release with the new tag (`@turret/app-v[version]`). The release should include a summary of the changes in the new version, following the format used in previous releases if possible.

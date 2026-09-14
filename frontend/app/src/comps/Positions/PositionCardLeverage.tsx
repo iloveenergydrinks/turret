@@ -12,7 +12,7 @@ import { getCollToken, useRedemptionRiskOfLoan } from "@/src/liquity-utils";
 import { usePrice } from "@/src/services/Prices";
 import { roundToDecimal } from "@/src/utils";
 import { css } from "@/styled-system/css";
-import { HFlex, IconLeverage, TokenIcon } from "@liquity2/uikit";
+import { HFlex, IconLeverage, TokenIcon } from "@turret/uikit";
 import { PositionCard } from "./PositionCard";
 import { PositionCardSecondaryContent } from "./PositionCardSecondaryContent";
 

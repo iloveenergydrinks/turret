@@ -1,4 +1,4 @@
-import type { Address } from "@liquity2/uikit";
+import type { Address } from "@turret/uikit";
 import * as dn from "dnum";
 import { useEffect } from "react";
 

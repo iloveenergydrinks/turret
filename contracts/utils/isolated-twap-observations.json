@@ -1,0 +1,52 @@
+{
+  "chainId": 4663,
+  "blockNumber": 52855086,
+  "suite": "DockyardV3TwapForkTest",
+  "passed": 6,
+  "failed": 0,
+  "skipped": 0,
+  "productionTransactions": 0,
+  "admission": "not-approved",
+  "testConfiguration": {
+    "windowSeconds": 1800,
+    "maxObservationAgeSeconds": 600,
+    "maxSpotTickDeviation": 200,
+    "firstMinimumLiquidityRaw": "1000000000000000000",
+    "secondMinimumLiquidityRaw": "1000000000000000"
+  },
+  "observations": [
+    {
+      "token": "CASHCAT",
+      "priceUsdg18": "258249355743801208",
+      "oldestObservationAgeSeconds": 19,
+      "wethInputBeforeSpotCircuit": "11000000000000000000",
+      "collateralAcquiredRaw": "99186464097497466206978",
+      "heldPriceIncreaseBps": 212
+    },
+    {
+      "token": "PONS",
+      "priceUsdg18": "409567839924788725",
+      "oldestObservationAgeSeconds": 131,
+      "wethInputBeforeSpotCircuit": "29000000000000000000",
+      "collateralAcquiredRaw": "166517237817565122367240",
+      "heldPriceIncreaseBps": 208
+    }
+  ],
+  "heldPriceScenario": {
+    "timeAdvancedSeconds": 1801,
+    "additionalCollateralPoolRefreshWeth": "1000000000000000000",
+    "additionalUsdgPoolRefreshWeth": "4000000000000000000",
+    "arbitrage": false,
+    "independentPriceSource": false,
+    "result": "Trade-moved price eventually enters the TWAP and is accepted. This demonstrates a limitation, not manipulation safety."
+  },
+  "limitations": [
+    "Exploratory settings are not approved production parameters",
+    "This suite tests upward swaps; downward-gap engine/exit timing is recorded separately in isolated-oracle-gap-observations.json",
+    "WETH inputs are trade sizes, not attack costs or net losses; purchased tokens remain with the trader",
+    "No arbitrage, MEV, sequencer outage, flash financing or concurrent liquidation model",
+    "Two windows on these same pools are correlated and do not meet the engine's independent-pricing requirement",
+    "Liquidity minimums use raw concentrated-liquidity units, not executable USDG sale depth",
+    "Timestamp measures actual oracle writes, not necessarily economic price discovery; same-tick swaps may not refresh it"
+  ]
+}

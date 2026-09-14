@@ -3,7 +3,7 @@ import type { Dnum } from "@/src/types";
 import { TokenAmount } from "@/src/comps/Amount/TokenAmount";
 import { ValueUpdate } from "@/src/comps/ValueUpdate/ValueUpdate";
 import { css } from "@/styled-system/css";
-import { TokenIcon } from "@liquity2/uikit";
+import { TokenIcon } from "@turret/uikit";
 import { a, useInView, useTransition } from "@react-spring/web";
 
 const infoItems = [{

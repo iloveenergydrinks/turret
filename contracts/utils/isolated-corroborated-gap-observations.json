@@ -1,0 +1,73 @@
+{
+  "chainId": 4663,
+  "blockNumber": 52855086,
+  "suite": "DockyardCorroboratedGapForkTest",
+  "passed": 6,
+  "failed": 0,
+  "skipped": 0,
+  "productionTransactions": 0,
+  "admission": "not-approved",
+  "policy": "DockyardCorroboratedV3Feed",
+  "inspiration": "https://www.liquity.org/blog/price-oracles-in-liquity",
+  "configuration": {
+    "twapWindowSeconds": 1800,
+    "maxPoolObservationAgeSeconds": 600,
+    "maxNormalSpotTickDeviation": 200,
+    "referenceMaxAgeSeconds": 60,
+    "agreementBps": 500,
+    "startingBorrowLtvBps": 4000,
+    "maxBorrowLtvBps": 5000,
+    "liquidationLtvBps": 6500,
+    "liquidationBonusBps": 500,
+    "syntheticReferenceLatencySeconds": 5
+  },
+  "pricing": {
+    "dex": "Actual two-hop V3 TWAP and spot ticks with runtime, history, freshness, locked-pool and liquidity checks",
+    "reference": "Test-controlled price derived from post-shock DEX spot; NOT an independent production feed",
+    "normal": "Require normal per-hop spot/TWAP deviation and reference agreement; return the lower average/reference price",
+    "downwardGap": "Require both spot and reference below average and spot/reference agreement; return reference price, never the lower manipulated spot",
+    "stillBlocked": ["Upward gaps", "Uncorroborated price changes", "Stale or failed reference", "Stale pool observations", "Thin current/historical liquidity", "Locked pools", "Changed pinned runtime"]
+  },
+  "results": [
+    {
+      "token": "CASHCAT",
+      "postGapPriceBpsOfInitial": 5106,
+      "testedExitSecondsAfterGap": 5,
+      "repaidUsdg6": "94762166",
+      "exitUsdg6": "98489873",
+      "recognizedLossUsdg6": "0",
+      "dexOnlyMoveRejected": true,
+      "fullRepaymentAndLenderExitDuringReferenceOutage": true
+    },
+    {
+      "token": "PONS",
+      "postGapPriceBpsOfInitial": 5083,
+      "testedExitSecondsAfterGap": 5,
+      "repaidUsdg6": "94763251",
+      "exitUsdg6": "98489441",
+      "recognizedLossUsdg6": "0",
+      "dexOnlyMoveRejected": true,
+      "fullRepaymentAndLenderExitDuringReferenceOutage": true
+    }
+  ],
+  "localTests": {
+    "corroborationPolicyUnitAndFuzz": 19,
+    "legacyTwapUnitAndFuzz": 16,
+    "fullResearchSuite": 128,
+    "invariantRuns": 500,
+    "invariantHandlerCalls": 25000,
+    "forkRunnerUnitTests": 3
+  },
+  "limitations": [
+    "Conditional liveness improvement only: five seconds is chosen simulated reference latency, not a measured production SLA",
+    "No independent PONS feed has been established; CASHCAT/USDG Pyth access, identity and independence remain unverified",
+    "The wrapper and engine depend on the same authenticated reference in fast mode; they are not two independent off-chain feeds",
+    "The original strict TWAP path is unchanged and remains blocked during large spot deviations",
+    "Inactive pool observation blockage remains; this policy does not bypass freshness or missing history",
+    "One pinned block, one borrower, approximately 95 USDG loans and a single shock per tested exit",
+    "No proof for sequencer outages, sustained/correlated manipulation, MEV, adverse keeper latency or multiple simultaneous liquidations",
+    "Sale proceeds include swap fees but exclude native gas and full L2 fees; no keeper profitability guarantee",
+    "Runtime hash checks do not establish upstream publisher independence, identity or proxy upgrade safety",
+    "No production parameters, deployment, audit or market admission approved by these tests"
+  ]
+}

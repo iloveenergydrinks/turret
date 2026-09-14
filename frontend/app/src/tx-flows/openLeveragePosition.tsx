@@ -24,7 +24,7 @@ import { getIndexedTroveById } from "@/src/subgraph";
 import { noop, sleep } from "@/src/utils";
 import { vDnum, vPositionLoanUncommited } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { ADDRESS_ZERO, InfoTooltip } from "@liquity2/uikit";
+import { ADDRESS_ZERO, InfoTooltip } from "@turret/uikit";
 import * as dn from "dnum";
 import * as v from "valibot";
 import { maxUint256, parseEventLogs } from "viem";

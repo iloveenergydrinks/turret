@@ -8,7 +8,7 @@ import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionS
 import { useCollateralRedemptionPrices, usePrice } from "@/src/services/Prices";
 import { vDnum } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, InfoTooltip, TokenIcon, VFlex } from "@liquity2/uikit";
+import { HFlex, InfoTooltip, TokenIcon, VFlex } from "@turret/uikit";
 import * as dn from "dnum";
 import * as v from "valibot";
 import { maxUint256 } from "viem";

@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { InputField, Tabs, TextButton, TokenIcon } from "@liquity2/uikit";
+import { InputField, Tabs, TextButton, TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 import { useState } from "react";
 import { useFixtureInput } from "react-cosmos/client";

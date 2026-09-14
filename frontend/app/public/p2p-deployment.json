@@ -1,0 +1,14 @@
+{
+  "chainId": 4663,
+  "chainName": "Robinhood",
+  "rpcUrl": "/api/rpc",
+  "address": "0xc79e3d2a66265c92e721def2162efdc21bdacfa7",
+  "loanToken": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+  "collateralToken": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+  "loanSymbol": "USDG",
+  "collateralSymbol": "SLV",
+  "loanDecimals": 6,
+  "collateralDecimals": 18,
+  "runtimeHash": "0x18571e510895a60c7642a454013625e46a1a89317962f6a6610689ad943fa14a",
+  "startBlock": "56327886"
+}

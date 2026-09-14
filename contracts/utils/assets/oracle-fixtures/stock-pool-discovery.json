@@ -1,0 +1,276 @@
+{
+  "checkedAt": "2026-09-02T22:50:05.290Z",
+  "factory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+  "scope": "Read-only pool discovery; existence is not executable liquidity or verified USDG proceeds",
+  "markets": [
+    {
+      "symbol": "AAPL",
+      "collateral": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "pools": [
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 100,
+          "pool": "0xe4D4BA605B042054Bd8815D515D98DdF46232622"
+        },
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 500,
+          "pool": "0x8bb3514e2204E1cDF3Ac149EFEe7Ff04D91B719f"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 500,
+          "pool": "0xAae0d815EE56e4092a5E5C2911E676Fea50B2d6D"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0x783C9bbB765047CFdD2b84b92b2Ca9F11D34b7Ed"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 10000,
+          "pool": "0x3714aa8105DE1f384481B425788Af413748C1837"
+        }
+      ],
+      "poolCount": 5
+    },
+    {
+      "symbol": "MSFT",
+      "collateral": "0xe93237C50D904957Cf27E7B1133b510C669c2e74",
+      "pools": [
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 3000,
+          "pool": "0x98e196c9711280F8a4CDBD70f7e6bF4c3A649cE4"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 100,
+          "pool": "0x3D69Ea64810300877b938E9AD9916C25912c08f5"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0xeb60bCD1D920ad6E102690CCFC6fB488899E1510"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 10000,
+          "pool": "0x2Ea9292113514eD84Fd16aA4AD1e416537E39C8c"
+        }
+      ],
+      "poolCount": 4
+    },
+    {
+      "symbol": "GOOGL",
+      "collateral": "0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3",
+      "pools": [
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 100,
+          "pool": "0x8fB9301586f27e2cff85312F7c1d0F16C6167cdE"
+        },
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 500,
+          "pool": "0x778f2a0cF24E8D12fE3730C87Fe1448d47E66Add"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 100,
+          "pool": "0xA3617Bb4D7Dc9DD20f79165486097a54b3593164"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 500,
+          "pool": "0x34D0dC122CF9A8Eb296fC5e0D3A233625D7d19b7"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0x553e9a453425CD9B90919F317061FbC3794CC57a"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 10000,
+          "pool": "0xB2bB17fa1905Bcc1558b5aAeC894faAb666b323A"
+        }
+      ],
+      "poolCount": 6
+    },
+    {
+      "symbol": "AMZN",
+      "collateral": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "pools": [
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 100,
+          "pool": "0x7b242Dfa849419242E3733308D5c91Fe2A7dAe7e"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0x8AC92DA74AB5F3b1d024Dc1943Ad7e15Dc4179Ef"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 10000,
+          "pool": "0x25967b7CA2d06aa46E47e188231cA78c87Ef1FD7"
+        }
+      ],
+      "poolCount": 3
+    },
+    {
+      "symbol": "META",
+      "collateral": "0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35",
+      "pools": [
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 3000,
+          "pool": "0xa4BdB396a69617eb7F70E2cc1EF526f7340b1B0d"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 100,
+          "pool": "0xad6Df50832884f3498cd354086CefB0e39070F1B"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0x107a7Cb40d8665360ba10E59471Af06150A50922"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 10000,
+          "pool": "0x6FD62e9843aD2Ac2c4fbf2b62647953EA29B3537"
+        }
+      ],
+      "poolCount": 4
+    },
+    {
+      "symbol": "NVDA",
+      "collateral": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "pools": [
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 500,
+          "pool": "0x62AB521f71431f78ac374CdbadC6cda3c8916b6C"
+        },
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 3000,
+          "pool": "0xC0Be1cb0f674D9737C72B2A63fC542361185b807"
+        },
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 10000,
+          "pool": "0x8b6a6416A5d1040EfCfa6234dA6AA1265DfE123e"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 100,
+          "pool": "0xb75d2D02B0Ec3DE50d32e40A4F1A8DAE8acC4333"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 500,
+          "pool": "0xd4EB21209C4D6093f80B5b84f5C45cc093EA14a3"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0xB944cec30Bd4175855215D767ADC81F39e5f7E2B"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 10000,
+          "pool": "0xc277560DF3689A401bA7deDd7626168b234Ceb5e"
+        }
+      ],
+      "poolCount": 7
+    },
+    {
+      "symbol": "AMD",
+      "collateral": "0x86923f96303D656E4aa86D9d42D1e57ad2023fdC",
+      "pools": [
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 100,
+          "pool": "0x4EE16fE614F3a04f1510EDf1932A41cBd5C4af9C"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0x48D284A2A4d3DC1b3Da08231Fe44317e7e7Aa51f"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 10000,
+          "pool": "0xD6aF1dcB75cdAE4F2efc403A58eF023A51edC686"
+        }
+      ],
+      "poolCount": 3
+    },
+    {
+      "symbol": "ORCL",
+      "collateral": "0xb0992820E760d836549ba69BC7598b4af75dEE03",
+      "pools": [],
+      "poolCount": 0
+    },
+    {
+      "symbol": "MU",
+      "collateral": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+      "pools": [
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 10000,
+          "pool": "0x301F48EC369BB3bfA0bC04d44A79037aa0EE2340"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 500,
+          "pool": "0x6fD0f36320A1E50e42f130CE4A5C530B992a0A14"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0xd057B1Bc54917855BBee58eAd58647f47caB35E5"
+        }
+      ],
+      "poolCount": 3
+    },
+    {
+      "symbol": "TSLA",
+      "collateral": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "pools": [
+        {
+          "base": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+          "fee": 3000,
+          "pool": "0xA953CA88ff430e9487c60cA34d757414f4efdA07"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 100,
+          "pool": "0x7868622Ff2C3b1B6C8acb15fE0bDAEBF043DDa48"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 500,
+          "pool": "0xc4f0172D6ac8DD294Dd1137D047d5E1893760236"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 3000,
+          "pool": "0xf4ACdAEEB7022862A763C9B1B885e11191c889E3"
+        },
+        {
+          "base": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+          "fee": 10000,
+          "pool": "0xB349FB08C2712f3A70Bad40a4d006b68d67e888b"
+        }
+      ],
+      "poolCount": 5
+    }
+  ]
+}

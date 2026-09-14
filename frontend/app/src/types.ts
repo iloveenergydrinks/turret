@@ -1,4 +1,4 @@
-import type { Address, CollateralSymbol, Token, TokenSymbol } from "@liquity2/uikit";
+import type { Address, CollateralSymbol, Token, TokenSymbol } from "@turret/uikit";
 import type { Dnum } from "dnum";
 import type { ReactNode } from "react";
 import type { BranchContracts } from "./contracts";

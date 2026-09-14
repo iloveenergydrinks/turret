@@ -1,0 +1,90 @@
+{
+  "observedDate": "2026-09-03",
+  "chainId": 4663,
+  "forkBlock": "52855086",
+  "productionChanged": false,
+  "suite": "services/liquidator/test/isolated-real-pools.integration.mjs",
+  "scope": [
+    "Actual isolated keeper, real token/pool bytecode, new local credit contracts and atomic executor",
+    "Ephemeral signers and synthetic native/whale balances on a fresh loopback Anvil for every case",
+    "Independent oracle feeds are mocked by two contracts updated from the same spot source",
+    "Real keeper estimation, bounded approval, resizing, signing, restart, canonical receipt checks and inventory release",
+    "Oracle-outage voluntary closure and lender redemption after settlement",
+    "Read-only upstream proxy rejects broadcasts/state mutation; provider URL is absent from Anvil argv"
+  ],
+  "limitations": [
+    "Pinned historical state, not current liquidity or production readiness",
+    "Synthetic setup uses fixed 5000000 gas limit after automatic setup estimation was unreliable; production keeper estimator unchanged",
+    "Test-only keeper max repayment 110000 USDG, inventory/daily budgets 200000 USDG and fee ceilings 1 ETH per transaction/10 ETH daily; not approved production parameters",
+    "No actual independent feed authentication, adversarial MEV, sequencer outage, real inbox delivery or full Robinhood fee validation",
+    "Small differences from Solidity fork numbers include accrued interest while Anvil runs"
+  ],
+  "units": "USDG raw six-decimal strings; profit before gas",
+  "cases": [
+    {
+      "market": "CASHCAT",
+      "targetBps": 5500,
+      "loan": "98011938288",
+      "liquidations": 1,
+      "sizingAttempts": [
+        2
+      ],
+      "repaid": "49005970231",
+      "grossProfitBeforeGas": "601354472",
+      "remainingDebtBeforeVoluntaryClosure": "49005970854",
+      "recognizedLoss": "0",
+      "lenderWithdrawal": "477292237140"
+    },
+    {
+      "market": "CASHCAT",
+      "targetBps": 2500,
+      "loan": "98011938288",
+      "liquidations": 2,
+      "sizingAttempts": [
+        2,
+        1
+      ],
+      "repaid": "55691095191",
+      "grossProfitBeforeGas": "346810333",
+      "remainingDebtBeforeVoluntaryClosure": "0",
+      "recognizedLoss": "42320848380",
+      "lenderWithdrawal": "434971390998"
+    },
+    {
+      "market": "PONS",
+      "targetBps": 5500,
+      "loan": "98759887608",
+      "liquidations": 1,
+      "sizingAttempts": [
+        2
+      ],
+      "repaid": "49379944900",
+      "grossProfitBeforeGas": "945390728",
+      "remainingDebtBeforeVoluntaryClosure": "49379945839",
+      "recognizedLoss": "0",
+      "lenderWithdrawal": "477292237440"
+    },
+    {
+      "market": "PONS",
+      "targetBps": 2500,
+      "loan": "98759887608",
+      "liquidations": 2,
+      "sizingAttempts": [
+        2,
+        1
+      ],
+      "repaid": "54875605913",
+      "grossProfitBeforeGas": "146305161",
+      "remainingDebtBeforeVoluntaryClosure": "0",
+      "recognizedLoss": "43884287018",
+      "lenderWithdrawal": "433407952396"
+    }
+  ],
+  "testsPassed": 4,
+  "testsFailed": 0,
+  "testsSkipped": 0,
+  "regression": {
+    "workerUnitTestsPassed": 54,
+    "localMockIntegrationsPassed": 3
+  }
+}

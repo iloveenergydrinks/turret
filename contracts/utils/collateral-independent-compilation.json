@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-09-02T22:39:12.992Z",
+  "observations": [
+    {
+      "token": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "chainId": 4663,
+      "blockNumber": "52931798",
+      "blockHash": "0xe1a03d54fb11b3bc37d119b7e28d99bdbb01836a2f6773d9649dee51d08e0693",
+      "blockTimestamp": "1788388750",
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/4663/0x020bfC650A365f8BB26819deAAbF3E21291018b4?fields=all",
+      "language": "Yul",
+      "compilerVersion": "0.8.30+commit.73712a01",
+      "sourceDigests": {
+        "NoxaFunTokenExact.yul": "0x149ea8a7ae8e54f2bd66640b8032792cd29eedd41551c6c3fb3c3f13f1e39187"
+      },
+      "runtimeBytes": 4830,
+      "runtimeCodeHash": "0x725781ccca82a0bf9b1f8920b2fe58ea1e4facf46d0db9f50226d6409de890fe",
+      "immutableValues": {
+        "98": "0x0000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad73",
+        "100": "0x00000000000000000000000073991a25c818bf1f1128deaab1492d45638de0d3",
+        "102": "0x0000000000000000000000001f7d7550b1b028f7571e69a784071f0205fd2efa",
+        "104": "0x000000000000000000000000d9ec2db5f3d1b236843925949fe5bd8a3836fccb",
+        "106": "0x0000000000000000000000000000000000000000000000000000000000002710",
+        "108": "0x00000000000000000000000000000000000000000000000000000000000000c8",
+        "110": "0x0000000000000000000000000000000000000000000000000000000000002710",
+        "112": "0x000000000000000000000000000000000000000000000000000000000182c28d",
+        "114": "0x000000000000000000000000000000000000000000000000000000000182c3fb",
+        "116": "0x000000000000000000000000000000000000000000000000000000000000016e",
+        "118": "0x000000000000000000000000000000000000000000108b2a2c28029094000000",
+        "120": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+      },
+      "match": "exact-except-locally-compiled-immutable-slots",
+      "metadataIgnored": false,
+      "mismatchedByteOffsets": [],
+      "immutableNames": {},
+      "controls": {
+        "launchBlock": "25346701",
+        "restrictionBlocks": "366",
+        "restrictionEndBlock": "25347067",
+        "maxWalletBps": 200,
+        "maxTxBps": 10000,
+        "launchFactory": "0xD9eC2db5f3D1b236843925949fe5bd8a3836FCcB",
+        "deployer": "0xcdfc08A1C1FBaFB355645E5ddC32122e5716cA90",
+        "dexFactory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+        "positionManager": "0x73991a25C818Bf1f1128dEAaB1492D45638DE0D3",
+        "pairToken": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+        "poolFee": 10000,
+        "liquidityPool": "0xA70fc67C9F69da90B63a0e4C05D229954574E313",
+        "totalSupply": "1000000000000000000000000000"
+      },
+      "launchRestrictionsExpired": true,
+      "storage": null,
+      "mutableExternalFunctions": null,
+      "behaviorAuditComplete": false,
+      "admission": "not-approved",
+      "productionChanged": false
+    },
+    {
+      "token": "0x39dBED3a2bd333467115dE45665cC57F813C4571",
+      "chainId": 4663,
+      "blockNumber": "52931812",
+      "blockHash": "0x8d942b9ce3b075b6a7cb2cc123dc282af0b64dd979ef28c279411c295b1c31c8",
+      "blockTimestamp": "1788388751",
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/4663/0x39dBED3a2bd333467115dE45665cC57F813C4571?fields=all",
+      "language": "Solidity",
+      "compilerVersion": "0.8.30+commit.73712a01",
+      "sourceDigests": {
+        "contracts/lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol": "0x1b88b3fb3d85ba5496d7d5f396f83ee1fddcdd6762059ff65992655b67920998",
+        "contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol": "0x669464167428061ee0f8618b73b3ee90aff8405683e7ddde8cd77dadaa1afe29",
+        "contracts/lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": "0x74ed01eb66b923d0d0cfe3be84604ac04b76482a55f9dd655e1ef4d367f95bc2",
+        "contracts/lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol": "0xd6fa4088198f04eef10c5bce8a2f4d60554b7ec4b987f684393c01bf79b94d9f",
+        "contracts/lib/openzeppelin-contracts/contracts/utils/Context.sol": "0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2",
+        "contracts/src/PonsLauncherToken.sol": "0xd66b136aa9c88c2f80540024e2c043f54df6be2b5ce0a2f20b1ebd7709256c89",
+        "contracts/src/interfaces/ILaunchpad.sol": "0x1a55749d5f0bf8d9da53dcda5a8b00dd486ef747e450b426804a224a4bd893a8"
+      },
+      "runtimeBytes": 5274,
+      "runtimeCodeHash": "0x16c3d3ede897688ddff79262606f13bead398332e65001f192460fbac4e1fb85",
+      "immutableValues": {
+        "832": "0x000000000000000000000000b9f5f4ea1af1f5d3678470eb98e8fbdcadeb24b0",
+        "834": "0x0000000000000000000000000c37a24f5d23a486fa692d1500881d698b1f77a4",
+        "836": "0x0000000000000000000000001f7d7550b1b028f7571e69a784071f0205fd2efa",
+        "838": "0x00000000000000000000000073991a25c818bf1f1128deaab1492d45638de0d3",
+        "840": "0x0000000000000000000000000bd7d308f8e1639fab988df18a8011f41eacad73",
+        "842": "0x0000000000000000000000000000000000000000000000000000000000002710",
+        "844": "0x0000000000000000000000000000000000000000000000000000000001857f96",
+        "846": "0x000000000000000000000000000000000000000000000000000000000000016e",
+        "848": "0x0000000000000000000000000000000000000000000000000000000001858104",
+        "850": "0x00000000000000000000000000000000000000000000000000000000000000c8",
+        "852": "0x00000000000000000000000000000000000000000000000000000000000000dc"
+      },
+      "match": "mismatch",
+      "metadataIgnored": false,
+      "mismatchedByteOffsets": [
+        5231,
+        5232,
+        5233,
+        5234,
+        5235,
+        5236,
+        5237,
+        5238,
+        5239,
+        5240,
+        5241,
+        5242,
+        5243,
+        5244,
+        5245,
+        5246,
+        5247,
+        5248,
+        5249,
+        5250,
+        5251,
+        5252,
+        5253,
+        5254,
+        5255,
+        5256,
+        5257,
+        5258,
+        5259,
+        5260,
+        5261,
+        5262
+      ],
+      "immutableNames": {
+        "832": "deployer",
+        "834": "launchFactory",
+        "836": "dexFactory",
+        "838": "positionManager",
+        "840": "pairToken",
+        "842": "poolFee",
+        "844": "launchBlock",
+        "846": "restrictionBlocks",
+        "848": "restrictionEndBlock",
+        "850": "maxWalletBps",
+        "852": "maxTxBps"
+      },
+      "controls": {
+        "launchBlock": "25526166",
+        "restrictionBlocks": "366",
+        "restrictionEndBlock": "25526532",
+        "maxWalletBps": 200,
+        "maxTxBps": 220,
+        "launchFactory": "0x0c37a24F5D23A486FA692d1500881d698B1F77a4",
+        "deployer": "0xB9F5f4Ea1AF1F5d3678470eb98e8FBdcadEb24b0",
+        "dexFactory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+        "positionManager": "0x73991a25C818Bf1f1128dEAaB1492D45638DE0D3",
+        "pairToken": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+        "poolFee": 10000,
+        "liquidityPool": "0x10CC6BD38112cAc182db90B6a71d8Bb5939526bA",
+        "totalSupply": "1000000000000000000000000000"
+      },
+      "launchRestrictionsExpired": true,
+      "storage": [
+        {
+          "astId": 159,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "_balances",
+          "offset": 0,
+          "slot": "0",
+          "type": "t_mapping(t_address,t_uint256)"
+        },
+        {
+          "astId": 165,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "_allowances",
+          "offset": 0,
+          "slot": "1",
+          "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))"
+        },
+        {
+          "astId": 167,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "_totalSupply",
+          "offset": 0,
+          "slot": "2",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 169,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "_name",
+          "offset": 0,
+          "slot": "3",
+          "type": "t_string_storage"
+        },
+        {
+          "astId": 171,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "_symbol",
+          "offset": 0,
+          "slot": "4",
+          "type": "t_string_storage"
+        },
+        {
+          "astId": 854,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "logo",
+          "offset": 0,
+          "slot": "5",
+          "type": "t_string_storage"
+        },
+        {
+          "astId": 856,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "description",
+          "offset": 0,
+          "slot": "6",
+          "type": "t_string_storage"
+        },
+        {
+          "astId": 859,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "_socials",
+          "offset": 0,
+          "slot": "7",
+          "type": "t_struct(Socials)806_storage"
+        },
+        {
+          "astId": 861,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "_initialBuyRecipient",
+          "offset": 0,
+          "slot": "12",
+          "type": "t_address"
+        },
+        {
+          "astId": 865,
+          "contract": "contracts/src/PonsLauncherToken.sol:PonsLauncherToken",
+          "label": "_restrictedPoolBuys",
+          "offset": 0,
+          "slot": "13",
+          "type": "t_mapping(t_address,t_uint256)"
+        }
+      ],
+      "mutableExternalFunctions": [
+        "approve",
+        "setInitialBuyRecipient",
+        "transfer",
+        "transferFrom"
+      ],
+      "behaviorAuditComplete": false,
+      "admission": "not-approved",
+      "productionChanged": false
+    }
+  ],
+  "admission": "not-approved",
+  "productionChanged": false
+}

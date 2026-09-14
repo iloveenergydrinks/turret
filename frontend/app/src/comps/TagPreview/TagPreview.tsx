@@ -1,5 +1,5 @@
 import { css } from "@/styled-system/css";
-import { IconEye } from "@liquity2/uikit";
+import { IconEye } from "@turret/uikit";
 
 export function TagPreview() {
   return (

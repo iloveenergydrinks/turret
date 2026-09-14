@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "chainId": 4663,
+  "mode": "research-only",
+  "capitalModelProposal": "separately funded speculative-asset pools; do not reuse the stock vault's shared USDG liquidity",
+  "marketCapIsAdmissionEvidence": false,
+  "candidates": [
+    {
+      "name": "Pons",
+      "symbol": "PONS",
+      "token": "0x39dBED3a2bd333467115dE45665cC57F813C4571",
+      "identityBasis": "User supplied exact address; symbol, bytecode and 18 decimals observed on chain 4663 at block 52841677. Not a deployed-source audit.",
+      "evidence": { "canonicalIdentity": true },
+      "admission": "commissioning",
+      "oraclePlan": {
+        "status": "blocked-pending-independent-reporters-and-third-venue",
+        "marketQuote": "USDG",
+        "primary": "DockyardCorroboratedV3Feed over the registered PONS/WETH and WETH/USDG pools",
+        "reference": "DockyardThresholdPriceFeed with an immutable honest-overlap quorum of at least 3-of-4 independent operators",
+        "minimumInputs": "At least three qualified venue books plus an authenticated USDG conversion; never assume USDT, USD, and USDG are equal",
+        "freshnessSeconds": 30,
+        "activationCondition": "Independent custody/infrastructure, deterministic policy manifest, live relay soak, exact token mapping, real-price gap tests, and deployment storage attestation"
+      },
+      "discoveredPools": [
+        { "kind": "v3-interface", "pool": "0x10CC6BD38112cAc182db90B6a71d8Bb5939526bA", "quote": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73", "basis": "Token liquidityPool() getter at block 52842595; bytecode not verified" },
+        { "kind": "v3-interface", "pool": "0x2F393B60eF0CFAf669af63284e5592DC3a657B73", "quote": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168", "basis": "DEX discovery only; factory getPool read reverted during first probe" }
+      ],
+      "notes": ["No Pyth, Chainlink, API3, RedStone, or DIA production feed for the exact PONS token was established during the 2026-09-04 review.", "A V3 TWAP is only the endogenous corroboration leg, not an independent oracle.", "The live 30-minute PONS TWAP circuit was already outside its configured 200-tick spot bound at block 54328853.", "Pool discovery does not prove executable exit depth. Verify token behavior, independent pricing and stressed USDG sale routes."]
+    },
+    {
+      "name": "Cash Cat",
+      "symbol": "CASHCAT",
+      "token": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "identityBasis": "User supplied exact address; symbol, bytecode and 18 decimals observed on chain 4663 at block 52841677. Not a deployed-source audit.",
+      "evidence": { "canonicalIdentity": true },
+      "admission": "commissioning",
+      "oraclePlan": {
+        "status": "blocked-pending-provider-entitlement-and-publication-rights",
+        "marketQuote": "USDG",
+        "primary": "DockyardCorroboratedV3Feed over the registered CASHCAT/WETH and WETH/USDG pools",
+        "reference": "DockyardPythUsdRatioFeed using authenticated CASHCAT/USD divided by USDG/USD",
+        "pyth": {
+          "cashcatProFeedId": 3441,
+          "usdgProFeedId": 232,
+          "cashcatHermesFeedId": "0x79eb220a4fddd65d93d17e343cfb7ec3bf89f5ed3aaf32e4d74919761409f993",
+          "usdgHermesFeedId": "0xdaa58c6a3ce7d4b9c46c32a6e646012c17c4a2b24c08dd8c5e476118b855a7da"
+        },
+        "freshnessSeconds": 30,
+        "activationCondition": "Paid signed-report access, explicit public on-chain publication rights, exact token/feed binding, publisher-independence review, live relay soak, and real-price gap tests"
+      },
+      "discoveredPools": [
+        { "kind": "v3-interface", "pool": "0xA70fc67C9F69da90B63a0e4C05D229954574E313", "quote": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73", "basis": "Token liquidityPool() getter at block 52842595; bytecode not verified" },
+        { "kind": "v3-interface", "pool": "0x43781f7Ae77D99df3A52095c0b7d162828467A6e", "quote": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168", "basis": "DEX discovery; factory registration matched at block 52842419; 1800-second observe call unavailable" }
+      ],
+      "notes": ["The Pyth catalog exposes CASHCAT and USDG identifiers, but the current account cannot retrieve their signed prices.", "A V3 TWAP is only the endogenous corroboration leg, not an independent oracle.", "Do not infer transferable collateral or sellable USDG liquidity from a brand name or headline market cap."]
+    }
+  ]
+}

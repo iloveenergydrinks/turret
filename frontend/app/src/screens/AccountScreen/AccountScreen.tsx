@@ -20,7 +20,7 @@ import {
   shortenAddress,
   TokenIcon,
   VFlex,
-} from "@liquity2/uikit";
+} from "@turret/uikit";
 import { blo } from "blo";
 import Image from "next/image";
 import { useWriteContract } from "wagmi";

@@ -2,7 +2,7 @@
 
 import type { ComponentProps } from "react";
 
-import { Dropdown, TokenIcon } from "@liquity2/uikit";
+import { Dropdown, TokenIcon } from "@turret/uikit";
 import { useEffect, useState } from "react";
 import { useFixtureInput } from "react-cosmos/client";
 

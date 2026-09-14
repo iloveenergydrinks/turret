@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { css, cx } from "@/styled-system/css";
-import { IconArrowRight } from "@liquity2/uikit";
+import { IconArrowRight } from "@turret/uikit";
 import { a, useSpring } from "@react-spring/web";
 import Link from "next/link";
 import { useState } from "react";

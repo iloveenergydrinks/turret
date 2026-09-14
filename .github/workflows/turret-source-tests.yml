@@ -1,0 +1,96 @@
+name: Turret source checks
+
+on:
+  push:
+    branches: [main, dev, sandcastle-stock-tokens]
+    paths:
+      - '.github/workflows/turret-source-tests.yml'
+      - 'contracts/**'
+      - 'services/**'
+      - 'shared/**'
+      - 'frontend/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - '**/Dockerfile*'
+      - 'Dockerfile*'
+  pull_request:
+    paths:
+      - '.github/workflows/turret-source-tests.yml'
+      - 'contracts/**'
+      - 'services/**'
+      - 'shared/**'
+      - 'frontend/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - '**/Dockerfile*'
+      - 'Dockerfile*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: turret-source-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  candidate:
+    name: Contracts, workers, wallets and local lifecycle
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            services/liquidator/pnpm-lock.yaml
+            services/borrower-alerts/pnpm-lock.yaml
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.1
+      - name: Install workspace dependencies from lockfile
+        run: pnpm install --frozen-lockfile
+      - name: Install independent keeper package
+        working-directory: services/liquidator
+        run: pnpm install --ignore-workspace --frozen-lockfile
+      - name: Install independent borrower alerts package
+        working-directory: services/borrower-alerts
+        run: pnpm install --ignore-workspace --frozen-lockfile
+      - name: Compile deployable contracts and integration fixtures
+        working-directory: contracts
+        run: forge build
+      - name: Contract regressions and accounting invariants
+        working-directory: contracts
+        run: forge test --skip script --match-path 'test/{DockyardUSDGCreditVault*,research/Dockyard*,oracles/Dockyard*,security/Dockyard*}.t.sol' --fuzz-runs 256 -vv
+      - name: Retirement verification rejects nonempty deployments
+        working-directory: contracts
+        run: node --test utils/verify-empty-markets.test.mjs
+      - name: P2P contract accounting, events and lifecycle
+        run: forge test --root contracts/p2p
+      - name: P2P discovery, wallet guards and portfolio recovery
+        working-directory: frontend/app
+        run: |
+          node --test scripts/p2p-loan-index.test.mjs scripts/p2p-requests.test.mjs scripts/p2p-requests.integration.test.mjs scripts/p2p-alerts-proxy.test.mjs
+          pnpm exec vitest run src/p2p src/portfolio src/screens/P2PLoansScreen
+      - name: Worker unit tests
+        shell: bash
+        run: |
+          for service in liquidator risk-monitor borrower-alerts oracle-relay expansion-supervisor; do
+            (cd "services/$service" && node --test test/*.test.mjs)
+          done
+      - name: Public lending and borrowing wallet tests
+        working-directory: frontend/app
+        run: pnpm exec vitest run src/isolated-credit.test.ts src/isolated-market-config.test.ts src/isolated-stock-proofs.test.ts src/stock-market-availability.test.ts src/screens/IsolatedMarketScreen/IsolatedMarketScreen.test.tsx src/screens/IsolatedMarketScreen/IsolatedEarnPage.test.tsx
+      - name: Real local monitor, keeper and public lender lifecycle
+        working-directory: services/risk-monitor
+        run: node --test test/stock-services.integration.mjs

@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { ValueUpdate } from "@/src/comps/ValueUpdate/ValueUpdate";
 import { css } from "@/styled-system/css";
-import { HFlex } from "@liquity2/uikit";
+import { HFlex } from "@turret/uikit";
 
 type Update = {
   label: ReactNode;

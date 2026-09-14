@@ -45,7 +45,7 @@ ghost mapping(uint256 => mapping(uint256 => uint256)) upFrontFee;
 
 // accruedInterest
 // STATUS: TIMEOUT
-// https://prover.certora.com/output/11775/860ad83dcec64e4c9e810e7365678fa8?anonymousKey=bb2cbba6025a93645e951fbd275fe0eb5cd72eb0
+// https://prover.certora.com/output/11775/860ad83dcec64e4c9e810e7365678fa8
 rule troveBatchTroveEquivalenceAddColl_accruedInterest(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -92,7 +92,7 @@ rule troveBatchTroveEquivalenceAddColl_accruedInterest(){
 
 // recordedDebt
 // STATUS: TIMEOUT
-// https://prover.certora.com/output/11775/911d32a8819e462ba0a0e7596bc3bda9?anonymousKey=2fba4509fb993d9416c211499ba30ba0cbd4c91d
+// https://prover.certora.com/output/11775/911d32a8819e462ba0a0e7596bc3bda9
 rule troveBatchTroveEquivalenceAddColl_recordedDebt(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -139,7 +139,7 @@ rule troveBatchTroveEquivalenceAddColl_recordedDebt(){
 
 // redistribution debt/coll gains and  recorded collateral
 // STATUS: VERIFIED
-// https://prover.certora.com/output/11775/719c45e717cc44d48f96efa7f5b18243?anonymousKey=2e13104362c896777711d318b16d4b44162dd05b
+// https://prover.certora.com/output/11775/719c45e717cc44d48f96efa7f5b18243
 rule troveBatchTroveEquivalenceAddColl_gainsColl(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -176,7 +176,7 @@ rule troveBatchTroveEquivalenceAddColl_gainsColl(){
 
 // accruedInterest
 // STATUS: IN-FLIGHT
-// https://prover.certora.com/output/11775/f215919acf31423e8eb25103b78f9071?anonymousKey=2bd085da1f74a7df8af7be63ccbd3eb4ac61bb99
+// https://prover.certora.com/output/11775/f215919acf31423e8eb25103b78f9071
 rule troveBatchTroveEquivalenceWithdrawColl_accruedInterest(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -223,7 +223,7 @@ rule troveBatchTroveEquivalenceWithdrawColl_accruedInterest(){
 
 // recordedDebt
 // STATUS: IN-FLIGHT
-// https://prover.certora.com/output/11775/1b83ecd8aafa4677892cb35ca2c43c77?anonymousKey=81fe15bd0c0c5c53040869087d34f520641a7aee
+// https://prover.certora.com/output/11775/1b83ecd8aafa4677892cb35ca2c43c77
 rule troveBatchTroveEquivalenceWithdrawColl_recordedDebt(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -270,7 +270,7 @@ rule troveBatchTroveEquivalenceWithdrawColl_recordedDebt(){
 
 // redistribution debt/coll gains and  recorded collateral
 // STATUS: IN-FLIGHT
-// https://prover.certora.com/output/11775/5f54a65d71834167998e97d446c10dfa?anonymousKey=df03165354b4cb2d17497b7220d434dfc0b429f6
+// https://prover.certora.com/output/11775/5f54a65d71834167998e97d446c10dfa
 rule troveBatchTroveEquivalenceWithdrawColl_gainsColl(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -313,7 +313,7 @@ rule troveBatchTroveEquivalenceWithdrawColl_gainsColl(){
 //////////////// Increasing Debt /////////////////////
 // accruedInterest
 // STATUS: TIMEOUT
-// https://prover.certora.com/output/11775/708fbf3a973b47c686ac594cf20d1446?anonymousKey=bebbf87215aded38930ed6282027446c91ed75dc
+// https://prover.certora.com/output/11775/708fbf3a973b47c686ac594cf20d1446
 rule troveBatchTroveEquivalenceWithdrawBold_accruedInterest(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -362,7 +362,7 @@ rule troveBatchTroveEquivalenceWithdrawBold_accruedInterest(){
 
 // recordedDebt
 // STATUS: TIMEOUT
-// https://prover.certora.com/output/11775/c495e5a91e2c4e70957ada2e65d329fa?anonymousKey=945a5494c6fe9ceebd9c0a4987b8054f9d8ac013
+// https://prover.certora.com/output/11775/c495e5a91e2c4e70957ada2e65d329fa
 rule troveBatchTroveEquivalenceWithdrawBold_recordedDebt(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -411,7 +411,7 @@ rule troveBatchTroveEquivalenceWithdrawBold_recordedDebt(){
 
 // redistribution debt/coll gains and  recorded collateral
 // STATUS: TIMEOUT
-// https://prover.certora.com/output/11775/5492b6fafa4949a6baa4f3b5c0469121?anonymousKey=2a2552e32ed5aed50161c2bfcfbe667e86dd8ebe
+// https://prover.certora.com/output/11775/5492b6fafa4949a6baa4f3b5c0469121
 rule troveBatchTroveEquivalenceWithdrawBold_gainsColl(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -466,7 +466,7 @@ rule troveBatchTroveEquivalenceWithdrawBold_gainsColl(){
 
 // accruedInterest
 // STATUS: IN-FLIGHT
-// https://prover.certora.com/output/11775/b2e51aa16c5d482dbcab41642a9cf0ad?anonymousKey=bfa721df574d80bc737a26d285fb89efee0a6c52
+// https://prover.certora.com/output/11775/b2e51aa16c5d482dbcab41642a9cf0ad
 rule troveBatchTroveEquivalenceRepayBold_accruedInterest(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -513,7 +513,7 @@ rule troveBatchTroveEquivalenceRepayBold_accruedInterest(){
 
 // recordedDebt
 // STATUS: IN-FLIGHT
-// https://prover.certora.com/output/11775/6dfc9dac03e842f3ac035b62601f5a2a?anonymousKey=a1ab313fe21417015f773056788b79db4cc373a0
+// https://prover.certora.com/output/11775/6dfc9dac03e842f3ac035b62601f5a2a
 rule troveBatchTroveEquivalenceRepayBold_recordedDebt(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -560,7 +560,7 @@ rule troveBatchTroveEquivalenceRepayBold_recordedDebt(){
 
 // redistribution debt/coll gains and  recorded collateral
 // STATUS: IN-FLIGHT
-// https://prover.certora.com/output/11775/f307269c58854ceba18a4e314cdd92c7?anonymousKey=5d8e417dbcda394043c35afc86bd42e57b964e77
+// https://prover.certora.com/output/11775/f307269c58854ceba18a4e314cdd92c7
 rule troveBatchTroveEquivalenceRepayBold_gainsColl(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -613,7 +613,7 @@ rule troveBatchTroveEquivalenceRepayBold_gainsColl(){
 
 // Troves[troveId].lastDebtUpdateTime <= currentTime
 // STATUS: PASSING
-// https://prover.certora.com/output/11775/4161f4281f384522806db36bd10ff4bc?anonymousKey=304b53c59ccdf0f61f5cb4c3a136bc641b295587
+// https://prover.certora.com/output/11775/4161f4281f384522806db36bd10ff4bc
 invariant troveLastUpdatedTimeLECurrentTime(env e, uint256 troveId)
     troveManager.Troves[troveId].lastDebtUpdateTime <= e.block.timestamp
 

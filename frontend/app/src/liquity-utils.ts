@@ -13,7 +13,7 @@ import type {
   TroveId,
   TroveStatus,
 } from "@/src/types";
-import type { Address, CollateralSymbol, CollateralToken } from "@liquity2/uikit";
+import type { Address, CollateralSymbol, CollateralToken } from "@turret/uikit";
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { Config as WagmiConfig } from "wagmi";
 
@@ -60,7 +60,7 @@ import {
 import { isBranchId, isPrefixedtroveId, isTroveId } from "@/src/types";
 import { bigIntAbs, jsonStringifyWithBigInt } from "@/src/utils";
 import { vAddress, vPrefixedTroveId } from "@/src/valibot-utils";
-import { addressesEqual, COLLATERALS, isAddress, shortenAddress, TOKENS_BY_SYMBOL } from "@liquity2/uikit";
+import { addressesEqual, COLLATERALS, isAddress, shortenAddress, TOKENS_BY_SYMBOL } from "@turret/uikit";
 import { useQuery } from "@tanstack/react-query";
 import * as dn from "dnum";
 import { useMemo } from "react";

@@ -83,7 +83,7 @@ function troveBatchTroveEquivalent_(env e, uint256 troveIdX, uint256 troveIdY,
 
 // recordedDebt
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/5365ab00333f49d29a7bc89ce596075f?anonymousKey=d1123309af27b89dd7947096457605f446c73d3d
+// https://vaas-stg.certora.com/output/11775/5365ab00333f49d29a7bc89ce596075f
 rule troveBatchTroveEquivalenceAddColl_recordedDebt(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -144,7 +144,7 @@ rule troveBatchTroveEquivalenceAddColl_recordedDebt(){
 
 // redistribution debt/coll gains and  recorded collateral
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/9fea33ae5343403dad8373284cbf03da?anonymousKey=1433e989df37699a4c8c81d317f894f9bcd2492d
+// https://vaas-stg.certora.com/output/11775/9fea33ae5343403dad8373284cbf03da
 rule troveBatchTroveEquivalenceAddColl_gainsColl(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -178,7 +178,7 @@ rule troveBatchTroveEquivalenceAddColl_gainsColl(){
 
 // stake
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/8fbcb6a01ec24ed0bad3a89ec12e77ba?anonymousKey=1c920b9cb828e0622850de308f8056b7f844fcc9
+// https://vaas-stg.certora.com/output/11775/8fbcb6a01ec24ed0bad3a89ec12e77ba
 rule troveBatchTroveEquivalenceAddColl_stake(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -208,7 +208,7 @@ rule troveBatchTroveEquivalenceAddColl_stake(){
 
 // recordedDebt
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/9e7b201012e04f1780fe0fe2335ac0a3?anonymousKey=fa820c490755f8b5ee9c81068e71690e62f835cf
+// https://vaas-stg.certora.com/output/11775/9e7b201012e04f1780fe0fe2335ac0a3
 rule troveBatchTroveEquivalenceWithdrawColl_recordedDebt(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -267,7 +267,7 @@ rule troveBatchTroveEquivalenceWithdrawColl_recordedDebt(){
 
 // redistribution debt/coll gains and  recorded collateral
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/d9e9d6ea0521456e882c6dec67e9a81a?anonymousKey=19ad554e6d8a57df250cea8370a98025109c0635
+// https://vaas-stg.certora.com/output/11775/d9e9d6ea0521456e882c6dec67e9a81a
 rule troveBatchTroveEquivalenceWithdrawColl_gainsColl(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -301,7 +301,7 @@ rule troveBatchTroveEquivalenceWithdrawColl_gainsColl(){
 
 // stake
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/ad0f8923b3a849b381ba6f79fb958551?anonymousKey=2cc668b10691e138f47b6c5bf35b018eb3f29276
+// https://vaas-stg.certora.com/output/11775/ad0f8923b3a849b381ba6f79fb958551
 rule troveBatchTroveEquivalenceWithdrawColl_stake(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -337,7 +337,7 @@ rule troveBatchTroveEquivalenceWithdrawColl_stake(){
 // recordedDebt
 // with shares to debt scalar multiplier of 1 and 1e9
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/abbccfbca73143f28adb2fb36f0b2f12?anonymousKey=13c7b3527292b231499182a0528b6079dd28a55e
+// https://vaas-stg.certora.com/output/11775/abbccfbca73143f28adb2fb36f0b2f12
 rule troveBatchTroveEquivalenceWithdrawBold_recordedDebt(){
     env e;
     uint256 troveIdX;
@@ -394,7 +394,7 @@ rule troveBatchTroveEquivalenceWithdrawBold_recordedDebt(){
 
 // redistribution debt/coll gains and  recorded collateral
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/355e4a71be3b499f821cfb4f8792a58e?anonymousKey=5598175e06e5988c8410316421a73a2c904539c3
+// https://vaas-stg.certora.com/output/11775/355e4a71be3b499f821cfb4f8792a58e
 rule troveBatchTroveEquivalenceWithdrawBold_gainsColl(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -444,7 +444,7 @@ rule troveBatchTroveEquivalenceWithdrawBold_gainsColl(){
 
 // stake
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/7c1705d5d6c24f9daf61b6a4cdd647fc?anonymousKey=98bb7c1cb2fa0ea0338fce9a4c199c50aea46d8e
+// https://vaas-stg.certora.com/output/11775/7c1705d5d6c24f9daf61b6a4cdd647fc
 rule troveBatchTroveEquivalenceWithdrawBold_stake(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -475,7 +475,7 @@ rule troveBatchTroveEquivalenceWithdrawBold_stake(){
 
 // recordedDebt
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/95d5d66774c2445cbdbe5b6b3f2c952b?anonymousKey=49a47727edd049074274796d5462bc4f7901af4b
+// https://vaas-stg.certora.com/output/11775/95d5d66774c2445cbdbe5b6b3f2c952b
 rule troveBatchTroveEquivalenceRepayBold_recordedDebt(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -540,7 +540,7 @@ rule troveBatchTroveEquivalenceRepayBold_recordedDebt(){
 
 // redistribution debt/coll gains and  recorded collateral
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/47f52cb0cb9f47ef84f9a85db2efda98?anonymousKey=db65484e53ff3b0f1f05941d930429969fed048c
+// https://vaas-stg.certora.com/output/11775/47f52cb0cb9f47ef84f9a85db2efda98
 rule troveBatchTroveEquivalenceRepayBold_gainsColl(){
     uint256 troveIdX;
     uint256 troveIdY;
@@ -588,7 +588,7 @@ rule troveBatchTroveEquivalenceRepayBold_gainsColl(){
 
 // stake
 // STATUS: VERIFIED
-// https://vaas-stg.certora.com/output/11775/f0a580b2edc24913846047098d65ca1c?anonymousKey=b2fd2de8de536cfee05625a21dd8f5cef49f3be4
+// https://vaas-stg.certora.com/output/11775/f0a580b2edc24913846047098d65ca1c
 rule troveBatchTroveEquivalenceRepayBold_stake(){
     uint256 troveIdX;
     uint256 troveIdY;

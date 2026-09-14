@@ -1,0 +1,110 @@
+{
+  "chainId": 4663,
+  "rewardToken": "0x99d70a25bd7e95a30e14bcbb64752c92227de9d7",
+  "symbol": "TURRET",
+  "decimals": 18,
+  "totalBudgetBaseUnits": "20000000000000000000000000",
+  "durationSeconds": 1209600,
+  "deployments": [
+    {
+      "pool": "0x853CA2c511690A6A5beB7F16B240b9602160D97C",
+      "address": "0x04Db6782471a32b0edB6c88975F0a53c28C61eF2",
+      "runtimeHash": "0x7ae4a75186b236b84d5d215056923139d02069394af9eac4100b36622b19c1ec",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666667"
+    },
+    {
+      "pool": "0xcc73CEc0680e8c8EdDe702404dfDF50511FFcdfC",
+      "address": "0x89226eA670f67939949874F70e5102eAc32E4494",
+      "runtimeHash": "0x68edd18d5647f0c1eaceb37767538692a408b6183ea4a2450bad2607b5d0e7dc",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666667"
+    },
+    {
+      "pool": "0x65209681089Aca6A1Fd127422bEb717764CC47c6",
+      "address": "0x0D6EEf933eEE4e407bc210f65AD72ef3521A1b4c",
+      "runtimeHash": "0xb180c0ee5a99946ce2abf455451ff45b6c799d029b8074543e6b0bf144a65003",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666667"
+    },
+    {
+      "pool": "0xD804Cd41816FE850426156ccaF4B418084cF4fa1",
+      "address": "0x1E94039b0340BE0CcBAe9E363f9252Df3fFeeBf2",
+      "runtimeHash": "0x6bd6104b517d215fb7ec5b98e98baf7edf141f8a5415bc96698cd4c4d568f3a3",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666667"
+    },
+    {
+      "pool": "0x2B9f699253cf0f6B6486EF41d16e3808ee4F2385",
+      "address": "0xf25545982788Ef455277D508555b9A4de3FFFf63",
+      "runtimeHash": "0x28f3b2095f2f370944230f0860ab041d6d09cfaff9c1151dcb28268b6897f7a4",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666667"
+    },
+    {
+      "pool": "0x455d2E72Cfc6C43e99056419F47c8e47d4704a1F",
+      "address": "0x4A64DE73880CD85F5D1Cc41Ef26b3b4C81B6df20",
+      "runtimeHash": "0x354b53cb372ea28a592678ab18445ec395c1e7ad7c3ad6a5a5bff247fe1e9ceb",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666667"
+    },
+    {
+      "pool": "0x7b3e1c0cdBba6824EE4211804E2A1fDd880cfA64",
+      "address": "0x681Dda11D7dC20796B2B97BD82371FDd3958cb2C",
+      "runtimeHash": "0x7ea76fc4fd79220af03c4d969be894f660bfc08f1fc263cef3309741c0065c06",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666667"
+    },
+    {
+      "pool": "0xb643e1A97C0a83Af30504E0cFd27EA232d121dD7",
+      "address": "0x4cA74234bFb3e27c29ced10526B24284C76A959D",
+      "runtimeHash": "0x7101aafaeb123c2cadf11d9b941825f0d432bc1801dab238b02990b5cf8f7759",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666667"
+    },
+    {
+      "pool": "0x55216CBD97b0391B439dE683189E590F75F2128f",
+      "address": "0x4d4D4069523A15adaEE47E9D722410384fBb9349",
+      "runtimeHash": "0xde319f48e0e440b21447368cbdec6799a70c2d33d515e465498962ae3615d5d2",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666666"
+    },
+    {
+      "pool": "0x5714DBc5D5c3C94c2155884C45fEA823a33bc39E",
+      "address": "0x565f46E15DaeB2F2C352D4F68b29464064564E74",
+      "runtimeHash": "0x5b9675e2a4bf9fff61e278935d18835e77f481226772cbe599ae5d23ec4f9469",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666666"
+    },
+    {
+      "pool": "0xce2faFf543A5dE59a9967971EEe9D00E12b67B10",
+      "address": "0xf5b138fd0CD9C50d9EA8E32CE5BFa4897Bb1cd74",
+      "runtimeHash": "0xd67f539c1ae575ad01c41a7f5763b443577c7f322ed8b18cf63b9601ee3e32c6",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666666"
+    },
+    {
+      "pool": "0x226a29d6F8026b367e409C332af70C318958cfe3",
+      "address": "0x98AfbBBdEf6AAa719057AD3f276B0a33D66aFA85",
+      "runtimeHash": "0x23a45f3193ef45562f39ee766029a964025c2d32059e6df9f559275f6ddd2bf4",
+      "administrator": "0xD6Db8d5d228f8D381F2D1bBbFb41fDE73696735C",
+      "budget": "1666666666666666666666666"
+    }
+  ],
+  "plannedPools": [
+    "0x853CA2c511690A6A5beB7F16B240b9602160D97C",
+    "0xcc73CEc0680e8c8EdDe702404dfDF50511FFcdfC",
+    "0x65209681089Aca6A1Fd127422bEb717764CC47c6",
+    "0xD804Cd41816FE850426156ccaF4B418084cF4fa1",
+    "0x2B9f699253cf0f6B6486EF41d16e3808ee4F2385",
+    "0x455d2E72Cfc6C43e99056419F47c8e47d4704a1F",
+    "0x7b3e1c0cdBba6824EE4211804E2A1fDd880cfA64",
+    "0xb643e1A97C0a83Af30504E0cFd27EA232d121dD7",
+    "0x55216CBD97b0391B439dE683189E590F75F2128f",
+    "0x5714DBc5D5c3C94c2155884C45fEA823a33bc39E",
+    "0xce2faFf543A5dE59a9967971EEe9D00E12b67B10",
+    "0x226a29d6F8026b367e409C332af70C318958cfe3"
+  ],
+  "startsAt": 1788928448,
+  "endsAt": 1790138048
+}

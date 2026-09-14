@@ -1,0 +1,21 @@
+title = "Turret source secret scanning"
+[extend]
+useDefault = true
+[allowlist]
+description = "Public contract addresses, inherited public test accounts, and individually reviewed code hashes/identifiers"
+regexTarget = "secret"
+paths = ['(?:^|/)contracts/hardhatAccountsList2k\.js$']
+regexes = [
+  '^0x[0-9a-fA-F]{40}$',
+  "^0x149ea8a7ae8e54f2bd66640b8032792cd29eedd41551c6c3fb3c3f13f1e39187$",
+  "^0x24e7841a87d7e3cbb96327cd222d156df27f3e1dd2661c3fa2a416c80c45cc10$",
+  "^0x27204d8c31a1fcbdf7747d795776d8a60c6d10bf2bf7c94739cd9190a5e16238$",
+  "^0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6$",
+  "^0xc6c38a3a9c1d6d15df223c863334471746f85c389a524540f2bd336bbb535d7c$",
+  "^0xd66b136aa9c88c2f80540024e2c043f54df6be2b5ce0a2f20b1ebd7709256c89$",
+  "^0xeecc89b24fb7458a0822db75665fc4dcf2346eb396f664d3f42c5c28c22912e3$",
+  "^682e1f19d0f6d3d9c4702fdca782a285baaee43e$",
+  "^IERC20Permit$",
+  "^api3_usdg_cancel$",
+  "^ba4aa04f95eeba693d4b8b7d937377b6bfd6a47f$",
+]

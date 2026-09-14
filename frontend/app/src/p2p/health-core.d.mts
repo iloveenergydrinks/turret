@@ -1,0 +1,11 @@
+import type { Address, Hex, createPublicClient } from "viem";
+import type { Deployment } from "./client";
+export type HealthClient = Pick<ReturnType<typeof createPublicClient>, "readContract" | "getCode" | "getStorageAt" | "getBlock">;
+export type P2PHealth = { status: "ok" | "blocked" | "unavailable"; reasons: string[]; blockNumber: string; blockHash: Hex; checkedAt: number };
+export type TokenBaseline = { schemaVersion: 1; chainId: number; blockNumber: string; blockHash: Hex; tokens: Array<{ address: Address; runtimeHash: Hex; implementationSlot: Hex; beaconSlot: Hex; decimals: number; checks: string[]; beacon?: { address: Address; runtimeHash: Hex }; implementation?: { address: Address; runtimeHash: Hex } }> };
+export function validateTokenBaseline(value: unknown, chainId: number): TokenBaseline;
+export function captureTokenBaseline(client: HealthClient, address: Address, block: { number: bigint; hash: Hex }, escrow?: Address): Promise<TokenBaseline["tokens"][number]>;
+export function inspectTokenBaseline(client: HealthClient, expected: TokenBaseline["tokens"][number], block: { number: bigint; hash: Hex }): Promise<string | null>;
+export function inspectP2PHealth(client: HealthClient, market: Deployment, baseline: unknown, block: { number: bigint; hash: Hex; timestamp: bigint }, now?: number, offerId?: bigint): Promise<P2PHealth>;
+export const IMPLEMENTATION_SLOT: Hex;
+export const BEACON_SLOT: Hex;

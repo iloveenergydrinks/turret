@@ -35,6 +35,14 @@ The deployment preflight fails if USDG or a Stock Token is missing, a Stock Toke
 
 This is a centrally funded MVP. It has no public LP shares, interest accrual, governance, redemption mechanism, Stability Pool, leverage, or protocol-issued stablecoin.
 
+## Wallet history
+
+The borrowing page includes read-only wallet history below the position form. It follows the connected account or accepts a public wallet-address lookup. Rows group each market's actions within a transaction, including deposits, borrowing and fees, repayments, withdrawals, liquidations, and bad-debt write-offs. Token approvals, swaps, owner funding, and activity outside this vault are not part of this borrower history.
+
+History reads borrower-indexed events directly from Robinhood Chain RPC, without a subgraph or new API key. Each page scans up to 100,000 blocks in 10,000-block requests; “Load earlier activity” continues back to the verified vault creation block, 52,112,699. Empty recent ranges are not presented as empty lifetime history. Wallet changes cancel obsolete scans, failed pages can be retried, and confirmed transactions refresh the list. Amounts retain on-chain precision. The configured explorer provides transaction details, including network fees.
+
+The history deployment guard currently recognizes chain 4663 and vault `0x576c510e9A268B06448f67598B7BF1ed33388e20`. A replacement deployment requires its verified creation block and vault address to be updated in `frontend/app/src/dockyard-history.ts`.
+
 ## Verification
 
 Run the focused unit suite:

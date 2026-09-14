@@ -1,0 +1,16 @@
+{
+  "name": "turret-wallet-profiles",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "pngjs": "7.0.0",
+    "viem": "2.31.4"
+  }
+}

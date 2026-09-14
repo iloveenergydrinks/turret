@@ -1,7 +1,7 @@
 {
-  "name": "@liquity2/uikit",
+  "name": "@turret/uikit",
   "private": true,
-  "author": "Liquity AG",
+  "author": "Turret contributors",
   "license": "MIT",
   "version": "0.0.0",
   "type": "module",

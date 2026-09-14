@@ -3,7 +3,7 @@
 import { InfoBanner } from "@/src/comps/InfoBanner/InfoBanner";
 import { useLegacyPositions } from "@/src/liquity-utils";
 import { useAccount } from "@/src/wagmi-utils";
-import { IconWarning } from "@liquity2/uikit";
+import { IconWarning } from "@turret/uikit";
 
 export function LegacyPositionsBanner() {
   const account = useAccount();

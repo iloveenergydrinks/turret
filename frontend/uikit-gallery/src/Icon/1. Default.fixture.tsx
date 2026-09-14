@@ -1,7 +1,7 @@
 "use client";
 
-import { colors } from "@liquity2/uikit";
-import * as icons from "@liquity2/uikit/icons";
+import { colors } from "@turret/uikit";
+import * as icons from "@turret/uikit/icons";
 import { useFixtureSelect } from "react-cosmos/client";
 
 const colorsContrasted = Object.fromEntries(

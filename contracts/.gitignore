@@ -47,3 +47,7 @@ testMatrix.json
 
 # E2E broadcast logs
 /broadcast-e2e
+
+# Operator broadcast journals stay private.
+/broadcast/
+/utils/assets/test_output/

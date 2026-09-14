@@ -25,7 +25,7 @@ import {
 } from "@/src/urgent-redemption-utils";
 import { useAccount, useBalance } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, InfoTooltip, InputField, Tabs, TextButton, TokenIcon, VFlex } from "@liquity2/uikit";
+import { HFlex, InfoTooltip, InputField, Tabs, TextButton, TokenIcon, VFlex } from "@turret/uikit";
 import * as dn from "dnum";
 import { useMemo, useState } from "react";
 import { TroveSelectionTable } from "./TroveSelectionTable";

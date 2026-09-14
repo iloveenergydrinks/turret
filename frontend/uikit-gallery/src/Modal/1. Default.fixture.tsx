@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Modal } from "@liquity2/uikit";
+import { Button, Modal } from "@turret/uikit";
 import { useState } from "react";
 
 export default function Fixture() {

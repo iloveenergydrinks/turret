@@ -4,7 +4,7 @@ import type { BranchId } from "@/src/types";
 import { isTroveId } from "@/src/types";
 import { useAccount } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { Button, InfoTooltip, TextInput, TokenIcon } from "@liquity2/uikit";
+import { Button, InfoTooltip, TextInput, TokenIcon } from "@turret/uikit";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useConfig as useWagmiConfig } from "wagmi";

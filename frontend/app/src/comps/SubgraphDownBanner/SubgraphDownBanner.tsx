@@ -3,7 +3,7 @@
 import { InfoBanner } from "@/src/comps/InfoBanner/InfoBanner";
 import { useSubgraphIsDown } from "@/src/indicators/subgraph-indicator";
 import { token } from "@/styled-system/tokens";
-import { IconInfo } from "@liquity2/uikit";
+import { IconInfo } from "@turret/uikit";
 
 export function SubgraphDownBanner() {
   const subgraphIsDown = useSubgraphIsDown();

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { css } from "@/styled-system/css";
-import { IconEdit } from "@liquity2/uikit";
+import { IconEdit } from "@turret/uikit";
 
 export function CardRows({
   children,

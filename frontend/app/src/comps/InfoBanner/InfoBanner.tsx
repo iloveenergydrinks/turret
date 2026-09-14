@@ -6,7 +6,7 @@ import { useBreakpoint } from "@/src/breakpoints";
 import { LinkTextButton } from "@/src/comps/LinkTextButton/LinkTextButton";
 import { css } from "@/styled-system/css";
 import { token } from "@/styled-system/tokens";
-import { IconChevronSmallUp } from "@liquity2/uikit";
+import { IconChevronSmallUp } from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import { useState } from "react";
 

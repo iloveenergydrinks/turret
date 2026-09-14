@@ -1,0 +1,22 @@
+// @vitest-environment jsdom
+import '@testing-library/jest-dom/vitest';
+import {act,cleanup,fireEvent,render,screen,waitFor} from '@testing-library/react';
+import {afterEach,beforeEach,expect,test,vi} from 'vitest';
+import type {Deployment} from '../../p2p/client';
+const sign=vi.hoisted(()=>vi.fn());
+vi.mock('../../p2p/requests',async importOriginal=>({...await importOriginal<typeof import('../../p2p/requests')>(),signRequestAction:sign}));
+vi.mock('./CollateralMarketPrice',()=>({CollateralMarketPrice:()=>null,hasWeekendPrices:()=>false}));
+import {RequestLoanDialog} from './RequestLoanDialog';
+const account='0x1111111111111111111111111111111111111111' as const;
+const market={address:'0x2222222222222222222222222222222222222222',version:2,chainId:4663,loanDecimals:6,collateralDecimals:18,collateralSymbol:'AAPL',loanSymbol:'USDG'} as unknown as Deployment;
+const props=()=>({markets:[market],account,provider:{request:vi.fn()} as any,disabled:false,onClose:vi.fn(),onConnect:vi.fn(),onPublished:vi.fn(),onViewRequests:vi.fn()});
+beforeEach(()=>{sign.mockReset().mockResolvedValue({});Object.defineProperties(HTMLDialogElement.prototype,{showModal:{configurable:true,value:function(){this.setAttribute('open','')}},close:{configurable:true,value:function(){this.removeAttribute('open')}}})});
+afterEach(cleanup);
+function review(){fireEvent.change(screen.getByLabelText('USDG to borrow'),{target:{value:'20'}});fireEvent.change(screen.getByLabelText('AAPL collateral'),{target:{value:'1'}});fireEvent.change(screen.getByLabelText('Total interest · USDG'),{target:{value:'2'}});fireEvent.click(screen.getByRole('button',{name:'Review request'}));}
+test('opens the form directly, then reviews and confirms publication in place',async()=>{
+ const p=props();render(<RequestLoanDialog {...p}/>);expect(screen.getByRole('dialog',{name:'Borrow USDG'})).toBeVisible();expect(screen.getByLabelText('USDG to borrow')).toBeVisible();review();expect(sign).not.toHaveBeenCalled();fireEvent.click(screen.getByRole('button',{name:'Sign and publish request'}));await screen.findByRole('heading',{name:'Request published'});expect(sign.mock.calls[0]![3]).toMatchObject({action:'publish',terms:{principal:'20000000',collateral:'1000000000000000000',interest:'2000000'}});expect(p.onPublished).toHaveBeenCalledOnce();expect(p.onViewRequests).not.toHaveBeenCalled();fireEvent.click(screen.getByRole('button',{name:'View marketplace'}));expect(p.onViewRequests).toHaveBeenCalledOnce();
+});
+test('keeps failed signatures in the modal without claiming success',async()=>{sign.mockRejectedValue(Error('Signature declined'));const p=props();render(<RequestLoanDialog {...p}/>);review();fireEvent.click(screen.getByRole('button',{name:'Sign and publish request'}));expect(await screen.findByRole('alert')).toHaveTextContent('Signature declined');expect(p.onPublished).not.toHaveBeenCalled();expect(screen.getByLabelText('USDG to borrow')).toHaveValue('20');});
+test('prevents duplicate submission and dismissal while publishing',async()=>{let finish!:()=>void;sign.mockImplementation(()=>new Promise<void>(r=>{finish=r}));const p=props();render(<RequestLoanDialog {...p}/>);review();const button=screen.getByRole('button',{name:'Sign and publish request'});fireEvent.click(button);fireEvent.click(button);fireEvent(screen.getByRole('dialog'),new Event('cancel',{cancelable:true}));expect(p.onClose).not.toHaveBeenCalled();expect(sign).toHaveBeenCalledOnce();await act(async()=>finish());await waitFor(()=>expect(p.onPublished).toHaveBeenCalledOnce());});
+test('Escape closes the dialog and cleanup restores page scrolling and focus',()=>{const p=props();const trigger=document.createElement('button');document.body.append(trigger);trigger.focus();const before=document.documentElement.style.overflow;const view=render(<RequestLoanDialog {...p}/>);expect(document.documentElement.style.overflow).toBe('hidden');fireEvent(screen.getByRole('dialog'),new Event('cancel',{cancelable:true}));expect(p.onClose).toHaveBeenCalledOnce();view.unmount();expect(document.documentElement.style.overflow).toBe(before);expect(document.activeElement).toBe(trigger);trigger.remove();});
+test('disconnected users see the wallet step, not a disabled signature form',()=>{const p=props();render(<RequestLoanDialog {...p} account={null} provider={null}/>);fireEvent.click(screen.getByRole('button',{name:'Connect wallet'}));expect(p.onConnect).toHaveBeenCalledOnce();expect(screen.queryByLabelText('USDG to borrow')).not.toBeInTheDocument();});

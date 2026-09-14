@@ -6,7 +6,7 @@ import { getBranch, getCollToken } from "@/src/liquity-utils";
 import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionStatus";
 import { vAddress, vBranchId, vDnum } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { shortenAddress, TokenIcon } from "@liquity2/uikit";
+import { shortenAddress, TokenIcon } from "@turret/uikit";
 import { blo } from "blo";
 import Image from "next/image";
 import * as v from "valibot";

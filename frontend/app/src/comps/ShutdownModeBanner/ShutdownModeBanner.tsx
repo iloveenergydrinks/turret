@@ -3,7 +3,7 @@
 import { InfoBanner } from "@/src/comps/InfoBanner/InfoBanner";
 import { getBranch, useShutdownStatus } from "@/src/liquity-utils";
 import { token } from "@/styled-system/tokens";
-import { IconWarning } from "@liquity2/uikit";
+import { IconWarning } from "@turret/uikit";
 
 export function ShutdownModeBanner() {
   const shutdownStatus = useShutdownStatus();

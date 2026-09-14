@@ -1,0 +1,355 @@
+{
+  "markets": [
+    {
+      "symbol": "AAPL",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x9c5bCa4278E3A8d464945A1113D0645d9203463c",
+      "pool": "0x853CA2c511690A6A5beB7F16B240b9602160D97C",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0xb9123E508bffEb32E0e7d5D2D8EE5917F54ccc63",
+      "hashes": {
+        "engine": "0xee528d54798e186f406bb7ff5b0b9d35b737bdf506adef48557614b2fb3a2c87",
+        "pool": "0xb6665d0385ae3fcffbf22305db4cb79ee16feaa27c7532b29439d27ae4cb3fff",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "AAPL",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0x840051266a4ed86dc6e0d46c9a89f0f61e976ab4f3642ea58848d546d4a08167",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "MSFT",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0xe93237C50D904957Cf27E7B1133b510C669c2e74",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x46d7e1a043A8a2fb4315FEa0AF1da8D498192F19",
+      "pool": "0xcc73CEc0680e8c8EdDe702404dfDF50511FFcdfC",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0xEEE8622810616AC4A336B8cDb353D0Ddf11c884B",
+      "hashes": {
+        "engine": "0xa8cda0282b75ddd332244367f19cad0d952c9f2f13e00a61c4c011db8b608722",
+        "pool": "0x3d289ecb40065d1beb4661ba22af18aa0fa73e8becad2485684de07cba0f0a4c",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "MSFT",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0x6b0cf2245aff60464732081a3c30389d1c128314a44d66bfb966eb9ab2d1f89e",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "GOOGL",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x9abd97c7fA668dc92d9C9d15dAf870CE8c79a4A8",
+      "pool": "0x65209681089Aca6A1Fd127422bEb717764CC47c6",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0xd76F143Bae0277Cc556D97ad978f18a0fdCd130e",
+      "hashes": {
+        "engine": "0xb90fcd7d75c287624dafd01ad962cc9947474d5ffaaca9d3ec33650e735bab5e",
+        "pool": "0xb17be717dec0df5563ebcd90d4cb6cdc550338774383b10b2240bc649708e0e1",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "GOOGL",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0x444c560adf35218c241244d236f4ed00344321d9baaa78eeef5d64eada22dc5f",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "AMZN",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x655e64DD4Dfdf5d79C1f92b5F524db4E296d2945",
+      "pool": "0xD804Cd41816FE850426156ccaF4B418084cF4fa1",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0x7c1abcfe307c6575487e182D94b767f1FC49ED22",
+      "hashes": {
+        "engine": "0xb453a7f1ac16abd1ce9801991ef81b84e486324d7c623ca33e49edef45a9a988",
+        "pool": "0x2c240f3687607c0f22822cacfacf8eada294f3121e9eb68cb2819177f785e5e1",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "AMZN",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0x538bd22b46b58f67a060657fea3fa9598cd425f27889d0be8d337bbb3af3a4f9",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "META",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x70EfbaA4336F2b51A1360C6E2fdd6150bEe40b39",
+      "pool": "0x2B9f699253cf0f6B6486EF41d16e3808ee4F2385",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0x96714F255609381C75c1E88D08846D9eD229dC62",
+      "hashes": {
+        "engine": "0x166d89a3357d1a21fc871b7209c6065cdfbc778154b28961446a492a8ab4527f",
+        "pool": "0x36df058c76e37cc7f8fa0bfe7e4eec96753ff0335e9f1a64ee05f8f7218d05e0",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "META",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0xc86f884fc1c303cf04b1e0bd0962d7e0d720f49e10fd20f229a8823dced18eb7",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x6892b9C2777ad59ad3199EA5D0D54EEF725f5271",
+      "pool": "0x455d2E72Cfc6C43e99056419F47c8e47d4704a1F",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0x1916D155e580ff6f4A7724d630A27F2f12b6Eb85",
+      "hashes": {
+        "engine": "0x9498aafe9882c743a78a34264ca46110cd030b353c084ad74e1d6183d8e1225e",
+        "pool": "0x9ffb6489ae23fe782f36ebd76f5ce4daf5837c932f1d2cc0bab9bf25cb5d9417",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "NVDA",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0x9404687bcf5acf389ae5010be632156e2c29b4e7402e5d4d9aea18221ca40b82",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "AMD",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0x86923f96303D656E4aa86D9d42D1e57ad2023fdC",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0xa71072C88c75B355a530569FAE22a7729fBd553A",
+      "pool": "0x7b3e1c0cdBba6824EE4211804E2A1fDd880cfA64",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0x6d13b38bb018f9fFdba625626e907210fb74421C",
+      "hashes": {
+        "engine": "0xc6a04501bafe286b90a881cab4dfe73ba98a50dd2f4cdecda4d9c266642db159",
+        "pool": "0x1dd15ec29e82ba4457c7c7d367f3a9d56e775d6f249d3c295e766ea0f793b678",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "AMD",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0xcd889cc54b10da8fb7c35c97ea25c6b6ea588770d62ae7ec074ccc9f9b8c5901",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "MU",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0xe82750025Ea94ec9401658DCB6CB2b1c5F3cb925",
+      "pool": "0xb643e1A97C0a83Af30504E0cFd27EA232d121dD7",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0xb41276421e5aE67C0c31b2B04bCFA0DeE4e62A33",
+      "hashes": {
+        "engine": "0x7d0bb128a51b131289e4d957e79277a5c927138a15c40d0710460fdacbed206a",
+        "pool": "0x61835c4c50af366630638568084fced525d2cf7dfe7d87eb1922317fc44254ad",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "MU",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0xc97b3aece0a0f6bc8b834e2dfa9aaa369d440ab7b4824048fc9e9d57feb3ff68",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0xCc8dA6DD324e998660eA503E582aB9dEE8655820",
+      "pool": "0x55216CBD97b0391B439dE683189E590F75F2128f",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0xe07EEd598ACb608c69802D00BaFea6A3926c7980",
+      "hashes": {
+        "engine": "0x3391b471ef96077ee52afbf08d32223e08d8db646b0d85a51ef40320fd9495ae",
+        "pool": "0xe52ccddb5f49d1680d5a7cd9906d20f7901e6f0f6385e29533de06e63a908089",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "TSLA",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0xc3381f45e8fbeb0c0ab4d30f434ef6b7592d136ffdb5d535c0bc04c1ff83f7ca",
+        "weekend": false
+      }
+    },
+    {
+      "symbol": "SPY",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0x117cc2133c37B721F49dE2A7a74833232B3B4C0C",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x9023FB0cA32204EE4cCe39e3e664aaEF1cD0A418",
+      "pool": "0x5714DBc5D5c3C94c2155884C45fEA823a33bc39E",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0xdF4B6A4Fea65deE443F1dDeD9935f5aeB3627f11",
+      "hashes": {
+        "engine": "0x7b129faa2203a501d538dc9cd7868ef8460887130366aa79e7310b037fdebb5d",
+        "pool": "0x21fdfaf6b50fc9fa0e481915245a8a55115cd5a921bc0b96201c32f77f73466d",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "SPY",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0x96c22e57a07d1b21e1fe00b98a7db39b21c3a1b04f36d5803c324d4a27dd7d21",
+        "weekend": true
+      }
+    },
+    {
+      "symbol": "QQQ",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0xD5f3879160bc7c32ebb4dC785F8a4F505888de68",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x27979092F64883E6322262862e30F914d284c971",
+      "pool": "0xce2faFf543A5dE59a9967971EEe9D00E12b67B10",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0x4eACCE95247928487D500ad74A372D5bB607Cf03",
+      "hashes": {
+        "engine": "0x9dbfefcc67fc520a9e5659bc14d9e2161310e3dc94dcf95c73b645fd8e0e87a3",
+        "pool": "0x28120ac645cbe1c1ab6ecd71d9e8a43a7c3fdcd73d8cc383d0276befaa72c2e3",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "QQQ",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0x4b47c9667469414c97261c5bf3c554f221c8f177b94f3de0f449a7c8b3a392c8",
+        "weekend": true
+      }
+    },
+    {
+      "symbol": "SLV",
+      "accountingVersion": 2,
+      "admission": "active",
+      "chainId": 4663,
+      "collateral": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "engine": "0x8FeE2C05DC41765C4e3D550F1c33FAD6E679aA6a",
+      "pool": "0xDbc56d30c61B90cD75c2e8D46FDBDb4CD25d9c16",
+      "primary": "0x0000000000000000000000000000000000000000",
+      "secondary": "0x0000000000000000000000000000000000000000",
+      "replaces": "0x8802c550b21C870dE29052CFAE5c719613440e87",
+      "hashes": {
+        "engine": "0x8a76edb24ce0cf0db0c3fd9e552fd98b243126b578481a9fbd10a71cc8a647ce",
+        "pool": "0xef46241253a35aa746f7af5fe1f7e7111de951bbf6f6cea06ae67411aa7a357a",
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+        "primary": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "secondary": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "central": {
+        "id": "SLV",
+        "apiUrl": "https://turret-central-risk-production.up.railway.app/",
+        "policyHash": "0xdeea7537e7c0708b423de25707dda92ec21e70b76152cc87e44280f98a12d788",
+        "weekend": false
+      }
+    },
+    {
+      "chainId": 4663,
+      "accountingVersion": 2,
+      "symbol": "CASHCAT",
+      "admission": "active",
+      "engine": "0xC29907317d8e78E9f6455F22577361b5184b449e",
+      "pool": "0x226a29d6F8026b367e409C332af70C318958cfe3",
+      "collateral": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "primary": "0xC29907317d8e78E9f6455F22577361b5184b449e",
+      "secondary": "0xC29907317d8e78E9f6455F22577361b5184b449e",
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "replaces": "0x7b08E0E9520f3D4E2d59EF4EFc9db032E41399F8",
+      "hashes": {
+        "engine": "0x1408ca1650f94bb969f369b350aa519af2848c1aad4f8c623146d6e09e869eeb",
+        "pool": "0x4607f8a343fabd2f4fc870b2059d3461a479fa3c35993987155404176a772a84",
+        "collateral": "0x725781ccca82a0bf9b1f8920b2fe58ea1e4facf46d0db9f50226d6409de890fe",
+        "primary": "0x1408ca1650f94bb969f369b350aa519af2848c1aad4f8c623146d6e09e869eeb",
+        "secondary": "0x1408ca1650f94bb969f369b350aa519af2848c1aad4f8c623146d6e09e869eeb",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "central": {
+        "id": "CASHCAT",
+        "apiUrl": "https://turret-cashcat-risk-production.up.railway.app/",
+        "policyHash": "0x1e6a4b23af880a819b58d8a5590baf10f5156b62a3e139354fd3b2be67a868a4",
+        "weekend": false
+      }
+    }
+  ]
+}

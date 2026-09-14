@@ -1,0 +1,65 @@
+{
+  "projectId": "edf06c48-4331-4fd1-bf0c-04619089a315",
+  "environmentId": "724dcf3f-d5c3-4507-97ee-8d78ce752e11",
+  "services": [],
+  "backups": [],
+  "status": "retired",
+  "retiredAt": "2026-09-05",
+  "retirementReport": "docs/security/railway-legacy-cleanup-2026-09-05.md",
+  "historicalConfiguration": {
+    "services": [
+      {
+        "name": "dockyard-risk-monitor",
+        "id": "17db5bcd-8cb2-4f80-aca6-10dad4102f6a",
+        "settings": {
+          "startCommand": "node services/risk-monitor/src/main.mjs",
+          "healthcheckPath": "/healthz",
+          "healthcheckTimeout": 300,
+          "restartPolicyType": "ALWAYS",
+          "numReplicas": 1,
+          "sleepApplication": false,
+          "overlapSeconds": 0,
+          "drainingSeconds": 20
+        }
+      },
+      {
+        "name": "dockyard-risk-watchdog",
+        "id": "7a490cc2-f7ff-4add-a047-9cc6045d62ee",
+        "settings": {
+          "startCommand": "node services/risk-monitor/src/watchdog.mjs",
+          "cronSchedule": "*/5 * * * *",
+          "restartPolicyType": "NEVER",
+          "healthcheckPath": null,
+          "numReplicas": 1,
+          "sleepApplication": false
+        }
+      }
+    ],
+    "backups": [
+      {
+        "name": "dockyard-risk-monitor",
+        "volumeInstanceId": "b3b6bdff-acfa-4a7b-a543-c979bf0a0248",
+        "kinds": [
+          "DAILY",
+          "WEEKLY"
+        ]
+      },
+      {
+        "name": "dockyard-risk-watchdog",
+        "volumeInstanceId": "3a5602e7-1b92-4596-80e4-57fae02d18c1",
+        "kinds": [
+          "DAILY",
+          "WEEKLY"
+        ]
+      },
+      {
+        "name": "dockyard-borrower-alerts",
+        "volumeInstanceId": "a5ea7bf8-5d05-40ef-aaf8-2649ce13248c",
+        "kinds": [
+          "DAILY",
+          "WEEKLY"
+        ]
+      }
+    ]
+  }
+}

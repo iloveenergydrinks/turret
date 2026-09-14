@@ -1,5 +1,5 @@
 import type { RiskLevel } from "@/src/types";
-import type { StatusMode } from "@liquity2/uikit";
+import type { StatusMode } from "@turret/uikit";
 import type { ReactNode } from "react";
 
 import { match } from "ts-pattern";

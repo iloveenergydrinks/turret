@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { Checkbox } from "@liquity2/uikit";
+import { Checkbox } from "@turret/uikit";
 import { useState } from "react";
 
 const options = ["Option 1", "Option 2", "Option 3"];

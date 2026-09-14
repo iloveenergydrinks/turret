@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { css, cx } from "@/styled-system/css";
-import { IconChevronDown, useElementSize } from "@liquity2/uikit";
+import { IconChevronDown, useElementSize } from "@turret/uikit";
 import { a, useSpring } from "@react-spring/web";
 import { useId, useRef, useState } from "react";
 

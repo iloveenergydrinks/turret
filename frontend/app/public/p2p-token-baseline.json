@@ -1,0 +1,428 @@
+{
+  "schemaVersion": 1,
+  "chainId": 4663,
+  "blockNumber": "61800053",
+  "blockHash": "0x9def68c34ed66f90e9c97271c5fad0670152d792d7c590c968723f92dc76bacb",
+  "capturedAt": "2026-09-13T08:03:15.075Z",
+  "qualification": "Observed transfer/code baseline; exact source and administrator assessment is incomplete. Not an external audit.",
+  "tokens": [
+    {
+      "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+      "runtimeHash": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6",
+      "implementationSlot": "0x00000000000000000000000068184c449e1a8f34fa18d289737129fd27b66f8f",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 6,
+      "checks": [
+        "paused",
+        "isFrozen"
+      ],
+      "implementation": {
+        "address": "0x68184c449e1a8f34fa18d289737129fd27b66f8f",
+        "runtimeHash": "0x3a551ac5c744af57e68a1d1431ac403c0f516ffd7d224a75746aee11fc4f3baf"
+      }
+    },
+    {
+      "address": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0xe93237C50D904957Cf27E7B1133b510C669c2e74",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x86923f96303D656E4aa86D9d42D1e57ad2023fdC",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "runtimeHash": "0x725781ccca82a0bf9b1f8920b2fe58ea1e4facf46d0db9f50226d6409de890fe",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0x39dBED3a2bd333467115dE45665cC57F813C4571",
+      "runtimeHash": "0x16c3d3ede897688ddff79262606f13bead398332e65001f192460fbac4e1fb85",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0x117cc2133c37B721F49dE2A7a74833232B3B4C0C",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0xD5f3879160bc7c32ebb4dC785F8a4F505888de68",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0xC9a981FEE1F9DEc688bb123ccDeCc63D0deBFC4e",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x6330D8C3178a418788dF01a47479c0ce7CCF450b",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x894E1EC2D74FFE5AEF8Dc8A9e84686acCB964F2A",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0xE0444EF8BF4eD74f74FD73686e2ddF4C1c5591E8",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0x56910D4409F3a0C78C64DD8D0545FF0705389870",
+      "runtimeHash": "0x4ee19c3a5cda0991509f65faa494c490942df5f19fc79659306a125c15b41d84",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0x5Cb6F181081301b44905F3ae15419112ecaBd8A6",
+      "runtimeHash": "0xc0d0d825734a0b6d070991217c8c0fb8530b574e839d2ff7685341fd9d707912",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0x45242320DBB855EeA8Fd36804C6487E10E97FCF9",
+      "runtimeHash": "0xf680430391b4ba785aa712118ba59d26166adc3fe06cce93e374bcf059438994",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0x7FE995a80075dF3Dc8Ae11A9b82c7FE4202CD87f",
+      "runtimeHash": "0xbf08fa830c9429045488472c534c0cb58162cd0fd0cab806721c28f18cdaed37",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0x232CDFc415D10b673845D83Dc02ba2eaBe7e30d1",
+      "runtimeHash": "0xb7f5c8446cb611847fae92b3d70256e9c1eddee4b08009c00e63ef47354e2731",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0xD7321801CAae694090694Ff55A9323139F043B88",
+      "runtimeHash": "0xba58e03f943d3f67997c9e4623880836b57a04fac6cdef039c8750b451be7ac0",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0x62C71cd34a52c30d894419CBcc55Db2aFA8032eA",
+      "runtimeHash": "0x2624f8a1bf1ef266a0cb9357adcb60e4bc6b1a9a5778c2fef2a8269c37e07730",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    },
+    {
+      "address": "0x05a3d1Cd21d0C88145E82600E62e7E496e0F222B",
+      "runtimeHash": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x000000000000000000000000e10b6f6b275de231345c20d14ab812db62151b00",
+      "decimals": 18,
+      "checks": [
+        "paused",
+        "tokenPaused"
+      ],
+      "beacon": {
+        "address": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+        "runtimeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e"
+      },
+      "implementation": {
+        "address": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+        "runtimeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7"
+      }
+    },
+    {
+      "address": "0xa26992C4268A8a78a4d872FE4BDAD2Ed03aC287d",
+      "runtimeHash": "0xfbc6bfe90f1eac2a647e9387d4f4a9b92503377a9dfe39695ddd50b4e9f90b2b",
+      "implementationSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "beaconSlot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "decimals": 18,
+      "checks": []
+    }
+  ]
+}

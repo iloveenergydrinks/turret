@@ -1,0 +1,104 @@
+.readiness {
+  margin: 0 0 24px;
+  padding: 18px 0;
+  border-top: 1px solid var(--rusd-line, #e7e5e4);
+  border-bottom: 1px solid var(--rusd-line, #e7e5e4);
+  color: var(--rusd-ink, #292524);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.readiness .heading {
+  margin: 0 0 12px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.readiness .checks {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.readiness .checks > div {
+  display: grid;
+  padding: 0;
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+}
+
+.readiness .checks dt {
+  max-width: none;
+  color: var(--rusd-muted, #57534e);
+  font-size: inherit;
+}
+
+.readiness .checks dd {
+  min-width: 0;
+  margin: 0;
+  font-size: inherit;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.balance, .address {
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.readiness a {
+  color: var(--rusd-ink, #292524);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.readiness a:hover {
+  color: #0c0a09;
+  text-decoration-thickness: 2px;
+}
+
+.help {
+  margin-top: 14px;
+}
+
+.help summary {
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 10px 0;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.help summary:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.readiness a:focus-visible, .help summary:focus-visible {
+  outline: 2px solid var(--rusd-ink, #292524);
+  outline-offset: 4px;
+}
+
+.readiness .instructions p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.readiness .instructions .note {
+  margin-bottom: 0;
+  color: var(--rusd-muted, #57534e);
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .readiness .checks > div {
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 8px;
+  }
+}

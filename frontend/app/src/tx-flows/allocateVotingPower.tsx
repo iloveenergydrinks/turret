@@ -16,7 +16,7 @@ import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionS
 import { getGovernanceGlobalData } from "@/src/subgraph";
 import { vVoteAllocations } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { IconDownvote, IconStake, IconUpvote } from "@liquity2/uikit";
+import { IconDownvote, IconStake, IconUpvote } from "@turret/uikit";
 import * as dn from "dnum";
 import * as v from "valibot";
 import { createRequestSchema, verifyTransaction } from "./shared";

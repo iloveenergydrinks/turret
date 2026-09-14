@@ -1,6 +1,6 @@
 "use client";
 
-import { Radio, RadioGroup } from "@liquity2/uikit";
+import { Radio, RadioGroup } from "@turret/uikit";
 import { useState } from "react";
 import type { ReactNode } from "react";
 

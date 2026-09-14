@@ -1,0 +1,1 @@
+{"name":"dockyard-risk-monitor","version":"1.0.0","private":true,"type":"module","engines":{"node":">=24"},"scripts":{"start":"node src/main.mjs","test":"node --test test/*.test.mjs","test:stock-integration":"node --test test/stock-services.integration.mjs","test:stock-browser-integration":"node --test test/stock-browser.integration.mjs"}}

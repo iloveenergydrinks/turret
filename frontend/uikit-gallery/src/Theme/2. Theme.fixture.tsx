@@ -1,6 +1,6 @@
 "use client";
 
-import { colors, lightTheme } from "@liquity2/uikit";
+import { colors, lightTheme } from "@turret/uikit";
 import { ColorGroup } from "./shared";
 
 export default function ThemeFixture() {

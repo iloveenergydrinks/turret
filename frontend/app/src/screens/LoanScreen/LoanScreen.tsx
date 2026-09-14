@@ -25,7 +25,7 @@ import { addPrefixedTroveIdsToStoredState, useStoredState } from "@/src/services
 import { isPrefixedtroveId } from "@/src/types";
 import { useAccount } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { addressesEqual, IconExternal, InfoTooltip, Tabs, TokenIcon } from "@liquity2/uikit";
+import { addressesEqual, IconExternal, InfoTooltip, Tabs, TokenIcon } from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import * as dn from "dnum";
 import { notFound, useRouter, useSearchParams, useSelectedLayoutSegment } from "next/navigation";

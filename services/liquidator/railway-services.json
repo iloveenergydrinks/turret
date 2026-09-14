@@ -1,0 +1,57 @@
+{
+  "projectId": "edf06c48-4331-4fd1-bf0c-04619089a315",
+  "environmentId": "724dcf3f-d5c3-4507-97ee-8d78ce752e11",
+  "backups": [],
+  "services": [],
+  "status": "retired",
+  "retiredAt": "2026-09-05",
+  "retirementReport": "docs/security/railway-legacy-cleanup-2026-09-05.md",
+  "historicalConfiguration": {
+    "services": [
+      {
+        "name": "dockyard-keeper",
+        "id": "1721f2b2-6b8f-490d-a6c5-10a0513d7674",
+        "settings": {
+          "startCommand": "node src/main.mjs",
+          "healthcheckPath": "/healthz",
+          "healthcheckTimeout": 300,
+          "restartPolicyType": "ALWAYS",
+          "numReplicas": 1,
+          "sleepApplication": false,
+          "overlapSeconds": 0,
+          "drainingSeconds": 20
+        }
+      },
+      {
+        "name": "dockyard-keeper-watchdog",
+        "id": "625b8688-ea7b-4757-9de0-651eafcd5a78",
+        "settings": {
+          "startCommand": "node src/watchdog.mjs",
+          "cronSchedule": "*/5 * * * *",
+          "restartPolicyType": "NEVER",
+          "healthcheckPath": null,
+          "numReplicas": 1,
+          "sleepApplication": false
+        }
+      }
+    ],
+    "backups": [
+      {
+        "name": "dockyard-keeper",
+        "volumeInstanceId": "6756a503-7b7f-4e82-b34b-dd60c220e514",
+        "kinds": [
+          "DAILY",
+          "WEEKLY"
+        ]
+      },
+      {
+        "name": "dockyard-keeper-watchdog",
+        "volumeInstanceId": "c2cb8a1a-8606-47d7-9ede-fb5886345fbd",
+        "kinds": [
+          "DAILY",
+          "WEEKLY"
+        ]
+      }
+    ]
+  }
+}

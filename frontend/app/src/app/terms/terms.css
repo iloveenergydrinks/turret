@@ -1,0 +1,47 @@
+.turret-terms {
+  flex: 1;
+  padding-top: 56px;
+  padding-bottom: 72px;
+}
+
+.turret-terms article {
+  max-width: 70ch;
+  margin-inline: auto;
+  color: var(--rusd-ink);
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.turret-terms h1 {
+  font-family: "Libre Caslon Text", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(32px, 6vw, 48px);
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+
+.turret-terms h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 36px 0 12px;
+}
+
+.turret-terms p {
+  margin: 0 0 16px;
+}
+
+.turret-terms-date {
+  color: var(--rusd-muted);
+  font-size: 14px;
+}
+
+.turret-terms a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.turret-terms a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}

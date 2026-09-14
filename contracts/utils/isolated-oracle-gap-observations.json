@@ -1,0 +1,103 @@
+{
+  "chainId": 4663,
+  "blockNumber": 52855086,
+  "suite": "DockyardIsolatedOracleGapForkTest",
+  "passed": 6,
+  "failed": 0,
+  "skipped": 0,
+  "productionTransactions": 0,
+  "admission": "not-approved",
+  "configuration": {
+    "twapWindowSeconds": 1800,
+    "maxObservationAgeSeconds": 600,
+    "maxSpotTickDeviation": 200,
+    "oracleDeviationBps": 500,
+    "startingBorrowLtvBps": 4000,
+    "maxBorrowLtvBps": 5000,
+    "liquidationLtvBps": 6500,
+    "liquidationBonusBps": 500,
+    "borrowAprBps": 1000,
+    "sampleIntervalSeconds": 60,
+    "observationRefreshIntervalSeconds": 300,
+    "secondGapAtSeconds": 900
+  },
+  "pricing": {
+    "primary": "Actual two-hop V3 TWAP adapter and pool observations",
+    "secondary": "Test-controlled instantaneous spot price, not an independent production source",
+    "counterfactual": "Snapshot-isolated immediate liquidation with only the TWAP response mocked to the correct post-gap spot; full state and mock restored before delay measurement"
+  },
+  "singleGap": [
+    {
+      "token": "CASHCAT",
+      "postGapPriceBpsOfInitial": 5106,
+      "priceAtQuoteBpsOfInitial": 5095,
+      "firstExecutableQuoteSeconds": 1800,
+      "blockedSamplesAfterInitialGap": 29,
+      "principalUsdg6": "94762165",
+      "repaidUsdg6": "94762705",
+      "exitUsdg6": "98490500",
+      "recognizedLossUsdg6": "0",
+      "counterfactualImmediateLossUsdg6": "0"
+    },
+    {
+      "token": "PONS",
+      "postGapPriceBpsOfInitial": 5083,
+      "priceAtQuoteBpsOfInitial": 5071,
+      "firstExecutableQuoteSeconds": 1800,
+      "blockedSamplesAfterInitialGap": 29,
+      "principalUsdg6": "94763250",
+      "repaidUsdg6": "94763790",
+      "exitUsdg6": "98489742",
+      "recognizedLossUsdg6": "0",
+      "counterfactualImmediateLossUsdg6": "0"
+    }
+  ],
+  "secondGapDuringDelay": [
+    {
+      "token": "CASHCAT",
+      "postFirstGapPriceBpsOfInitial": 5106,
+      "priceAtQuoteBpsOfInitial": 2240,
+      "firstExecutableQuoteSeconds": 2700,
+      "blockedSamplesAfterInitialGap": 44,
+      "principalUsdg6": "94762165",
+      "repaidUsdg6": "50551635",
+      "exitUsdg6": "52539858",
+      "recognizedLossUsdg6": "44211341",
+      "counterfactualImmediateLossUsdg6": "0"
+    },
+    {
+      "token": "PONS",
+      "postFirstGapPriceBpsOfInitial": 5083,
+      "priceAtQuoteBpsOfInitial": 2391,
+      "firstExecutableQuoteSeconds": 2700,
+      "blockedSamplesAfterInitialGap": 44,
+      "principalUsdg6": "94763250",
+      "repaidUsdg6": "53966913",
+      "exitUsdg6": "56089137",
+      "recognizedLossUsdg6": "40797148",
+      "counterfactualImmediateLossUsdg6": "0"
+    }
+  ],
+  "inactiveMarket": {
+    "tokens": ["CASHCAT", "PONS"],
+    "stillBlockedAfterSeconds": 3601,
+    "observationWritesAfterGap": 0,
+    "oracleUnavailable": true,
+    "lenderMaxWithdrawAndMaxRedeem": "0 while debt remains and pricing is unavailable",
+    "borrowerFullRepaymentAndCollateralRecovery": true,
+    "lenderWithdrawalAfterRepayment": true,
+    "cashcatRepaymentUsdg6": "94763247",
+    "ponsRepaymentUsdg6": "94764332",
+    "lenderRecoveryUsdg6InEachScenario": "1914152832"
+  },
+  "limitations": [
+    "Passing assertions demonstrate the delay and loss behavior; they do not approve these parameters",
+    "One pinned block, one borrower and roughly 95 USDG principal per scenario",
+    "A responsive secondary is modeled, not sourced independently; both inputs ultimately depend on the same DEX",
+    "First executable quote is measured on a 60-second grid, not exact earliest inclusion time",
+    "Synthetic whale inventory moves prices via real swaps; trade costs are not a net attack-cost model",
+    "Periodic real trades refresh observation writes and slightly move both pools; no arbitrage is modeled",
+    "No sequencer outage, MEV, adverse keeper latency, full L2 fee calculation or larger/concurrent liquidation stress",
+    "Without new pool writes, the test proves blockage at 3601 seconds, not a finite recovery bound"
+  ]
+}

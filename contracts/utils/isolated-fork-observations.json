@@ -1,0 +1,38 @@
+{
+  "chainId": 4663,
+  "blockNumber": 52855086,
+  "suite": "DockyardIsolatedMarketsForkTest",
+  "result": { "passed": 6, "failed": 0, "skipped": 0 },
+  "productionTransactions": 0,
+  "usdgDecimals": 6,
+  "method": "Local engine, lender pool and atomic exit executor against pinned real token and DEX code. Acquire collateral and USDG through WETH swaps. Synthetic whale inventory is sold through real pools to simulate crashes. Both oracle mocks use test-controlled pool spot prices. Each liquidation first verifies full rollback with an unacceptable profit floor, then executes atomic repayment and two-hop sale.",
+  "routes": {
+    "cashcatWeth": "0xA70fc67C9F69da90B63a0e4C05D229954574E313",
+    "ponsWeth": "0x10CC6BD38112cAc182db90B6a71d8Bb5939526bA",
+    "wethUsdg": "0x52e65B17fB6E5BA00Ed806f37Afcd2DaA50271Ca"
+  },
+  "liquidations": [
+    { "token": "CASHCAT", "scenario": "solvent", "priceFractionBps": 5106, "principal": "94762165", "liquidatorPaid": "94762165", "exitUsdg": "98489872", "grossMarginBeforeGas": "3727707", "poolLoss": "0", "harnessGas": 513726 },
+    { "token": "CASHCAT", "scenario": "insolvent", "priceFractionBps": 2358, "principal": "94762165", "liquidatorPaid": "53217964", "exitUsdg": "55311372", "grossMarginBeforeGas": "2093408", "poolLoss": "41544201", "harnessGas": 541939 },
+    { "token": "PONS", "scenario": "solvent", "priceFractionBps": 5083, "principal": "94763250", "liquidatorPaid": "94763250", "exitUsdg": "98489440", "grossMarginBeforeGas": "3726190", "poolLoss": "0", "harnessGas": 514731 },
+    { "token": "PONS", "scenario": "insolvent", "priceFractionBps": 2448, "principal": "94763250", "liquidatorPaid": "55238952", "exitUsdg": "57411235", "grossMarginBeforeGas": "2172283", "poolLoss": "39524298", "harnessGas": 541763 }
+  ],
+  "lifecycles": [
+    { "token": "CASHCAT", "borrowed": "94762165", "repaidAfterTwoDays": "94814089", "lenderRecovered": "1914198590" },
+    { "token": "PONS", "borrowed": "94763250", "repaidAfterTwoDays": "94815175", "lenderRecovered": "1914198591" }
+  ],
+  "lifecycleAssertions": [
+    "Full repayment and collateral recovery while new risk is paused and both mock feeds revert",
+    "Lender redeems capital and net interest after full repayment",
+    "No remaining engine collateral, debt, interest or approval residue"
+  ],
+  "limitations": [
+    "One pinned block and approximately 95 USDG loans; no production parameter approval",
+    "Mock spot-price inputs do not validate production oracle independence or manipulation resistance",
+    "Whale inventory is synthetic, not a claim about actual holder distribution",
+    "Gross margins include swap fees but exclude gas, MEV and full transaction/L1 data fees",
+    "Harness gas follows a reverted trial and is not a cold standalone transaction estimate",
+    "One selected two-hop route; no failed-route or multi-position stress coverage",
+    "Passing insolvency tests means losses are recognized, not that lenders avoid loss"
+  ]
+}

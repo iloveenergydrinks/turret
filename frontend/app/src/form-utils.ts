@@ -1,6 +1,6 @@
 import type { Dnum } from "dnum";
 
-import { ADDRESS_ZERO, isAddress } from "@liquity2/uikit";
+import { ADDRESS_ZERO, isAddress } from "@turret/uikit";
 import * as dn from "dnum";
 import { useCallback, useMemo, useRef, useState } from "react";
 

@@ -1,0 +1,110 @@
+/* Shared action roles across Borrow, Earn, P2P and Portfolio. */
+:root {
+  --turret-control-radius: 10px;
+  --turret-field-radius: 10px;
+  --turret-control-height: 48px;
+  --turret-control-height-compact: 44px;
+  --turret-control-border: #d6d3d1;
+}
+:root body :is(.rusd-action, .rusd-primary-button, .dockyard-primary-action, .dockyard-secondary-action,
+  .dockyard-account-button, .dockyard-wallet-button, .p2p-button, .portfolio-button, .portfolio-row-link,
+  .wallet-profile-save, .wallet-profile-choices button, .wallet-profile-upload,
+  button.rusd-text-link[aria-haspopup="dialog"], .dockyard-earn-index .dockyard-isolated-market-list a) {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--turret-control-height);
+  padding: 11px 18px;
+  border-radius: var(--turret-control-radius);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+:root body .dockyard-wallet-button {
+  min-height: var(--turret-control-height-compact);
+  padding: 9px 14px;
+}
+:root body :is(.rusd-action, .rusd-primary-button, .dockyard-primary-action, .p2p-button:not(.p2p-secondary),
+  .portfolio-button, .wallet-profile-save, button.rusd-text-link[aria-haspopup="dialog"]) {
+  color: #fff;
+  background: #292524;
+  border: 1px solid #292524;
+}
+:root body :is(.dockyard-secondary-action, .p2p-secondary, .portfolio-row-link) {
+  color: #292524;
+  background: #f2f1ee;
+  border: 1px solid var(--turret-control-border);
+}
+:root body :is(.rusd-action, .rusd-primary-button, .dockyard-primary-action, .p2p-button:not(.p2p-secondary),
+  .portfolio-button, .wallet-profile-save, button.rusd-text-link[aria-haspopup="dialog"]):hover:not(:disabled) {
+  background: #44403c;
+  border-color: #44403c;
+  color: #fff;
+  transform: none;
+}
+:root body :is(.dockyard-secondary-action, .p2p-secondary, .portfolio-row-link, .dockyard-wallet-button):hover:not(:disabled) {
+  background: #e7e5e4;
+  color: #292524;
+}
+:root body :is(.rusd-action, .rusd-primary-button, .dockyard-primary-action, .dockyard-secondary-action,
+  .dockyard-wallet-button, .p2p-button, .portfolio-button, .portfolio-row-link,
+  .wallet-profile-save, button.rusd-text-link[aria-haspopup="dialog"]):focus-visible {
+  outline: 2px solid #292524;
+  outline-offset: 3px;
+}
+:root body :is(.rusd-primary-button, .dockyard-primary-action, .dockyard-secondary-action,
+  .dockyard-wallet-button, .p2p-button, .portfolio-button, .wallet-profile-save,
+  button.rusd-text-link[aria-haspopup="dialog"]):disabled {
+  background: #f2f1ee;
+  border-color: #e7e5e4;
+  color: #68635d;
+  cursor: not-allowed;
+  opacity: 1;
+}
+:root body :is(.p2p-tabs button, .nft-tabs button, .portfolio-tabs button, .p2p-duration-presets button, .p2p-personal-tabs button) {
+  border-radius: var(--turret-field-radius);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root body :is(.rusd-action, .rusd-primary-button, .dockyard-primary-action, .dockyard-secondary-action,
+    .dockyard-wallet-button, .p2p-button, .portfolio-button, .portfolio-row-link, .wallet-profile-save,
+    button.rusd-text-link[aria-haspopup="dialog"]) { transition: none; }
+}
+
+/* Text actions keep a compact hit area in ready, busy and disabled states. */
+:root body :is(.p2p-reset, .p2p-price-refresh, .portfolio-text-button, .portfolio-inline-button) {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  height: fit-content;
+  min-height: var(--turret-control-height-compact);
+  align-self: center;
+  justify-self: start;
+  padding: 10px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  line-height: 1.4;
+  text-underline-offset: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+:root body :is(.p2p-reset, .p2p-price-refresh, .portfolio-text-button, .portfolio-inline-button):is(:hover, :active):not(:disabled) {
+  background: transparent;
+  color: var(--rusd-ink, #292524);
+  text-decoration-thickness: 2px;
+}
+:root body :is(.p2p-reset, .p2p-price-refresh, .portfolio-text-button, .portfolio-inline-button):focus-visible {
+  outline: 2px solid var(--rusd-ink, #292524);
+  outline-offset: 2px;
+}
+:root body :is(.p2p-reset, .p2p-price-refresh, .portfolio-text-button, .portfolio-inline-button):disabled {
+  background: transparent;
+  color: #68635d;
+  cursor: not-allowed;
+}
+:root body .p2p-refresh[aria-busy="true"] { cursor: progress; }

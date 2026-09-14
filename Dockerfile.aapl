@@ -1,0 +1,9 @@
+FROM node:24-bookworm-slim
+WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@8.15.8 --activate
+COPY services/liquidator/package.json services/liquidator/pnpm-lock.yaml ./services/liquidator/
+RUN cd services/liquidator && pnpm install --prod --frozen-lockfile
+COPY services/liquidator/src ./services/liquidator/src
+ENV NODE_ENV=production PORT=8080 KEEPER_DATA_DIR=/data
+EXPOSE 8080
+CMD ["node", "services/liquidator/src/isolated/main.mjs"]

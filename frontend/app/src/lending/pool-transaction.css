@@ -1,0 +1,38 @@
+.turret-pool-receipt { padding: 8px 0; color: #292524; }
+.turret-pool-receipt-icon { color: #356349; margin-bottom: 18px; }
+.turret-pool-receipt h2 { font-size: clamp(26px, 3vw, 34px); line-height: 1.2; margin: 0 0 10px; }
+.turret-pool-receipt h2:focus { outline: none; }
+.turret-pool-receipt p { margin: 0 0 24px; color: #57534e; line-height: 1.5; }
+.turret-pool-receipt-balances { display: grid; gap: 14px; padding: 20px 0; margin: 0 0 20px; border-top: 1px solid #e7e5e4; }
+.turret-pool-receipt-balances > div { display: flex; justify-content: space-between; gap: 16px; }
+.turret-pool-receipt-balances dt { color: #57534e; }
+.turret-pool-receipt-balances dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; text-align: right; }
+.turret-pool-receipt-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+.turret-pool-receipt-actions a { color: #292524; text-underline-offset: 3px; }
+.turret-earn-wallet, .turret-earn-details { margin-top: 20px; font-size: 14px; line-height: 1.5; color: #57534e; }
+.turret-earn-wallet summary, .turret-earn-details summary { cursor: pointer; color: #292524; padding: 8px 0; }
+.turret-earn-details p { margin: 10px 0; }
+.turret-earn-actions { display: flex; gap: 8px; margin-bottom: 24px; }
+.turret-earn-actions button { flex: 1; min-height: 44px; border: 1px solid #d6d3d1; border-radius: 10px; background: #fff; color: #292524; font: inherit; cursor: pointer; }
+.turret-earn-actions button[aria-pressed="true"] { background: #292524; color: #fff; border-color: #292524; }
+.turret-earn-advanced { margin: 0 0 16px; color: #57534e; font-size: 14px; }
+.turret-earn-advanced summary { cursor: pointer; padding: 8px 0; }
+.turret-earn-advanced label { margin-top: 10px; }
+.turret-earn-actions button:focus-visible, .turret-pool-receipt-actions a:focus-visible { outline: 2px solid #292524; outline-offset: 3px; }
+.turret-earn-actions button:disabled { opacity: .55; cursor: default; }
+@media (max-width: 600px) { .turret-pool-receipt-balances > div { flex-wrap: wrap; gap: 4px 12px; } .turret-pool-receipt-actions > button { width: 100%; } }
+
+.turret-pool-task { display: flex; flex-direction: column; gap: 20px; }
+.turret-pool-task[hidden] { display: none; }
+
+.turret-earn-rate { margin: -6px 0 14px; color: #57534e; font-size: 14px; line-height: 1.5; }
+.turret-earn-rate strong { color: #292524; margin-left: 8px; }
+.turret-pool-activity > summary { cursor: pointer; font-size: 16px; color: #292524; padding: 8px 0; }
+
+.dockyard-market-page .turret-pool-task .turret-earn-actions,
+.dockyard-market-page .turret-pool-task .turret-earn-rate,
+.dockyard-market-page .turret-pool-task .turret-earn-advanced { margin: 0; }
+.dockyard-market-page .turret-pool-task fieldset { gap: 16px; }
+
+.dockyard-market-page > .turret-pool-activity { margin-block: 24px; }
+.dockyard-market-page > .turret-pool-activity + .dockyard-isolated-identity { margin-top: 0; }

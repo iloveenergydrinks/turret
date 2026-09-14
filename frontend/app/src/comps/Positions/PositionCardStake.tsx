@@ -4,7 +4,7 @@ import { Amount } from "@/src/comps/Amount/Amount";
 import { fmtnum } from "@/src/formatting";
 import { useVotingPower } from "@/src/liquity-governance";
 import { css } from "@/styled-system/css";
-import { HFlex, IconStake, TokenIcon } from "@liquity2/uikit";
+import { HFlex, IconStake, TokenIcon } from "@turret/uikit";
 import { useRef } from "react";
 import { PositionCard } from "./PositionCard";
 import { CardRow, CardRows } from "./shared";

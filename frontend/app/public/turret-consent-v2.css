@@ -1,0 +1,46 @@
+@font-face{font-family:"Libre Caslon Text";font-style:normal;font-weight:400;font-display:swap;src:url("/fonts/turret-editorial/caslon-regular.woff2") format("woff2")}
+.turret-cookie-settings{font:inherit;color:inherit;background:transparent;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.turret-cookie-settings:hover{opacity:.75}
+.turret-legal{margin:0;background:#fafaf9;color:#292524;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px;line-height:1.75}
+.turret-legal *{box-sizing:border-box}
+.turret-legal a{color:inherit;text-underline-offset:3px}
+.turret-legal header{border-bottom:1px solid #e7e5e4;padding:20px max(24px,calc((100vw - 1160px)/2));display:flex;align-items:center;justify-content:space-between;gap:24px}
+.turret-legal-brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:"Libre Caslon Text",Georgia,serif;font-size:27px}
+.turret-legal-brand img{width:40px;height:40px}
+.turret-legal main{max-width:74ch;margin:64px auto 80px;padding:0 24px}
+.turret-legal h1,.turret-legal h2{font-family:"Libre Caslon Text",Georgia,serif;font-weight:400;line-height:1.25;text-wrap:balance}
+.turret-legal h1{font-size:clamp(36px,5vw,48px);margin:0 0 16px}
+.turret-legal h2{font-size:25px;margin:40px 0 14px}
+.turret-legal p{margin:0 0 18px}.turret-legal .updated{color:#57534e;font-size:14px;margin-bottom:28px}
+.turret-legal-footer{border-top:1px solid #e7e5e4;padding:24px;display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:wrap;font-size:14px}
+.turret-legal-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}
+.turret-legal-actions button{font:inherit;background:#292524;color:#fafaf9;border:1px solid #292524;border-radius:8px;padding:10px 18px;cursor:pointer}
+.turret-legal-actions button:focus-visible{outline:2px solid #292524;outline-offset:3px}
+.turret-legal-actions button:hover{background:#44403c}
+.turret-legal dl{margin:24px 0}.turret-legal dt{font-weight:600;margin-top:20px}.turret-legal dd{margin:4px 0 0}
+@media(max-width:600px){.turret-legal main{margin-top:36px}.turret-legal header{padding:16px 20px}}
+
+/* Cookiebot remains the consent backend; its dialog is replaced only after our UI is ready. */
+.turret-consent-ready #CybotCookiebotDialog,.turret-consent-ready #CybotCookiebotDialogBodyUnderlay,.turret-consent-ready #CookiebotWidget{display:none!important}
+#turret-consent{position:fixed;z-index:2147483646;left:24px;bottom:24px;width:420px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);overflow:auto;margin:0;padding:20px;background:#fafaf9;color:#292524;border-radius:12px;box-shadow:0 6px 32px #29252429;font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-align:left;color-scheme:light}
+#turret-consent,#turret-consent *{box-sizing:border-box}
+#turret-consent [hidden],#turret-consent[hidden]{display:none!important}
+#turret-consent .tc-heading{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+#turret-consent .tc-heading img{width:28px;height:28px;flex:none;object-fit:contain}
+#turret-consent h2{font:400 22px/1.3 "Libre Caslon Text",Georgia,serif;letter-spacing:-.02em;margin:0;color:#292524}
+#turret-consent .tc-intro{font:inherit;color:#57534e;margin:0 0 16px}
+#turret-consent a{color:#292524;text-decoration:underline;text-underline-offset:3px}
+#turret-consent button{min-height:44px;cursor:pointer;padding:9px 12px;border:1px solid #292524;border-radius:6px;background:#292524;color:#fafaf9;font:600 13px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;white-space:nowrap;text-align:center}
+#turret-consent button:hover{background:#44403c}
+#turret-consent .tc-text{background:transparent;color:#292524;border-color:transparent;text-decoration:underline;text-underline-offset:3px}
+#turret-consent .tc-text:hover{background:#f2f1ee}
+#turret-consent button:focus-visible,#turret-consent a:focus-visible,#turret-consent input:focus-visible{outline:2px solid #292524;outline-offset:3px}
+#turret-consent .tc-actions{display:grid;grid-template-columns:1fr 1fr auto;gap:8px}
+#turret-consent .tc-details{border-top:1px solid #e7e5e4;margin:0 0 12px;padding-top:12px}
+#turret-consent .tc-necessary{display:flex;justify-content:space-between;margin:0 0 8px;font-size:13px;color:#57534e}
+#turret-consent .tc-details label{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0;cursor:pointer;font-weight:600}
+#turret-consent small{display:block;font-size:12px;line-height:1.5;color:#57534e;font-weight:400}
+#turret-consent input{appearance:auto;width:20px;height:20px;min-width:20px;margin:0;accent-color:#292524;cursor:pointer}
+#turret-consent .tc-save{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#turret-consent .tc-error{font-size:13px;color:#8c241c;margin:12px 0 0}
+@media(max-width:480px){#turret-consent{left:12px;bottom:max(12px,env(safe-area-inset-bottom));right:12px;width:auto;max-width:none;padding:16px;max-height:calc(100dvh - 24px)}#turret-consent .tc-actions{gap:6px}#turret-consent button{padding:9px 8px;font-size:13px}}

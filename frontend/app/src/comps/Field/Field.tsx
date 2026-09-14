@@ -11,7 +11,7 @@ import { fmtnum } from "@/src/formatting";
 import { formatLiquidationRisk, formatRedemptionRisk } from "@/src/formatting";
 import { infoTooltipProps, riskLevelToStatusMode } from "@/src/uikit-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, InfoTooltip, StatusDot } from "@liquity2/uikit";
+import { HFlex, InfoTooltip, StatusDot } from "@turret/uikit";
 import * as dn from "dnum";
 import { memo } from "react";
 

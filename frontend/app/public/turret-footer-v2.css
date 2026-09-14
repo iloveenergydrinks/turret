@@ -1,0 +1,36 @@
+/* Shared footer for the exported app and independent lending bundles. */
+.rusd-footer.turret-footer {
+  --footer-ink: #292524;
+  --footer-muted: #57534e;
+  --footer-line: #e7e5e4;
+  padding: 0 0 32px;
+  color: var(--footer-muted);
+}
+.turret-footer .rusd-footer-inner {
+  display: grid;
+  grid-template-columns: minmax(240px, 1.2fr) minmax(320px, 1fr);
+  align-items: start;
+  gap: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--footer-line);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.turret-footer-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-width: 0; }
+.turret-footer-description { display: block; max-width: 320px; margin: 0; font-size: 13px; line-height: 1.6; font-weight: 400; }
+.turret-footer-contact { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.turret-footer .rusd-footer-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 32px; min-width: 0; }
+.turret-footer-group { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.turret-footer-group h2 { margin: 0 0 8px; font: 600 13px/1.6 ui-sans-serif, system-ui, sans-serif; letter-spacing: normal; color: var(--footer-ink); }
+.turret-footer :is(.rusd-text-link, .turret-cookie-settings) { display: inline-flex; align-items: center; min-height: 36px; max-width: 100%; padding: 4px 0; color: var(--footer-muted); background: transparent; border: 0; border-radius: 0; font: inherit; font-weight: 400; text-align: left; text-decoration: none; white-space: normal; overflow-wrap: anywhere; cursor: pointer; }
+.turret-footer :is(a, button):hover { color: var(--footer-ink); text-decoration: underline; text-underline-offset: 4px; }
+.turret-footer :is(a, button):focus-visible { outline: 2px solid var(--footer-ink); outline-offset: 4px; border-radius: 2px; }
+.turret-footer-contact a[href*="x.com/"] { display: inline-flex; align-items: center; justify-content: center; width: 36px; min-height: 36px; color: var(--footer-ink); flex: 0 0 auto; }
+.turret-footer .turret-technology { width: auto; max-width: 100%; margin: 8px 0 0; padding: 0; text-align: left; }
+.turret-footer .turret-technology > p { font-size: 12px; color: var(--footer-muted); margin: 0 0 4px; }
+.turret-footer .turret-technology-logos { justify-content: flex-start; gap: 8px 24px; }
+@media (max-width: 760px) {
+  .turret-footer .rusd-footer-inner { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 24px; }
+  .turret-footer .rusd-footer-links { gap: 24px; }
+  .turret-footer :is(.rusd-text-link, .turret-cookie-settings), .turret-footer-contact a[href*="x.com/"] { min-height: 44px; }
+}

@@ -9,13 +9,13 @@ import { TotalDebt } from "@/src/screens/TransactionsScreen/LoanCard/components/
 import { CollateralCell } from "@/src/screens/TransactionsScreen/LoanCard/components/OpenLoan/components/CollateralCell";
 import { riskLevelToStatusMode } from "@/src/uikit-utils.tsx";
 import { css } from "@/styled-system/css";
-import { HFlex, StatusDot } from "@liquity2/uikit";
+import { HFlex, StatusDot } from "@turret/uikit";
 import * as dn from "dnum";
 import { useMemo } from "react";
 import { NetValue } from "./components/NetValue";
 
 import type { LoanDetails, PositionLoan, PositionLoanCommitted } from "@/src/types";
-import type { CollateralToken } from "@liquity2/uikit";
+import type { CollateralToken } from "@turret/uikit";
 import type { FC } from "react";
 
 interface OpenLoanProps {

@@ -13,7 +13,7 @@ import { getBranch, getCollToken } from "@/src/liquity-utils";
 import { usePrice } from "@/src/services/Prices";
 import { useAccount, useBalance } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { addressesEqual, BOLD, Dropdown, TokenIcon, VFlex } from "@liquity2/uikit";
+import { addressesEqual, BOLD, Dropdown, TokenIcon, VFlex } from "@turret/uikit";
 import * as dn from "dnum";
 import { useState } from "react";
 

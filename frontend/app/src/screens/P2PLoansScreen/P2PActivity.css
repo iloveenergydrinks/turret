@@ -1,0 +1,18 @@
+.p2p-activity { display: grid; gap: 16px; min-width: 0; }
+.p2p-activity-heading, .p2p-activity-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.p2p-activity-heading h2, .p2p-activity-row h3 { margin: 0 0 6px; }
+.p2p-activity-heading p, .p2p-activity-row p { margin: 4px 0; }
+.p2p-activity-controls label { display: grid; gap: 6px; min-width: 220px; }
+.p2p-activity-controls select { min-height: 48px; }
+.p2p-activity-list { display: grid; gap: 12px; }
+.p2p-activity-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 20px; padding: 18px; border: 1px solid var(--p2p-line, #d5d7dc); border-radius: 12px; }
+.p2p-activity-row h3 { font-size: 16px; }
+.p2p-activity-row time, .p2p-activity-row p { font-size: 14px; }
+.p2p-activity-row details { grid-column: 1 / -1; min-width: 0; }
+.p2p-activity-row summary { cursor: pointer; min-height: 32px; }
+.p2p-activity-row dl { display: grid; gap: 8px; margin: 12px 0 0; }
+.p2p-activity-row dd { margin: 4px 0 0; overflow-wrap: anywhere; }
+.p2p-activity-row dt { font-size: 12px; }
+.p2p-activity-amount { display: grid; align-content: start; gap: 6px; text-align: right; overflow-wrap: anywhere; }
+.p2p-activity-amount span { font-size: 12px; }
+@media (max-width: 540px) { .p2p-activity-row { grid-template-columns: minmax(0, 1fr); } .p2p-activity-amount { text-align: left; } }

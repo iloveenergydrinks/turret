@@ -7,7 +7,7 @@ import { useStoredState } from "@/src/services/StoredState";
 import { useTransactionFlow } from "@/src/services/TransactionFlow";
 import { useAccount } from "@/src/wagmi-utils";
 import { css, cx } from "@/styled-system/css";
-import { Dropdown, IconChevronDown, TextButton } from "@liquity2/uikit";
+import { Dropdown, IconChevronDown, TextButton } from "@turret/uikit";
 import { match } from "ts-pattern";
 
 export function TransactionStatus(

@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs } from "@liquity2/uikit";
+import { Tabs } from "@turret/uikit";
 import { useEffect, useState } from "react";
 import { useFixtureSelect } from "react-cosmos/client";
 

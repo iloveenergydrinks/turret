@@ -11,7 +11,7 @@ import { usePrice } from "@/src/services/Prices";
 import { URGENT_REDEMPTION_BONUS_PCT } from "@/src/urgent-redemption-utils";
 import { vDnum } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, InfoTooltip, TokenIcon, VFlex } from "@liquity2/uikit";
+import { HFlex, InfoTooltip, TokenIcon, VFlex } from "@turret/uikit";
 import * as dn from "dnum";
 import * as v from "valibot";
 import { maxUint256 } from "viem";

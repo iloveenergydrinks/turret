@@ -1,6 +1,6 @@
 "use client";
 
-import { Slider } from "@liquity2/uikit";
+import { Slider } from "@turret/uikit";
 import { useState } from "react";
 
 const CHART_TMP = Array.from({ length: 50 }, () => (

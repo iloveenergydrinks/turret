@@ -11,7 +11,7 @@ import { getBranch, getCollToken, useEarnPool, useEarnPosition } from "@/src/liq
 import { useWait } from "@/src/react-utils";
 import { useAccount } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, IconEarn, isCollateralSymbol, Tabs } from "@liquity2/uikit";
+import { HFlex, IconEarn, isCollateralSymbol, Tabs } from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import { useParams, useRouter } from "next/navigation";
 import { match } from "ts-pattern";

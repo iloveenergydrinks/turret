@@ -1,6 +1,6 @@
 "use client";
 
-import { IconInfo, TextButton, Tooltip } from "@liquity2/uikit";
+import { IconInfo, TextButton, Tooltip } from "@turret/uikit";
 
 export default function TooltipFixture() {
   return (

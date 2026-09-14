@@ -6,7 +6,7 @@ import { fmtnum, formatDuration, formatRedemptionRisk } from "@/src/formatting";
 import { useRedemptionRiskOfInterestRate } from "@/src/liquity-utils";
 import { riskLevelToStatusMode } from "@/src/uikit-utils";
 import { css } from "@/styled-system/css";
-import { Button, IconCopy, IconExternal, StatusDot, TextButton } from "@liquity2/uikit";
+import { Button, IconCopy, IconExternal, StatusDot, TextButton } from "@turret/uikit";
 import { MiniChart } from "./MiniChart";
 import { ShadowBox } from "./ShadowBox";
 

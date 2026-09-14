@@ -15,7 +15,7 @@ import {
   vEnvUrlOrDefault,
   vIcStrategy,
 } from "@/src/valibot-utils";
-import { isAddress } from "@liquity2/uikit";
+import { isAddress } from "@turret/uikit";
 import * as v from "valibot";
 
 function isIcStrategyList(value: unknown): value is IcStrategy[] {

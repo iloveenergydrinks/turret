@@ -1,0 +1,138 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {readFileSync,mkdtempSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {backup} from 'node:sqlite';
+import {createServer} from 'node:net';
+import {createServer as httpServer} from 'node:http';
+import {makeLivenessProof,combineBorrowProof} from '../../risk-monitor/src/liveness.mjs';
+import {createPublicClient,createWalletClient,http,parseAbi,keccak256,toHex} from 'viem';
+import {generatePrivateKey,privateKeyToAccount} from 'viem/accounts';
+import {configFromEnv} from '../src/config.mjs';
+import {Chain} from '../src/chain.mjs';
+import {Store} from '../src/store.mjs';
+import {Engine} from '../src/engine.mjs';
+import {Transactions} from '../src/transactions.mjs';
+import {tokenAbi} from '../src/abi.mjs';
+import {makeProof,roundHash} from '../../risk-monitor/src/policy.mjs';
+const root=new URL('../../../',import.meta.url);
+const json=p=>JSON.parse(readFileSync(new URL(p,root)));
+const manifest=json('contracts/utils/assets/test_output/dockyard-pilot-deployed.json');
+const artifact=name=>json(`contracts/out/${name}.sol/${name}.json`);
+tokenAbi.push(...parseAbi(['function transfer(address,uint256) returns(bool)']));
+const feedAbi=parseAbi(['function latestRoundData() view returns(uint80,int256,uint256,uint256,uint80)']);
+function feedCode(price,time){return '0x'+[1n,price,time,time,1n].map((v,i)=>'7f'+v.toString(16).padStart(64,'0')+'60'+(i*32).toString(16).padStart(2,'0')+'52').join('')+'60a06000f3';}
+
+test('real Robinhood tokens: execution-gated MVP lifecycle and keeper fault/restart recovery',{timeout:300000},async()=>{
+ assert.ok(process.env.FORK_RPC_URL,'FORK_RPC_URL required; never skip this release gate');
+ const remote=createPublicClient({transport:http(process.env.FORK_RPC_URL,{retryCount:0})});assert.equal(await remote.getChainId(),4663);
+ const forkBlock=BigInt(process.env.FORK_BLOCK??await remote.getBlockNumber());
+ const socket=createServer();await new Promise(r=>socket.listen(0,'127.0.0.1',r));const port=socket.address().port;await new Promise(r=>socket.close(r));
+ const url=`http://127.0.0.1:${port}`;
+ const child=spawn('anvil',['--host','127.0.0.1','--port',String(port),'--fork-url',process.env.FORK_RPC_URL,'--fork-block-number',String(forkBlock),'--chain-id','4663','--accounts','0','--silent'],{stdio:'ignore'});
+ const client=createPublicClient({transport:http(url,{timeout:20000,retryCount:0}),cacheTime:0});
+ const directory=mkdtempSync(`${tmpdir()}/dockyard-pilot-fork-`);const restoreDirectories=[];let store,proofServer;const realNow=Date.now;
+ try{
+  let started=false;for(let i=0;i<100;i++){try{await client.getChainId();started=true;break;}catch{}assert.equal(child.exitCode,null);await new Promise(r=>setTimeout(r,100));}assert.ok(started);
+  assert.match(await client.request({method:'web3_clientVersion'}),/anvil/i);
+  const mutate=(method,params=[])=>client.request({method,params});
+  assert.equal(keccak256(await client.getCode({address:manifest.vault})),manifest.vaultCodeHash);
+  const old='0x576c510e9A268B06448f67598B7BF1ed33388e20',owner=manifest.owner,usdg='0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168';
+  const m=manifest.markets[0],va=artifact('DockyardUSDGCreditVaultMVP'),ga=artifact('DockyardHeartbeatGuard'),ea=artifact('DockyardExecutionGate');
+  const read=(address,abi,functionName,args=[])=>client.readContract({address,abi,functionName,args});
+  assert.equal(await read(old,va.abi,'totalDebt'),0n,'Migration rehearsal requires a debt-free V1');
+  await mutate('anvil_impersonateAccount',[owner]);await mutate('anvil_setBalance',[owner,toHex(10n**18n)]);
+  const wallet=createWalletClient({account:owner,transport:http(url)});
+  const write=async(address,abi,functionName,args=[],w=wallet)=>{const hash=await w.writeContract({address,abi,functionName,args,chain:null});const r=await client.waitForTransactionReceipt({hash});assert.equal(r.status,'success');return r;};
+  const deploy=async(a,args)=>{const hash=await wallet.deployContract({abi:a.abi,bytecode:a.bytecode.object,args,chain:null});const r=await client.waitForTransactionReceipt({hash});assert.equal(r.status,'success');return r.contractAddress;};
+  const guardian=privateKeyToAccount(generatePrivateKey()),keeperKey=generatePrivateKey(),keeper=privateKeyToAccount(keeperKey);
+  const gate=await deploy(ea,[guardian.address]);
+  const guard=await deploy(ga,[m.collateral,m.primaryOracle,guardian.address,86400n]),vault=await deploy(va,[usdg,owner,gate]);
+  await write(vault,va.abi,'addMarket',[m.collateral,m.primaryOracle,guard,50000000n,3000,4000,500,200]);await write(vault,va.abi,'setBorrowerAllowed',[owner,true]);
+  await mutate('evm_increaseTime',[121]);await mutate('evm_mine');
+  const initialRound=await read(m.primaryOracle,feedAbi,'latestRoundData');
+  assert.ok((await client.getBlock()).timestamp-initialRound[3]<86400n,'Real feed must be inside published heartbeat');
+  // No live guardian key or live signed certificate is used: this adapter exists only on Anvil.
+  const proof=async()=>{const now=Number((await client.getBlock()).timestamp),r=await read(m.primaryOracle,feedAbi,'latestRoundData');return makeProof(guardian,guard,{ok:true,roundId:r[0],roundHash:roundHash(r[0],r[1]*10n**10n,r[3]),sourceTime:now,sessionOpen:now-300,sessionClose:now+3600},{epoch:await read(guard,ga.abi,'epoch'),recoveryAt:await read(guard,ga.abi,'recoveryAt')},now);};
+  const liveProof=async()=>makeLivenessProof(guardian,gate,{ok:true,observedAt:Number((await client.getBlock()).timestamp),healthySince:Number(await read(gate,ea.abi,'recoveryAt'))},await read(gate,ea.abi,'epoch'));
+  const borrowProof=async()=>combineBorrowProof(await proof(),await liveProof());
+  await write(guard,ga.abi,'submitHealth',[(await proof()).encoded]);await write(vault,va.abi,'setMarketEnabled',[m.collateral,true]);
+  await write(old,va.abi,'pause');await write(old,va.abi,'withdrawLiquidity',[owner,10000000n]);
+  await write(usdg,tokenAbi,'approve',[vault,10000000n]);await write(vault,va.abi,'fund',[10000000n]);await write(vault,va.abi,'unpause');
+  const collateral=5000000000000000n;assert.ok(await read(m.collateral,tokenAbi,'balanceOf',[owner])>=collateral);
+  const principal=collateral*initialRound[1]*10n**10n/10n**18n/5n/10n**12n;
+  await write(m.collateral,tokenAbi,'approve',[vault,collateral]);
+  await write(vault,va.abi,'depositAndBorrowChecked',[m.collateral,collateral,principal,(await borrowProof()).encoded]);
+  await write(usdg,tokenAbi,'approve',[vault,10000000n]);
+  // Fund only the origination fee for the first round trip, using real USDG from V1 on the fork.
+  await write(old,va.abi,'withdrawLiquidity',[owner,1000000n]);
+  await write(vault,va.abi,'repayAllAndWithdrawCollateral',[m.collateral,owner]);assert.equal(await read(vault,va.abi,'totalDebt'),0n);
+  await write(m.collateral,tokenAbi,'approve',[vault,collateral]);await write(vault,va.abi,'depositAndBorrowChecked',[m.collateral,collateral,principal,(await borrowProof()).encoded]);
+  const debt=await read(vault,va.abi,'totalDebt');assert.ok(debt>principal);
+  proofServer=httpServer(async(req,res)=>{try{const p=await liveProof();res.setHeader('Content-Type','application/json');res.end(JSON.stringify({chainId:4663,vault,executionGate:gate,...p}));}catch{res.writeHead(503);res.end('{}');}});
+  await new Promise(r=>proofServer.listen(0,'127.0.0.1',r));
+  const livenessUrl=`http://127.0.0.1:${proofServer.address().port}/liveness`;
+  const config={...configFromEnv({KEEPER_RPC_URL:url,KEEPER_EXECUTION_GATE:gate,KEEPER_LIVENESS_URL:livenessUrl,KEEPER_MODE:'execute',KEEPER_PRIVATE_KEY:keeperKey,KEEPER_VAULT_ADDRESS:vault,KEEPER_START_BLOCK:String(forkBlock),KEEPER_VAULT_CODE_HASH:keccak256(await client.getCode({address:vault}))}),confirmations:2n,maxHeadAgeSeconds:864000};
+  let clock=Number((await client.getBlock()).timestamp)*1000;Date.now=()=>clock;
+  const updateClock=async()=>{clock=Number((await client.getBlock()).timestamp)*1000;};
+  const chain=new Chain(config),identity={chainId:4663,vault,account:keeper.address};
+  store=new Store(directory,identity);store.acquireLease();let engine=new Engine(chain,store,config,new Transactions(chain,store,config));
+  // Model the service lease heartbeat across intentional fork time jumps.
+  const cycle=async()=>{await updateClock();store.acquireLease();return engine.cycle();};
+  const restoreOnlineBackup=async()=>{
+   const restoredDirectory=mkdtempSync(`${tmpdir()}/dockyard-pilot-restored-`);restoreDirectories.push(restoredDirectory);
+   const pending=store.pendingTx();assert.ok(pending);
+   await backup(store.db,join(restoredDirectory,'keeper.sqlite'));
+   store.close();store=new Store(restoredDirectory,identity);
+   assert.throws(()=>store.acquireLease(),/Another keeper owns this volume/,'A restored live lease cannot be silently stolen');
+   // Model waiting for the old process lease to expire. No production clock/state is changed.
+   store.acquireLease(Number(store.db.prepare('SELECT expires FROM lease WHERE id=1').get().expires)+1);
+   assert.deepEqual(store.pendingTx(),pending,'The exact signed intent survives an online backup');
+   engine=new Engine(chain,store,config,new Transactions(chain,store,config));
+  };
+  // A non-allowlisted dust depositor cannot enlarge the keeper's loan scan.
+  const spammer=privateKeyToAccount(generatePrivateKey());await mutate('anvil_setBalance',[spammer.address,toHex(10n**18n)]);
+  const spamWallet=createWalletClient({account:spammer,transport:http(url)});
+  await write(m.collateral,tokenAbi,'transfer',[spammer.address,1n]);
+  await write(m.collateral,tokenAbi,'approve',[vault,1n],spamWallet);
+  await write(vault,va.abi,'depositCollateral',[m.collateral,1n],spamWallet);
+  const healthy=await cycle();assert.equal(healthy.reconciled,true);assert.equal(healthy.openPositions,1);assert.equal(healthy.unhealthyPositions,0);
+  assert.equal(store.positions().length,1,'Deposit-only accounts are not liquidation candidates');
+  await mutate('evm_increaseTime',[46]);await mutate('evm_mine');await assert.rejects(client.simulateContract({address:vault,abi:va.abi,functionName:'borrow',args:[m.collateral,1n],account:owner}));
+  let now=(await client.getBlock()).timestamp;
+  const lowerPrice=initialRound[1]*4n/10n;
+  await mutate('anvil_setCode',[m.primaryOracle,feedCode(lowerPrice,now-86400n)]);
+  const stale=await cycle();assert.ok(stale.incidents.some(i=>i.code.startsWith('oracle_blocked:')));assert.equal(store.pendingTx(),undefined);
+  await mutate('anvil_setCode',[m.primaryOracle,'0x60006000fd']);const failed=await cycle();assert.ok(failed.incidents.some(i=>i.code.startsWith('oracle_blocked:')));
+  await mutate('anvil_setCode',[m.primaryOracle,feedCode(lowerPrice,now)]);
+  await write(vault,va.abi,'setMarketEnabled',[m.collateral,false]);await write(vault,va.abi,'pause');
+  const unfunded=await cycle();assert.equal(unfunded.unhealthyPositions,1);assert.ok(unfunded.incidents.some(i=>i.code==='liquidation_unfunded'));assert.equal(store.pendingTx(),undefined);
+  await mutate('anvil_setBalance',[guardian.address,toHex(10n**18n)]);
+  const gw=createWalletClient({account:guardian,transport:http(url)});
+  await write(guard,ga.abi,'trip',[true],gw);
+  const quarantined=await cycle();assert.equal(quarantined.unhealthyPositions,0);assert.ok(quarantined.incidents.some(i=>i.code.startsWith('oracle_blocked:')));
+  await assert.rejects(async()=>client.simulateContract({address:guard,abi:ga.abi,functionName:'submitHealth',args:[(await proof()).encoded]}),/RecoveryPending/);
+  await mutate('evm_increaseTime',[121]);await mutate('evm_mine');await write(guard,ga.abi,'submitHealth',[(await proof()).encoded]);
+  await write(old,va.abi,'withdrawLiquidity',[keeper.address,10000000n]);
+  // A funded repayment balance cannot make the signer consume its required gas reserve.
+  await mutate('anvil_setBalance',[keeper.address,toHex(1000000000000000n)]);
+  await updateClock();const noGas=await cycle();assert.ok(noGas.incidents.some(i=>i.code==='gas_reserve'));assert.equal(store.pendingTx(),undefined);
+  await mutate('anvil_setBalance',[keeper.address,toHex(10n**18n)]);
+  const send=chain.client.sendRawTransaction.bind(chain.client);
+  chain.client.sendRawTransaction=async request=>{assert.ok(store.pendingTx(),'Intent is durable before send');await send(request);throw Object.assign(new Error('Simulated timeout'),{name:'TimeoutError'});};
+  const uncertain=await cycle();assert.ok(uncertain.incidents.some(i=>i.code==='broadcast_uncertain'));assert.equal(store.pendingTx().kind,'approval');
+  await mutate('anvil_mine',['0x3']);await restoreOnlineBackup();
+  chain.client.sendRawTransaction=send;
+  await cycle();assert.equal(store.pendingTx().kind,'liquidation');const hash=store.pendingTx().attempts.at(-1).hash;
+  await restoreOnlineBackup();
+  await mutate('anvil_mine',['0x3']);await updateClock();const final=await cycle();
+  assert.equal(final.totalDebt,0n);assert.equal(final.reconciled,true);assert.equal(final.unhealthyPositions,0);assert.equal(store.pendingTx(),undefined);
+  assert.equal(store.budgets().inventory,debt);assert.equal(store.transactions().filter(x=>x.kind==='liquidation'&&x.status==='confirmed').length,1);
+  const seized=await read(m.collateral,tokenAbi,'balanceOf',[keeper.address]);assert.ok(seized>0n);
+  await write(vault,va.abi,'withdrawCollateral',[m.collateral,(await read(vault,va.abi,'positions',[m.collateral,owner]))[0],owner]);
+  Date.now=realNow;
+  console.log(JSON.stringify({scope:'Anvil fork only; real stock and USDG bytecode, local candidate vault/guardian and injected failure prices; SQLite online backup restoration, not Railway volume restoration',forkBlock:String(forkBlock),vault,hash,repaid:String(debt),seized:String(seized),checks:['borrow-repay-withdraw','healthy-position','expired-borrow-approval','stale-primary','reverting-primary','unfunded-liquidator','quarantine-recovery','gas-reserve','ambiguous-approval','restart-recovery','online-backup-pending-approval','online-backup-pending-liquidation','restored-lease-protection','deposit-spam-excluded-from-debt-scan','exactly-one-finalized-liquidation','paused-disabled-market-liquidation','debt-reconciliation','debt-free-collateral-exit']}));
+ }finally{Date.now=realNow;proofServer?.close();store?.close();child.kill('SIGTERM');await new Promise(r=>child.exitCode!==null?r():child.once('exit',r));rmSync(directory,{recursive:true,force:true});for(const path of restoreDirectories)rmSync(path,{recursive:true,force:true});}
+});

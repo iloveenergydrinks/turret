@@ -1,5 +1,5 @@
 import { css } from "@/styled-system/css";
-import { IconCheckmark } from "@liquity2/uikit";
+import { IconCheckmark } from "@turret/uikit";
 
 export function TagConfirmed() {
   return (

@@ -1,0 +1,10 @@
+.borrow-directory-row td { vertical-align:top; }
+.borrow-directory-identity { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+.borrow-directory-identity .borrow-table-identity { min-width:0; }
+.borrow-directory-identity .p2p-collateral-logo { width:36px; height:36px; flex-basis:36px; }
+.borrow-directory-row .borrow-directory-status,
+.borrow-directory-row .borrow-directory-value > span:last-child { min-height:0; }
+.pool-status-detail { display:grid; gap:4px; margin-top:6px; max-width:24ch; color:#57534e; font-size:12px; line-height:1.5; }
+.pool-status-warning { color:#8a451b; }
+.pool-status-retry { justify-self:start; border:0; padding:4px 0; background:transparent; color:#292524; font:inherit; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.pool-status-retry:focus-visible { outline:2px solid #57534e; outline-offset:3px; border-radius:2px; }

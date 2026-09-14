@@ -7,7 +7,7 @@ import { TransactionDetailsRow } from "@/src/screens/TransactionsScreen/Transact
 import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionStatus";
 import { vDnum, vPositionSbold } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { InfoTooltip } from "@liquity2/uikit";
+import { InfoTooltip } from "@turret/uikit";
 import * as dn from "dnum";
 import * as v from "valibot";
 import { maxUint256 } from "viem";

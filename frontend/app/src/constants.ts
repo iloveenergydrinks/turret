@@ -201,5 +201,5 @@ export const DEFAULT_STRATEGIES: Array<[
   ]],
 ];
 
-export const DEFAULT_COMMIT_URL = "https://github.com/liquity/bold/tree/{commit}";
-export const DEFAULT_VERSION_URL = "https://github.com/liquity/bold/releases/tag/%40liquity2%2Fapp-v{version}";
+export const DEFAULT_COMMIT_URL = "https://github.com/iloveenergydrinks/turret/tree/{commit}";
+export const DEFAULT_VERSION_URL = "https://github.com/iloveenergydrinks/turret/releases/tag/v{version}";

@@ -1,0 +1,33 @@
+.p2p-page .p2p-alerts { max-width: 760px; margin-inline: auto; padding-block: 8px; }
+.p2p-alerts-heading { margin-bottom: 24px; }
+.p2p-page .p2p-alerts-heading h2 { margin: 0 0 8px; font-size: 24px; font-weight: 600; }
+.p2p-alerts-heading p { color: var(--p2p-muted); max-width: 60ch; }
+.p2p-alerts-verification { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 4px 24px; }
+.p2p-alerts-verification p { flex: 1 1 240px; color: var(--p2p-muted); font-size: 13px; max-width: 38ch; }
+.p2p-alerts .p2p-button { width: auto; flex-shrink: 0; text-decoration: none; }
+.p2p-page .p2p-alerts-verified { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 13px; font-weight: 600; color: var(--p2p-ink); }
+.p2p-alerts-channel { display: grid; grid-template-columns: 160px minmax(0,1fr); gap: 24px; align-items: start; padding-block: 24px; border-top: 1px solid var(--p2p-line); }
+.p2p-alerts-channel-heading h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+.p2p-alerts-channel-heading p, .p2p-alerts-delivery { font-size: 13px; color: var(--p2p-muted); line-height: 1.55; }
+.p2p-alerts-channel-content { display: grid; justify-items: start; gap: 12px; min-width: 0; }
+.p2p-alerts-email { min-width: 0; }
+.p2p-alerts-email-controls { display: flex; align-items: stretch; gap: 12px; margin-top: 8px; }
+.p2p-page .p2p-alerts-email-controls input { flex: 1 1 220px; width: 0; margin: 0; }
+.p2p-alerts-email-controls .p2p-button { align-self: stretch; }
+.p2p-page .p2p-alerts-notice { margin: 0 0 20px; padding: 14px 16px; border-radius: 10px; background: var(--rusd-soft, #f2f1ee); color: var(--p2p-ink); font-size: 13px; overflow-wrap: anywhere; }
+.p2p-page .p2p-alerts-error { color: #823a24; background: #f8ebe4; }
+.p2p-alerts-details { border-top: 1px solid var(--p2p-line); }
+.p2p-alerts-details summary { display: list-item; width: fit-content; min-height: 48px; padding-block: 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.p2p-alerts-details > div { display: grid; gap: 12px; padding-bottom: 16px; max-width: 70ch; color: var(--p2p-muted); font-size: 13px; }
+.p2p-page .p2p-alerts-disclaimer { color: var(--p2p-muted); font-size: 12px; line-height: 1.55; margin-top: 4px; }
+@media (max-width: 700px) {
+  .p2p-alerts-channel { grid-template-columns: minmax(0,1fr); gap: 16px; }
+  .p2p-alerts-channel-heading p { max-width: none; }
+}
+@media (max-width: 480px) {
+  .p2p-alerts-email-controls { flex-direction: column; }
+  .p2p-page .p2p-alerts-email-controls input { flex: none; width: 100%; }
+  .p2p-alerts-email-controls .p2p-button { width: 100%; }
+  .p2p-alerts-verification { align-items: start; }
+  .p2p-alerts-verification .p2p-button { width: 100%; }
+}

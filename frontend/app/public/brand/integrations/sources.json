@@ -1,0 +1,12 @@
+[
+  {
+    "file": "chainlink.svg",
+    "source": "https://drive.google.com/uc?export=download&id=1ounPk0OkRryBedG0g327nGgAFSRbZ_8-",
+    "sha256": "75159a9d11d721191fa9c0894ca660d037e3e317dd0446cd7c491c565c105769"
+  },
+  {
+    "file": "kyberswap.svg",
+    "source": "https://raw.githubusercontent.com/KyberNetwork/kyberswap-interface/main/apps/kyberswap-interface/public/logo.svg",
+    "sha256": "b6836211e7a1575232ec017520d6e5e80a89f61d43a68ff8dfc8cc3e092412a8"
+  }
+]

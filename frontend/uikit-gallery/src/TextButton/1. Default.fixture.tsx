@@ -1,6 +1,6 @@
 "use client";
 
-import { TextButton } from "@liquity2/uikit";
+import { TextButton } from "@turret/uikit";
 import { useFixtureInput } from "react-cosmos/client";
 
 export default function TextButtonFixture() {

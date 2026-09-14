@@ -2,7 +2,7 @@ import type { PositionSbold } from "@/src/types";
 
 import { Amount } from "@/src/comps/Amount/Amount";
 import { css } from "@/styled-system/css";
-import { HFlex, IconEarn, TokenIcon } from "@liquity2/uikit";
+import { HFlex, IconEarn, TokenIcon } from "@turret/uikit";
 import { PositionCard } from "./PositionCard";
 import { CardRow, CardRows } from "./shared";
 

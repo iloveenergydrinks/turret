@@ -50,7 +50,7 @@ methods {
 // Then, the following pairs of simultaneous actions maintain equivalence E:
 // -Redemption from Trove i and from batch Trove j of the same BOLD amount
 // STATUS: VERIFIED
-// https://prover.certora.com/output/11775/b047717540624e23848a67652a64b1bb?anonymousKey=2c3c63e6331616fa132b1035132237d27b20d709
+// https://prover.certora.com/output/11775/b047717540624e23848a67652a64b1bb
 rule trove_batch_trove_eq_redeem {
     uint256 troveIdX;
     uint256 troveIdY;

@@ -1,8 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { FocusEvent, ReactNode } from "react";
 
-import { autoUpdate, offset, shift, useFloating } from "@floating-ui/react-dom";
+import { autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/react-dom";
 import { a, useTransition } from "@react-spring/web";
 import { useEffect, useRef, useState } from "react";
 import { css } from "../../styled-system/css";
@@ -10,18 +10,23 @@ import { Root } from "../Root/Root";
 
 export function Tooltip({
   children,
+  id,
   hideDelay = 200,
   opener,
   placement = "start",
   showDelay = 100,
 }: {
   children?: ReactNode;
+  id?: string;
   hideDelay?: number;
   opener: (context: {
+    visible: boolean;
     buttonProps: {
       onClick: () => void;
       onMouseEnter: () => void;
       onMouseLeave: () => void;
+      onFocus: () => void;
+      onBlur: (event: FocusEvent<HTMLElement>) => void;
     };
     setReference: (ref: HTMLElement | null) => void;
   }) => ReactNode;
@@ -34,6 +39,7 @@ export function Tooltip({
   });
 
   const lastFocused = useRef<HTMLElement | null>(undefined);
+  const restoringFocus = useRef(false);
   const hideDelayRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const showDelayRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -55,10 +61,17 @@ export function Tooltip({
   const hide = (delay: number) => {
     cancel();
     hideDelayRef.current = setTimeout(() => {
+      const restoreFocus = floatingRefs.floating.current?.contains(document.activeElement);
       setState({ autofocus: false, visible: false });
-      lastFocused.current?.focus();
+      if (restoreFocus) {
+        restoringFocus.current = true;
+        lastFocused.current?.focus();
+        restoringFocus.current = false;
+      }
     }, delay);
   };
+
+  useEffect(() => cancel, []);
 
   useKeyboardNavigation({
     onClose: () => hide(0),
@@ -76,6 +89,7 @@ export function Tooltip({
     ),
     middleware: [
       offset(8),
+      flip({ padding: 8 }),
       shift({
         crossAxis: true,
         padding: 8,
@@ -107,10 +121,13 @@ export function Tooltip({
   return (
     <>
       {opener({
+        visible,
         buttonProps: {
           onClick: () => show(true, 0),
           onMouseEnter: () => show(false, showDelay),
           onMouseLeave: () => hide(hideDelay),
+          onFocus: () => { if (!restoringFocus.current) show(false, showDelay); },
+          onBlur: (event) => { if (!floatingRefs.floating.current?.contains(event.relatedTarget)) hide(hideDelay); },
         },
         setReference: floatingRefs.setReference,
       })}
@@ -118,6 +135,8 @@ export function Tooltip({
         {transition((transitionStyles, visible) => (
           visible && (
             <a.div
+              id={id}
+              role="tooltip"
               ref={floatingRefs.setFloating}
               onMouseEnter={() => cancel()}
               onMouseLeave={() => hide(hideDelay)}

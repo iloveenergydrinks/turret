@@ -1,18 +1,7 @@
-import { XLink } from "./XLink";
+import { SiteFooter } from "./SiteFooter";
 
 export function PreviewBottomBar({ interactive = false }: { interactive?: boolean }) {
-  return (
-    <footer className="rusd-footer">
-      <div className="rusd-frame rusd-footer-inner">
-        <span>
-          {interactive
-            ? "Independent Stock Token credit protocol · Robinhood Chain mainnet"
-            : "Independent Stock Token credit protocol · No live contracts"}
-        </span>
-        <div className="rusd-footer-links">
-          <XLink />
-        </div>
-      </div>
-    </footer>
-  );
+  return <SiteFooter description={interactive
+    ? "Independent collateral lending protocol · Robinhood Chain mainnet"
+    : "Independent collateral lending protocol · No live contracts"} />;
 }

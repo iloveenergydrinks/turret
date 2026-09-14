@@ -1,0 +1,1 @@
+export function createNFTCollectionData(options: { collections: {address: string; enabled: boolean}[]; fetchImpl?: typeof fetch; now?: () => number }): () => Promise<{collections: { address: string; volume24hUSD: number | null; floorETH: number | null; owners: number | null; fetchedAt: string | null; status: 'current' | 'delayed' | 'unavailable'; sourceURL: string | null }[]}>;

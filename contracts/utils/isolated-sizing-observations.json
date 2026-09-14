@@ -1,0 +1,243 @@
+{
+  "observedDate": "2026-09-03",
+  "chainId": 4663,
+  "forkBlock": 52855086,
+  "productionChanged": false,
+  "suite": "contracts/test/fork/DockyardLiquidationSizingFork.t.sol",
+  "testsPassed": 6,
+  "assumptions": [
+    "Real token and pool code on a pinned read-only fork",
+    "Synthetic local funding; test-only pool debt cap of 1000000 USDG",
+    "Both oracle references are mocks refreshed from current pool spot, including between borrower exits",
+    "Gross margins exclude gas and full L2 fees",
+    "A passing test can classify a full exit as unexecutable; it does not establish safe production limits",
+    "Zero recognized loss after a partial liquidation does not imply solvency or complete debt recovery"
+  ],
+  "units": {
+    "amounts": "USDG raw six-decimal units",
+    "acquisition": "WETH human units",
+    "price": "basis points of initial price"
+  },
+  "columns": [
+    "collateralAcquisitionWeth",
+    "postGapPriceBps",
+    "principal",
+    "fullExitExecuted",
+    "quarterExitExecuted",
+    "paid",
+    "grossMargin",
+    "recognizedLoss",
+    "remainingDebt"
+  ],
+  "curves": {
+    "cashcat55": [
+      [
+        "0.1",
+        5106,
+        "94245140",
+        true,
+        false,
+        "94245140",
+        "3706987",
+        "0",
+        "0"
+      ],
+      [
+        "1",
+        5114,
+        "942742319",
+        true,
+        false,
+        "942742319",
+        "36554266",
+        "0",
+        "0"
+      ],
+      [
+        "10",
+        5189,
+        "9457618135",
+        true,
+        false,
+        "9457618135",
+        "314897916",
+        "0",
+        "0"
+      ],
+      [
+        "100",
+        5471,
+        "98011938288",
+        false,
+        true,
+        "24502984572",
+        "628303137",
+        "0",
+        "73508953716"
+      ]
+    ],
+    "cashcat25": [
+      [
+        "0.1",
+        2358,
+        "94245140",
+        true,
+        false,
+        "52927452",
+        "2082022",
+        "41317688",
+        "0"
+      ],
+      [
+        "1",
+        2363,
+        "942742319",
+        true,
+        false,
+        "530437786",
+        "20525725",
+        "412304533",
+        "0"
+      ],
+      [
+        "10",
+        2407,
+        "9457618135",
+        true,
+        false,
+        "5420503568",
+        "175767139",
+        "4037114567",
+        "0"
+      ],
+      [
+        "100",
+        2464,
+        "98011938288",
+        false,
+        true,
+        "24502984572",
+        "269779685",
+        "0",
+        "73508953716"
+      ]
+    ],
+    "pons55": [
+      [
+        "0.1",
+        5083,
+        "94245980",
+        true,
+        false,
+        "94245980",
+        "3705837",
+        "0",
+        "0"
+      ],
+      [
+        "1",
+        5093,
+        "942843789",
+        true,
+        false,
+        "942843789",
+        "36394516",
+        "0",
+        "0"
+      ],
+      [
+        "10",
+        5176,
+        "9466827266",
+        true,
+        false,
+        "9466827266",
+        "314830925",
+        "0",
+        "0"
+      ],
+      [
+        "100",
+        5356,
+        "98759887608",
+        false,
+        true,
+        "24689971902",
+        "720133457",
+        "0",
+        "74069915706"
+      ]
+    ],
+    "pons25": [
+      [
+        "0.1",
+        2448,
+        "94245980",
+        true,
+        false,
+        "54937563",
+        "2160312",
+        "39308417",
+        "0"
+      ],
+      [
+        "1",
+        2452,
+        "942843789",
+        true,
+        false,
+        "550658374",
+        "21273694",
+        "392185415",
+        "0"
+      ],
+      [
+        "10",
+        2314,
+        "9466827266",
+        true,
+        false,
+        "5216483574",
+        "166005516",
+        "4250343692",
+        "0"
+      ],
+      [
+        "100",
+        2419,
+        "98759887608",
+        false,
+        true,
+        "24689971902",
+        "168070434",
+        "0",
+        "74069915706"
+      ]
+    ]
+  },
+  "multipleBorrowers": [
+    {
+      "token": "CASHCAT",
+      "initialPrincipal": "37764093412",
+      "closed": 8,
+      "partial": 0,
+      "remainingPrincipal": "0",
+      "recognizedLoss": "0"
+    },
+    {
+      "token": "PONS",
+      "initialPrincipal": "37782904200",
+      "closed": 8,
+      "partial": 0,
+      "remainingPrincipal": "0",
+      "recognizedLoss": "0"
+    }
+  ],
+  "keeperVerification": {
+    "unitTestsPassed": 52,
+    "localEvmIntegrationsPassed": 2,
+    "adaptiveSizing": "At most four same-block caps; halve lesser of previous cap and quoted repayment only on InsufficientReturn; preserve profit floor; reject reorg or snapshot older than 30 chain-seconds",
+    "scope": "Adaptive selection unit-tested; local EVM integration covers signed atomic and retained liquidation, not real-pool adaptive selection end-to-end",
+    "deployed": false
+  }
+}

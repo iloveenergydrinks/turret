@@ -33,7 +33,7 @@ import {
   TokenIcon,
   TOKENS_BY_SYMBOL,
   VFlex,
-} from "@liquity2/uikit";
+} from "@turret/uikit";
 import { maxUint256 } from "viem";
 
 import * as dn from "dnum";

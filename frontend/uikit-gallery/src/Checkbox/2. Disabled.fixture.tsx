@@ -1,6 +1,6 @@
 "use client";
 
-import { Checkbox } from "@liquity2/uikit";
+import { Checkbox } from "@turret/uikit";
 import { useState } from "react";
 import type { ReactNode } from "react";
 

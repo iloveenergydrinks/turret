@@ -1,11 +1,11 @@
 import type { Dnum, Token } from "@/src/types";
-import type { Address } from "@liquity2/uikit";
+import type { Address } from "@turret/uikit";
 
 import { dnum18 } from "@/src/dnum-utils";
-import { CONTRACT_BOLD_TOKEN, CONTRACT_LQTY_TOKEN, CONTRACT_LUSD_TOKEN } from "@/src/env";
+import { CHAIN_CONTRACT_ENS_RESOLVER, CHAIN_ID, CONTRACT_BOLD_TOKEN, CONTRACT_LQTY_TOKEN, CONTRACT_LUSD_TOKEN } from "@/src/env";
 import { getBranch } from "@/src/liquity-utils";
 import { getSafeStatus } from "@/src/safe-utils";
-import { isCollateralSymbol } from "@liquity2/uikit";
+import { isCollateralSymbol } from "@turret/uikit";
 import { useQuery } from "@tanstack/react-query";
 import { useModal as useConnectKitModal } from "connectkit";
 import { match } from "ts-pattern";
@@ -107,7 +107,11 @@ export type Account = UseAccountReturnType<Config> & {
 
 export function useAccount(): Account {
   const account = useWagmiAccount();
-  const ensName = useEnsName({ address: account?.address });
+  const ensName = useEnsName({
+    address: account?.address,
+    chainId: CHAIN_ID,
+    query: { enabled: Boolean(account.address && CHAIN_CONTRACT_ENS_RESOLVER) },
+  });
 
   const safeStatus = useQuery({
     queryKey: ["safeStatus", account.address],

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { css, cx } from "@/styled-system/css";
-import { LoadingSurface } from "@liquity2/uikit";
+import { LoadingSurface } from "@turret/uikit";
 import { a, useSpring } from "@react-spring/web";
 import { match } from "ts-pattern";
 

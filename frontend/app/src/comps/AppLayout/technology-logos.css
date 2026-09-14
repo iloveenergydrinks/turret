@@ -1,0 +1,9 @@
+.turret-technology { padding-top:16px; padding-bottom:16px; text-align:center; }
+.turret-technology > p { margin:0 0 4px; color:#57534e; font-size:12px; line-height:1.5; }
+.turret-technology-logos { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:8px 24px; }
+.turret-technology-logos a { display:flex; align-items:center; justify-content:center; min-height:44px; border-radius:4px; }
+.turret-technology-logos a:focus-visible { outline:2px solid #292524; outline-offset:6px; }
+.turret-technology-logos img { display:block; object-fit:contain; max-width:100%; filter:grayscale(1); opacity:.72; }
+.turret-technology-logos a:hover img,.turret-technology-logos a:focus-visible img { opacity:1; }
+.turret-technology-chainlink { width:84px; height:21px; }
+.turret-technology-kyber { width:96px; height:32px; }

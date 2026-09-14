@@ -1,12 +1,12 @@
 import type { Dnum, RiskLevel, TroveStatus } from "@/src/types";
-import type { CollateralToken } from "@liquity2/uikit";
+import type { CollateralToken } from "@turret/uikit";
 import type { ReactNode } from "react";
 
 import { LoanStatusTag } from "@/src/comps/Tag/LoanStatusTag";
 import { fmtnum, formatLiquidationRisk, formatRedemptionRisk } from "@/src/formatting";
 import { riskLevelToStatusMode } from "@/src/uikit-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, StatusDot } from "@liquity2/uikit";
+import { HFlex, StatusDot } from "@turret/uikit";
 import * as dn from "dnum";
 import { CardRow, CardRows } from "./shared";
 

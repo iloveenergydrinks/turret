@@ -32,7 +32,7 @@ import {
   TextButton,
   TokenIcon,
   VFlex,
-} from "@liquity2/uikit";
+} from "@turret/uikit";
 import * as dn from "dnum";
 import { useEffect, useId, useState } from "react";
 

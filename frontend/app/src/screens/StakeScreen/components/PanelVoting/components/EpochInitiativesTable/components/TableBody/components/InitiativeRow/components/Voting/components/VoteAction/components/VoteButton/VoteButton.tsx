@@ -1,6 +1,6 @@
 import { css } from "@/styled-system/css";
 import { a, useTransition } from "@react-spring/web";
-import { IconDownvote, IconUpvote } from "@liquity2/uikit";
+import { IconDownvote, IconUpvote } from "@turret/uikit";
 
 import type { FC } from "react";
 import type { Vote } from "@/src/types";

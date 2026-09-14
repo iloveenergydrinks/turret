@@ -17,7 +17,7 @@ import { TransactionDetailsRow } from "@/src/screens/TransactionsScreen/Transact
 import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionStatus";
 import { vPositionLoanCommited } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { ADDRESS_ZERO, InfoTooltip } from "@liquity2/uikit";
+import { ADDRESS_ZERO, InfoTooltip } from "@turret/uikit";
 import * as dn from "dnum";
 import { match } from "ts-pattern";
 import * as v from "valibot";

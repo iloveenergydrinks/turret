@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { useBreakpoint } from "@/src/breakpoints";
 import { css, cx } from "@/styled-system/css";
-import { IconArrowBack } from "@liquity2/uikit";
+import { IconArrowBack } from "@turret/uikit";
 import { a, useSpring, useTransition } from "@react-spring/web";
 import Link from "next/link";
 import { isValidElement, useState } from "react";

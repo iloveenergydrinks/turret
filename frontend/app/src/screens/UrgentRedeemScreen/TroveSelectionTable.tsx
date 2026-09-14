@@ -7,7 +7,7 @@ import { DNUM_0 } from "@/src/dnum-utils";
 import { shortenTroveId } from "@/src/liquity-utils";
 import { sortByRedeemableValue, TROVES_PER_PAGE } from "@/src/urgent-redemption-utils";
 import { css } from "@/styled-system/css";
-import { Button, Checkbox, HFlex, VFlex } from "@liquity2/uikit";
+import { Button, Checkbox, HFlex, VFlex } from "@turret/uikit";
 import * as dn from "dnum";
 import { useMemo, useState } from "react";
 

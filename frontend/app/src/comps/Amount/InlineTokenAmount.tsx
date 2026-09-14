@@ -1,5 +1,5 @@
 import { css } from "@/styled-system/css";
-import { TokenIcon, TokenSymbol } from "@liquity2/uikit";
+import { TokenIcon, TokenSymbol } from "@turret/uikit";
 import type { ComponentProps } from "react";
 import { Amount } from "./Amount";
 

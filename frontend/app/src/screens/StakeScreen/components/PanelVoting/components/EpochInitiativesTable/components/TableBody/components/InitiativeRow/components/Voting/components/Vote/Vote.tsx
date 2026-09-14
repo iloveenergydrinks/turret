@@ -1,6 +1,6 @@
 import { css } from "@/styled-system/css";
 import { fmtnum } from "@/src/formatting";
-import { IconUpvote, IconDownvote, IconEdit, Button } from "@liquity2/uikit";
+import { IconUpvote, IconDownvote, IconEdit, Button } from "@turret/uikit";
 
 import type { FC } from "react";
 import type { Dnum, Vote as VoteType } from "@/src/types";

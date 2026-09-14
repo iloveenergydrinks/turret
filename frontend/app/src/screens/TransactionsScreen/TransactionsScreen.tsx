@@ -10,7 +10,7 @@ import { Screen } from "@/src/comps/Screen/Screen";
 import { Spinner } from "@/src/comps/Spinner/Spinner";
 import { useTransactionFlow } from "@/src/services/TransactionFlow";
 import { css } from "@/styled-system/css";
-import { Button, IconCross } from "@liquity2/uikit";
+import { Button, IconCross } from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import { Fragment, useEffect, useState } from "react";
 import { match, P } from "ts-pattern";

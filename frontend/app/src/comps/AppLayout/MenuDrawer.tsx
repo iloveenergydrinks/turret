@@ -5,7 +5,7 @@ import { Logo } from "@/src/comps/Logo/Logo";
 import content from "@/src/content";
 import { css } from "@/styled-system/css";
 import { token } from "@/styled-system/tokens";
-import { Root } from "@liquity2/uikit";
+import { Root } from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import FocusTrap from "focus-trap-react";
 import Link from "next/link";

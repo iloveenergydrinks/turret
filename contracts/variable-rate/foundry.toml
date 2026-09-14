@@ -1,0 +1,15 @@
+[profile.default]
+src = "src"
+test = "test"
+out = "out"
+libs = ["../lib"]
+allow_paths = ["../lib", "../../output"]
+solc_version = "0.8.24"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 200
+auto_detect_remappings = false
+remappings = ["openzeppelin-contracts/=../lib/openzeppelin-contracts/", "forge-std/=../lib/forge-std/src/", "baseline/=../../output/slv-best-route/contracts/src/", "kyber/=../../output/fleet-router-replacement-20260907/contracts/candidate-src/", "reviewed/=../../output/dockyard-stress-production/contracts-review/src/"]
+
+[profile.default.fuzz]
+runs = 512

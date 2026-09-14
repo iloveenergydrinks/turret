@@ -1,0 +1,44 @@
+{
+  "observedDate": "2026-09-02",
+  "chainId": 4663,
+  "productionTransactions": 0,
+  "admission": "not-approved",
+  "observations": [
+    {
+      "symbol": "CASHCAT",
+      "pool": "0x43781f7Ae77D99df3A52095c0b7d162828467A6e",
+      "block": "52884000",
+      "blockTimestamp": "1788383813",
+      "codeHash": "0xac878697f643130ab3cd88272dc1720d2204a5c3605e620234738d80e4deb1ab",
+      "token0": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "token1": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+      "liquidityRaw": "887661783704518883",
+      "balance0Raw": "131485624532500414868046",
+      "balance1Raw": "142731912662",
+      "observe1800CallSucceeded": false,
+      "slot0": ["41346647959351692332031", -289332, 63, 64, 64, 655370000, true]
+    },
+    {
+      "symbol": "PONS",
+      "pool": "0x2F393B60eF0CFAf669af63284e5592DC3a657B73",
+      "block": "52889550",
+      "blockTimestamp": "1788384386",
+      "codeHash": "0xda57657ec68ddfb0987ba1352a44cefe40433e55585f3e4555b8ced4bbeb540d",
+      "token0": "0x39dBED3a2bd333467115dE45665cC57F813C4571",
+      "token1": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+      "liquidityRaw": "2836817217598961682",
+      "balance0Raw": "611614449318513330249294",
+      "balance1Raw": "330398390123",
+      "observe1800CallSucceeded": false,
+      "slot0": null
+    }
+  ],
+  "limitations": [
+    "Read failures include missing interfaces, unavailable history and RPC errors; they do not prove permanent absence of data",
+    "Pool token balances are not executable liquidation depth or oracle manipulation costs",
+    "Factory bindings and published source compatibility were not reverified in these probes",
+    "The observed CASHCAT protocol-fee slot exceeds uint8; do not assume the exact Uniswap V3 slot0 ABI",
+    "PONS slot0 failed even with a uint32 protocol-fee field; a different interface requires source review",
+    "These venues are not configured as protocol price feeds"
+  ]
+}

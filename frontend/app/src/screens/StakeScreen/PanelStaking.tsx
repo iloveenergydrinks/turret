@@ -13,7 +13,7 @@ import { usePrice } from "@/src/services/Prices";
 import { infoTooltipProps } from "@/src/uikit-utils";
 import { useAccount, useBalance } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, InfoTooltip, InputField, Tabs, TextButton, TokenIcon } from "@liquity2/uikit";
+import { HFlex, InfoTooltip, InputField, Tabs, TextButton, TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 import { useState } from "react";
 

@@ -4,7 +4,7 @@ import { useBreakpointName } from "@/src/breakpoints";
 import { ConnectWarningBox } from "@/src/comps/ConnectWarningBox/ConnectWarningBox";
 import { useTransactionFlow } from "@/src/services/TransactionFlow";
 import { css } from "@/styled-system/css";
-import { Button } from "@liquity2/uikit";
+import { Button } from "@turret/uikit";
 
 type FlowRequest = Parameters<
   ReturnType<typeof useTransactionFlow>["start"]

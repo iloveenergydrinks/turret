@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "implementation": "src/isolated-publication.mjs",
+  "role": "Authenticated ratio-feed publication, durable transaction recovery and separate isolated service implementation; not deployed to production",
+  "unitTestsPassed": 9,
+  "transactionLifecycle": {
+    "implementation": "src/isolated-transactions.mjs",
+    "receiptTestsPassed": 6,
+    "oracleSuiteIncludingIntegrationPassed": 80,
+    "keeperRegressionTestsPassed": 58,
+    "checks": [
+      "Fresh target/runtime/report checks and hub simulation immediately before signing",
+      "Existing durable SQLite transaction journal commits signed intent before broadcast",
+      "Receipt sender, target, attempted hash, exact hub events and receipt-block cached report contents verified before confirmation is stored",
+      "Permissionless publication races identified as superseded/no-op feeds instead of claiming an update",
+      "Temporary RPC confirmation reads remain pending and retryable; proven semantic mismatches become durably blocked",
+      "Six actual local signed publications recover after closing and reopening the journal in observe mode",
+      "Duplicate cached reports create no new transaction record",
+      "Separate daily verification-value budget rechecked immediately before signing; pending and blocked reserves never age out, replacements cannot change intent or double-count value",
+      "Confirmation-time accounting prevents delayed mined publications aging out by submission time; legacy records without confirmation time stay reserved and confirmed reverts release only verification value"
+    ]
+  },
+  "continuousWorker": {
+    "entryPoint": "src/isolated-main.mjs",
+    "command": "node services/oracle-relay/src/isolated-main.mjs",
+    "configurationTestsPassed": 5,
+    "verificationValueBudgetTestsPassed": 4,
+    "standaloneProcessIntegrationTestsPassed": 1,
+    "readinessTestsPassed": 5,
+    "cycleAndHealthTestsPassed": 12,
+    "checks": [
+      "Separate explicit isolated configuration and state identity; no inherited stock vault or keeper signing key",
+      "Observe mode rejects private keys and recovers persisted publications using only the public relay address",
+      "Actual worker cycles publish six authenticated local scenarios and reopen the journal for watch-only recovery",
+      "Receipt reconciliation precedes provider and alert requests; provider failure does not block receipt accounting",
+      "Confirmed cache runtime, bindings and policy verified independently of provider access; actual adapter round compared against cache-derived conservative ratio",
+      "Canonical block rechecks and wall-clock expiry prevent historical or stalled snapshots claiming readiness",
+      "Unavailable signed reports continue to invalidate cache; runtime/read failures, missing gas reserve and unverified alert transport prevent publication",
+      "Startup and periodic operator transport checks, failed-delivery retries and fixed redacted errors",
+      "Authenticated status, separate liveness/readiness endpoints, single-cycle lock, leased volume, signal shutdown and stall exit",
+      "Actual standalone Node service starts keyless against wrong-chain loopback RPC, reports live but not ready, rejects unauthorized status requests and a second same-volume process, releases lease on SIGTERM, and restarts with no transactions or secret leakage",
+      "Complete status snapshots are published atomically; polling in-flight RPC work retains the last completed snapshot only until its original expiry, while fatal journal failures immediately remove readiness"
+    ],
+    "productionProcessStarted": false,
+    "realNotificationDeliveryVerified": false,
+    "serviceEntrypointSoakTestCompleted": false,
+    "serviceEntrypointFailureAndRestartSmokeTestCompleted": true,
+    "reviewAuthorizationFlagIsNotReviewEvidence": true
+  },
+  "independentWatchdog": {
+    "entryPoint": "src/isolated-watchdog.mjs",
+    "command": "node services/oracle-relay/src/isolated-watchdog.mjs",
+    "testsPassed": 8,
+    "checks": [
+      "Explicit expected relay identity hash binds chain, exact publication runtimes and oracle policy without publishing provider credentials",
+      "Independently checks snapshot, cache and operator-delivery timestamps instead of trusting the ready flag alone",
+      "Redirects refused, status response bounded to 64 KiB, remote incident strings and exceptions not forwarded to alerts",
+      "Failed-job exit remains nonzero throughout an outage even when unchanged notifications are deduplicated",
+      "Failed notification delivery retries; recovery notification must succeed before outage state is cleared",
+      "Watchdog tests its own notification transport on healthy startup and periodically",
+      "Actual loopback HTTP endpoint loss is detected; private SQLite outage state survives restart without duplicate notification"
+    ],
+    "scheduledInProduction": false,
+    "realNotificationDeliveryVerified": false
+  },
+  "runningProcessIntegration": {
+    "test": "test/isolated-running.integration.mjs",
+    "testsPassed": 1,
+    "latestDurationMs": 19470,
+    "checks": [
+      "Actual isolated-main process uses its normal configuration, Chain, SQLite journal, price client, signer and HTTP alert transport",
+      "Fresh loopback Anvil uses generated ephemeral accounts, actual hub/ratio adapter and mock token/verifier fixtures; signed price updates reach confirmed cache",
+      "Test-only Node preload routes price and email endpoints to a loopback fixture and blocks nonlocal fetch destinations; test files are not part of the production Docker image",
+      "Provider entitlement denial and rejected email requests remove readiness; signed closed-session reports invalidate cache and regular-session recovery restores readiness",
+      "Separate actual watchdog process, without relay signing or Pyth credentials, reports unhealthy states, retries notification failures and sends recovery notifications through the local email fixture",
+      "Relay gracefully restarts against the same journal and resumes confirmed publication",
+      "Abrupt SIGKILL of the relay is detected by the independent watchdog and produces a local outage notification",
+      "Generated signing key and provider/status/email credential sentinels never appear in captured process output"
+    ],
+    "longDurationSoakCompleted": false,
+    "realProviderAccessVerified": false,
+    "realInboxDeliveryVerified": false,
+    "productionChanged": false
+  },
+  "marketWiringCommissioning": {
+    "implementation": "../../contracts/utils/verify-isolated-oracle-wiring.mjs",
+    "unitTestsPassed": 5,
+    "actualLocalOracleContractsVerified": true,
+    "checks": [
+      "Market secondary and corroborated primary reference use the same authenticated ratio adapter",
+      "DEX oracle route matches the market atomic liquidation route and nested runtime pins",
+      "Hub, verifier, adapter, token identities and policy checked at the deployment verifier's pinned block",
+      "Strict manifest schemas reject unexpected fields and malformed policy or approval metadata before serialization",
+      "Generated relay configuration is observe-only and watchdog identity matches the actual service parser",
+      "Local integration verifies actual ratio, corroborated and TWAP contracts with mock tokens and pools without signing during verification"
+    ],
+    "providerAccessVerified": false,
+    "sourceIndependenceVerified": false,
+    "productionApproved": false,
+    "installed": false
+  },
+  "localIntegrationScenarios": ["regular", "depeg", "closed", "recovery", "wide-confidence", "old-source"],
+  "checks": [
+    "Provider envelope authenticated through the verifier before preparing hub calldata",
+    "Hub, adapter, collateral, USDG and upstream verifier runtimes bound at one canonical block",
+    "Adapter token/feed identities and freshness/confidence/publisher policy match explicit configuration",
+    "Both cache timestamps inspected; only advancing reports request publication",
+    "Fresh signed unavailable reports remain publishable to invalidate old cached good reports",
+    "Prepared calldata/value actually submitted to the hub on a disposable local EVM; ratio adapter availability matches each scenario",
+    "Duplicate reports request no additional transaction",
+    "Wrong pins/bindings, malformed cache, reorg, expired snapshot and rejected hub simulation produce no publication plan"
+  ],
+  "limitations": [
+    "Integration uses a locally generated provider-signature fixture and mock tokens, not live provider entitlement",
+    "Continuous worker and independent watchdog have local coverage; deployed process soak testing, separately scheduled monitoring and actual operator inbox delivery remain unverified",
+    "Incoming report quality is not used as adapter readiness; readiness requires confirmed cache reads and expires independently of the worker cycle",
+    "Shared gas budgets and separate per-publication and daily verification-value limits are tested locally. Full Robinhood transaction fee economics remain unverified",
+    "No production signer loaded, no public-network transaction sent, no market activated"
+  ],
+  "productionChanged": false,
+  "providerAccessVerified": false,
+  "productionApproved": false
+}

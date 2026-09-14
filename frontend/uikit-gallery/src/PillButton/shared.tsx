@@ -1,6 +1,6 @@
 "use client";
 
-import { PillButton } from "@liquity2/uikit";
+import { PillButton } from "@turret/uikit";
 import { useFixtureInput, useFixtureSelect } from "react-cosmos/client";
 import { match } from "ts-pattern";
 

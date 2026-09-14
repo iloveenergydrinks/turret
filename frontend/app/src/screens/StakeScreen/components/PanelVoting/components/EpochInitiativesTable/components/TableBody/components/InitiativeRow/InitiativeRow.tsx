@@ -3,7 +3,7 @@ import { CHAIN_BLOCK_EXPLORER } from "@/src/env";
 import { useVotingStateContext } from "@/src/screens/StakeScreen/components/PanelVoting/providers/PanelVotingProvider/hooks";
 import { isInitiativeStatusActive } from "@/src/screens/StakeScreen/utils";
 import { css } from "@/styled-system/css";
-import { IconExternal, shortenAddress } from "@liquity2/uikit";
+import { IconExternal, shortenAddress } from "@turret/uikit";
 import { AmountPresentation } from "./components/AmountPresentation";
 import { BribeInfo } from "./components/BribeInfo";
 import { InitiativeStatusTag } from "./components/InitiativeStatusTag";

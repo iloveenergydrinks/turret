@@ -21,7 +21,7 @@ import { isSboldEnabled, usePreviewDeposit, usePreviewRedeem, useSboldPosition, 
 import { infoTooltipProps } from "@/src/uikit-utils";
 import { useAccount, useBalance } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, IconEarn, InfoTooltip, InputField, Tabs, TextButton, TokenIcon } from "@liquity2/uikit";
+import { HFlex, IconEarn, InfoTooltip, InputField, Tabs, TextButton, TokenIcon } from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import * as dn from "dnum";
 import { notFound } from "next/navigation";

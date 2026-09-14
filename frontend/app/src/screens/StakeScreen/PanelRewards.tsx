@@ -1,4 +1,4 @@
-import type { TokenSymbol } from "@liquity2/uikit";
+import type { TokenSymbol } from "@turret/uikit";
 import type { Dnum } from "dnum";
 import type { ReactNode } from "react";
 
@@ -10,7 +10,7 @@ import { useStakePosition } from "@/src/liquity-utils";
 import { usePrice } from "@/src/services/Prices";
 import { useAccount } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, TokenIcon, VFlex } from "@liquity2/uikit";
+import { HFlex, TokenIcon, VFlex } from "@turret/uikit";
 import * as dn from "dnum";
 import { encodeFunctionData, zeroAddress } from "viem";
 import { useEstimateGas, useGasPrice } from "wagmi";

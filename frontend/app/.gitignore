@@ -29,3 +29,7 @@ next-env.d.ts
 
 # custom banner
 /Banner.tsx
+
+# Public configuration templates
+!.env.example
+!.env.template

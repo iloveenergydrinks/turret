@@ -1,0 +1,53 @@
+.meme-borrow { color:#292524; min-width:0; max-width:100%; }
+.meme-borrow * { box-sizing:border-box; }
+.meme-market,.meme-intro>div,.meme-filters>label,.meme-offer dl>div { min-width:0; }
+.meme-borrow .borrow-navigation { min-width:0; max-width:100%; }
+.meme-intro { display:grid; grid-template-columns:1.5fr 1fr; align-items:center; gap:40px; margin:24px 0 36px; }
+.meme-intro h1 { font:400 clamp(34px,4vw,52px)/1.14 "Libre Caslon Text",Georgia,serif; letter-spacing:-.025em; margin:0 0 20px; text-wrap:balance; }
+.meme-intro p { max-width:58ch; color:#57534e; font-size:16px; line-height:1.65; margin:0; }
+.meme-intro img { width:100%; height:220px; object-fit:contain; }
+.meme-section-heading { display:flex; justify-content:space-between; align-items:baseline; gap:24px; margin:36px 0 24px; }
+.meme-borrow h2 { font:400 28px/1.25 "Libre Caslon Text",Georgia,serif; margin:0 0 10px; }
+.meme-section-heading p,.meme-lender p { font-size:14px; line-height:1.65; color:#57534e; margin:0; max-width:68ch; }
+.meme-filters { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin-bottom:24px; }
+.meme-filters label { display:grid; gap:8px; font-size:14px; color:#57534e; }
+.meme-filters select { width:100%; min-height:48px; border:1px solid #d6d3d1; border-radius:8px; padding:10px 12px; font:inherit; color:#292524; background:#fff; }
+.meme-filters select:disabled { color:#57534e; background:#f5f5f4; }
+.meme-market-identity { display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:16px; }
+.meme-market-identity .p2p-collateral-logo { display:inline-flex; width:32px; height:32px; align-items:center; justify-content:center; }
+.meme-market-identity img { width:32px; height:32px; border-radius:50%; }
+.meme-market-identity>span:last-child:not(.p2p-collateral-logo) { font-size:13px; color:#57534e; overflow-wrap:anywhere; }
+.meme-message { padding:28px 0; border-bottom:1px solid #dedbd6; }
+.meme-message h3 { font-size:18px; font-weight:500; margin:0 0 10px; }
+.meme-message p { color:#57534e; line-height:1.6; max-width:65ch; margin:0 0 20px; }
+.meme-primary,.meme-secondary { display:inline-flex; justify-content:center; align-items:center; min-height:46px; border-radius:8px; padding:12px 18px; font-size:14px; font-weight:600; text-decoration:none; text-align:center; }
+.meme-primary { color:#fff; background:#292524; }.meme-primary:hover { background:#44403c; }
+.meme-secondary { color:#292524; border:1px solid #d6d3d1; }.meme-secondary:hover { background:#efede9; }
+.meme-text-button { min-height:44px; padding:8px 0; border:0; background:none; color:#292524; font:inherit; font-size:14px; text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+.meme-text-button:disabled { color:#57534e; cursor:wait; }
+.meme-message .meme-secondary { margin-left:18px; }
+.meme-borrow :is(button,select,summary,a):focus-visible { outline:2px solid #292524; outline-offset:4px; }
+.meme-availability { color:#57534e; font-size:13px; line-height:1.6; margin:16px 0; }
+.meme-offer { border-top:1px solid #dedbd6; padding:24px 0; }
+.meme-offer:last-child { border-bottom:1px solid #dedbd6; }
+.meme-offer dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)) .6fr; gap:20px; margin:0; }
+.meme-offer dt { font-size:13px; color:#57534e; margin-bottom:8px; }
+.meme-offer dd { font-size:20px; margin:0; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.meme-offer dd span { font-size:13px; }
+.meme-offer-action { display:flex; justify-content:space-between; align-items:center; gap:24px; margin-top:20px; }
+.meme-offer-action p,.meme-risk { font-size:13px; color:#57534e; line-height:1.65; max-width:72ch; }
+.meme-offer-action .meme-primary { flex-shrink:0; }
+.meme-risk { margin:24px 0 16px; }
+.meme-details { font-size:13px; line-height:1.7; color:#57534e; }.meme-details summary { cursor:pointer; min-height:44px; padding:10px 0; }.meme-details span { overflow-wrap:anywhere; }
+.meme-lender { display:flex; justify-content:space-between; align-items:center; gap:36px; margin-top:36px; padding:28px 0; border-block:1px solid #dedbd6; }.meme-lender .meme-secondary { flex-shrink:0; }
+.meme-footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; font-size:13px; margin-top:24px; }.meme-footer a { color:#57534e; text-underline-offset:4px; }
+@media(max-width:650px) {
+  .meme-borrow .borrow-navigation { display:flex; overflow-x:auto; }
+  .meme-borrow .borrow-navigation a { flex:0 0 auto; min-height:44px; white-space:nowrap; padding:10px 14px; }
+  .meme-intro { grid-template-columns:1fr; gap:0; margin:16px 0 28px; }.meme-intro img { display:none; }
+  .meme-section-heading { display:block; margin-top:28px; }.meme-section-heading .meme-text-button { margin-top:8px; }
+  .meme-filters { grid-template-columns:1fr 1fr; gap:16px 12px; }.meme-filters label:first-child { grid-column:1/-1; }
+  .meme-offer dl { grid-template-columns:1fr 1fr; gap:22px 16px; }.meme-offer dd { font-size:19px; }
+  .meme-offer-action { display:block; }.meme-offer-action .meme-primary { display:flex; }
+  .meme-lender { display:block; }.meme-lender .meme-secondary { margin-top:20px; }
+}

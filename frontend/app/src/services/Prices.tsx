@@ -8,7 +8,7 @@ import { PRICE_REFRESH_INTERVAL } from "@/src/constants";
 import { getBranchContract } from "@/src/contracts";
 import { dnum18, jsonStringifyWithDnum } from "@/src/dnum-utils";
 import { useLiquityStats } from "@/src/liquity-utils";
-import { isCollateralSymbol } from "@liquity2/uikit";
+import { isCollateralSymbol } from "@turret/uikit";
 import { useQuery } from "@tanstack/react-query";
 import { useConfig as useWagmiConfig, useReadContracts } from "wagmi";
 import { readContract } from "wagmi/actions";

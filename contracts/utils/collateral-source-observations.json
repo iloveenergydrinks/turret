@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "chainId": 4663,
+  "admission": "not-approved",
+  "verification": "Sourcify onchainBytecode records exactly matched fresh Alchemy eth_getCode reads at the blocks below. Provider runtime matches use the provider's transformations. Later independent compilation results are recorded separately in collateral-independent-compilation.json: CASHCAT matches, PONS fails strict comparison at 32 metadata bytes. Behavior review remains incomplete.",
+  "observations": [
+    {
+      "symbol": "CASHCAT",
+      "token": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "blockNumber": "52853905",
+      "blockTimestamp": "1788380697",
+      "runtimeBytes": 4830,
+      "runtimeCodeHash": "0x725781ccca82a0bf9b1f8920b2fe58ea1e4facf46d0db9f50226d6409de890fe",
+      "providerRuntimeMatch": "match",
+      "providerCreationMatch": null,
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/4663/0x020bfc650a365f8bb26819deaabf3e21291018b4?fields=all",
+      "compilerVersion": "0.8.30+commit.73712a01",
+      "language": "Yul",
+      "sourcePath": "NoxaFunTokenExact.yul",
+      "sourceKeccak256": "0x149ea8a7ae8e54f2bd66640b8032792cd29eedd41551c6c3fb3c3f13f1e39187",
+      "sourceCharacters": 129291,
+      "behaviorReviewComplete": false
+    },
+    {
+      "symbol": "PONS",
+      "token": "0x39dBED3a2bd333467115dE45665cC57F813C4571",
+      "blockNumber": "52853932",
+      "blockTimestamp": "1788380700",
+      "runtimeBytes": 5274,
+      "runtimeCodeHash": "0x16c3d3ede897688ddff79262606f13bead398332e65001f192460fbac4e1fb85",
+      "providerRuntimeMatch": "match",
+      "providerCreationMatch": "match",
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/4663/0x39dbed3a2bd333467115de45665cc57f813c4571?fields=all",
+      "compilerVersion": "0.8.30+commit.73712a01",
+      "language": "Solidity",
+      "sourcePath": "contracts/src/PonsLauncherToken.sol",
+      "sourceKeccak256": "0xd66b136aa9c88c2f80540024e2c043f54df6be2b5ce0a2f20b1ebd7709256c89",
+      "sourceCharacters": 7522,
+      "dependencySourceCount": 6,
+      "behaviorReviewComplete": false
+    }
+  ]
+}

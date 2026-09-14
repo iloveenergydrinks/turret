@@ -1,6 +1,6 @@
 "use client";
 
-import { InputField, lerp, norm, Slider } from "@liquity2/uikit";
+import { InputField, lerp, norm, Slider } from "@turret/uikit";
 import * as dn from "dnum";
 import { useFixtureInput } from "react-cosmos/client";
 

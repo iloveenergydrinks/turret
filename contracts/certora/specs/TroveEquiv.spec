@@ -55,7 +55,7 @@ methods {
 // -Liquidation of another Trove k by SP offset
 
 // - Closing Trove i and closing batch trove j
-// PASSING: https://prover.certora.com/output/65266/2608fdd8d6044ccc90e1d9b3bbd6cfa6/?anonymousKey=290a3d24a79e35ff0db0de3b5baca95555d88ba9
+// PASSING: https://prover.certora.com/output/65266/2608fdd8d6044ccc90e1d9b3bbd6cfa6/
 rule trove_batch_trove_eq_closing {
     uint256 troveIdX;
     uint256 troveIdY;
@@ -113,7 +113,7 @@ rule trove_batch_trove_eq_closing {
 
 // -Liquidation of another Trove k in the same branch by redistribution (only when stake_i = stake_j)
 // -Liquidation of another Trove k by SP offset"
-// PASSING: https://prover.certora.com/output/65266/61f049c7c48a43248a3936cb1166c601/?anonymousKey=0d0660afefd05844ca4a16172935b1d97c4cd5ab
+// PASSING: https://prover.certora.com/output/65266/61f049c7c48a43248a3936cb1166c601/
 rule trove_batch_trove_eq_liquidate {
     uint256 troveIdX;
     uint256 troveIdY;
@@ -159,7 +159,7 @@ rule trove_batch_trove_eq_liquidate {
 }
 
 // -Applying pending debt to Trove i and to Trove j's batch
-// PASSING: https://prover.certora.com/output/65266/17ae34273a28453eab2908dc2ce168b7/?anonymousKey=09a1a1b967af925ccdc189179b067ca2f94c55ee
+// PASSING: https://prover.certora.com/output/65266/17ae34273a28453eab2908dc2ce168b7/
 rule trove_batch_trove_apply_pending_debt {
     uint256 troveIdX;
     uint256 troveIdY;
@@ -236,7 +236,7 @@ rule trove_batch_trove_apply_pending_debt {
 
 // -Liquidation of another Trove k in the same branch by redistribution (only when stake_i = stake_j)
 // -Liquidation of another Trove k by SP offset
-// CEX: https://prover.certora.com/output/65266/34f8cb4c95704da5841dc696beb3fa88/?anonymousKey=9b8702f0a85d6f71b4a2654523ed982a1a50a390
+// CEX: https://prover.certora.com/output/65266/34f8cb4c95704da5841dc696beb3fa88/
 rule trove_batch_eq_liquidation {
     uint256 trove_i;
     address batch;
@@ -317,7 +317,7 @@ rule trove_batch_eq_liquidation {
 }
 
 // -Closing Trove i and closing all Troves in batch B
-// CEX: https://prover.certora.com/output/65266/b803ea138ec14ac8bd4207b01a685a9d/?anonymousKey=8644b2b87c4f473fe6833dddc0cb9ffce992eada
+// CEX: https://prover.certora.com/output/65266/b803ea138ec14ac8bd4207b01a685a9d/
 rule trove_batch_eq_closing {
     uint256 trove_i;
     address batch;
@@ -399,7 +399,7 @@ rule trove_batch_eq_closing {
 }
 
 // -Applying pending debt to Trove i and to a Trove in batch B
-// Timeout: https://prover.certora.com/output/65266/411e58c0a6084755937a0419c5a10abd/?anonymousKey=fa425a8887f722079e1e0cb7339f497b03c34edc
+// Timeout: https://prover.certora.com/output/65266/411e58c0a6084755937a0419c5a10abd/
 rule trove_batch_eq_pending {
     uint256 trove_i;
     address batch;
@@ -441,7 +441,7 @@ rule trove_batch_eq_pending {
 
     // accrued management fee should be 0 otherwise this
     // will cause the batch debt to differ from the individual trove
-    // debt: https://prover.certora.com/output/65266/a08e68f84ae64589855c518bce465ed9/?anonymousKey=94239bddcc7f50ccdf60e50e614ef03bbfdf016e
+    // debt: https://prover.certora.com/output/65266/a08e68f84ae64589855c518bce465ed9/
     require trove_data_before.accruedBatchManagementFee == 0;
     require batch_data_before.accruedManagementFee == 0;
 

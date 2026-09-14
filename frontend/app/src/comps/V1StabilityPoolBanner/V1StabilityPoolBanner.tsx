@@ -4,7 +4,7 @@ import { InfoBanner } from "@/src/comps/InfoBanner/InfoBanner";
 import { fmtnum } from "@/src/formatting";
 import { useV1StabilityPoolLqtyGain } from "@/src/liquity-utils";
 import { useAccount } from "@/src/wagmi-utils";
-import { IconInfo } from "@liquity2/uikit";
+import { IconInfo } from "@turret/uikit";
 import * as dn from "dnum";
 
 const MIN_LQTY_THRESHOLD = dn.from(1000, 18); // 1000 LQTY

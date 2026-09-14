@@ -1,0 +1,12 @@
+/* Keep long token balances inside the isolated market's action column. */
+.dockyard-isolated-action form,
+.dockyard-isolated-action fieldset {
+  min-width: 0;
+}
+
+.dockyard-isolated-action .dockyard-use-balance {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

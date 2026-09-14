@@ -14,7 +14,7 @@ import type { Address, Initiative } from "@/src/types";
 import { tokenIconUrl } from "@/src/utils";
 import { useAccount } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { shortenAddress, Tabs, TokenIcon, VFlex } from "@liquity2/uikit";
+import { shortenAddress, Tabs, TokenIcon, VFlex } from "@turret/uikit";
 import * as dn from "dnum";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo } from "react";

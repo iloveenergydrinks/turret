@@ -1,6 +1,6 @@
 import { eq } from "dnum";
 
-import type { Address } from "@liquity2/uikit";
+import type { Address } from "@turret/uikit";
 import type { VoteAllocations } from '@/src/types';
 
 export const isAllocationsChanged = (a: VoteAllocations, b: VoteAllocations) => {

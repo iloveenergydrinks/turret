@@ -26,7 +26,7 @@ import {
   TextButton,
   TokenIcon,
   TOKENS_BY_SYMBOL,
-} from "@liquity2/uikit";
+} from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import * as dn from "dnum";
 import Link from "next/link";

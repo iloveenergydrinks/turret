@@ -1,6 +1,6 @@
 import { useAccount } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { TextButton } from "@liquity2/uikit";
+import { TextButton } from "@turret/uikit";
 
 export function ConnectWarningBox() {
   const account = useAccount();

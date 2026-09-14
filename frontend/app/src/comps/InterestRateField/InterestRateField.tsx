@@ -22,7 +22,7 @@ import {
 import { infoTooltipProps } from "@/src/uikit-utils";
 import { noop } from "@/src/utils";
 import { css } from "@/styled-system/css";
-import { Dropdown, InfoTooltip, InputField, shortenAddress, Slider, TextButton } from "@liquity2/uikit";
+import { Dropdown, InfoTooltip, InputField, shortenAddress, Slider, TextButton } from "@turret/uikit";
 import { a } from "@react-spring/web";
 import { blo } from "blo";
 import * as dn from "dnum";

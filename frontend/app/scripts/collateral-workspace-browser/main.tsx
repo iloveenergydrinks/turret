@@ -1,0 +1,22 @@
+import React from 'react';
+import {createRoot} from 'react-dom/client';
+import '../../src/app/turret-fonts.css';
+import '../../src/app/brand.css';
+import '../../src/app/controls.css';
+import {BorrowHub} from '../../src/borrow/BorrowHub';
+import {PoolLoanDirectory} from '../../src/borrow/PoolLoanDirectory';
+import {P2PAppLayout} from '../../src/p2p/P2PAppLayout';
+import {P2PLoansScreen} from '../../src/screens/P2PLoansScreen/P2PLoansScreen';
+import {NFTLoansScreen} from '../../src/nft/NFTLoansScreen';
+import {PortfolioApp} from '../../src/portfolio/PortfolioApp';
+import {WalletSessionProvider} from '../../src/wallet/useWalletSession';
+import {GetCollateral} from '../../src/borrow/GetCollateral';
+import {AccountButton} from '../../src/comps/AppLayout/AccountButton';
+function PoolShell(){return <P2PAppLayout activePage="borrow" network="Robinhood Chain" wallet={<AccountButton />}>{location.pathname==='/borrow/get'?<GetCollateral/>:location.pathname==='/borrow/pools'?<PoolLoanDirectory/>:<BorrowHub/>}</P2PAppLayout>;}
+const p=location.pathname;
+let content;
+if(p==='/borrow/p2p')content=<P2PLoansScreen standalone/>;
+else if(p==='/borrow/nfts')content=<NFTLoansScreen/>;
+else if(p==='/portfolio')content=<WalletSessionProvider><PortfolioApp/></WalletSessionProvider>;
+else content=<WalletSessionProvider><PoolShell/></WalletSessionProvider>;
+createRoot(document.getElementById('root')!).render(<React.StrictMode>{content}</React.StrictMode>);

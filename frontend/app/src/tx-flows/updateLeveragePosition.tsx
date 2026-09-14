@@ -13,7 +13,7 @@ import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionS
 import { usePrice } from "@/src/services/Prices";
 import { vDnum, vPositionLoanCommited } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { ADDRESS_ZERO, InfoTooltip } from "@liquity2/uikit";
+import { ADDRESS_ZERO, InfoTooltip } from "@turret/uikit";
 import * as dn from "dnum";
 import { match, P } from "ts-pattern";
 import * as v from "valibot";

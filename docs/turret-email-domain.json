@@ -1,0 +1,37 @@
+{
+  "domain": "turret.capital",
+  "resendDomainId": "39f8447c-6d1b-4dc2-8ee1-f40114d752ee",
+  "resendDashboard": "https://resend.com/domains/39f8447c-6d1b-4dc2-8ee1-f40114d752ee",
+  "region": "eu-west-1",
+  "purpose": "Transactional borrower alerts",
+  "sender": "Turret <alerts@turret.capital>",
+  "status": "verified",
+  "records": [
+    {
+      "record": "DKIM",
+      "name": "resend._domainkey",
+      "value": "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDA3dtPb9DYQ6+UR2bpe3oX0bhdUngjwKqF/WiYfoqGkY1sBU0Q0gKov8ygr5DpyeVkAlp0X7VsP3N10TUeWfoWZNfgZahn8C/oO22wQQG1/QLgGkc324fXyCgZPu0NILKaNz1BcThX0lpAD1p39aDFrLBNCS2YXbOSDx6qVCBD+wIDAQAB",
+      "type": "TXT",
+      "status": "verified",
+      "ttl": "Auto"
+    },
+    {
+      "record": "SPF",
+      "name": "send",
+      "type": "MX",
+      "ttl": "Auto",
+      "status": "verified",
+      "value": "feedback-smtp.eu-west-1.amazonses.com",
+      "priority": 10
+    },
+    {
+      "record": "SPF",
+      "name": "send",
+      "value": "v=spf1 include:amazonses.com ~all",
+      "type": "TXT",
+      "ttl": "Auto",
+      "status": "verified"
+    }
+  ],
+  "verifiedAt": "2026-09-06T02:25:52.920333+00:00"
+}

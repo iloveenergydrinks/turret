@@ -1,0 +1,16 @@
+.loan-interest-field { min-width: 0; margin: 16px 0; }
+.loan-interest-field > .loan-interest-label { display: block; margin: 0 0 8px; color: #292524; font-size: 13px; font-weight: 400; }
+.loan-interest-input-row { display: flex; align-items: stretch; gap: 8px; min-width: 0; }
+.loan-interest-units { display: flex; flex: 0 0 auto; gap: 4px; }
+.loan-interest-field .loan-interest-input-row > input { box-sizing: border-box; width: 100%; min-width: 0; flex: 1; min-height: 48px; margin: 0; padding: 12px; border: 1px solid #d6d3d1; border-radius: 10px; background: #fff; color: #292524; font: inherit; }
+:root .loan-interest-field .loan-interest-input-row > input { margin: 0; }
+.loan-interest-input-row > input:focus-visible { outline: 2px solid #292524; outline-offset: 2px; }
+.loan-interest-input-row > input[aria-invalid="true"] { border-color: #9f3434; }
+.loan-interest-input-row > input:disabled { background: #f2f1ee; color: #68635d; }
+.loan-interest-field > .loan-interest-help, .loan-interest-field > .loan-interest-error { margin: 8px 0 0; font-size: 13px; line-height: 1.5; color: #57534e; }
+.loan-interest-field > .loan-interest-error { color: #9f3434; }
+.loan-interest-summary { display: grid; gap: 8px; margin: 16px 0 0; padding-top: 12px; border-top: 1px solid #e7e5e4; }
+.loan-interest-summary > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
+.loan-interest-summary dt { color: #57534e; font-size: 14px; }
+.loan-interest-summary dd { margin: 0; font-size: 14px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.loan-interest-summary > div:last-child dd { font-weight: 600; }

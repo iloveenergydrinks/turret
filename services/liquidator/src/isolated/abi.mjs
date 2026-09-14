@@ -1,0 +1,58 @@
+import { parseAbi,keccak256,stringToHex } from 'viem';
+export const MARKET_HEALTH_TYPEHASH=keccak256(stringToHex('MarketHealth(uint80 roundId,uint64 observedAt,uint64 validUntil,uint64 sessionOpen,uint64 sessionClose,bytes32 roundHash,uint64 epoch)'));
+
+export const isolatedAbi = parseAbi([
+  'function usdg() view returns (address)',
+  'function MARKET_HEALTH_TYPEHASH() view returns(bytes32)',
+  'function collateralToken() view returns (address)',
+  'function pool() view returns (address)',
+  'function owner() view returns (address)',
+  'function primary() view returns (address)',
+  'function secondary() view returns (address)',
+  'function riskPaused() view returns (bool)',
+  'function activeDebtPositions() view returns (uint256)',
+  'function MAX_ACTIVE_POSITIONS() view returns (uint256)',
+  'function activeBorrowerAt(uint256) view returns (address)',
+  'function positions(address) view returns (uint256 collateral,uint256 principal,uint256 interest,uint256 remainder,uint256 updatedAt)',
+  'function positionDebt(address) view returns (uint256)',
+  'function price() view returns (uint256)',
+  'function executionGate() view returns (address)',
+  'function stockGuard() view returns (address)',
+  'function usdgPrimary() view returns (address)', 'function usdgSecondary() view returns (address)',
+  'function priceWithLiveness(bytes) returns (uint256)',
+  'function liquidationQuoteWithLiveness(address,uint256,bytes) returns (uint256 paid,uint256 seized)',
+  'function liquidateChecked(address,uint256,uint256,bytes) returns (uint256 paid,uint256 seized)',
+  'function liquidationQuote(address,uint256) view returns (uint256 paid,uint256 seized)',
+  'function liquidate(address,uint256,uint256) returns (uint256 paid,uint256 seized)',
+  'event Liquidated(address indexed borrower,address indexed liquidator,uint256 repaid,uint256 seized)',
+  'error HealthyPosition()', 'error OracleUnavailable()', 'error OracleMismatch()',
+  'error Slippage()', 'error InvalidAmount()', 'error NotReady()',
+  'error DependencyChanged()', 'error InvalidUsdgPrice()', 'error MarketHealthUnauthorized()',
+  'error InvalidLiveness()', 'error LivenessExpired()', 'error RecoveryPending()',
+  'error InvalidPrice()', 'error StalePrice()', 'error CorporateActionPending()',
+  'error HealthExpired()', 'error InvalidHealth()', 'error MarketClosed()',
+  'error PriceQuarantined()', 'error UnauthorizedGuardian()', 'error Unavailable()',
+]);
+export const capitalAbi = parseAbi([
+  'function asset() view returns (address)',
+  'function collateralToken() view returns (address)',
+  'function creditEngine() view returns (address)',
+  'function debtLimit() view returns (uint256)',
+  'function outstandingPrincipal() view returns (uint256)',
+  'function interestReceivable() view returns (uint256)',
+  'function pendingInterest() view returns (uint256)',
+  'function availableCash() view returns (uint256)',
+]);
+
+export const exitAbi = parseAbi([
+  'function executionGate() view returns (address)',
+  'function engine() view returns (address)',
+  'function usdg() view returns (address)',
+  'function collateral() view returns (address)',
+  'function routeHealthy() view returns (bool)',
+  'function liquidateAndSell(address,uint256,uint256,uint256,uint256) returns (uint256 paid,uint256 seized,uint256 usdgOut)',
+  'function liquidateAndSellChecked(address,uint256,uint256,uint256,uint256,bytes) returns (uint256 paid,uint256 seized,uint256 usdgOut)',
+  'event LiquidationExited(address indexed borrower,address indexed keeper,uint256 paid,uint256 seized,uint256 usdgOut,uint256 profit)',
+  'error InsufficientReturn()', 'error RouteChanged()', 'error Expired()',
+  'error IncompleteSwap()', 'error UnsupportedTransfer()', 'error UnexpectedCallback()',
+]);

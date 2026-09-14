@@ -4,7 +4,7 @@ import type { ComponentProps } from "react";
 import { Amount } from "@/src/comps/Amount/Amount";
 import { fmtnum } from "@/src/formatting";
 import { css } from "@/styled-system/css";
-import { TokenIcon } from "@liquity2/uikit";
+import { TokenIcon } from "@turret/uikit";
 
 const SIZES = {
   normal: {

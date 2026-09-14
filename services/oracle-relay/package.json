@@ -1,0 +1,20 @@
+{
+  "name": "dockyard-oracle-relay",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node src/main.mjs",
+    "start:isolated": "node src/isolated-main.mjs",
+    "start:stock-api3": "node src/api3-main.mjs",
+    "watchdog:isolated": "node src/isolated-watchdog.mjs",
+    "watchdog:stock-api3": "node src/api3-watchdog.mjs",
+    "preflight": "node src/preflight.mjs",
+    "preflight:stock-api3": "node src/api3-usdg.mjs",
+    "inspect:stock-chainlink": "node src/chainlink-usdg.mjs",
+    "preflight:isolated": "node src/isolated-pyth-preflight.mjs",
+    "test:isolated-integration": "node --test test/isolated-pyth.integration.mjs test/isolated-service.integration.mjs test/isolated-running.integration.mjs",
+    "test:stock-api3-integration": "node --test test/api3-publication.integration.mjs test/api3-service.integration.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}

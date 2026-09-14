@@ -1,0 +1,38 @@
+.p2p-marketplace-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.p2p-marketplace-filters { display: grid; grid-template-columns: minmax(200px, 2fr) repeat(3, minmax(130px, 1fr)); gap: 16px; }
+.p2p-request-heading > .p2p-funding-tag { padding: 5px 10px; border: 1px solid #d6d3d1; border-radius: 8px; color: #57534e; background: #fafaf9; font-size: 12px; }
+.p2p-request-heading > .p2p-funded { color: #292524; border-color: #a8a29e; background: #f5f5f4; }
+.p2p-listing-action { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.p2p-listing-action > p { color: #57534e; font-size: 13px; max-width: 65ch; }
+.p2p-marketplace .p2p-request-card > .p2p-button { justify-self: start; }
+@media (max-width: 760px) {
+  .p2p-marketplace-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .p2p-marketplace-filters > label:first-child { grid-column: 1 / -1; }
+  .p2p-marketplace-actions { width: 100%; }
+  .p2p-listing-action { align-items: start; flex-direction: column; gap: 12px; }
+}
+@media (max-width: 480px) {
+  .p2p-marketplace-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .p2p-marketplace-actions > .p2p-button { flex: 1 1 auto; }
+}
+
+.p2p-marketplace .p2p-browser-heading { margin-bottom: 0; }
+.p2p-marketplace .p2p-marketplace-actions { flex-shrink: 0; }
+.p2p-marketplace .p2p-marketplace-actions > .p2p-button,
+.p2p-marketplace .p2p-request-card > .p2p-button,
+.p2p-marketplace .p2p-listing-action > .p2p-button { width: auto; }
+.p2p-marketplace .p2p-request-card { gap: 16px; }
+.p2p-marketplace .p2p-request-terms { padding-block: 16px; gap: 20px 16px; }
+.p2p-marketplace .p2p-funding-tag { justify-self: start; }
+@media (min-width: 761px) { .p2p-marketplace .p2p-marketplace-actions { flex-wrap: nowrap; } }
+@media (max-width: 760px) { .p2p-marketplace .p2p-marketplace-actions { margin-top: 16px; } }
+
+.p2p-marketplace .p2p-marketplace-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 24px; margin-block: 8px; }
+.p2p-marketplace-action { min-width: 0; }
+.p2p-marketplace .p2p-marketplace-action > .p2p-button { width: auto; }
+.p2p-marketplace-action > p { margin: 10px 0 0; color: #57534e; font-size: 14px; line-height: 1.5; max-width: 48ch; }
+@media (max-width: 600px) {
+ .p2p-marketplace .p2p-marketplace-actions { grid-template-columns: 1fr; gap: 20px; }
+}
+.p2p-standing-entry { display:flex; flex-wrap:wrap; gap:16px 24px; align-items:center; padding:24px 0; margin:16px 0 28px; border-block:1px solid #d6d3d1; }
+.p2p-standing-entry>div { flex:1; min-width:220px; }.p2p-standing-entry p { margin:6px 0 0; }.p2p-standing-entry a { text-decoration:none; }

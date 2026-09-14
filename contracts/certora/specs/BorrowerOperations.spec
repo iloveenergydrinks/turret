@@ -89,7 +89,7 @@ function callDebtAdjustFunction(env e, method f, uint256 troveId, uint256 boldAm
 // (recorded debts + accrued interest) equals the batch’s recorded debt plus 
 // its accrued interest plus management fees.
 // Note this restricts us to the case where a batch has exactly 2 troves in it.
-// PASSING: https://prover.certora.com/output/65266/95ee72fb04b04d0d988afe2837b6f55a?anonymousKey=ffb75907ce6d7d24cc52f0cca17f1841c73a3c5b
+// PASSING: https://prover.certora.com/output/65266/95ee72fb04b04d0d988afe2837b6f55a
 rule sum_of_trove_debts {
     env e;
     calldataarg args;
@@ -144,7 +144,7 @@ rule sum_of_trove_debts {
 
 // simple rule to check that all the troves in a batch have the same interest rate
 // STATUS: PASSING
-// https://prover.certora.com/output/65266/0c1e6565d8524f568302eb35f45e77ff/?anonymousKey=8f9f47eb773e45384e98117ea9d5f0bab4ac8c71
+// https://prover.certora.com/output/65266/0c1e6565d8524f568302eb35f45e77ff/
 rule sameInterestRateForBatchTroves(env e, uint256 troveId1, uint256 troveId2){
     
     address batchManager1 = troveManager.Troves[troveId1].interestBatchManager;
@@ -160,7 +160,7 @@ rule sameInterestRateForBatchTroves(env e, uint256 troveId1, uint256 troveId2){
 
 // Troves in a given batch always accrue interest at the same rate
 // STATUS: PASSING
-// https://prover.certora.com/output/65266/0c1e6565d8524f568302eb35f45e77ff/?anonymousKey=8f9f47eb773e45384e98117ea9d5f0bab4ac8c71
+// https://prover.certora.com/output/65266/0c1e6565d8524f568302eb35f45e77ff/
 rule troves_in_batch_accrue_interest_at_same_rate {
     env e;
 
@@ -196,7 +196,7 @@ rule troves_in_batch_accrue_interest_at_same_rate {
 
 // When a trove is a member of a batch its recorded debt is calculated 
 // as the batch debt normalized by its fraction of the total shares.
-// PASSING: https://prover.certora.com/output/65266/c0e1a7786ace429caf6e6eedd922d5a2/?anonymousKey=960711ced6445e0deb29fe76e11ea835ad32bfb3
+// PASSING: https://prover.certora.com/output/65266/c0e1a7786ace429caf6e6eedd922d5a2/
 rule troves_in_batch_use_batch_structure {
     env e;
     uint256 troveIdX;
@@ -224,7 +224,7 @@ rule troves_in_batch_use_batch_structure {
 // For a given average system interest rate, Troves in a given batch always pay 
 // the same upfront fee (as percentage of their debt) upon premature interest 
 // rate adjustments by the manager
-// PASSING: https://prover.certora.com/output/17512/60354eb235f74b91a64c62d953a33e97/?anonymousKey=2e684f40438900acdf9215143556681e0320e86d
+// PASSING: https://prover.certora.com/output/17512/60354eb235f74b91a64c62d953a33e97/
 rule troves_in_batch_share_upfront_fee {
     env e;
 
@@ -275,7 +275,7 @@ rule troves_in_batch_share_upfront_fee {
 
 // Troves in a given batch are charged the same management fee (as percentage 
 // of their debt)
-// PASSING: https://prover.certora.com/output/65266/df7a72e887c04bf2b22755db10e51750/?anonymousKey=65f67b65a18ddd5063fa723489231ae5cfc7ce3c
+// PASSING: https://prover.certora.com/output/65266/df7a72e887c04bf2b22755db10e51750/
 rule troves_in_batch_share_management_fee {
     env e;
 
@@ -322,7 +322,7 @@ When any borrower with a batch Trove i adjusts its coll by x:
 -Trove i’s entire coll changes only by x
 -Trove i’s entire debt does not change
 */
-// PASSING: https://prover.certora.com/output/65266/3edac4f9134b484bb112a585fa8268d6/?anonymousKey=041d059c08e8d9a08608bda2bd9411b75134ad10
+// PASSING: https://prover.certora.com/output/65266/3edac4f9134b484bb112a585fa8268d6/
 rule collateral_adjust_effects (method f) filtered {
     f -> f.selector == sig:addColl(uint256,uint256).selector
     || f.selector == sig:withdrawColl(uint256,uint256).selector 
@@ -413,7 +413,7 @@ NOTE: For performance reasons, we have a separate rule to show:
     -Trove i’s entire debt changes only by x
 */
 // Related functions: withdrawBold, repayBold
-// PASSING: https://prover.certora.com/output/65266/3edac4f9134b484bb112a585fa8268d6/?anonymousKey=041d059c08e8d9a08608bda2bd9411b75134ad10
+// PASSING: https://prover.certora.com/output/65266/3edac4f9134b484bb112a585fa8268d6/
 rule debt_adjust_effects (method f) filtered {
     f -> f.selector == sig:withdrawBold(uint256,uint256,uint256).selector
     || f.selector == sig:repayBold(uint256,uint256).selector 
@@ -527,7 +527,7 @@ When any borrower with a batch Trove i adjusts its debt by withdrawing x:
     -Trove i’s entire debt changes only by x
 */
 // Status: PASSING
-// run link: https://prover.certora.com/output/65266/90a05757dfcb43e09f32db04833ae19a/?anonymousKey=1b5a3af2ee928908a2659c242c03fc983d58bc7b
+// run link: https://prover.certora.com/output/65266/90a05757dfcb43e09f32db04833ae19a/
 rule withdraw_debt_change {
     env e;
     uint256 troveId;
@@ -599,7 +599,7 @@ When any borrower with a batch Trove i adjusts its debt by repaying x:
     -Trove i’s entire debt changes only by x
 */
 // Status: PASSING
-// run link: https://prover.certora.com/output/65266/26d50b7a4283490e895ddca2eba40153/?anonymousKey=2236aebaa6e15a7b70c5062a3644b2cc1034ba22
+// run link: https://prover.certora.com/output/65266/26d50b7a4283490e895ddca2eba40153/
 rule repay_debt_change {
     env e;
     uint256 troveId;
@@ -663,7 +663,7 @@ rule repay_debt_change {
 
     //  the amount deducted is actually adjusted to be above 
     // the MIN_DEBT in _adjustTrove. CEX without this assumption:
-    // https://prover.certora.com/output/65266/3a3adac163764998a5414508d53abf10/?anonymousKey=b4ca5fce00fc0c8a8c11808400e52fa749faf804
+    // https://prover.certora.com/output/65266/3a3adac163764998a5414508d53abf10/
     require troveDataBefore.entireDebt - boldAmount >
         /* MIN_DEBT */
         2000000000000000000000;

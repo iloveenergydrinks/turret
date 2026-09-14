@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-07T00:47:23.299974+00:00",
+  "node": "24.18.1",
+  "sourceHashes": {
+    "frontend/app/scripts/profile-proxy.mjs": "0640741610fb0d5b092344efb0a99aeeb79e7610cba0f6a8afb32c035aad4cf4",
+    "services/wallet-profiles/package.json": "d977de0e6051e85365a526a66812ee54502c370cfec5c87b49b4150aadff7254",
+    "services/wallet-profiles/pnpm-lock.yaml": "9e59820b697199087f49e28b1b0a1bfecf7ded2a7d6b13e720dd05a8165df4ca",
+    "services/wallet-profiles/src/engine.mjs": "56663bcb54656e7c33e54554f94a6199526cc3eb9bfa7aa6e34e05252ac28c2c",
+    "services/wallet-profiles/src/http.mjs": "133486ae2ec51eb9bf4002fb0b60cf7e8eb701f975e38d7781d092af047a1ea3",
+    "services/wallet-profiles/src/image.mjs": "2c3d3562aace6570e43ba0794bb1610e979911db2939325d46bbeecbe93157c3",
+    "services/wallet-profiles/src/server.mjs": "0287f01cf569ae09ae47554e90d6413468160f2e794519d261fbdd39738ac1ec",
+    "services/wallet-profiles/src/store.mjs": "8cd02bfaad68104d68f15636ac915449d52eb965277748aadce98b1f2f7b0afd",
+    "services/wallet-profiles/src/verify.mjs": "3fe958e6a6fef104c3aa266cb1008946de756b80a66e4019b768255e39a4fc41",
+    "services/wallet-profiles/test/contracts/Wallet1271.sol": "941f9ec1a0c11f1a3a40ff13f472eb33c6208ce610acf76da5bfda4979f84166",
+    "services/wallet-profiles/test/docker-smoke.mjs": "81bdd8933bda7b1afe2424641018796e8dbb19bfa749f797c407e15387ff230e",
+    "services/wallet-profiles/test/profile.test.mjs": "0703b00bc8399fe02f60638aca54f471b230a99cea981d71c556933c4c04b5f9",
+    "services/wallet-profiles/test/proxy.test.mjs": "1afbcfc655fccb6d1eb3681e570877f235223ba0ec683c1b4dfcf58855884be1",
+    "services/wallet-profiles/test/verification.test.mjs": "7544c5289da049c6e24eb8a17711fa784fd29078744a2ed08da6867ed2f17b36",
+    "shared/wallet-avatar.d.mts": "704db7934ba71b8502173f87e8062533fdd14786d4cf54cfecb573e2249a5eeb",
+    "shared/wallet-avatar.mjs": "7851a88d4763af37921d36452ba83fd467c20e0c253e52e33b43136e12a3b948"
+  },
+  "publicNetworkTransactions": 0,
+  "testFiles": [
+    "services/wallet-profiles/test/profile.test.mjs",
+    "services/wallet-profiles/test/proxy.test.mjs",
+    "services/wallet-profiles/test/verification.test.mjs"
+  ]
+}

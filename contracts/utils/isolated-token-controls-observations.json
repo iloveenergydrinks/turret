@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "chainId": 4663,
+  "blockNumber": "52931798",
+  "blockHash": "0xe1a03d54fb11b3bc37d119b7e28d99bdbb01836a2f6773d9649dee51d08e0693",
+  "suite": "test/fork/DockyardCollateralControlsFork.t.sol",
+  "reproduction": "Set COLLATERAL_RPC_URL and ISOLATED_FORK_BLOCK=52931798 privately; run ISOLATED_FORK_SUITE=controls node utils/run-isolated-fork.mjs from contracts",
+  "passed": 6,
+  "failed": 0,
+  "skipped": 0,
+  "checks": [
+    "Both deployed runtime hashes match pinned collateral code",
+    "Both tokens enforce finite allowances, revocation and insufficient-allowance reverts; infinite allowances remain unchanged",
+    "Transfers preserve tested exact recipient balances and total supply, and reject the zero recipient",
+    "Both expired launch windows permit wallet balances above historical maxWalletLimit and return transfers",
+    "Collateral return transfers and actual token/WETH pool sales remain possible when the launch factory reverts",
+    "PONS rejects unauthorized setInitialBuyRecipient; a local factory-authorized reset does not change restrictionEndBlock, prevent tested sales or restore historical wallet limits"
+  ],
+  "limitations": [
+    "Fork only; synthetic balances and protocol-factory impersonation are not production transactions",
+    "The sampled transfers and small sales do not constitute complete token behavior or economic security review",
+    "No claim about every hidden selector, every storage state, future chain upgrades, liquidity availability or authenticated price delivery",
+    "PONS metadata provenance remains unresolved"
+  ],
+  "metadataInvestigation": {
+    "compiler": "0.8.30+commit.73712a01",
+    "originalMetadataCid": "QmSb2Cx213kqQaAtbmrD2UardJbJcqwLSycLcwNXTnsks9",
+    "expectedDigest": "3f1d2fa3e19d1d89bade58a44f6db2c1ebac15f3572a67685f0669925cfd9a48",
+    "baselineDigest": "d8bb5c056858dbf647eee176f2719eb6bb7f485aa2ad17c5be6b0555608dd261",
+    "literalContentDigest": "2fb7120a166235333a62361294f81e6e1ef5a2579c3209a0d29e0e3775e0c5b2",
+    "omittedMetadataSettingsDigest": "d8bb5c056858dbf647eee176f2719eb6bb7f485aa2ad17c5be6b0555608dd261",
+    "sourceIdentityChangesTested": true,
+    "originalMetadataRetrieved": false,
+    "retrievalAttempts": ["https://gateway.pinata.cloud/ipfs/", "https://ipfs.io/ipfs/", "https://dweb.link/ipfs/", "https://ipfs.filebase.io/ipfs/", "https://gateway.lighthouse.storage/ipfs/"],
+    "rootCauseEstablished": false,
+    "strictComparisonRelaxed": false
+  },
+  "metadataFollowup": {
+    "observedDateUtc": "2026-09-02",
+    "compiler": "0.8.30+commit.73712a01",
+    "sourceRepository": "https://github.com/ponsdotdev/ponsfamily",
+    "sourceCommit": "83536723fbd5b93213c5f66007ab01f76937205b",
+    "comparisonTarget": "Freshly fetched Sourcify onchainBytecode record, hash 0x16c3d3ede897688ddff79262606f13bead398332e65001f192460fbac4e1fb85; prior independent pinned-chain match remains recorded separately",
+    "freshChainReadPerformed": false,
+    "originalFactorySource": {
+      "address": "0x0c37a24F5D23A486FA692d1500881d698B1F77a4",
+      "sourceUrl": "https://sourcify.dev/server/v2/contract/4663/0x0c37a24F5D23A486FA692d1500881d698B1F77a4?fields=all",
+      "httpStatus": 404
+    },
+    "publishedSourceDigests": {
+      "contracts/lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol": "0x6115b61f774c45c3028c1d51347adf09fb865870777278f94c046583052e59a1",
+      "contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol": "0x6f6fd70495242a098de0bbb56f36e2f13d5de8a7295af165dfc27f775e349767",
+      "contracts/lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": "0x03a4d2bf5dac9e3d165bcf58cf7928d86a96ac5539709f872a069d2f72c562e7",
+      "contracts/lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol": "0xddbdfb166cbde83bb45686310f926227517f85b09f1484d3d5891ac99f388aae",
+      "contracts/lib/openzeppelin-contracts/contracts/utils/Context.sol": "0x02609556ac0d24643c651ab745f60f1995145614d4cc5b5fc002aa58d375d9e4",
+      "contracts/src/PonsLauncherToken.sol": "0xeecc89b24fb7458a0822db75665fc4dcf2346eb396f664d3f42c5c28c22912e3",
+      "contracts/src/interfaces/ILaunchpad.sol": "0x28ddafe308472c7aef17ed1c7a6ba41ef49cef674532f674ed2af9f6d47a32b5"
+    },
+    "variants": [
+      {
+        "name": "Published first-party sources with Sourcify dependency sources and settings",
+        "runtimeBytes": 5274,
+        "strictMatch": false,
+        "mismatchedBytes": 32,
+        "allDifferencesWithinMetadataDigest": true
+      },
+      {
+        "name": "All seven published sources with original source paths and Sourcify settings",
+        "runtimeBytes": 5274,
+        "strictMatch": false,
+        "mismatchedBytes": 30,
+        "allDifferencesWithinMetadataDigest": true,
+        "compiledMetadataDigest": "3cd72f77bc55d0839f4a072c710b75caa4ac1b395ee259094e56f5868106e036"
+      },
+      {
+        "name": "All seven published sources with contracts/ removed from source paths and remapping targets",
+        "runtimeBytes": 5274,
+        "strictMatch": false,
+        "mismatchedBytes": 32,
+        "allDifferencesWithinMetadataDigest": true,
+        "compiledMetadataDigest": "6cb945c96cff7916650b6dfff733c48dd42f1682acd84d518cfcc69ba4b3cb3c"
+      },
+      {
+        "name": "Sourcify sources with contracts/ removed from source paths and remapping targets",
+        "runtimeBytes": 5274,
+        "strictMatch": false,
+        "mismatchedBytes": 32,
+        "allDifferencesWithinMetadataDigest": true,
+        "compiledMetadataDigest": "df4bc2ff1aef2e966a0d33114343b8170f31061c54e8a5ccb1cfe374af3c4409"
+      }
+    ],
+    "runtimeVerifierRegressionTestsPassed": 4,
+    "metadataIgnored": false,
+    "rootCauseEstablished": false,
+    "nextEvidenceNeeded": "Original deployment metadata.json or complete compiler standard JSON input/build artifact from the token deployer; published repository variants are not an exact provenance match",
+    "externalContactsMade": false,
+    "productionChanged": false
+  },
+  "admission": "not-approved",
+  "productionChanged": false
+}

@@ -14,7 +14,7 @@ import {
 } from "@/src/subgraph";
 import { jsonStringifyWithBigInt } from "@/src/utils";
 import { vAddress } from "@/src/valibot-utils";
-import { useRaf } from "@liquity2/uikit";
+import { useRaf } from "@turret/uikit";
 import { useQuery } from "@tanstack/react-query";
 import * as dn from "dnum";
 import { useMemo } from "react";

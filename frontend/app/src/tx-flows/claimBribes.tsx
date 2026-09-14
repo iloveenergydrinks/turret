@@ -9,7 +9,7 @@ import { TransactionStatus } from "@/src/screens/TransactionsScreen/TransactionS
 import { tokenIconUrl } from "@/src/utils";
 import { vAddress, vDnum } from "@/src/valibot-utils";
 import { css } from "@/styled-system/css";
-import { TokenIcon } from "@liquity2/uikit";
+import { TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 import * as v from "valibot";
 import { createRequestSchema, verifyTransaction } from "./shared";

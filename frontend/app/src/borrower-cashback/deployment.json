@@ -1,0 +1,9 @@
+{
+  "chainId": 4663,
+  "rewardToken": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+  "deployment": {
+    "address": "0x29eaa2065d521B6f3ffbaA3012805edc57314Ad6",
+    "runtimeHash": "0x1c9ec75e5a0d14c565d2cc2e520350639b224a5b85cde185b6cf2c20139498f3",
+    "publicEnrollment": true
+  }
+}

@@ -1,6 +1,6 @@
 import type { Preset } from "@pandacss/dev";
 
-import { liquityUiKitPreset } from "@liquity2/uikit/panda.config";
+import { liquityUiKitPreset } from "@turret/uikit/panda.config";
 import { defineConfig } from "@pandacss/dev";
 
 export default defineConfig({

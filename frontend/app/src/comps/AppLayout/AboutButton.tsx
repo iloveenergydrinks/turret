@@ -1,6 +1,6 @@
 import { useAbout } from "@/src/comps/About/About";
 import { css } from "@/styled-system/css";
-import { TextButton } from "@liquity2/uikit";
+import { TextButton } from "@turret/uikit";
 
 export function AboutButton({
   onClick,
@@ -11,7 +11,7 @@ export function AboutButton({
   return (
     <TextButton
       label={about.fullVersion}
-      title={`About Liquity V2 App ${about.fullVersion}`}
+      title={`About Turret ${about.fullVersion}`}
       onClick={() => {
         about.openModal();
         onClick?.();

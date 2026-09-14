@@ -1,0 +1,37 @@
+[
+  {
+    "symbol": "PIPEDOG",
+    "name": "pipedog",
+    "address": "0x5Cb6F181081301b44905F3ae15419112ecaBd8A6"
+  },
+  {
+    "symbol": "TENDIES",
+    "name": "TENDIES",
+    "address": "0x45242320DBB855EeA8Fd36804C6487E10E97FCF9"
+  },
+  {
+    "symbol": "HMM",
+    "name": "Thinking Cat",
+    "address": "0x7FE995a80075dF3Dc8Ae11A9b82c7FE4202CD87f"
+  },
+  {
+    "symbol": "IF",
+    "name": "What IF",
+    "address": "0x232CDFc415D10b673845D83Dc02ba2eaBe7e30d1"
+  },
+  {
+    "symbol": "JUGGERNAUT",
+    "name": "The Juggernaut",
+    "address": "0xD7321801CAae694090694Ff55A9323139F043B88"
+  },
+  {
+    "symbol": "YOLO",
+    "name": "YOLO",
+    "address": "0x62C71cd34a52c30d894419CBcc55Db2aFA8032eA"
+  },
+  {
+    "symbol": "MANY",
+    "name": "Manyways Inference",
+    "address": "0xa26992C4268A8a78a4d872FE4BDAD2Ed03aC287d"
+  }
+]

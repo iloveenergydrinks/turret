@@ -1,7 +1,7 @@
 import { CrossedText } from "@/src/comps/CrossedText";
 import { fmtnum } from "@/src/formatting";
 import { css } from "@/styled-system/css";
-import { TokenIcon } from "@liquity2/uikit";
+import { TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 
 import type { PositionLoan } from "@/src/types";

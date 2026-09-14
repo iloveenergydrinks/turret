@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { LinkTextButton } from "@/src/comps/LinkTextButton/LinkTextButton";
 import { CHAIN_BLOCK_EXPLORER } from "@/src/env";
 import { css } from "@/styled-system/css";
-import { shortenAddress } from "@liquity2/uikit";
+import { shortenAddress } from "@turret/uikit";
 import { blo } from "blo";
 import Image from "next/image";
 

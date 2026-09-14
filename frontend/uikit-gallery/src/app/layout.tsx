@@ -1,10 +1,10 @@
 // All global styles should be imported here for easier maintenance
-import "@liquity2/uikit/index.css";
+import "@turret/uikit/index.css";
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import { UiKit } from "@liquity2/uikit";
+import { UiKit } from "@turret/uikit";
 import { GeistSans } from "geist/font/sans";
 
 export const metadata: Metadata = {

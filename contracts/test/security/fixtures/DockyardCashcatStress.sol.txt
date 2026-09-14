@@ -1,0 +1,337 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity 0.8.24;
+
+// Reusable local-only fixture. Copy to test/security/DockyardCashcatStress.t.sol
+// in the isolated snapshot described by stress-cashcat-report.txt.
+// Default: deploy creation bytes from frozen-artifacts/*.json; compile the
+// exact recovered operator source (the release has no standalone operator artifact).
+// CASHCAT_STRESS_CURRENT=true: deploy the copied sibling's compiled contracts.
+// Never run this against an RPC fork. Every key, token and external pool is a fixture.
+import {Test} from "forge-std/Test.sol";
+import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import {DockyardMockERC20} from "test/DockyardUSDGCreditVault.t.sol";
+import {IsolatedMockV3Factory, IsolatedMockV3Pool} from "test/research/DockyardV3TwapFeed.t.sol";
+import {DockyardV3StateReader} from "src/research/DockyardV3StateReader.sol";
+import {DockyardCashcatReferenceFeed} from "src/research/DockyardCashcatReferenceFeed.sol";
+import {DockyardOperatorPriceFeed as Operator} from "src/research/DockyardOperatorPriceFeed.sol";
+import {DockyardIsolatedCreditEngine} from "src/research/DockyardIsolatedCreditEngine.sol";
+import {DockyardCashcatCreditEngine} from "src/research/DockyardCashcatCreditEngine.sol";
+import {DockyardCashcatCapitalPool} from "src/research/DockyardCashcatCapitalPool.sol";
+import {DockyardCashcatAtomicLiquidator} from "src/research/DockyardCashcatAtomicLiquidator.sol";
+
+interface ICashcatStressSwapCallback {
+    function uniswapV3SwapCallback(int256, int256, bytes calldata) external;
+}
+
+// Same pools serve oracle reads and liquidation callbacks. Rates are explicitly
+// test-controlled; this is NOT an AMM, price-impact, fee or real-liquidity model.
+contract DockyardCashcatStressPool is IsolatedMockV3Pool {
+    address public input;
+    address public output;
+    uint256 public rate;
+    bool public failSwap;
+    constructor(address a, address b, address f, uint256 r) IsolatedMockV3Pool(a, b, f) {
+        input = a; output = b; rate = r;
+    }
+    function setRate(uint256 r) external { rate = r; }
+    function setSwapFailure(bool fail) external { failSwap = fail; }
+    function swap(address recipient, bool zero, int256 amount, uint160, bytes calldata)
+        external returns (int256, int256)
+    {
+        require(!failSwap, "cashcat stress route outage");
+        require(zero == (input == token0) && amount > 0, "direction");
+        uint256 received = uint256(amount) * rate / 1e18;
+        require(IERC20(output).transfer(recipient, received));
+        int256 a = zero ? amount : -int256(received);
+        int256 b = zero ? -int256(received) : amount;
+        ICashcatStressSwapCallback(msg.sender).uniswapV3SwapCallback(a, b, "");
+        return (a, b);
+    }
+}
+
+abstract contract DockyardCashcatStressFixture is Test {
+    uint256 constant KEY = 0xca5ca7;
+    bytes32 constant POLICY = keccak256("local cashcat stress policy");
+    uint256 constant START = 1_000_000;
+    bool current;
+    DockyardMockERC20 cash;
+    DockyardMockERC20 token;
+    DockyardMockERC20 middle;
+    DockyardCashcatStressPool first;
+    DockyardCashcatStressPool second;
+    DockyardV3StateReader dex;
+    DockyardCashcatReferenceFeed reference;
+    Operator operator;
+    DockyardCashcatCreditEngine engine;
+    DockyardCashcatCapitalPool pool;
+    DockyardCashcatAtomicLiquidator executor;
+    uint256 normalPrice;
+    bytes initialProof;
+    address borrower = makeAddr("cashcat borrower");
+    address lender = makeAddr("cashcat lender");
+    address keeper = makeAddr("cashcat keeper");
+
+    function _deploy(string memory name, bytes memory args) internal returns (address deployed) {
+        string memory artifact = !current && keccak256(bytes(name)) != keccak256("DockyardOperatorPriceFeed")
+            ? string.concat("frozen-artifacts/", name, ".json")
+            : string.concat(name, ".sol:", name);
+        bytes memory init = bytes.concat(vm.getCode(artifact), args);
+        assembly { deployed := create(0, add(init, 32), mload(init)) }
+        require(deployed != address(0), string.concat("fixture deploy failed: ", name));
+    }
+
+    function setUp() public virtual {
+        current = vm.envOr("CASHCAT_STRESS_CURRENT", false);
+        vm.chainId(4663); vm.warp(START);
+        cash = new DockyardMockERC20("USDG", "U", 6);
+        token = new DockyardMockERC20("CASHCAT", "C", 18);
+        middle = new DockyardMockERC20("WETH", "W", 18);
+        IsolatedMockV3Factory factory = new IsolatedMockV3Factory();
+        first = new DockyardCashcatStressPool(address(token), address(middle), address(factory), 1e18);
+        second = new DockyardCashcatStressPool(address(middle), address(cash), address(factory), 100e6);
+        factory.register(address(token), address(middle), address(first));
+        factory.register(address(middle), address(cash), address(second));
+        int24 canonical = second.token0() == address(middle) ? int24(-230270) : int24(230270);
+        second.setPrice(canonical, int56(canonical) * 1800);
+        dex = DockyardV3StateReader(_deploy("DockyardV3StateReader", abi.encode(DockyardV3StateReader.Config(
+            address(token), address(middle), address(cash), address(factory), address(first), address(second),
+            1800, 300, 200, 1e15, 1e15
+        ))));
+        bytes memory opArgs = abi.encode(address(token), address(cash), vm.addr(KEY), uint32(10), uint32(59), uint64(1), POLICY);
+        if (current) opArgs = bytes.concat(opArgs, abi.encode(address(this)));
+        operator = Operator(_deploy("DockyardOperatorPriceFeed", opArgs));
+        reference = DockyardCashcatReferenceFeed(_deploy("DockyardCashcatReferenceFeed", abi.encode(dex, operator, uint16(500))));
+        engine = DockyardCashcatCreditEngine(_deploy("DockyardCashcatCreditEngine", abi.encode(DockyardIsolatedCreditEngine.Config(
+            address(cash), address(token), address(reference), address(operator), address(this), 300, 5000, 6500, 500, 500, 10e6
+        ))));
+        pool = DockyardCashcatCapitalPool(_deploy("DockyardCashcatCapitalPool", abi.encode(
+            address(cash), address(token), address(engine), address(this), uint256(1000e6), uint16(1000), uint16(1000)
+        )));
+        engine.bindPool(pool);
+        cash.mint(lender, 1000e6);
+        vm.startPrank(lender); cash.approve(address(pool), type(uint256).max); pool.deposit(1000e6, lender); vm.stopPrank();
+        (normalPrice,,,) = dex.guardedQuotes();
+        second.setRate(normalPrice / 1e12);
+        initialProof = _proof(normalPrice, 1, START, KEY);
+        engine.setRiskPausedWithPrice(false, initialProof);
+        token.mint(borrower, 20e18); cash.mint(borrower, 1000e6);
+        vm.startPrank(borrower);
+        token.approve(address(engine), type(uint256).max); cash.approve(address(engine), type(uint256).max);
+        vm.stopPrank();
+        executor = DockyardCashcatAtomicLiquidator(_deploy("DockyardCashcatAtomicLiquidator", abi.encode(
+            address(engine), address(middle), address(first), address(second), address(factory)
+        )));
+        cash.mint(keeper, 1000e6);
+        vm.startPrank(keeper); cash.approve(address(executor), type(uint256).max); cash.approve(address(engine), type(uint256).max); vm.stopPrank();
+        middle.mint(address(first), 10000e18); cash.mint(address(second), 1_000_000e6);
+    }
+
+    function _proof(uint256 value, uint64 sequence, uint256 observed, uint256 key) internal view returns (bytes memory) {
+        Operator.PriceReport memory r = Operator.PriceReport(address(token), address(cash), sequence, 1,
+            uint64(observed), uint64(block.timestamp), uint64(observed + 10), uint192(value), 59, POLICY, keccak256(abi.encode(value, sequence)));
+        (uint8 v, bytes32 a, bytes32 b) = vm.sign(key, operator.reportDigest(r));
+        bytes[] memory signatures = new bytes[](1); signatures[0] = abi.encodePacked(a, b, v);
+        return abi.encode(r, signatures);
+    }
+    function _sequence() internal view returns (uint64 s) { (,,s,,,,,,,,) = operator.latestReport(); }
+    function _open() internal { vm.prank(borrower); engine.depositAndBorrowWithPrice(10e18, 400e6, initialProof); }
+    function _shock() internal returns (uint256 spot) {
+        first.setPrice(first.token0() == address(token) ? int24(-7000) : int24(7000), 0);
+        (,spot,,) = dex.guardedQuotes(); first.setRate(spot * 1e18 / normalPrice);
+    }
+    function _execute(bytes memory proof, uint256 maximum) internal returns (uint256 paid, uint256 seized, uint256 out) {
+        vm.prank(keeper);
+        return executor.liquidateAndSellWithPrice(borrower, maximum, 1, 1e6, block.timestamp + 60, proof);
+    }
+    function _assertUnchanged(uint256 debt, uint64 seq, uint256 keeperCash, uint256 poolCash) internal view {
+        assertEq(engine.positionDebt(borrower), debt);
+        assertEq(_sequence(), seq);
+        (uint256 collateral,,,,) = engine.positions(borrower); assertEq(collateral, 10e18);
+        assertEq(cash.balanceOf(keeper), keeperCash); assertEq(pool.availableCash(), poolCash);
+        assertEq(cash.balanceOf(address(executor)), 0); assertEq(token.balanceOf(address(executor)), 0);
+        assertEq(cash.allowance(address(executor), address(engine)), 0);
+    }
+}
+
+contract DockyardCashcatStress is DockyardCashcatStressFixture {
+    function testFuzzPriceExpiresAtExactSourceAge(uint8 age) public {
+        age = uint8(bound(age, 0, 12)); vm.warp(START + age);
+        if (age >= 10) { vm.expectRevert(); engine.price(); }
+        else {
+            assertEq(engine.price(), normalPrice);
+            (,,, uint256 at,) = reference.latestRoundData(); assertEq(at, START);
+        }
+    }
+
+    function testFuzzLateSigningDoesNotExtendSourceLifetime(uint8 age) public {
+        age = uint8(bound(age, 0, 9));
+        uint256 observed = START + 1; vm.warp(observed + age);
+        assertEq(engine.priceWithUpdate(_proof(normalPrice, 2, observed, KEY)), normalPrice);
+        vm.warp(observed + 10); vm.expectRevert(); engine.price();
+    }
+
+    function testExactReplayExpiresWithoutRenewingSourceTime() public {
+        vm.warp(START + 9); engine.priceWithUpdate(initialProof);
+        (,,,uint256 at,) = operator.latestRoundData(); assertEq(at, START);
+        vm.warp(START + 10);
+        vm.expectRevert(Operator.InvalidReport.selector); engine.priceWithUpdate(initialProof);
+        assertEq(_sequence(), 1);
+    }
+
+    function testFuzzQuietPoolDurationPermitsFreshPriceAndLiquidation(uint32 quiet) public {
+        _open(); quiet = uint32(bound(quiet, 301, 30 days)); vm.warp(START + quiet);
+        assertEq(engine.priceWithUpdate(_proof(normalPrice, 2, block.timestamp, KEY)), normalPrice);
+        assertEq(first.timestamp(), START); assertEq(second.timestamp(), START);
+        vm.expectRevert(DockyardIsolatedCreditEngine.HealthyPosition.selector); engine.liquidationQuote(borrower, 500e6);
+        vm.warp(block.timestamp + 1); uint256 price = _shock();
+        (uint256 paid,,uint256 out) = _execute(_proof(price, 3, block.timestamp, KEY), 500e6);
+        assertGt(paid, 400e6); assertGe(out, paid + 1e6); assertEq(engine.positionDebt(borrower), 0);
+        assertEq(first.timestamp(), START); assertEq(second.timestamp(), START);
+    }
+
+    function testRecentDexWriteCannotRenewExpiredExternalReport() public {
+        _open(); vm.warp(START + 10);
+        first.setState(uint32(block.timestamp), 2, true, true); second.setState(uint32(block.timestamp), 2, true, true);
+        vm.expectRevert(); engine.price();
+        vm.expectRevert(); engine.liquidationQuote(borrower, 500e6);
+        assertEq(_sequence(), 1);
+    }
+
+    function testFuzzOracleOutageRollsBackProofAndLiquidationThenRecovers(uint8 fault) public {
+        _open(); vm.warp(START + 12); uint256 price = _shock();
+        bytes memory proof = _proof(price, 2, block.timestamp, KEY);
+        uint256 debt = engine.positionDebt(borrower);
+        // Simulate/restore to prove the exact loan and proof were liquidatable
+        // before introducing one fault, while preserving the unpublished report.
+        uint256 control = vm.snapshotState();
+        (uint256 payableAmount,) = engine.liquidationQuoteWithPrice(borrower, 500e6, proof); assertGt(payableAmount, 0);
+        assertTrue(vm.revertToState(control));
+        fault = uint8(bound(fault, 0, 5)); bytes memory oldCode = address(first).code;
+        if (fault == 0) first.setState(uint32(START), 2, false, true);
+        if (fault == 1) second.setLiquidity(1, uint160(uint256(1800) * (1 << 128) / 1e18));
+        if (fault == 2) first.setResponse(true, false, false);
+        if (fault == 3) proof = _proof(normalPrice * 2, 2, block.timestamp, KEY);
+        if (fault == 4) vm.etch(address(first), hex"60006000");
+        if (fault == 5) second.setState(uint32(block.timestamp + 1), 2, true, true);
+        uint256 poolCash = pool.availableCash();
+        vm.expectRevert(); engine.liquidationQuoteWithPrice(borrower, 500e6, proof);
+        // Avoid an expectRevert on the internal helper, which executes cheatcodes first.
+        vm.prank(keeper); vm.expectRevert();
+        executor.liquidateAndSellWithPrice(borrower, 500e6, 1, 1e6, block.timestamp + 60, proof);
+        _assertUnchanged(debt, 1, 1000e6, poolCash);
+        if (fault == 4) vm.etch(address(first), oldCode);
+        first.setState(uint32(START), 2, true, true); first.setResponse(false, false, false);
+        second.setState(uint32(START), 2, true, true);
+        second.setLiquidity(1e18, uint160(uint256(1800) * (1 << 128) / 1e18));
+        (uint256 paid,,) = _execute(_proof(price, 2, block.timestamp, KEY), 500e6);
+        assertEq(paid, debt); assertEq(engine.positionDebt(borrower), 0); assertEq(_sequence(), 2);
+    }
+
+    function testFuzzEitherSwapOutageRollsBackPublicationAndBalances(bool firstHop) public {
+        _open(); vm.warp(START + 12); uint256 price = _shock();
+        bytes memory proof = _proof(price, 2, block.timestamp, KEY);
+        uint256 debt = engine.positionDebt(borrower); uint256 poolCash = pool.availableCash();
+        DockyardCashcatStressPool failed = firstHop ? first : second; failed.setSwapFailure(true);
+        vm.prank(keeper); vm.expectRevert(bytes("cashcat stress route outage"));
+        executor.liquidateAndSellWithPrice(borrower, 500e6, 1, 1e6, block.timestamp + 60, proof);
+        _assertUnchanged(debt, 1, 1000e6, poolCash);
+        failed.setSwapFailure(false); _execute(proof, 500e6); assertEq(engine.positionDebt(borrower), 0);
+    }
+
+    function testForgedReportCannotLiquidateAndValidReplacementRecovers() public {
+        _open(); vm.warp(START + 12); uint256 price = _shock();
+        bytes memory bad = _proof(price, 2, block.timestamp, KEY + 1);
+        uint256 debt = engine.positionDebt(borrower); uint256 poolCash = pool.availableCash();
+        vm.prank(keeper); vm.expectRevert(Operator.InvalidSignatures.selector);
+        executor.liquidateAndSellWithPrice(borrower, 500e6, 1, 1e6, block.timestamp + 60, bad);
+        _assertUnchanged(debt, 1, 1000e6, poolCash);
+        _execute(_proof(price, 2, block.timestamp, KEY), 500e6); assertEq(engine.positionDebt(borrower), 0);
+    }
+
+    function testOracleRestorationCannotReviveExpiredLiquidationProof() public {
+        _open(); vm.warp(START + 12); uint256 price = _shock();
+        bytes memory old = _proof(price, 2, block.timestamp, KEY); engine.priceWithUpdate(old);
+        vm.warp(block.timestamp + 10);
+        vm.expectRevert(); engine.liquidationQuote(borrower, 500e6);
+        vm.prank(keeper); vm.expectRevert(Operator.InvalidReport.selector);
+        executor.liquidateAndSellWithPrice(borrower, 500e6, 1, 1e6, block.timestamp + 60, old);
+        _execute(_proof(price, 3, block.timestamp, KEY), 500e6); assertEq(engine.positionDebt(borrower), 0);
+    }
+
+    function testTotalOracleOutagePreservesTopupRepaymentAndDebtFreeRedemption() public {
+        _open(); vm.warp(START + 12); first.setResponse(true, false, false);
+        vm.expectRevert(); engine.liquidationQuote(borrower, 500e6);
+        assertEq(pool.maxWithdraw(lender), 0);
+        vm.startPrank(borrower);
+        engine.depositCollateral(borrower, 1e18); engine.repay(borrower, 1e6);
+        engine.close(type(uint256).max, borrower); vm.stopPrank();
+        assertEq(token.balanceOf(borrower), 20e18); assertEq(engine.activeDebtPositions(), 0);
+        uint256 shares = pool.balanceOf(lender);
+        vm.prank(lender); pool.redeemWithPrice(shares, lender, lender, 1, block.timestamp + 60, "");
+        assertEq(pool.totalSupply(), 0);
+    }
+
+    function testFuzzInvalidZeroExtremeOrFutureReportCannotRefreshPrice(uint8 fault) public {
+        fault = uint8(bound(fault, 0, 2)); vm.warp(START + 12);
+        uint256 value = fault == 0 ? 0 : fault == 1 ? type(uint192).max : normalPrice;
+        uint256 observed = fault == 2 ? block.timestamp + 1 : block.timestamp;
+        bytes memory bad = _proof(value, 2, observed, KEY);
+        vm.expectRevert(); engine.priceWithUpdate(bad); assertEq(_sequence(), 1);
+        assertEq(engine.priceWithUpdate(_proof(normalPrice, 2, block.timestamp, KEY)), normalPrice);
+    }
+
+    function testReferenceAgreementRejectsOneUnitAboveLimit() public {
+        uint256 high = normalPrice + normalPrice * 500 / 10000;
+        vm.warp(START + 1); assertEq(engine.priceWithUpdate(_proof(high, 2, block.timestamp, KEY)), normalPrice);
+        vm.warp(START + 2); bytes memory bad = _proof(high + 1, 3, block.timestamp, KEY);
+        vm.expectRevert(); engine.priceWithUpdate(bad); assertEq(_sequence(), 2);
+    }
+
+    function testFuzzRepeatedPartialLiquidationNeedsFreshProofAfterExpiry(uint32 partial, uint8 delay) public {
+        _open(); vm.warp(START + 12); uint256 price = _shock();
+        partial = uint32(bound(partial, 20e6, 80e6)); delay = uint8(bound(delay, 0, 12));
+        bytes memory proof = _proof(price, 2, block.timestamp, KEY);
+        (uint256 paid,,) = _execute(proof, partial); assertEq(paid, partial);
+        uint256 principal = pool.outstandingPrincipal();
+        vm.warp(block.timestamp + delay);
+        if (delay >= 10) {
+            vm.prank(keeper); vm.expectRevert();
+            executor.liquidateAndSell(borrower, 500e6, 1, 1e6, block.timestamp + 60);
+            assertEq(pool.outstandingPrincipal(), principal);
+        } else { (uint256 next,) = engine.liquidationQuote(borrower, 500e6); assertGt(next, 0); }
+        if (delay > 0) proof = _proof(price, 3, block.timestamp, KEY);
+        _execute(proof, 500e6); assertEq(engine.positionDebt(borrower), 0);
+        assertEq(pool.outstandingPrincipal(), 0);
+    }
+}
+
+contract DockyardCashcatStressFrozenEquivalence is DockyardCashcatStressFixture {
+    struct ImmutableRange { uint256 length; uint256 start; }
+    function _assertFrozenRuntime(string memory name, address instance) internal view {
+        string memory json = vm.readFile(string.concat("frozen-artifacts/", name, ".json"));
+        bytes memory expected = vm.parseJsonBytes(json, ".deployedBytecode.object");
+        bytes memory actual = instance.code;
+        assertEq(actual.length, expected.length, name);
+        string memory path = ".deployedBytecode.immutableReferences";
+        string[] memory keys = vm.parseJsonKeys(json, path);
+        for (uint256 i; i < keys.length; ++i) {
+            ImmutableRange[] memory ranges = abi.decode(vm.parseJson(json, string.concat(path, ".", keys[i])), (ImmutableRange[]));
+            for (uint256 j; j < ranges.length; ++j) {
+                for (uint256 n; n < ranges[j].length; ++n) actual[ranges[j].start + n] = 0;
+            }
+        }
+        assertEq(keccak256(actual), keccak256(expected), name);
+    }
+    function testLocallyDeployedRuntimeMatchesFiveFrozenTemplates() public view {
+        require(!current, "run equivalence only in the frozen snapshot");
+        _assertFrozenRuntime("DockyardV3StateReader", address(dex));
+        _assertFrozenRuntime("DockyardCashcatReferenceFeed", address(reference));
+        _assertFrozenRuntime("DockyardCashcatCreditEngine", address(engine));
+        _assertFrozenRuntime("DockyardCashcatCapitalPool", address(pool));
+        _assertFrozenRuntime("DockyardCashcatAtomicLiquidator", address(executor));
+        // Bind the immutable values exercised by these local deployments too.
+        assertEq(address(reference.dex()), address(dex)); assertEq(address(reference.referenceFeed()), address(operator));
+        assertEq(address(engine.primary()), address(reference)); assertEq(address(engine.operatorFeed()), address(operator));
+        assertEq(address(engine.pool()), address(pool)); assertEq(executor.operatorFeed(), address(operator));
+    }
+}

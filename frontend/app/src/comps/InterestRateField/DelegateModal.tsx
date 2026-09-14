@@ -5,7 +5,7 @@ import content from "@/src/content";
 import { useKnownDelegates } from "@/src/liquity-delegate";
 import { getBranch, useInterestBatchDelegate, useInterestBatchDelegates } from "@/src/liquity-utils";
 import { css } from "@/styled-system/css";
-import { AddressField, Modal } from "@liquity2/uikit";
+import { AddressField, Modal } from "@turret/uikit";
 import { useMemo, useState } from "react";
 import { DelegateBox } from "./DelegateBox";
 

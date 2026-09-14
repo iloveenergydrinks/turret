@@ -6,7 +6,7 @@ import { TagPreview } from "@/src/comps/TagPreview/TagPreview";
 import { fmtnum } from "@/src/formatting";
 import { getCollToken, isEarnPositionActive, useEarnPool } from "@/src/liquity-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, InfoTooltip, TokenIcon } from "@liquity2/uikit";
+import { HFlex, InfoTooltip, TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 import { EarnPositionSummaryBase } from "./EarnPositionSummaryBase";
 

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "chainId": 4663,
+  "entries": [
+    {
+      "manager": "0x36dd2b90e8e8541ccab1258465732c4e961a9657",
+      "collateral": "0x020bfc650a365f8bb26819deaabf3e21291018b4",
+      "symbol": "CASHCAT",
+      "decimals": 18
+    },
+    {
+      "manager": "0x17c1b3cabc49a196ec39b7ba8409226ede756a20",
+      "collateral": "0x39dbed3a2bd333467115de45665cc57f813c4571",
+      "symbol": "PONS",
+      "decimals": 18
+    },
+    {
+      "manager": "0xe6ba798c8209fdab65012fd3900a3bd6a2f1fb07",
+      "collateral": "0x5cb6f181081301b44905f3ae15419112ecabd8a6",
+      "symbol": "PIPEDOG",
+      "decimals": 18
+    },
+    {
+      "manager": "0x44b126c3778adc82ab1d2d6ca534b6d1a5c38cec",
+      "collateral": "0x45242320dbb855eea8fd36804c6487e10e97fcf9",
+      "symbol": "TENDIES",
+      "decimals": 18
+    },
+    {
+      "manager": "0x1a4da418a55f0d8539e94f413960cca0a1f8bfb9",
+      "collateral": "0x7fe995a80075df3dc8ae11a9b82c7fe4202cd87f",
+      "symbol": "HMM",
+      "decimals": 18
+    },
+    {
+      "manager": "0x59ba6c2dc659eb9fafb8a3e19884189fcfaad3e7",
+      "collateral": "0x232cdfc415d10b673845d83dc02ba2eabe7e30d1",
+      "symbol": "IF",
+      "decimals": 18
+    },
+    {
+      "manager": "0xb084fb3b5bac34a6191c23f6421532eb22a52504",
+      "collateral": "0xd7321801caae694090694ff55a9323139f043b88",
+      "symbol": "JUGGERNAUT",
+      "decimals": 18
+    },
+    {
+      "manager": "0xcf9b503a988b0905c32d6a0b1c9468542414d7d2",
+      "collateral": "0x62c71cd34a52c30d894419cbcc55db2afa8032ea",
+      "symbol": "YOLO",
+      "decimals": 18
+    },
+    {
+      "manager": "0x2431c6d4376129038a86b0cc5f35f251cb3e98e5",
+      "collateral": "0xa26992c4268a8a78a4d872fe4bdad2ed03ac287d",
+      "symbol": "MANY",
+      "decimals": 18
+    }
+  ]
+}

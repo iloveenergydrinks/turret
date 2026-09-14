@@ -1,7 +1,7 @@
 import { LinkTextButton } from "@/src/comps/LinkTextButton/LinkTextButton";
 import content from "@/src/content";
 import { css } from "@/styled-system/css";
-import { IconExternal } from "@liquity2/uikit";
+import { IconExternal } from "@turret/uikit";
 
 import type { FC } from "react";
 

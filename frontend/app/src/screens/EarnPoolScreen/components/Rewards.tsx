@@ -2,7 +2,7 @@ import type { TokenSymbol } from "@/src/types";
 
 import { Amount } from "@/src/comps/Amount/Amount";
 import { css } from "@/styled-system/css";
-import { TokenIcon } from "@liquity2/uikit";
+import { TokenIcon } from "@turret/uikit";
 import type { Dnum } from "dnum";
 import { ReactNode } from "react";
 

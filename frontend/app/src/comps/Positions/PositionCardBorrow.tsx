@@ -10,7 +10,7 @@ import { getLiquidationRisk, getLtv } from "@/src/liquity-math";
 import { getCollToken, shortenTroveId, useRedemptionRiskOfLoan } from "@/src/liquity-utils";
 import { usePrice } from "@/src/services/Prices";
 import { css } from "@/styled-system/css";
-import { HFlex, IconBorrow, TokenIcon } from "@liquity2/uikit";
+import { HFlex, IconBorrow, TokenIcon } from "@turret/uikit";
 import { PositionCard } from "./PositionCard";
 import { PositionCardSecondaryContent } from "./PositionCardSecondaryContent";
 

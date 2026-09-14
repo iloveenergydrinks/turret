@@ -12,7 +12,7 @@ import {
 } from "@/src/data-sources-override";
 import { DEFAULT_CHAIN_RPC_URL, DEFAULT_SUBGRAPH_URL } from "@/src/env";
 import { css } from "@/styled-system/css";
-import { Button, IconUndo, Modal, TextInput } from "@liquity2/uikit";
+import { Button, IconUndo, Modal, TextInput } from "@turret/uikit";
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 
 type DataSourcesContext = {

@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, ComponentPropsWithRef, ForwardedRef } from "react";
 
-import { AnchorTextButton } from "@liquity2/uikit";
+import { AnchorTextButton } from "@turret/uikit";
 import Link from "next/link";
 
 function NextLinkAdapter({

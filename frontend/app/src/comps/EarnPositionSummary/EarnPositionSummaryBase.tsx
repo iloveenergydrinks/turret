@@ -2,7 +2,7 @@ import type { TokenSymbol } from "@/src/types";
 import type { ReactNode } from "react";
 
 import { css } from "@/styled-system/css";
-import { IconArrowRight, IconExternal, IconPlus, TokenIcon, TOKENS_BY_SYMBOL } from "@liquity2/uikit";
+import { IconArrowRight, IconExternal, IconPlus, TokenIcon, TOKENS_BY_SYMBOL } from "@turret/uikit";
 import Link from "next/link";
 
 export function EarnPositionSummaryBase({

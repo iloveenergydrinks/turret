@@ -1,0 +1,1201 @@
+{
+  "schemaVersion": 1,
+  "markets": [
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "engine": "0xb9123E508bffEb32E0e7d5D2D8EE5917F54ccc63",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x955f2fa3832a755b78efbd40fb37cc6f17641354b2b82b11103cb8252b6fe0b5",
+        "pool": "0xd87f59ae8e64c81e6ccd5ec664949a6f28adb9505be7175608f9be37d3deb9ab",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xec614cb2771b3ff956b436bff2cf7c4499b038cfa9baf0dd79d72be252c2e8d1",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xfB25e1423f04ea3db620b49E24Eadf6fb56817DC",
+      "primary": "0x6B22A786bAa607d76728168703a39Ea9C99f2cD0",
+      "replaces": "0x37DF02D0D721aB8a351333052535B2b7F1262F36",
+      "secondary": "0x3abCDC485738F811C013863d834E76870b8ea42b",
+      "stock": {
+        "executionGate": "0x8A5624AEf72a677Fc77D3a361291bA2D74e0d984",
+        "hashes": {
+          "executionGate": "0xe4e7072816e8b59e5b740b6f359f637d29c7018fed775d80f0bcc558431438a4",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-stock-risk-production.up.railway.app/",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AAPL"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0xe93237C50D904957Cf27E7B1133b510C669c2e74",
+      "engine": "0xEEE8622810616AC4A336B8cDb353D0Ddf11c884B",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xdb55ef4f2992f7ef8989d9b213f31442c2ec484f07e4a18d34b58134acb4cc2f",
+        "pool": "0x06d874fedabad87fb09de9fd924db182bd4d1729075a4e464b25db92ef81846b",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x3e07fb10122f494d65412425a47b5a087cc97a1444baef701c1ccdf2d00af2be",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x3F8b944C484a1Be1bA0414Ab89B60100e4295379",
+      "primary": "0x45C3C877C15E6BA2EBB19eA114Ea508d14C1Af2E",
+      "replaces": "0x8f4101368B25A5Ae2043891574BDDb8275572533",
+      "secondary": "0x3a1bA8d16Fa9458b5fA8704f69CB9774d94a1Dcb",
+      "stock": {
+        "executionGate": "0x72370781145f37264a11D039e4Fb8708B897317D",
+        "hashes": {
+          "executionGate": "0xc88cc9d32e748474dcc8127639d4791fbcd252a0cfd022cc6fc0969dfbcdaca4",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/MSFT",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "MSFT"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3",
+      "engine": "0xd76F143Bae0277Cc556D97ad978f18a0fdCd130e",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x7f802da20837b86e2a2c58bc08c894e780cae1f7736805c36f8962a96098ac56",
+        "pool": "0xd6351693c21e7c5400aac51b74cc24a1c926a11fa7b7c8f4f402587e6ad46355",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x1386902b9fc6fdd9e8a952947899620e2e576b78532ed8f9a498ed4b428a01b9",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xFE8EE78a35d8336A705cba5fEC9c765A7B4Bd423",
+      "primary": "0xF6f373a037c30F0e5010d854385cA89185AE638b",
+      "replaces": "0xD49B1AF2f2e7e6340e8f419dAccCe68Ebb9378CD",
+      "secondary": "0x03073C1a1786a105E0f60f35E049db03EA77ADFF",
+      "stock": {
+        "executionGate": "0xEE9c82E65F86bbf8d2BcFDbbA6F87166D754952a",
+        "hashes": {
+          "executionGate": "0x92dc81f1c5e8b9b5318b1fcf92c41d02981288de24791f9770f33c2fdf91f302",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/GOOGL",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "GOOGL"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "engine": "0x7c1abcfe307c6575487e182D94b767f1FC49ED22",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x1fb6643b4f49bd3672e83cf6d2c513079b3da1fde1af788a5d9b3651ebe2c642",
+        "pool": "0xa8477e29921b460e4084ba42cf87cb66330c06ee77378b48ba595fcaaa6ac113",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xfacd1d51e0c990d66a4abb85bcd4bb94b9a10f56804effabd5ce90ba08b31924",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x26A4CD7B7aE01ee9d49Bb5df791692553366A7D2",
+      "primary": "0xD5a1508ceD74c084eBf3cBe853e2C968fB2a651C",
+      "replaces": "0xD2157493950813849824Ba7f29d726d777037F2E",
+      "secondary": "0x52D9209806C2839581834Dc0b84b42c34dD2d518",
+      "stock": {
+        "executionGate": "0xCDD056Fd611197a3f412b831DB35fdB09bBDF399",
+        "hashes": {
+          "executionGate": "0xf50b199db1ac820981608e4e12fd35eae915e9f0196c19ad15330e18c7f8a31c",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/AMZN",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AMZN"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35",
+      "engine": "0x96714F255609381C75c1E88D08846D9eD229dC62",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x725548ed76604364c2fbf04cf07fab5c467ea3b7b71284f4fcebc3ae5b6547ef",
+        "pool": "0x9f68bbd82d73162dc97bd8f602c4a922205d52cabe17cd026e43a07904316de9",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x90c84ef94f276e1b582f4885fc8940f553aee223e76e370069642c581b3796a9",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x6e3f8Bb7ab6320c387a0396B3ff21e89d0FFe348",
+      "primary": "0x7C38C00C30BEe9378381E7B6135d7283356D71b1",
+      "replaces": "0x74AbbC9724039B07527a611714b82aDfc19A2eD8",
+      "secondary": "0xB4b558AcB61A6638Bf57Ba6DC29e831454A5972e",
+      "stock": {
+        "executionGate": "0x8f4110a69fA3b825d99a742Fd9Eb5BE9b2D4CC6e",
+        "hashes": {
+          "executionGate": "0xa14a304f57f7bd9fc8e600f521bae30d1f52a12c9e26b0605cdb1259111326a1",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/META",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "META"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "engine": "0x1916D155e580ff6f4A7724d630A27F2f12b6Eb85",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x3c4618a5ade3f9da10215b48e0e1f6c88481ee653e1202bfd2aed6bd1982eb69",
+        "pool": "0x92c7c61c71972b3a4829829419940f779780529fad20ba1205a19b500f2340d6",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x3fba04d17356473e5ab7c4f1fdce4ec3e3fcbe66e797df251a1ba8a366eae65e",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x6312B3ED6d6f2e421654aff96540693E28722061",
+      "primary": "0x379EC4f7C378F34a1B47E4F3cbeBCbAC3E8E9F15",
+      "replaces": "0x73dB617B21b3E7Fd9056333902A1738463519DC8",
+      "secondary": "0xb87CD982b1990bD17BF3906023496232621c8506",
+      "stock": {
+        "executionGate": "0xD6ea346Ca9D32fA8879FaD059351da2Eaf7abe16",
+        "hashes": {
+          "executionGate": "0x9d0b8e34e5725f43dc90a05d6956fad432c22395f12d2df502a496f329c0582a",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/NVDA",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "NVDA"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0x86923f96303D656E4aa86D9d42D1e57ad2023fdC",
+      "engine": "0x6d13b38bb018f9fFdba625626e907210fb74421C",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xb34ec178a833a53404ec9b87a584f30f47bf5da14d238fb625f37737e7cc8001",
+        "pool": "0x72a9886b504ec079f9bcf7584567148972a8f69f42825363345c9487f338f3f0",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x057990572a2ab32414e02877a78fa7571b3d433f51a530702d473d7766a3c64c",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x05C09888f71FfE3E9386FCb49231463597Af3c57",
+      "primary": "0x943A29E7ae51A4798823ca9eEd2ed533B2A22C72",
+      "replaces": "0xf2948B3De193934A0b45bc34C57ff5E25BcDA558",
+      "secondary": "0xF3D862fa1D7aC22060F26Db50551cdd94B2A3ee8",
+      "stock": {
+        "executionGate": "0x3eCa3DC534Ccc824Dc23c4E5a11c9C4423dE3D48",
+        "hashes": {
+          "executionGate": "0x6d645a482558bb707c202d25ae168c38af25af4b874d5b373990b7ebeffc63fb",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/AMD",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AMD"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+      "engine": "0xb41276421e5aE67C0c31b2B04bCFA0DeE4e62A33",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x8c26e029a46873acd8f4fb897680a74b0fadedafd51761dcce895899a3c3d156",
+        "pool": "0x467690868b31997c20692142be09badb5731be716f5fd81eab9ff3fdc903422d",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xb695490467a678f58ad0f44c3f38bf6b572df5b2e0e3c0090c4a1497c9bfcbd5",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xdbF327C941D9AF042640ECD88db7719399446C5f",
+      "primary": "0x425EEFdCf05ed6526C3cE61Af99429A228a6d596",
+      "replaces": "0x067aC120ec0D6e879f4C40426385EA0Ac3d2Cd0A",
+      "secondary": "0x78c950ff6ACded54eEfdA0432132738983674fd7",
+      "stock": {
+        "executionGate": "0x899De3396aD835574E1774e178fF8c0f8cFae904",
+        "hashes": {
+          "executionGate": "0xc5a954f5d64b26f2abce9280cbe08937030c092faafbc33738819d7c3f39be74",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/MU",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "MU"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "chainId": 4663,
+      "collateral": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "engine": "0xe07EEd598ACb608c69802D00BaFea6A3926c7980",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xd311dac4a074b74e7089ca01bd16664b6e2e831a39e28d66740b7618dbef53ca",
+        "pool": "0x89296865348bdeefec53c21611419299c7a8606b22209091d0000108f0774257",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x9f3711dac62556d075a3867c468b61b2dc2ca9ce5523adbe654a96db1faaf116",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xD9f5532322a2801d74718BED81feCc995C9f4c38",
+      "primary": "0x4A1166a659A55625345e9515b32adECea5547C38",
+      "replaces": "0xFA125B8406ed76E25962a20C340FE19bf41d3179",
+      "secondary": "0xfdFcbA978a246CB03BF9104512D100B523A62678",
+      "stock": {
+        "executionGate": "0x6231dB06c1509B14E25ee3049E8bE16583703574",
+        "hashes": {
+          "executionGate": "0xf095f72345df8e3a60fd70abd066cee464df71863e86edd0a557f8c36e46f0ec",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/TSLA",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "TSLA"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app/",
+      "cashcat": {
+        "operator": "0xE1Ee47e694bE2EEBf388B1771A7591C8D44A12A9",
+        "oracleUrl": "https://dockyard-cashcat-oracle-production.up.railway.app/report"
+      },
+      "chainId": 4663,
+      "collateral": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "engine": "0x7b08E0E9520f3D4E2d59EF4EFc9db032E41399F8",
+      "hashes": {
+        "collateral": "0x725781ccca82a0bf9b1f8920b2fe58ea1e4facf46d0db9f50226d6409de890fe",
+        "engine": "0x31eba5baec947d3344b88d59fc083be5163b171abec11477381c7c2f6f97924e",
+        "pool": "0x682b1bb35962cf254dd58d5a4c99bcc1c233fc1c46134f9af1bbe7f24c81dd30",
+        "primary": "0xfed25b7356308fe0398cf73ee5c15dbe170d2e49f8cbf654725bae7bfd5a9f85",
+        "secondary": "0x52d4a3fa5846e68754de5431c85590eb03b0878239f92e7d9228b25ba6d93ba6",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "oracleTrustModel": "dockyard-operated",
+      "pool": "0x1160bA4A0bD97a75dF4eB9F1f1FabCCd6B6FC07b",
+      "primary": "0x2e9EC81461cC1DfA98Da15dcd9A17942E58fF017",
+      "replaces": "0xee1f486Ea6827Cd9fB87c35629A05707FF13cc03",
+      "secondary": "0xe8AAe67822BA85fAf16A50718c60DBEA655CD961",
+      "symbol": "CASHCAT"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "active",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+      "dex": {
+        "creditPolicy": {
+          "debtLimit": "100000000",
+          "minimumDebt": "25000000"
+        },
+        "dependencies": [
+          {
+            "address": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+            "beacon": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+            "beaconCodeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e",
+            "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+            "implementationCodeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7",
+            "kind": "beacon",
+            "symbol": "SLV"
+          },
+          {
+            "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+            "implementation": "0x68184c449e1a8f34fa18d289737129fd27b66f8f",
+            "implementationCodeHash": "0x3a551ac5c744af57e68a1d1431ac403c0f516ffd7d224a75746aee11fc4f3baf",
+            "kind": "implementation",
+            "symbol": "USDG"
+          }
+        ],
+        "executionGate": "0xF784C86dF1eb6056179754dBD0B9FF849588Ee8d",
+        "factory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+        "guardian": "0xEeF74751489f12249182756F09639054Da2d35F6",
+        "hashes": {
+          "executionGate": "0x12735afff9f57d3f9bf6ecbb4e6646c912a8bc70be383d3be59fb4935059864c",
+          "factory": "0xec72b1abd1f2faee020cfea9c646bd8994f9fb389054f6e574f103a895091739",
+          "oracle": "0x0c78ab5ad05b82ff1cbe01b1c0cf5a794bbd634498be3376f5090f8283f69e6b",
+          "venue": "0x038c8f16bcecb2cd1c15cac49d6ef23104be05b492f7fdf76bc1eea92611e2f5"
+        },
+        "oracle": "0x67E2E5DD727f49CA46bF4931Be62E32C81Af0453",
+        "policy": {
+          "maxSpotTickDeviation": 198,
+          "minCurrentLiquidity": "2500000000000000000",
+          "minHarmonicLiquidity": "2500000000000000000",
+          "minLiquidationHarmonicLiquidity": "1000000000000",
+          "window": 300
+        },
+        "riskMonitorUrl": "https://dockyard-slv-risk-production-09be.up.railway.app/",
+        "routing": {
+          "allowanceHolder": "0x0000000000001fF3684f28c67538d4D072C22734",
+          "allowanceHolderHash": "0x99f5e8edaceacfdd183eb5f1da8a7757b322495b80cf7928db289a1b1a09f799",
+          "alternateOracle": "0x55B20d15EA9243c5B782F5D5e5af3264cC5c2345",
+          "alternateOracleHash": "0x62cb66432a14cb9683da02409c794c04e0437198c269ec8ff6cf6ede214f8509",
+          "pools": [
+            {
+              "address": "0x37ED4621D1Eb3aBC9e551a888E6AaF0A41F7be8e",
+              "codeHash": "0x038c8f16bcecb2cd1c15cac49d6ef23104be05b492f7fdf76bc1eea92611e2f5"
+            },
+            {
+              "address": "0x8cB787e6c315D464775289BaD00FDD67d53Ecb3D",
+              "codeHash": "0x53ce3e1dc56e296592fc87963bd018151bedc7ef0550c64c163d19649703f4c2"
+            },
+            {
+              "address": "0x0Fa7BC480885DCf58Ad2ef63eC7289cF2481D51c",
+              "codeHash": "0x616769c0e4ea2009f91c658053ca6828092c356ec7b3b2bf0750be971fdeb98f"
+            }
+          ],
+          "primaryFee": 500,
+          "version": 1
+        },
+        "venue": "0x37ED4621D1Eb3aBC9e551a888E6AaF0A41F7be8e"
+      },
+      "engine": "0x8802c550b21C870dE29052CFAE5c719613440e87",
+      "executor": "0x7c917E42B74b45F8643bEC98ecA4aDD6a3cEfc87",
+      "executorCodeHash": "0x960fc6d32755c34d15c42e2db340234c264e015d52c69bb539b44e052aa2174f",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xd0e7e07d0ee82c0d7069b3cf04956411ee44f6adc9db4c83098501bc35f0e27c",
+        "pool": "0xb6a3ed2dc7adbef92b2b7463c3909e6ba5636474b10b06e5d9285cb12e6ceab5",
+        "primary": "0x0c78ab5ad05b82ff1cbe01b1c0cf5a794bbd634498be3376f5090f8283f69e6b",
+        "secondary": "0x0c78ab5ad05b82ff1cbe01b1c0cf5a794bbd634498be3376f5090f8283f69e6b",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "pool": "0x4ea9205cE40475321eDFe8A3B5b7D25506f49c3B",
+      "primary": "0x67E2E5DD727f49CA46bF4931Be62E32C81Af0453",
+      "replaces": "0x03A206E3E54ff3e570Bf144c79D05BDA1432a2de",
+      "secondary": "0x67E2E5DD727f49CA46bF4931Be62E32C81Af0453",
+      "symbol": "SLV"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "engine": "0xf7a3dE21eced50bF0E439822273DA503Fe10C7B7",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xd9b3d22a4943e005af03ed2c7051f9ce34e96ed4d8015ee3a0984cf412cd9213",
+        "pool": "0x0a644954170987d30ea968038af85f352ec30de8907a85135518facebe4544b0",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xb9d311415d1d346c9d9b4242f23a50996066574046462c03a1962fa0130faa1d",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x51B4479F75eAde8e499e7f235D2b35521c159C83",
+      "primary": "0x6B22A786bAa607d76728168703a39Ea9C99f2cD0",
+      "secondary": "0xfF016af8eA622BB7da26Faca0B96C1d363f54095",
+      "stock": {
+        "executionGate": "0x6B5B4ceA0FdF5a30E7BD5581e77272149e97F395",
+        "hashes": {
+          "executionGate": "0xac40b0ef15cb61b865267a4af0c9b0200012dd68ee891fb5ecf4ae5aedd26da2",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-stock-risk-production.up.railway.app",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AAPL"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0xe93237C50D904957Cf27E7B1133b510C669c2e74",
+      "engine": "0x1a3656f815BBb53cBFaA7e9F63AA97c42324A2C9",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x4d8644fe2c293573f9c5c01d5ce62579e72ab19f5e53b1f4e2452ebefec001ce",
+        "pool": "0xafea9290f8ec89c6971b2631c2c31ccda6547988ed3b17a8a5f152c0769a2323",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xbe1dbf970527d5527ba08501afa6d0810b8ea4abd5915a8c946133a342312757",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xE8bF1D67DFD6F5cc73fBf2Ea449EEC3596C0BD58",
+      "primary": "0x45C3C877C15E6BA2EBB19eA114Ea508d14C1Af2E",
+      "secondary": "0xC873E93939c49Cf54835dbe9fC3B81625902f930",
+      "stock": {
+        "executionGate": "0x6aC93d6ad5C57EeD78Ca0fcD41BE54d9379c14df",
+        "hashes": {
+          "executionGate": "0xccbb2291bc0b14b4593a8cd91d749387b6c1bfc56fcafc1ed0d02e65f01562ba",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/MSFT",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "MSFT"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3",
+      "engine": "0x072E65420C618Ce0aa5ac5628bE8Cf471E5F5b5B",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xaee6b423bd3a1449026fd79df5d54316d28470c6168b1e2aa3f6acdf95c6e0ef",
+        "pool": "0xecd6485427dbef37a96e11ff9df478ca65bf70f50a3fa7a4f0f362418692a862",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x8e494178e32bb2c73ea9585a6eefd26ee5d9b263c9941ec44e17446ad75f3de5",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xc409aBE6be8cE504D965320e656d3d48a2B87568",
+      "primary": "0xF6f373a037c30F0e5010d854385cA89185AE638b",
+      "secondary": "0x15286672C9b1876944c615829E1578f526DBCDFF",
+      "stock": {
+        "executionGate": "0x33Af9A7cBAb8A9b3F879dd7E1Fa0857d52BEce6C",
+        "hashes": {
+          "executionGate": "0x3688155ae746f5fd718138b57f6dac810771c77e9394524fc1ea57d1722eaee9",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/GOOGL",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "GOOGL"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "engine": "0xEB39cd2bD899CF7A13B4e4b92050a56028e7473d",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xe07ab8dd556d2d7594ff2bee6b3c09444854656df319e8579e23e20bd351f43b",
+        "pool": "0x61908bc9eacc706d775273782fc0d71be2115c401d751427f8a180a3899f8338",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xc9006b386dfb1cda7d1852ed2f664b4c0a13c76794f14007989e017af18f303a",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x12FdC4dE194288D710F6618CAb5aBFbe4766D1f5",
+      "primary": "0xD5a1508ceD74c084eBf3cBe853e2C968fB2a651C",
+      "secondary": "0x604fF55E68311666190D7EFAaAFdD7de6c8baa97",
+      "stock": {
+        "executionGate": "0x4122844b4b769E8Ab9888a14e0068F6739Ae0b87",
+        "hashes": {
+          "executionGate": "0xeca4ba3eeb321260d20a08239be776ab1f947319a7946b8c60382e9e1b943b2e",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/AMZN",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AMZN"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35",
+      "engine": "0x76224138d8057B970383c5A92d0C171EDf8ceb03",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x30351914eddf3b6fdc971660d8c65f4ae86c1723d4652d18c84bbe4450978f62",
+        "pool": "0x5f20e0ffad9a1efcaeb161243c376b212eb4532e73045b9332ad2532e9333d34",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xabdfe58d1d672a7729d41352449bce4601f6b4693777d6614b5a72848fd5451b",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x619f16FF6d02B1681A80375D7e58a10547522E4a",
+      "primary": "0x7C38C00C30BEe9378381E7B6135d7283356D71b1",
+      "secondary": "0x8cc1255fA44Bb8027ac2e2EE59059957C9F5AB67",
+      "stock": {
+        "executionGate": "0xD61D49AA566fF4701248AA95b432695229508ad3",
+        "hashes": {
+          "executionGate": "0x1352eefceefd4cfbad20998ea1ea97c944e0872090e168889cbf0827f43de5a6",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/META",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "META"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "engine": "0xad34D8Ee4965672dd989808abbcAa35A8895bFE8",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x8a5f91cad55f14ea349357c85540ba5f9c20e3575fae9135c7d35f828d2af2a6",
+        "pool": "0x4f439ff2ddbbcc019454a7d90a3ef431f47b4a555a0114c03dd5f61714bb0223",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xf67c41727e5adae04061e5e93eea586f5e23112e3a6b16562f147adea6d33f41",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x68DfB924D619FEbB58cc3e5134e33c9bb12CDB39",
+      "primary": "0x379EC4f7C378F34a1B47E4F3cbeBCbAC3E8E9F15",
+      "secondary": "0x53c83617eC1B64b07111Cb7077128571dC3D4B0C",
+      "stock": {
+        "executionGate": "0xe808A7EeE9B661873f86a86b045D024C99dD44d0",
+        "hashes": {
+          "executionGate": "0x6ea68b23776ea5c347fe1a9f746e37b68430555142f5cd247fa729bda24bb6c5",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/NVDA",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "NVDA"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0x86923f96303D656E4aa86D9d42D1e57ad2023fdC",
+      "engine": "0x695171F8FC059A3B1F3e8d7a201C0271aD436B77",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xdb75a9064dde167bc4e4f4c86538e55c5f4319346bbf6e30a45f33ef7b40e238",
+        "pool": "0x4f8d2c5fd26872929f93b4117a5f421939662a5717058872848e184f6ae44cbd",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x3aad73685603aaa8ea2cd820fd837fd279bc1221734ed1c6020ec5b26b99b0f0",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xaDc7bd97cF1197A209F5c830c213Dc06C4a65D4c",
+      "primary": "0x943A29E7ae51A4798823ca9eEd2ed533B2A22C72",
+      "secondary": "0xA2Ec7f9Df96f54678289c723fF510fDFF75E0a7c",
+      "stock": {
+        "executionGate": "0x900769C56c960ed3Fcf1Ea16Ec5f2c1E2D171442",
+        "hashes": {
+          "executionGate": "0x37407fb28d57c6202c10fdd3953d7fc9eaa296b0580e5757d56bb24450a0e71a",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/AMD",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AMD"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+      "engine": "0xcAaC375E2d975359Bc5a8449eED9E281F359E234",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x48dd985609a729d9497c0d1430e6ddcbec1cec5a40571294d8751e466a7b6f02",
+        "pool": "0xae10ba83fe374d2ec046cd26326b07a0d395de6792104cc0771f45ee8fad522a",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xd42c6abf83cfaaf92efa91f3baf65a82645068888f94d4e3529897ff3ced05fa",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xfe66aB4e0f23BDf6b298E9f19e0E6A79059B30b6",
+      "primary": "0x425EEFdCf05ed6526C3cE61Af99429A228a6d596",
+      "secondary": "0x86253b2365263149154b70b8E56582f1a3200B57",
+      "stock": {
+        "executionGate": "0xd02d1AA8Db648A54157B5340482E56fb08EA59B5",
+        "hashes": {
+          "executionGate": "0xe42da4fbc88d9f25c2e731f07004ac7ba65f08728a6834c876b62f8b66b45c0a",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/MU",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "MU"
+    },
+    {
+      "admission": "legacy",
+      "chainId": 4663,
+      "collateral": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "engine": "0xe1E9cdAfDB792dF85C497F3752263d674105b0b4",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xa36f3ecc852cc41c82c72cc913df0b02fd4e6345769b08c2214392e530a1c70b",
+        "pool": "0x1a297e0bbdb6e06346e8a6b82f9ee7d13c6fab1c2210b98cfd0090953005217a",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x71a6f22b779115eb4ea41fa070cc0ec6d2e24c8d1e3583c78ee54e252fc9bff4",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xF5e54e471379e4f6704a3be352Ae5A13c9Ed9a58",
+      "primary": "0x4A1166a659A55625345e9515b32adECea5547C38",
+      "secondary": "0xf600d84d2fff55A380A820825c3dBf3fe9806BC1",
+      "stock": {
+        "executionGate": "0xA2d8F30cffFc0aA7c2f85176401a269cF3337110",
+        "hashes": {
+          "executionGate": "0x0d1de35767ac066bc4fc456a5cc8245911dec42e8fc3a0e0218b278b1d565d05",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/TSLA",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "TSLA"
+    },
+    {
+      "admission": "legacy",
+      "cashcat": {
+        "operator": "0xE1Ee47e694bE2EEBf388B1771A7591C8D44A12A9",
+        "oracleUrl": "https://dockyard-cashcat-oracle-production.up.railway.app/report"
+      },
+      "chainId": 4663,
+      "collateral": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "engine": "0xEfCAaD33fb0E309eD021e2fe85342C2e58951b9F",
+      "hashes": {
+        "collateral": "0x725781ccca82a0bf9b1f8920b2fe58ea1e4facf46d0db9f50226d6409de890fe",
+        "engine": "0x04df6a969635ff13299bc90a5591e12a930bd53c1e36c8daeee12301f6bb7b3b",
+        "pool": "0x723fb7853e1a0cf3492200cb7e46b77d124ac29027334335a2c0265873bf2709",
+        "primary": "0xd06393caf6acf123cb22993fbd99923b8e59e9f6fca795168e2b8512c51802ed",
+        "secondary": "0xd28ba3a73edc4e1625d00adae3d4ca4f609cd88031789db0823cd4aae325875f",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "oracleTrustModel": "dockyard-operated",
+      "pool": "0x6640876ADA3116d066Bb6e6E640F2Fc20a5e520E",
+      "primary": "0x3178Ea847E2B57C33226e0c48D4Cb260cBE05A67",
+      "replaces": "0x548cD2F2B5DA41DDF07563CCB4B205B528fc3611",
+      "secondary": "0x8f1F004235bFeC5fcbD4569aab3010eC57Cd8eC3",
+      "symbol": "CASHCAT"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0xaF3D76f1834A1d425780943C99Ea8A608f8a93f9",
+      "engine": "0x37DF02D0D721aB8a351333052535B2b7F1262F36",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x246543c1e73fc584b11adb830f6ad0cd7f00faebe8a707fd7eb5e8b1b508ea59",
+        "pool": "0xda3e9568aadd0c8a87b0d4e4e0681b6037e964387964fa2516559d16e1cd3e08",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x32d732ebbe6879cbb52bba54cadd7c90ad9ebd34e05a32f350b6491078b4bb2d",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xc973a688595e3E2Cd109A6cFCdeee7491510FC69",
+      "primary": "0x6B22A786bAa607d76728168703a39Ea9C99f2cD0",
+      "replaces": "0xf7a3dE21eced50bF0E439822273DA503Fe10C7B7",
+      "secondary": "0xb2AC38D2BcF72fc436c66D1E011A993d9f320888",
+      "stock": {
+        "executionGate": "0x9Ea1f8D965E673bC750d92F845F5fD978A98cDEB",
+        "hashes": {
+          "executionGate": "0x7ef011e3c1550e1cf71205511eabc18d363a1cf17e8b8fb44c5b1d4929779115",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-stock-risk-production.up.railway.app",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AAPL"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0xe93237C50D904957Cf27E7B1133b510C669c2e74",
+      "engine": "0x8f4101368B25A5Ae2043891574BDDb8275572533",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x267a8503454855368f1f2a3fe94d7280e8ccf368bea586c4516186996cf06ff5",
+        "pool": "0xa3b1a0250f673535553bf4e37df4bec393547ed32affd0cdf19560c79910da44",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x3129c0a6f07b22bc017dedf03e3478979219c536ad3dd3b4d62b800addccee7b",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x1da48eA4260487Ea0fAbf9afDC32bD3ab293eaAe",
+      "primary": "0x45C3C877C15E6BA2EBB19eA114Ea508d14C1Af2E",
+      "replaces": "0x1a3656f815BBb53cBFaA7e9F63AA97c42324A2C9",
+      "secondary": "0xbF4aCfF5ec98b449a7e248e5C635dCbA01008cFe",
+      "stock": {
+        "executionGate": "0x5EB6c6894A49F16Cb8d3374f3cA3761D78B4527a",
+        "hashes": {
+          "executionGate": "0xca58558eaa4b32f35b31cb11d2e657a8f096d1b85c6a6fef96107a040eafb6bf",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/MSFT",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "MSFT"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x2e0847E8910a9732eB3fb1bb4b70a580ADAD4FE3",
+      "engine": "0xD49B1AF2f2e7e6340e8f419dAccCe68Ebb9378CD",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x4834b0dfa8d0d6a091dcbc0c03616eeb457dd295e1b115d5488947ca65c09fa5",
+        "pool": "0x628f354609bde2d5df6175c89dff8b0b9a59bd539d27a5ece7a678c4e18ebdda",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x9af350b8b06d30456fda34974f2e9aab8f77c640b2fee462860c8cf11060b69b",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x60b6aD814285FDF9B4F182cBd224E00361057B44",
+      "primary": "0xF6f373a037c30F0e5010d854385cA89185AE638b",
+      "replaces": "0x072E65420C618Ce0aa5ac5628bE8Cf471E5F5b5B",
+      "secondary": "0x83d0437362f277aA6E7b39f651e88bC697e65a3F",
+      "stock": {
+        "executionGate": "0xA851FF5606DdADee8964E28436d1b8bd4De8BC6E",
+        "hashes": {
+          "executionGate": "0xd881f7a674d7be582d6ed0204965fcd035c6c76b9a2a805861b9b101a693cb58",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/GOOGL",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "GOOGL"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x12f190a9F9d7D37a250758b26824B97CE941bF54",
+      "engine": "0xD2157493950813849824Ba7f29d726d777037F2E",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x64f3f2f76782734f3c988af0fdbb8a0f69d62d6535495f31489252f3d9ea7cbb",
+        "pool": "0x628f849031f8c3ab28a3bb04c2a1eeb2231a2691cb7510e81b7e954d924748ea",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xd7fe76e878d1b75d3b44066549ecf1f70a2eb5399f3cc1bc6051c1a0070b25f3",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x5dF38341f48612840039993D42F79A2e37ade0DF",
+      "primary": "0xD5a1508ceD74c084eBf3cBe853e2C968fB2a651C",
+      "replaces": "0xEB39cd2bD899CF7A13B4e4b92050a56028e7473d",
+      "secondary": "0x965b338C00F1E64bDb332056F1795023A195e814",
+      "stock": {
+        "executionGate": "0xf2Ac583EAfc9E332281DbB81bA3a884709F0F951",
+        "hashes": {
+          "executionGate": "0x6399321c07c3daafb779a9ca9d95c50661052f9bbff5c6c62b87505d8f8964bb",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/AMZN",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AMZN"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0xc0D6457C16Cc70d6790Dd43521C899C87ce02f35",
+      "engine": "0x74AbbC9724039B07527a611714b82aDfc19A2eD8",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xcb23d7d6c22f3a21b00521474d211a8a67f32af8a46e35a3ff4ecb091bf5d72c",
+        "pool": "0x915bf695cbf13f1de4c05175fe806d3a9f67cf602932d2274d6f95ba981bd70b",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x14c5c9a67f20f07ba06a37811ee2d2e5e628ed323317efa9ab653498fde9ffd9",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x5aCD5a571C89C5d4484D361Dd850c6Ef11abca27",
+      "primary": "0x7C38C00C30BEe9378381E7B6135d7283356D71b1",
+      "replaces": "0x76224138d8057B970383c5A92d0C171EDf8ceb03",
+      "secondary": "0x3E5D4ba8fbcE707f75c89687b96e0b8183117548",
+      "stock": {
+        "executionGate": "0x7aFed1d151B8657BF54CF56C3Be558055196b854",
+        "hashes": {
+          "executionGate": "0x9e0e5c311b16f95bb8b5c8fa9cc30d1ba9fba1ca92c445f6f686428c9e775a03",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/META",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "META"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+      "engine": "0x73dB617B21b3E7Fd9056333902A1738463519DC8",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x29f695e34dcadc5e19269472a94d1a4b7d833d18a07f23b4aab2aec15d6d3d52",
+        "pool": "0x7a92020f771ff112a4b57735189090764027eaff33afb24fc8b3c38ee2400762",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x8152268cf3f9719823dd82ea4b7b1b7036fffd14c7ff1e8b4b9760abeb397e89",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xE23AC00cFcAF8955ac5b8A2D68d791d87b3FC76F",
+      "primary": "0x379EC4f7C378F34a1B47E4F3cbeBCbAC3E8E9F15",
+      "replaces": "0xad34D8Ee4965672dd989808abbcAa35A8895bFE8",
+      "secondary": "0x53b6dbC0868a50fb515A038dD42100770b4c1adB",
+      "stock": {
+        "executionGate": "0x4b83C175D706DA47036E87EA944532b60EAB5b91",
+        "hashes": {
+          "executionGate": "0x17f5bb14875c8ebc24d45cb9e28d6740b7193d3d4d70a52aaca6c75feb3a8d57",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/NVDA",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "NVDA"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x86923f96303D656E4aa86D9d42D1e57ad2023fdC",
+      "engine": "0xf2948B3De193934A0b45bc34C57ff5E25BcDA558",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xe434c2903cecd899fd03d8e9e1ad95d738904f70d27f121e0c66b71aee170cee",
+        "pool": "0x467933892f569f8ea94788eff5ace67328e6ace0f97b75856cdd277feaf0c7dc",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xc07d84978731ca7323ec808507df4ccc129d10e3b5fb82f975727e90ebceefd8",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x7C493f50caD601C474e6EA82f5a1a6F383284B9e",
+      "primary": "0x943A29E7ae51A4798823ca9eEd2ed533B2A22C72",
+      "replaces": "0x695171F8FC059A3B1F3e8d7a201C0271aD436B77",
+      "secondary": "0x5D33A6ab6324129787492E2A0b221830C676319a",
+      "stock": {
+        "executionGate": "0xAe0667366812C362D552ae92fE7Db1cD2A77E4cF",
+        "hashes": {
+          "executionGate": "0x1d364bbb68295e0bab54f250d437f84f8760c6efff56f58a1272e3c16cb413b2",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/AMD",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "AMD"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+      "engine": "0x067aC120ec0D6e879f4C40426385EA0Ac3d2Cd0A",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xab57ba0124ab7e2e0d03c60cdf7374b39713c2b8a50d8f0f32cd4740e6eb3062",
+        "pool": "0xe8c7bc0aa16ab5a3f335461cbfe2377f18ed4f72044c1ff445692f1d890671c4",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x779df80e45777de9649c20dcedf8efe91071773260ff27bfd66ae503061d22dc",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xDb6C6C5C298d7710D6BA97a092fb53C58BE946a1",
+      "primary": "0x425EEFdCf05ed6526C3cE61Af99429A228a6d596",
+      "replaces": "0xcAaC375E2d975359Bc5a8449eED9E281F359E234",
+      "secondary": "0x0C9e3bb0959aaADDF24A8b7BE2b7F7287cf5306f",
+      "stock": {
+        "executionGate": "0x8D1ef455fC125217A6241986a34f8E55d500cF1d",
+        "hashes": {
+          "executionGate": "0x0b9b85e6a92638ceee40ccd0aca653e3972f445ac43b7dc792edced1b75f07ab",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/MU",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "MU"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x322F0929c4625eD5bAd873c95208D54E1c003b2d",
+      "engine": "0xFA125B8406ed76E25962a20C340FE19bf41d3179",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0xd51532cede768360175d0317fab24576b8ccfe13b35c6663723161e23b2e00db",
+        "pool": "0xce28134a145217c0ea070dd10a423fedff8817c4afab3de7860505187ae17e19",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x982689b5135be57b179431a76e900ed84d3f6e7e27013d792c666cafdb688684",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x41B6CE3e47E3c9001a1007394eDA9438805d2Cd8",
+      "primary": "0x4A1166a659A55625345e9515b32adECea5547C38",
+      "replaces": "0xe1E9cdAfDB792dF85C497F3752263d674105b0b4",
+      "secondary": "0x764F70393c3d87B869406284F8dc15e1cec508a3",
+      "stock": {
+        "executionGate": "0xe65d3Ffcf84306A58bF882961c27601d6B3c1d90",
+        "hashes": {
+          "executionGate": "0x7877513f8c9d92fde58d16c5173658b7306813804e1e3243ae084175d5afce5a",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-msft-risk-production.up.railway.app/TSLA",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "TSLA"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "cashcat": {
+        "operator": "0xE1Ee47e694bE2EEBf388B1771A7591C8D44A12A9",
+        "oracleUrl": "https://dockyard-cashcat-oracle-production.up.railway.app/report"
+      },
+      "chainId": 4663,
+      "collateral": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "engine": "0xee1f486Ea6827Cd9fB87c35629A05707FF13cc03",
+      "hashes": {
+        "collateral": "0x725781ccca82a0bf9b1f8920b2fe58ea1e4facf46d0db9f50226d6409de890fe",
+        "engine": "0xb10b72fbc37d563b6ccfc32b2fca4a983c86897b303909ca16277520234a5701",
+        "pool": "0xbb1c0a5c1b4a50bb50847e2c484954f9da36f520663f20af3af8d45a6a952593",
+        "primary": "0xb78dc50e6a5f5d6035bcce883204f232aebd729866936e1b80c0eaabebada039",
+        "secondary": "0x5daf8dcaa267d86506f54285e61ef65070c6036687658a502b1ba09b246d311e",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "oracleTrustModel": "dockyard-operated",
+      "pool": "0x15aA1b4bBe233f2f42EBc627374f5C9189eFf4D5",
+      "primary": "0x5f44F6B067a4507c4B5b16961914d578Ed7A4050",
+      "replaces": "0xEfCAaD33fb0E309eD021e2fe85342C2e58951b9F",
+      "secondary": "0x0EaF6AB3aDDce6D2e59844936CB31a1E53a5196a",
+      "symbol": "CASHCAT"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+      "engine": "0x79CB40DF1aD78d0395290431e1f42324900180FB",
+      "executor": "0x05F5bf0fAc2952f5973718f675a2d3617c8C0F8d",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x17db1ad6c15541aefe7da4a0ff53ff753047ef69f431e37eafb5a258246dd62a",
+        "pool": "0x17867887f9a20fe3923e388a0170742b87d137eeba24a2f4ff4ba38b71bd73dd",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0x0e08dcc9a884180e455593d91fa7883c1e1e698c8a2837eb4447cbdf48094024",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0xf9BD17e4610898F5f677F7f18Eb6c5dc971dF7Ae",
+      "primary": "0x209b73908e92Ae021826eD79609845451Ecba2ce",
+      "secondary": "0x2008d4f5186AfE526D279600FaCa8278760d9F38",
+      "stock": {
+        "executionGate": "0xB8Cb46b85A2552D44D336aBe39feBcCA65BE212c",
+        "hashes": {
+          "executionGate": "0xb0000f246d1e3dd1af3d893e971bb233675b524043d7c07675006d5d09a0cd0e",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-slv-risk-production.up.railway.app",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "SLV"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+      "engine": "0x128998305d895e2Eb4bF0F0AD0653a3F1D01762D",
+      "executor": "0x92e5888FF59b427a96F125aA12455656105f947c",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x181401ca6cec94c132aeede7ccd8f7c5fe98e52cfc6b4d3ce40639daeca04bb4",
+        "pool": "0x37582a5e819c78e770a57e458ead52b5a2699ca61b274869e7181107f0ef7087",
+        "primary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+        "secondary": "0xe60879ca0aad9c34948c42dcb16c394f71a0b1441181b83af3cbb0ecac1ce687",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "pool": "0x664B5Deb7066193dB8F27A15A6BC9161e5890164",
+      "primary": "0x209b73908e92Ae021826eD79609845451Ecba2ce",
+      "replaces": "0x79CB40DF1aD78d0395290431e1f42324900180FB",
+      "secondary": "0x0242ED47B4F8e1c7e598D6D344A8a1C952E7968D",
+      "stock": {
+        "executionGate": "0xdEb9481c3c7f7b4966888b17a475c8d216A4184C",
+        "hashes": {
+          "executionGate": "0x093e52adbdb2183565227c96e45a3c7d6a00f44c109ad10f796b37fec5a38c8a",
+          "usdgPrimary": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2",
+          "usdgSecondary": "0xe6d00a17010bca4b55ba8a3636fef5f4a9e9b8dec55b9e0e31c91b996cb480ac"
+        },
+        "riskMonitorUrl": "https://dockyard-slv-risk-production-09be.up.railway.app/",
+        "usdgPrimary": "0x61B7e5650328764B076A108EFF5fa7282a1B9aD2",
+        "usdgSecondary": "0x76850ffD6652FCb5DfD7ECBD359323d82395fF8d"
+      },
+      "symbol": "SLV"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+      "dex": {
+        "dependencies": [
+          {
+            "address": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+            "beacon": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+            "beaconCodeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e",
+            "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+            "implementationCodeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7",
+            "kind": "beacon",
+            "symbol": "SLV"
+          },
+          {
+            "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+            "implementation": "0x68184c449e1a8f34fa18d289737129fd27b66f8f",
+            "implementationCodeHash": "0x3a551ac5c744af57e68a1d1431ac403c0f516ffd7d224a75746aee11fc4f3baf",
+            "kind": "implementation",
+            "symbol": "USDG"
+          }
+        ],
+        "executionGate": "0xF784C86dF1eb6056179754dBD0B9FF849588Ee8d",
+        "factory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+        "guardian": "0xEeF74751489f12249182756F09639054Da2d35F6",
+        "hashes": {
+          "executionGate": "0x12735afff9f57d3f9bf6ecbb4e6646c912a8bc70be383d3be59fb4935059864c",
+          "factory": "0xec72b1abd1f2faee020cfea9c646bd8994f9fb389054f6e574f103a895091739",
+          "oracle": "0xbc02d6a3d536e0c1803821fbe2a0731f3d581151f4889f65a1db88d31cee269a",
+          "venue": "0x53ce3e1dc56e296592fc87963bd018151bedc7ef0550c64c163d19649703f4c2"
+        },
+        "oracle": "0x7059C9615c6cbaCF778F61B02cb3475add58200e",
+        "policy": {
+          "maxSpotTickDeviation": 198,
+          "minCurrentLiquidity": "3800000000000000000",
+          "minHarmonicLiquidity": "3800000000000000000",
+          "window": 300
+        },
+        "riskMonitorUrl": "https://dockyard-slv-risk-production-09be.up.railway.app/",
+        "venue": "0x8cB787e6c315D464775289BaD00FDD67d53Ecb3D"
+      },
+      "engine": "0xBF838a4D081CD323a75135F55D8F6Bf531EDB273",
+      "executor": "0x94E166f1FdF3D458907Ca9C1961375615784741c",
+      "executorCodeHash": "0x9c24b0551d98dfb04f524a4059e66c77c7303020d07335fdc6f20905b91de412",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x6608b0ba657f86e41aac44737f1872bb64ba5a91e9a5f024409527c513a5cea1",
+        "pool": "0x3575602328c95e8812a51aa065baf20198a717a867494575ee0a98ae1971022c",
+        "primary": "0xbc02d6a3d536e0c1803821fbe2a0731f3d581151f4889f65a1db88d31cee269a",
+        "secondary": "0xbc02d6a3d536e0c1803821fbe2a0731f3d581151f4889f65a1db88d31cee269a",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "pool": "0xFB299d9f0f511f609B3380A8b608b49bb0cA3408",
+      "primary": "0x7059C9615c6cbaCF778F61B02cb3475add58200e",
+      "replaces": "0x128998305d895e2Eb4bF0F0AD0653a3F1D01762D",
+      "secondary": "0x7059C9615c6cbaCF778F61B02cb3475add58200e",
+      "symbol": "SLV"
+    },
+    {
+      "accountingVersion": 2,
+      "admission": "legacy",
+      "borrowRelayUrl": "https://dockyard-borrower-relay-production.up.railway.app",
+      "chainId": 4663,
+      "collateral": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+      "dex": {
+        "creditPolicy": {
+          "debtLimit": "50000000",
+          "minimumDebt": "25000000"
+        },
+        "dependencies": [
+          {
+            "address": "0x411eFb0E7f985935DAec3D4C3ebaEa0d0AD7D89f",
+            "beacon": "0xe10b6f6b275de231345c20d14ab812db62151b00",
+            "beaconCodeHash": "0x8b465c0b53a2ba499566e9b4ca67d8c90ed6131743df806a570d156956a7e90e",
+            "implementation": "0xb35490d6f9163DE4F80d88dc75c3516eb64C5aE2",
+            "implementationCodeHash": "0xdc07e86ee482f99641bdafb9a0d772846b167401e094d90a666b94dbdcd1eec7",
+            "kind": "beacon",
+            "symbol": "SLV"
+          },
+          {
+            "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+            "implementation": "0x68184c449e1a8f34fa18d289737129fd27b66f8f",
+            "implementationCodeHash": "0x3a551ac5c744af57e68a1d1431ac403c0f516ffd7d224a75746aee11fc4f3baf",
+            "kind": "implementation",
+            "symbol": "USDG"
+          }
+        ],
+        "executionGate": "0xF784C86dF1eb6056179754dBD0B9FF849588Ee8d",
+        "factory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+        "guardian": "0xEeF74751489f12249182756F09639054Da2d35F6",
+        "hashes": {
+          "executionGate": "0x12735afff9f57d3f9bf6ecbb4e6646c912a8bc70be383d3be59fb4935059864c",
+          "factory": "0xec72b1abd1f2faee020cfea9c646bd8994f9fb389054f6e574f103a895091739",
+          "oracle": "0x9fb91aeb3a5c415b1fe78137974f49959bd9dd30ad847fd2754f6a374fae94a8",
+          "venue": "0x53ce3e1dc56e296592fc87963bd018151bedc7ef0550c64c163d19649703f4c2"
+        },
+        "oracle": "0x6C2Cccc2aE21CF6c0ee8CD1cF752513253E8D48B",
+        "policy": {
+          "maxSpotTickDeviation": 198,
+          "minCurrentLiquidity": "3800000000000000000",
+          "minHarmonicLiquidity": "3800000000000000000",
+          "minLiquidationHarmonicLiquidity": "1000000000000",
+          "window": 300
+        },
+        "riskMonitorUrl": "https://dockyard-slv-risk-production-09be.up.railway.app/",
+        "venue": "0x8cB787e6c315D464775289BaD00FDD67d53Ecb3D"
+      },
+      "engine": "0x03A206E3E54ff3e570Bf144c79D05BDA1432a2de",
+      "executor": "0x3Ed00A8d5B05D6b181e6b4b30B15920F9228e9b8",
+      "executorCodeHash": "0xadf4eef933ac15bed5b36df1f26b293b0e1356f388e55ed3db01856d89c18c1a",
+      "hashes": {
+        "collateral": "0x6c1fdd40002dcb440c7fff6a84171404d279ccb057803b65826f7546acd65630",
+        "engine": "0x089c83a10c26fc16755e735e74ff6c12bfc5db61376786932cacf9c7bd1a9bde",
+        "pool": "0x0a7d1d08450826220be98a4c09b4e9b0797f3c672dcca8efcd01e01cb6ce8f2e",
+        "primary": "0x9fb91aeb3a5c415b1fe78137974f49959bd9dd30ad847fd2754f6a374fae94a8",
+        "secondary": "0x9fb91aeb3a5c415b1fe78137974f49959bd9dd30ad847fd2754f6a374fae94a8",
+        "usdg": "0x864cc9ad53b338b82da1f7cab85ab0b3d5c8861acb422b6fec63cf36234f36a6"
+      },
+      "owner": "0x8D9c41c35a1Cf9A6958d58880d3DC5dca36f5086",
+      "pool": "0x7D153957281eCfF170238600833FD71789c1737A",
+      "primary": "0x6C2Cccc2aE21CF6c0ee8CD1cF752513253E8D48B",
+      "replaces": "0xBF838a4D081CD323a75135F55D8F6Bf531EDB273",
+      "secondary": "0x6C2Cccc2aE21CF6c0ee8CD1cF752513253E8D48B",
+      "symbol": "SLV"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { type Address, TokenIcon } from "@liquity2/uikit";
+import { type Address, TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 import type { FC } from "react";
 

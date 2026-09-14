@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGetInitiativesSummary, useGetVoteAllocations, useGetVotingState } from "./hooks";
 
-import type { Address } from "@liquity2/uikit";
+import type { Address } from "@turret/uikit";
 
 export const useVotingState = () => {
   const [votingInputError, setVotingInputError] = useState(new Set<Address>());

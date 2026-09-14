@@ -1,8 +1,8 @@
 import type { ComponentPropsWithRef } from "react";
 
 import content from "@/src/content";
-import { css } from "@/styled-system/css";
-import { Button, IconAccount, shortenAddress, ShowAfter } from "@liquity2/uikit";
+import { WalletAvatar } from "@/src/profiles/WalletAvatar";
+import { IconChevronDown, shortenAddress, ShowAfter } from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import { ConnectKitButton } from "connectkit";
 import { match, P } from "ts-pattern";
@@ -61,18 +61,15 @@ function CKButton({
 
   return transition((spring, { mode, address }) => {
     const containerProps = {
-      className: css({
-        display: "flex",
-        alignItems: "center",
-        height: "100%",
-      }),
+      className: "dockyard-wallet-control",
       style: spring,
     } as const;
     return mode === "connected"
       ? (
         <a.div {...containerProps}>
           <ButtonConnected
-            label={ensName ?? shortenAddress(address, 3)}
+            address={address}
+            label={ensName ?? shortenAddress(address, 4)}
             onClick={show}
             title={address}
           />
@@ -99,7 +96,6 @@ function ButtonNotConnected({
   const { switchChain, chains } = useSwitchChain();
 
   const props = {
-    mode: "primary",
     label: mode === "connecting"
       ? "Connecting…"
       : mode === "unsupported"
@@ -113,90 +109,45 @@ function ButtonNotConnected({
   } as const;
 
   return (
-    <Button
-      {...props}
-      size="medium"
-      className={css({
-        height: { base: "32px!", medium: "40px!" },
-      })}
-    />
+    <button
+      aria-busy={mode === "connecting"}
+      className="dockyard-wallet-button"
+      data-state={mode}
+      disabled={mode === "connecting"}
+      onClick={props.onClick}
+      type="button"
+    >
+      <span className="dockyard-wallet-label">{props.label}</span>
+    </button>
   );
 }
 
 function ButtonConnected({
+  address,
   label,
   onClick,
   title,
 }: {
+  address: string;
   label: string;
   onClick?: () => void;
   title?: string;
 }) {
   return (
     <button
+      aria-label={`Open wallet menu for ${title ?? label}`}
+      aria-haspopup="dialog"
       onClick={onClick}
       title={title}
-      className={css({
-        display: "grid",
-        width: "100%",
-        height: "100%",
-        padding: 0,
-        whiteSpace: "nowrap",
-        textAlign: "center",
-        _active: {
-          translate: "0 1px",
-        },
-        _focusVisible: {
-          borderRadius: 4,
-          outline: "2px solid token(colors.focused)",
-        },
-      })}
+      type="button"
+      className="dockyard-wallet-button"
+      data-state="connected"
     >
-      <div
-        className={css({
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          width: "100%",
-          height: "100%",
-          cursor: "pointer",
-          userSelect: "none",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          color: "interactive",
-        })}
-      >
-        <div
-          className={css({
-            display: "grid",
-            placeItems: "center",
-            width: 24,
-            height: 24,
-          })}
-        >
-          <IconAccount />
-        </div>
-        <div
-          className={css({
-            flexShrink: 1,
-            flexGrow: 1,
-            overflow: "hidden",
-            display: "flex",
-            alignItems: "center",
-            height: "100%",
-          })}
-        >
-          <div
-            className={css({
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            })}
-          >
-            {label}
-          </div>
-        </div>
-      </div>
+      <WalletAvatar address={address} size={22} />
+      <span className="dockyard-wallet-label">{label}</span>
+      <span aria-hidden="true" className="dockyard-wallet-chevron">
+        <IconChevronDown size={14} />
+      </span>
     </button>
   );
 }

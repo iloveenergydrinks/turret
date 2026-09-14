@@ -1,0 +1,95 @@
+diff --git a/build/components/ConnectKit.d.ts b/build/components/ConnectKit.d.ts
+index 8e5603b453af55af1b93d75b8e8e7740677ec232..dfa8c039c262fec284471a48aa90dba4dc5e74a9 100644
+--- a/build/components/ConnectKit.d.ts
++++ b/build/components/ConnectKit.d.ts
+@@ -44,6 +44,8 @@ export declare const Context: React.Context<ContextValue | null>;
+ export type ConnectKitOptions = {
+     language?: Languages;
+     hideBalance?: boolean;
++    /** Disable optional Ethereum ENS lookups on deployments that do not use ENS. */
++    disableEns?: boolean;
+     hideTooltips?: boolean;
+     hideQuestionMarkCTA?: boolean;
+     hideNoWalletCTA?: boolean;
+diff --git a/build/index.es.js b/build/index.es.js
+index ec3ccf240fc25ebf94f64a1fe67a6a8da1c5c712..7689d1b702ab27759b5846fcb83cda84fc62a8c7 100644
+--- a/build/index.es.js
++++ b/build/index.es.js
+@@ -4546,7 +4546,7 @@ const useWallets = () => {
+             icon: (jsx("img", { src: connector.icon, alt: connector.name, width: '100%', height: '100%' })),
+             connector,
+             iconShape: 'squircle',
+-            isInstalled: connector.type === 'mock' ||
++            isInstalled: (connector.id === 'metaMask' && isWalletInstalled('MetaMask')) || connector.type === 'mock' ||
+                 (connector.type === 'injected' && connector.id !== 'metaMask') ||
+                 isCoinbaseWalletConnector(connector.id), // always run coinbase wallet SDK
+         };
+@@ -6941,6 +6941,7 @@ const ConnectorList = () => {
+ };
+ const ConnectorItem = ({ wallet, isRecent, }) => {
+     var _a, _b, _c, _d;
++    const walletConnectConnector = useWalletConnectConnector();
+     const { connect: { getUri }, } = useWeb3();
+     const uri = getUri();
+     const isMobile = useIsMobile();
+@@ -6959,6 +6960,16 @@ const ConnectorItem = ({ wallet, isRecent, }) => {
+         (wallet.shouldDeeplinkDesktop && !isMobile)
+         ? (_a = wallet.getWalletConnectDeeplink) === null || _a === void 0 ? void 0 : _a.call(wallet, uri !== null && uri !== void 0 ? uri : '')
+         : undefined;
++    // Without WalletConnect, MetaMask's wc link has no session URI. Open the
++    // current dapp in MetaMask Mobile instead; its injected provider connects
++    // normally once there. Keep this an anchor for iOS user-gesture handling.
++    if (wallet.id === 'metaMask' && !walletConnectConnector) {
++        deeplink = isWalletInstalled('MetaMask')
++            ? undefined
++            : isMobile
++                ? `https://metamask.app.link/dapp/${window.location.href.replace(/^https?:\/\//, '')}`
++                : wallet.downloadUrls.website;
++    }
+     const redirectToMoreWallets = isMobile && isWalletConnectConnector(wallet.id);
+     // Safari requires opening popup on user gesture, so we connect immediately here
+     const shouldConnectImmediately = (detectBrowser() === 'safari' || detectBrowser() === 'ios') &&
+@@ -8592,16 +8603,19 @@ const Avatar = ({ address, name, size = 96, radius = 96 }) => {
+         chainId: 1,
+         name: name,
+         config: ensFallbackConfig,
++        query: { enabled: !context.options?.disableEns },
+     });
+     const { data: ensName } = useEnsName({
+         chainId: 1,
+         address: (_a = address !== null && address !== void 0 ? address : ensAddress) !== null && _a !== void 0 ? _a : undefined,
+         config: ensFallbackConfig,
++        query: { enabled: !context.options?.disableEns },
+     });
+     const { data: ensAvatar } = useEnsAvatar({
+         chainId: 1,
+         name: normalize(ensName !== null && ensName !== void 0 ? ensName : ''),
+         config: ensFallbackConfig,
++        query: { enabled: !context.options?.disableEns },
+     });
+     const ens = {
+         address: ensAddress !== null && ensAddress !== void 0 ? ensAddress : address,
+@@ -9832,6 +9846,7 @@ const Profile = ({ closeModal }) => {
+         chainId: 1,
+         address: address,
+         config: ensFallbackConfig,
++        query: { enabled: !context.options?.disableEns },
+     });
+     const { data: balance } = useBalance({
+         address,
+@@ -10968,6 +10983,7 @@ const ConnectButtonRenderer = ({ children, }) => {
+         chainId: 1,
+         address: address,
+         config: ensFallbackConfig,
++        query: { enabled: !context.options?.disableEns },
+     });
+     function hide() {
+         setOpen(false);
+@@ -11005,6 +11021,7 @@ function ConnectKitButtonInner({ label, showAvatar, separator, }) {
+         chainId: 1,
+         address: address,
+         config: ensFallbackConfig,
++        query: { enabled: !context.options?.disableEns },
+     });
+     const defaultLabel = locales.connectWallet;
+     return (jsx(AnimatePresence, { initial: false, children: address ? (jsxs(TextContainer, { initial: 'initial', animate: 'animate', exit: 'exit', variants: addressVariants, style: {

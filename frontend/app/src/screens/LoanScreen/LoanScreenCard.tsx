@@ -1,5 +1,5 @@
 import type { Dnum, LoanDetails, PositionLoanCommitted, RiskLevel, TroveId } from "@/src/types";
-import type { CollateralToken } from "@liquity2/uikit";
+import type { CollateralToken } from "@turret/uikit";
 import type { ReactNode } from "react";
 import type { LoanLoadingState } from "./LoanScreen";
 
@@ -31,7 +31,7 @@ import {
   StatusDot,
   TokenIcon,
   VFlex,
-} from "@liquity2/uikit";
+} from "@turret/uikit";
 import { a, useTransition } from "@react-spring/web";
 import { blo } from "blo";
 import * as dn from "dnum";

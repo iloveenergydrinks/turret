@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "chainId": 4663,
+  "observedAt": "2026-09-04T14:25:33Z",
+  "referenceBlock": {
+    "number": 54328853,
+    "timestamp": 1788531343,
+    "hash": "0xc5f644bdaa222133987f3bd83346be8af05b99982fca05ac1eae8b32d94648e7"
+  },
+  "sharedDexLeg": {
+    "factory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+    "intermediate": "0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73",
+    "quote": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+    "wethUsdgPool": "0x52e65B17fB6E5BA00Ed806f37Afcd2DaA50271Ca",
+    "policy": "DockyardV3TwapFeed is an endogenous manipulation/corroboration leg only. Pair it with a genuinely independent reference through DockyardCorroboratedV3Feed."
+  },
+  "assets": [
+    {
+      "symbol": "CASHCAT",
+      "token": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "admission": "commissioning",
+      "tokenWethPool": "0xA70fc67C9F69da90B63a0e4C05D229954574E313",
+      "reference": {
+        "kind": "pyth-authenticated-usd-ratio",
+        "implementation": "DockyardPythUsdRatioFeed",
+        "cashcatProFeedId": 3441,
+        "usdgProFeedId": 232,
+        "cashcatHermesFeedId": "0x79eb220a4fddd65d93d17e343cfb7ec3bf89f5ed3aaf32e4d74919761409f993",
+        "usdgHermesFeedId": "0xdaa58c6a3ce7d4b9c46c32a6e646012c17c4a2b24c08dd8c5e476118b855a7da"
+      },
+      "blockers": [
+        "The current account is not entitled to retrieve signed CASHCAT and USDG reports.",
+        "Public on-chain caching/publication rights have not been confirmed.",
+        "The provider symbols must be economically bound to these exact Robinhood Chain token addresses.",
+        "Publisher and venue independence, live fees, relay funding, and outage behavior require production verification."
+      ]
+    },
+    {
+      "symbol": "PONS",
+      "token": "0x39dBED3a2bd333467115dE45665cC57F813C4571",
+      "admission": "commissioning",
+      "tokenWethPool": "0x10CC6BD38112cAc182db90B6a71d8Bb5939526bA",
+      "reference": {
+        "kind": "threshold-authenticated-collateral-usdg-index",
+        "implementation": "DockyardThresholdPriceFeed",
+        "minimumReporterSet": "3-of-4 independent operators",
+        "minimumVenueInputs": 3,
+        "maximumReportAgeSeconds": 30,
+        "requiredPolicy": "Deterministic conservative executable-book index with exact token mapping and authenticated USDT/USDG conversion; raw last trades and USDG=$1 assumptions are forbidden."
+      },
+      "currentVenueLeads": [
+        {
+          "venue": "Gate",
+          "pair": "PONS_USDT",
+          "bid": "0.75056",
+          "ask": "0.7513",
+          "endpoint": "https://api.gateio.ws/api/v4/spot/tickers?currency_pair=PONS_USDT"
+        },
+        {
+          "venue": "MEXC",
+          "pair": "PONSUSDT",
+          "bid": "0.749051",
+          "ask": "0.750800",
+          "endpoint": "https://api.mexc.com/api/v3/ticker/bookTicker?symbol=PONSUSDT"
+        }
+      ],
+      "blockers": [
+        "No provider-authenticated PONS feed for the exact token was established.",
+        "Only two directly queried venue books are recorded here; a two-venue value has no robust median or outlier tolerance.",
+        "Independent reporter operators, a third qualified venue, deterministic policy implementation, storage attestation, relay integration, and soak tests do not yet exist.",
+        "The live PONS 30-minute TWAP was 242 ticks away from spot at the reference block, beyond the existing 200-tick circuit. Widening the circuit to force availability is not an oracle solution."
+      ]
+    }
+  ],
+  "productionApproved": false,
+  "limitation": "This file records a commissioning plan and point-in-time observations. Public exchange JSON is unsigned and does not itself constitute an oracle. No market deployment or activation is authorized by this registry."
+}

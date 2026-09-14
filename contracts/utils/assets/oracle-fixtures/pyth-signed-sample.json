@@ -1,0 +1,22 @@
+{
+  "block": "52850604",
+  "verifier": "0xACeA761c27A909d4D3895128EBe6370FDE2dF481",
+  "verifierCodeHash": "0xef41b6fae0a92ef125e99f23cab7dd4bbd4a29d9a16e6de418dd5851bb03b77e",
+  "sampleSigner": "0x26FB61A864c758AE9fBA027a96010480658385B9",
+  "sample": {
+    "signed": "0x2a22999a537d74cd8305b5ee9e4836995e19ac39c1b8080372756fb858a67229982b3942351e81a7b902778466cc03235714aabc9ca797c3d1bc19a7fe9caf081624252001003893c7d37500065a85bfd7b900040100000001060000000705e80188aa03001804fff80500000000618358a80900000c0100065a85bfd7b900",
+    "timestampUs": "1788380356000000",
+    "feeds": [
+      {
+        "id": 1,
+        "timestampUs": "1788380356000000",
+        "price": "7721948645546",
+        "publishers": 24,
+        "exponent": -8,
+        "confidence": "1635997864",
+        "session": 0,
+        "sourceUs": "1788380356000000"
+      }
+    ]
+  }
+}

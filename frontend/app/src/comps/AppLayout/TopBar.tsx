@@ -2,38 +2,49 @@
 
 import { Logo } from "@/src/comps/Logo/Logo";
 import { CHAIN_ID, CHAIN_NAME } from "@/src/env";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AccountButton } from "./AccountButton";
+import { HeaderNavigation } from "./HeaderNavigation";
 
 const links = [
-  { href: "/", label: "Markets" },
+  { href: "/borrow", label: "Borrow" },
+  { href: "/earn", label: "Earn" },
+  { href: "/stake", label: "Stake" },
+  { href: "/portfolio", label: "Portfolio" },
 ] as const;
 
 export function TopBar() {
+  // Native links preserve navigation across independently released static pages.
   const pathname = usePathname();
 
   return (
     <header className="rusd-topbar">
       <div className="rusd-frame rusd-topbar-inner">
-        <Link aria-label="Dockyard markets" className="rusd-brand-link" href="/">
+        <a aria-label="Turret home" className="rusd-brand-link" href="/">
           <Logo size={36} />
-        </Link>
-        <nav aria-label="Primary" className="rusd-nav">
+        </a>
+        <HeaderNavigation>
           {links.map(({ href, label }) => {
-            const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
+            const active = href === "/borrow"
+              ? pathname === "/" || pathname.startsWith("/borrow") || pathname.startsWith("/p2p")
+              : pathname.startsWith(href);
             return (
-              <Link className="rusd-nav-link" data-active={active} href={href} key={href}>
+              <a
+                aria-current={active ? "page" : undefined}
+                className="rusd-nav-link"
+                data-active={active}
+                href={href}
+                key={href}
+              >
                 {label}
-              </Link>
+              </a>
             );
           })}
-        </nav>
+        </HeaderNavigation>
         <div className="rusd-account">
-          <span className="rusd-network" title={`Chain ID ${CHAIN_ID}`}>
-            <span className="rusd-network-dot" />
+          <span className="rusd-network" title={`${CHAIN_NAME} · Chain ID ${CHAIN_ID}`}>
+            <span aria-hidden="true" className="rusd-network-dot" />
             <span className="rusd-network-name">{CHAIN_NAME}</span>
-            <span className="rusd-network-name-short">RH Testnet</span>
           </span>
           <AccountButton />
         </div>

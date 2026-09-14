@@ -1,6 +1,6 @@
 "use client";
 
-import { TokenIcon } from "@liquity2/uikit";
+import { TokenIcon } from "@turret/uikit";
 import { useFixtureSelect } from "react-cosmos/client";
 
 const options = [

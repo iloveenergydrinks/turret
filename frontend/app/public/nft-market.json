@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "chainId": 4663,
+  "address": "0x79F986A54965EB4AB2eB317d9c5e33074793Dd28",
+  "loanToken": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+  "loanDecimals": 6,
+  "runtimeHash": "0xf68e2061ef1902ebbf8c56a58aafcb4a19ff5824c8c62eb4f01a106f0a707b57",
+  "startBlock": "57944639",
+  "rpcUrl": "/api/rpc",
+  "collections": [
+    {
+      "address": "0xe3b34C4bb0f12C82143745EEe6A6Cf4E3154b1fa",
+      "name": "Cash Cats",
+      "slug": "cash-cats",
+      "image": "/brand/nft-collections/cash-cats.png",
+      "enabled": true
+    },
+    {
+      "address": "0xF08c65564eB07d880021105489552080b08e4319",
+      "name": "Robinhood Punks",
+      "slug": "robinhood-punks",
+      "image": "/brand/nft-collections/robinhood-punks.png",
+      "enabled": true
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import { css } from "@/styled-system/css";
-import { IconChevronSmallUp } from "@liquity2/uikit";
+import { IconChevronSmallUp } from "@turret/uikit";
 import { useState } from "react";
 import type { FC } from "react";
 import { VotingResources } from "./VotingResources";

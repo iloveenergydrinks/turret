@@ -7,7 +7,7 @@ import { getBranch } from "@/src/liquity-utils";
 import { useSboldStats } from "@/src/sbold";
 import { isBranchId } from "@/src/types";
 import { css } from "@/styled-system/css";
-import { InfoTooltip, TokenIcon } from "@liquity2/uikit";
+import { InfoTooltip, TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 import { EarnPositionSummaryBase } from "./EarnPositionSummaryBase";
 

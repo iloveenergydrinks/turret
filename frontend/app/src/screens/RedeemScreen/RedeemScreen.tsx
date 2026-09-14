@@ -17,7 +17,7 @@ import { useCollateralRedemptionPrices, usePrice } from "@/src/services/Prices";
 import { zipWith } from "@/src/utils";
 import { useAccount, useBalance } from "@/src/wagmi-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, IconExternal, InfoTooltip, InputField, TextButton, TokenIcon, VFlex } from "@liquity2/uikit";
+import { HFlex, IconExternal, InfoTooltip, InputField, TextButton, TokenIcon, VFlex } from "@turret/uikit";
 import * as dn from "dnum";
 
 const TRUNCATED_THRESHOLD = dnum18(100); // wei

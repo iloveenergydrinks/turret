@@ -6,16 +6,16 @@ import { css } from "@/styled-system/css";
 
 export default {
   // Used in the top bar and other places
-  appName: "Dockyard",
+  appName: "Turret",
   appDescription: `
-    Borrow rUSD against Stock Tokens without selling your market exposure.
+    Borrow USDG against memecoins, stocks and NFTs without selling them.
   `,
   appUrl: typeof window === "undefined"
-    ? "https://github.com/iloveenergydrinks/liquityv3"
+    ? "https://turret.capital"
     : window.location.origin,
   appIcon: (
     typeof window === "undefined" ? "" : window.location.origin
-  ) + "/brand/dockyard-safe-harbor-ai.png",
+  ) + "/brand/turret-mark.svg",
 
   // Menu bar
   menu: {
@@ -93,7 +93,7 @@ export default {
         </>
       ),
       footerLink: {
-        href: "https://docs.liquity.org/v2-faq/redemptions-and-delegation",
+        href: "https://docs.turret.capital",
         label: "Learn more",
       },
     },
@@ -124,7 +124,7 @@ export default {
     ],
     learnMore: {
       text: "Learn more about redemptions",
-      href: "https://docs.liquity.org/v2-faq/redemptions-and-delegation",
+      href: "https://docs.turret.capital",
     },
   },
 
@@ -210,7 +210,7 @@ export default {
       learnMore: {
         text: "Learn more",
         href:
-          "https://docs.liquity.org/v2-faq/redemptions-and-delegation#docs-internal-guid-441d8c3f-7fff-4efa-6319-4ba00d908597-2",
+          "https://docs.turret.capital",
       },
     },
     earnTable: {
@@ -325,7 +325,7 @@ export default {
         to cancel debt and distributes the liquidated Stock Token collateral to depositors.
       </>
     ),
-    learnMore: ["https://docs.liquity.org/v2-faq/bold-and-earn", "Learn more"],
+    learnMore: ["https://docs.turret.capital", "Learn more"],
     poolsColumns: {
       pool: "Pool",
       apr: "APR",
@@ -433,11 +433,11 @@ export default {
     ),
     subheading: (
       <>
-        By staking LQTY you can vote on incentives for Liquity V2, while still earning Liquity V1 fees.
+        This legacy LQTY staking interface is separate from TURRET staking and its USDG rewards.
       </>
     ),
     learnMore: [
-      "https://docs.liquity.org/v2-faq/lqty-staking",
+      "https://docs.turret.capital",
       "Learn more",
     ],
     accountDetails: {
@@ -482,7 +482,7 @@ export default {
         overview: {
           description: "Learn more about voting accrual, initiative and protocol incentivized liquidity (PIL).",
           linkText: "LQTY Voting & Staking in V2",
-          linkUrl: "https://docs.liquity.org/v2-faq/lqty-staking",
+          linkUrl: "https://docs.turret.capital",
         },
         discuss: {
           description: "Overview over the PIL initiatives – propose and discuss initiatives.",
@@ -542,7 +542,7 @@ export default {
   ccrWarning: {
     title: "Borrowing Restrictions Apply",
     learnMoreUrl:
-      "https://docs.liquity.org/v2-faq/borrowing-and-liquidations#docs-internal-guid-fee4cc44-7fff-c866-9ccf-bac2da1b5222",
+      "https://docs.turret.capital",
     learnMoreLabel: "Learn more about borrowing restrictions",
     openPosition: (params: { tcr: N; ccr: N; newTcr: N; isOldTcrLtCcr: boolean }) => (
       <>
@@ -745,7 +745,7 @@ export default {
       ),
       footerLink: {
         label: "Check the docs for more details",
-        href: "https://docs.liquity.org/",
+        href: "https://docs.turret.capital",
       },
     },
   },

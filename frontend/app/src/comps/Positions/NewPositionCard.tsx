@@ -2,7 +2,7 @@ import { ActionIcon } from "@/src/comps/ActionCard/ActionIcon";
 import content from "@/src/content";
 import { css } from "@/styled-system/css";
 import { token } from "@/styled-system/tokens";
-import { lerp } from "@liquity2/uikit";
+import { lerp } from "@turret/uikit";
 import { a, useSpring } from "@react-spring/web";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";

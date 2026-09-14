@@ -5,11 +5,11 @@ export function Logo({
 }: {
   size?: number;
 }) {
-  const assetSize = Math.round(size * 1.48);
+  const assetSize = size;
 
   return (
     <span
-      aria-label="Dockyard"
+      aria-label="Turret"
       className="dockyard-logo"
       role="img"
       style={{ height: size }}
@@ -24,12 +24,12 @@ export function Logo({
           className="dockyard-logo-mark"
           height={assetSize}
           priority
-          src="/brand/dockyard-safe-harbor-ai.png"
+          src="/brand/turret-mark.svg"
           width={assetSize}
         />
       </span>
       <span className="dockyard-logo-wordmark" style={{ fontSize: size * 0.66 }}>
-        dockyard.
+        turret.
       </span>
     </span>
   );

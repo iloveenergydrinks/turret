@@ -1,0 +1,20 @@
+.turret-beta-notice {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rusd-line, #e7e5e4);
+  background: var(--rusd-soft, #f2f1ee);
+  color: var(--rusd-muted, #57534e);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.turret-beta-notice p {
+  max-width: var(--rusd-max-width, 1040px);
+  margin: 0 auto;
+  text-wrap: balance;
+}
+
+.turret-beta-notice strong {
+  color: var(--rusd-ink, #292524);
+  font-weight: 600;
+}

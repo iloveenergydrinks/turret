@@ -1,0 +1,406 @@
+{
+  "passed": true,
+  "publicNetworkTransactions": 0,
+  "localChainTransactions": 0,
+  "startedAt": "2026-09-07T00:50:10.654Z",
+  "stage": "/private/tmp/turret-platform-app-icd_u5da",
+  "url": "http://127.0.0.1:3166/portfolio",
+  "checks": [
+    {
+      "name": "Portfolio generated-avatar edit is signed, verified on local EVM, and persisted through the real proxy/backend"
+    },
+    {
+      "name": "Independent browser context displays the same saved public avatar without a new signature"
+    },
+    {
+      "name": "Real JPEG selection is canvas-cropped to PNG, hash-bound to a signature, and visible to a fresh viewer with durable bytes"
+    },
+    {
+      "name": "Declining the wallet signature leaves the saved public picture unchanged"
+    },
+    {
+      "name": "Changing wallet while the signature prompt is pending prevents the old avatar save"
+    },
+    {
+      "name": "Profile service outage falls back to deterministic identity and clearly disables saving"
+    }
+  ],
+  "walletRequests": [
+    "eth_accounts",
+    "eth_accounts",
+    "wallet_requestPermissions",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_requestAccounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_chainId",
+    "personal_sign",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_accounts",
+    "wallet_requestPermissions",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_requestAccounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_chainId",
+    "personal_sign",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_chainId",
+    "personal_sign",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_chainId",
+    "personal_sign",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "wallet_requestPermissions",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_requestAccounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_chainId",
+    "eth_accounts",
+    "eth_accounts",
+    "eth_accounts"
+  ],
+  "signatures": [
+    {
+      "actor": "owner",
+      "messageSha256": "b6731f9511e08c0c375c6add288703b46c62cf978ffff30ed4495aed10243856",
+      "message": "http://127.0.0.1:3166 wants you to sign in with your Ethereum account:\n0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266\n\nSave this public Turret wallet avatar. This signature authorizes no token approvals or blockchain transactions.\n\nURI: http://127.0.0.1:3166/api/profiles/0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266\nVersion: 1\nChain ID: 4663\nNonce: 37cc1f730d2d4831b7fc1b3f645767f2437d8c7f9706e1a551eb217aec12d67a\nIssued At: 2026-09-07T00:50:14.221Z\nExpiration Time: 2026-09-07T00:55:14.221Z\nRequest ID: avatar-update-0\nResources:\n- urn:turret:avatar:sha256:3ee4c4f843e8df9b49c893a4ed0a7dd011228b22774f2f02f9f8acc10f30efd0\n- urn:turret:avatar:revision:0"
+    },
+    {
+      "actor": "owner",
+      "messageSha256": "828a445163083d8637c4df34169cd03bf2b140ac653c0a5fb3e76167ceedf284",
+      "message": "http://127.0.0.1:3166 wants you to sign in with your Ethereum account:\n0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266\n\nSave this public Turret wallet avatar. This signature authorizes no token approvals or blockchain transactions.\n\nURI: http://127.0.0.1:3166/api/profiles/0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266\nVersion: 1\nChain ID: 4663\nNonce: 36a70c130f26d0904af1c0d0bef094629846c2ef26c98d9706ab98b58ab5cf72\nIssued At: 2026-09-07T00:50:17.444Z\nExpiration Time: 2026-09-07T00:55:17.444Z\nRequest ID: avatar-update-1\nResources:\n- urn:turret:avatar:sha256:108b68f4f18b104da5bfa93dd691eb7fb733d20bbfbc15ea20fbd15530243f75\n- urn:turret:avatar:revision:1"
+    },
+    {
+      "actor": "owner",
+      "messageSha256": "b6065435492a509226f1956bec6a0e9888e66b3147653c2f186628cb434174b3",
+      "message": "http://127.0.0.1:3166 wants you to sign in with your Ethereum account:\n0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266\n\nSave this public Turret wallet avatar. This signature authorizes no token approvals or blockchain transactions.\n\nURI: http://127.0.0.1:3166/api/profiles/0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266\nVersion: 1\nChain ID: 4663\nNonce: 7a67fcb29bc1670d18622d03cd2f8cdcea3434da3fae2374a8e977fc5e5eb64d\nIssued At: 2026-09-07T00:50:18.120Z\nExpiration Time: 2026-09-07T00:55:18.120Z\nRequest ID: avatar-update-2\nResources:\n- urn:turret:avatar:sha256:70f42d383e66cc6910a452f9a8678b80faf7430cd22de32c4ea88580e38b1372\n- urn:turret:avatar:revision:2"
+    }
+  ],
+  "browserErrors": [],
+  "resourceErrors": [
+    {
+      "path": "/api/profiles/0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "status": 503,
+      "expected": true
+    },
+    {
+      "path": "/api/profiles/0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "status": 503,
+      "expected": true
+    }
+  ],
+  "blockedExternalRequests": [],
+  "servedFiles": [
+    {
+      "path": "portfolio.html",
+      "sha256": "aa94c75107519cf72145c7964ab9a461893489793b33ab170c0d9ce64fa652ec",
+      "bytes": 777,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/p2p-j3qPKKTU.css",
+      "sha256": "47e04705d280d5e02da64edf27afe0c7481ca4e3a57bbf07a33db566d133df2f",
+      "bytes": 93058,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/portfolio-D8RzcPqb.css",
+      "sha256": "1e40052d91d92b491b5ee465da2709f4b8460c615466df4d5acf422d4d7c0517",
+      "bytes": 7871,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-vVJmjwj5.js",
+      "sha256": "02cb079afee71cfa977fba8a7593016a816437cda1e559a1ffff7aafaac70dc2",
+      "bytes": 462895,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/portfolio-k2eMVlZd.js",
+      "sha256": "cb23ebd690385a59d5f4d4dd518fa008f94a66590e8df66c683370c18c15baee",
+      "bytes": 893855,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-B3Nfv_UP.js",
+      "sha256": "ef797a7c794c8056a1d6846d367e7d9980c88b6a4a41562e132c3f95e620972e",
+      "bytes": 15966,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-B6ZY_cjD.js",
+      "sha256": "3d22234a9682089b342c3a36cc173484b19e81a2d566b17d5b3af9ffd6a73c72",
+      "bytes": 85879,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "portfolio.html",
+      "sha256": "aa94c75107519cf72145c7964ab9a461893489793b33ab170c0d9ce64fa652ec",
+      "bytes": 777,
+      "capturedBy": "direct-http-after-browser-request"
+    },
+    {
+      "path": "portfolio.html",
+      "sha256": "aa94c75107519cf72145c7964ab9a461893489793b33ab170c0d9ce64fa652ec",
+      "bytes": 777,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/portfolio-D8RzcPqb.css",
+      "sha256": "1e40052d91d92b491b5ee465da2709f4b8460c615466df4d5acf422d4d7c0517",
+      "bytes": 7871,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/p2p-j3qPKKTU.css",
+      "sha256": "47e04705d280d5e02da64edf27afe0c7481ca4e3a57bbf07a33db566d133df2f",
+      "bytes": 93058,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-vVJmjwj5.js",
+      "sha256": "02cb079afee71cfa977fba8a7593016a816437cda1e559a1ffff7aafaac70dc2",
+      "bytes": 462895,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/portfolio-k2eMVlZd.js",
+      "sha256": "cb23ebd690385a59d5f4d4dd518fa008f94a66590e8df66c683370c18c15baee",
+      "bytes": 893855,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-B3Nfv_UP.js",
+      "sha256": "ef797a7c794c8056a1d6846d367e7d9980c88b6a4a41562e132c3f95e620972e",
+      "bytes": 15966,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-B6ZY_cjD.js",
+      "sha256": "3d22234a9682089b342c3a36cc173484b19e81a2d566b17d5b3af9ffd6a73c72",
+      "bytes": 85879,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "portfolio.html",
+      "sha256": "aa94c75107519cf72145c7964ab9a461893489793b33ab170c0d9ce64fa652ec",
+      "bytes": 777,
+      "capturedBy": "direct-http-after-browser-request"
+    },
+    {
+      "path": "portfolio.html",
+      "sha256": "aa94c75107519cf72145c7964ab9a461893489793b33ab170c0d9ce64fa652ec",
+      "bytes": 777,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/p2p-j3qPKKTU.css",
+      "sha256": "47e04705d280d5e02da64edf27afe0c7481ca4e3a57bbf07a33db566d133df2f",
+      "bytes": 93058,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/portfolio-D8RzcPqb.css",
+      "sha256": "1e40052d91d92b491b5ee465da2709f4b8460c615466df4d5acf422d4d7c0517",
+      "bytes": 7871,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-vVJmjwj5.js",
+      "sha256": "02cb079afee71cfa977fba8a7593016a816437cda1e559a1ffff7aafaac70dc2",
+      "bytes": 462895,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/portfolio-k2eMVlZd.js",
+      "sha256": "cb23ebd690385a59d5f4d4dd518fa008f94a66590e8df66c683370c18c15baee",
+      "bytes": 893855,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-B3Nfv_UP.js",
+      "sha256": "ef797a7c794c8056a1d6846d367e7d9980c88b6a4a41562e132c3f95e620972e",
+      "bytes": 15966,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-B6ZY_cjD.js",
+      "sha256": "3d22234a9682089b342c3a36cc173484b19e81a2d566b17d5b3af9ffd6a73c72",
+      "bytes": 85879,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "portfolio.html",
+      "sha256": "aa94c75107519cf72145c7964ab9a461893489793b33ab170c0d9ce64fa652ec",
+      "bytes": 777,
+      "capturedBy": "direct-http-after-browser-request"
+    },
+    {
+      "path": "portfolio.html",
+      "sha256": "aa94c75107519cf72145c7964ab9a461893489793b33ab170c0d9ce64fa652ec",
+      "bytes": 777,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/portfolio-D8RzcPqb.css",
+      "sha256": "1e40052d91d92b491b5ee465da2709f4b8460c615466df4d5acf422d4d7c0517",
+      "bytes": 7871,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/p2p-j3qPKKTU.css",
+      "sha256": "47e04705d280d5e02da64edf27afe0c7481ca4e3a57bbf07a33db566d133df2f",
+      "bytes": 93058,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-vVJmjwj5.js",
+      "sha256": "02cb079afee71cfa977fba8a7593016a816437cda1e559a1ffff7aafaac70dc2",
+      "bytes": 462895,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/portfolio-k2eMVlZd.js",
+      "sha256": "cb23ebd690385a59d5f4d4dd518fa008f94a66590e8df66c683370c18c15baee",
+      "bytes": 893855,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-B3Nfv_UP.js",
+      "sha256": "ef797a7c794c8056a1d6846d367e7d9980c88b6a4a41562e132c3f95e620972e",
+      "bytes": 15966,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "platform-assets/chunk-B6ZY_cjD.js",
+      "sha256": "3d22234a9682089b342c3a36cc173484b19e81a2d566b17d5b3af9ffd6a73c72",
+      "bytes": 85879,
+      "capturedBy": "browser-response"
+    },
+    {
+      "path": "portfolio.html",
+      "sha256": "aa94c75107519cf72145c7964ab9a461893489793b33ab170c0d9ce64fa652ec",
+      "bytes": 777,
+      "capturedBy": "direct-http-after-browser-request"
+    }
+  ],
+  "serviceSourceHashes": {
+    "shared/wallet-avatar.mjs": "7851a88d4763af37921d36452ba83fd467c20e0c253e52e33b43136e12a3b948",
+    "services/wallet-profiles/src/image.mjs": "2c3d3562aace6570e43ba0794bb1610e979911db2939325d46bbeecbe93157c3",
+    "services/wallet-profiles/src/verify.mjs": "3fe958e6a6fef104c3aa266cb1008946de756b80a66e4019b768255e39a4fc41",
+    "services/wallet-profiles/src/engine.mjs": "56663bcb54656e7c33e54554f94a6199526cc3eb9bfa7aa6e34e05252ac28c2c",
+    "services/wallet-profiles/src/store.mjs": "8cd02bfaad68104d68f15636ac915449d52eb965277748aadce98b1f2f7b0afd",
+    "services/wallet-profiles/src/server.mjs": "0287f01cf569ae09ae47554e90d6413468160f2e794519d261fbdd39738ac1ec",
+    "services/wallet-profiles/src/http.mjs": "133486ae2ec51eb9bf4002fb0b60cf7e8eb701f975e38d7781d092af047a1ea3",
+    "services/wallet-profiles/package.json": "d977de0e6051e85365a526a66812ee54502c370cfec5c87b49b4150aadff7254",
+    "services/wallet-profiles/pnpm-lock.yaml": "9e59820b697199087f49e28b1b0a1bfecf7ded2a7d6b13e720dd05a8165df4ca",
+    "services/wallet-profiles/Dockerfile": "23792f50542593164a947650a5591e4f82667e9677e4e96d2a96cd089bdf4a74",
+    "services/wallet-profiles/railway.toml": "580ce7ff3325c3b1820946731df99df787d054d49b559eddeba2c8ce4dbb6728"
+  },
+  "stagedProxySha256": "0640741610fb0d5b092344efb0a99aeeb79e7610cba0f6a8afb32c035aad4cf4",
+  "frontendReleaseSha256": "d73e39b872ca42d75a2b68785780eede06dfec458c754e4f6bbba9fb62112bf5",
+  "frontendSourceHashes": {
+    "frontend/app/src/app/brand.css": "5f544acb1a82b1b9e063114f91dd720051fd5b8a4756a176af3fbbfea86f0d43",
+    "frontend/app/src/app/turret-fonts.css": "e551a8a74cedb2a4d9e9a2d2d79faaadbd0e84cf43d58459ada50bcfb3e555ce",
+    "frontend/app/src/comps/AppLayout/HeaderNavigation.tsx": "d93c7317e38e9d0c0ee7b5a48869296635e362d03797a7c5194be8e1c9569ae6",
+    "frontend/app/src/p2p/P2PAppLayout.tsx": "e928f80e8c156ff8b3ff55bc055723df136c59dfd2e372a764552f3e3dbb98f2",
+    "frontend/app/src/p2p/asset-catalog.ts": "741963e047a3ecae65189d34addbbfda4c8dd667d36fab84dc60b7de24f541cb",
+    "frontend/app/src/p2p/client.ts": "85952f6952ae9dca5ddb0692901ee5ae9c909fb87b2cb0dcd68f3dd467b2fdfb",
+    "frontend/app/src/portfolio/PortfolioApp.tsx": "89e34c344c7316f6e58f35da442638833d6c0e2d2e13ccd1994d5829294c052c",
+    "frontend/app/src/portfolio/UnifiedPortfolio.tsx": "6538feaa0c4e2ae1ed9134321f097d61d09d21022fb0f133b64de06950fa0abc",
+    "frontend/app/src/portfolio/model.ts": "dbfc5992bebeeea3ab5a24cf5c1ce7acba5280ed50966bd24b3592ead7b120b5",
+    "frontend/app/src/portfolio/portfolio.css": "b946ea25feef298db83b59b82df0709c00f4af059c2b93611a65424f1c68e516",
+    "frontend/app/src/portfolio/source.ts": "c643d1678ad45d2409999b4016d5f734e459b1b4ddba47d5e4680161b3a2069e",
+    "frontend/app/src/portfolio/usePortfolio.ts": "5bbce533646bebf6b2778a51a1909832732c62c6895a8f73742c9dcc36bd080b",
+    "frontend/app/src/profiles/WalletAvatar.tsx": "ee118072d2fa93a0eae5a90e66b18ada5bae36a2f123e5f8c92977a578a8b899",
+    "frontend/app/src/profiles/WalletProfileEditor.tsx": "3edafa29a20a8ae69bbc63491994c9a0e4c495279ea4be986ebfb50da6866f9e",
+    "frontend/app/src/profiles/client.ts": "2f653083a63ee216c8f359382e9e9c978e02747b641d0374f6a776db7c329b2e",
+    "frontend/app/src/profiles/profiles.css": "a893d2b422974bfcb860bbb05524bf914ca1ca0239fdfc9cc357793708211df4",
+    "frontend/app/src/screens/P2PLoansScreen/P2PLoansScreen.tsx": "52d36d537533f335b6244378df73a74d4b4717788251620ba6057fb133114331",
+    "frontend/app/src/screens/P2PLoansScreen/TermControls.tsx": "0867255f7c201945c9310c25bc0c25672a180c3c68ba0691602786ee9222e28b",
+    "frontend/app/src/screens/P2PLoansScreen/loanPresentation.tsx": "f0dc5313054323cc1aed96e46911d3850a938690066e62ebc059f3ab07e6ae86",
+    "frontend/app/src/screens/P2PLoansScreen/p2p.css": "2e074eb46db44708184866cc68214dd1a2f5afee7bfec17b7ac8f26debb9658c",
+    "frontend/app/src/screens/P2PLoansScreen/termMath.ts": "4c8923ec1ce852c802930a28e7a5153278d5e0bbc786423830a4d4f4d88d392e",
+    "frontend/app/src/wallet/useWalletSession.tsx": "4b01465b1d642022d583a743806d5b6e0aadc623be27b28a2f1fab76e4e33f2d",
+    "output/platform-loading-profiles/ui/build.mjs": "34094cb975022a3ab35eb8692c2f87b9e13660ea1bad715eb6f24f5774ba048e",
+    "output/platform-loading-profiles/ui/p2p.html": "46e9912cc63b1223cadbd0d9d5c6c901e4606bef79176b8385e3ecd4e332d76b",
+    "output/platform-loading-profiles/ui/p2p.tsx": "884a8aa4935c87d69f00e3bf90ce8e475cb059d69339d6b859c44e56b7493297",
+    "output/platform-loading-profiles/ui/portfolio.html": "f3ff8f679df96342f2459c23a17e57fdb1f184e5f2e25e294f592cede3ae01ec",
+    "output/platform-loading-profiles/ui/portfolio.tsx": "94e2b535aa328efd0bb595897c039f3750740e128297405881257dc577999789",
+    "output/platform-loading-profiles/ui/vite.config.mjs": "8dac760c25ca756a2d4c849234e9690a21ec054fd5ccb57af04366ddcd76a225",
+    "shared/wallet-avatar.mjs": "7851a88d4763af37921d36452ba83fd467c20e0c253e52e33b43136e12a3b948"
+  },
+  "localChainRemainedAtGenesis": true,
+  "savedProfile": {
+    "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+    "avatar": {
+      "kind": "image",
+      "version": 1,
+      "hash": "b4058e060814e450f5df6863c4bd13cd789548649db7d7a050d6504a8c33a64e"
+    },
+    "revision": 2,
+    "updatedAt": 1788742217461
+  },
+  "completedAt": "2026-09-07T00:50:21.004Z"
+}

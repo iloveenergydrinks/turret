@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "assembly": "src/research/DockyardIsolatedMarketDeployment.sol",
+  "entryPoint": "script/DeployDockyardIsolatedMarket.s.sol",
+  "commissioningVerifier": {
+    "file": "utils/verify-isolated-deployment.mjs",
+    "command": "pnpm verify:isolated-deployment <config.json> <deployer-address> <deployment-transaction-hash> [oracle-wiring.json]",
+    "checks": [
+      "Exact reviewed compiled initcode and configuration in a successful creation transaction from the expected sender on chain 4663",
+      "At least two confirmations, canonical deployment block, fresh canonical verification head and unique matching deployment event",
+      "Predicted child addresses, stored configuration hash, ownership, engine/pool/executor bindings and risk parameters",
+      "Each created runtime matches its local compiled artifact except consistent compiler-declared immutable values; metadata is not discarded",
+      "Borrowing paused, no debt or lender shares/assets, no unexpected USDG/collateral/intermediate balances in receipt/engine/executor",
+      "Usable current price, healthy route and unchanged dependency runtime pins"
+    ],
+    "outputs": "Frontend candidate plus observe-only keeper and borrower-alert identity candidates; optional verified oracle wiring adds an observe-only relay candidate and watchdog identity. No credentials included or configuration installed; omitted oracle wiring is explicitly unverified",
+    "verificationScope": "Accepted against the signed disposable local deployment; ten adversarial evidence/state cases and insufficient-confirmation case rejected",
+    "productionApproved": false
+  },
+  "oracleWiring": {
+    "file": "utils/verify-isolated-oracle-wiring.mjs",
+    "input": "Optional fourth CLI argument is a JSON file with exactly manifest, dex and dexCodeHash",
+    "unitTestsPassed": 5,
+    "combinedDeploymentTestsPassed": 17,
+    "actualOracleContractIntegrationPassed": true,
+    "checks": [
+      "Same pinned verification block for runtime, market, hub, verifier and ratio-adapter bindings",
+      "Corroborated reference equals engine secondary; DEX route and nested pool pins match liquidation exit",
+      "Strict manifest schemas, observe-only relay output, watchdog identity accepted by its real configuration parser"
+    ],
+    "scope": "Wiring only; does not establish provider access, source independence, parameter approval or operational readiness",
+    "productionApproved": false,
+    "installed": false
+  },
+  "preflight": {
+    "file": "utils/prepare-isolated-deployment.mjs",
+    "command": "pnpm prepare:isolated-deployment <config.json> <deployer-address>",
+    "requirements": "Build current Solidity artifacts first; supply explicit configuration and COLLATERAL_RPC_URL privately. All integer JSON fields are canonical decimal strings in contract base units",
+    "testsPassed": 11,
+    "checks": [
+      "Exact schema and compiled constructor ABI; unknown fields and imprecise numeric input rejected",
+      "Canonical assets, distinct dependencies, nonzero runtime pins and parameter bounds",
+      "Code reads, nonce and constructor gas simulation at a pinned fresh block",
+      "Canonical block recheck, snapshot age and pending deployer nonce checks",
+      "Predicted receipt and child addresses, gas estimate plus bounded margin, configuration and initcode hashes"
+    ],
+    "productionApproved": false
+  },
+  "localSignedIntegration": {
+    "command": "pnpm test:isolated-deployment-integration",
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "network": "New disposable loopback Anvil, no upstream RPC",
+    "signer": "Ephemeral generated local wallet, no production credentials loaded",
+    "checks": [
+      "Preflight leaves deployer nonce, block height and predicted receipt code unchanged",
+      "Signed generated initcode deploys successfully within simulated gas limit",
+      "Receipt event, deployed addresses and configuration hash agree with preflight",
+      "Commissioning verifier independently reads current bindings/runtimes and validates exact mined initcode",
+      "Generated observe-only keeper and borrower-alert identities pass their actual configuration parsers",
+      "Borrowing initially paused, guardian activation required",
+      "Fund, borrow, repay with both oracles failing, return collateral and withdraw lender capital"
+    ],
+    "dependencies": "Mock ERC20 and oracle code, mock registered pools; canonical addresses do not imply real-token execution"
+  },
+  "inputs": {
+    "ISOLATED_DEPLOY_CONFIG": "ABI-encoded Deployment.Config; every parameter and runtime pin is explicit",
+    "ISOLATED_DEPLOY_CONFIG_HASH": "keccak256 of the ABI-encoded configuration; binds inputs but is not evidence of external approval"
+  },
+  "verification": {
+    "scope": "Local EVM with mock tokens, pools and oracles; canonical market allowlist unit test",
+    "bundleTestsPassed": 13,
+    "entryPointTestsPassed": 1,
+    "fullResearchTestsPassed": 143,
+    "invariantCalls": 25000,
+    "failed": 0,
+    "skipped": 0,
+    "command": "forge test --match-path 'test/research/*.t.sol' --summary",
+    "checks": [
+      "Engine, pool and executor bound in one all-or-nothing constructor transaction",
+      "Guardian ownership handed over; borrowing remains paused and no funds moved",
+      "Wrong chain, altered configuration, expired deadline, missing runtime pins and changed runtime rejected",
+      "Oracle failure and invalid route leave no partial engine or pool deployment",
+      "Guardian and treasury cannot be the receipt or created market contracts",
+      "Explicit guardian activation followed by lender funding, borrow, closure and full lender withdrawal",
+      "Constructor including arguments and all deployed runtimes fit EVM size limits"
+    ]
+  },
+  "compiledSizes": {
+    "compiler": "solc 0.8.24, repository default profile",
+    "assemblyCreationBytesWithoutArguments": 39311,
+    "assemblyRuntimeBytes": 331,
+    "engineRuntimeBytes": 11301,
+    "poolRuntimeBytes": 11941,
+    "executorRuntimeBytes": 6866
+  },
+  "limitations": [
+    "Signed only with a disposable local wallet; not broadcast to any public network or exercised with a production wallet",
+    "Runtime hashes do not prove source independence or bind upgradeable proxy implementation/state",
+    "No reviewed production oracle addresses or deployment parameters supplied by this artifact",
+    "No contract-source verification, live funding, keeper, alert delivery or frontend deployment verification",
+    "External pricing, security and operational release requirements remain unsatisfied"
+  ],
+  "productionChanged": false,
+  "admission": "not-approved"
+}

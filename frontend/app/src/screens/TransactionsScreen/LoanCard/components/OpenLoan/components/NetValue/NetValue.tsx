@@ -5,7 +5,7 @@ import { getLoanDetails } from "@/src/liquity-math";
 import { getCollToken } from "@/src/liquity-utils";
 import { roundToDecimal } from "@/src/utils";
 import { css } from "@/styled-system/css";
-import { TokenIcon } from "@liquity2/uikit";
+import { TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 
 import type { PositionLoan } from "@/src/types";

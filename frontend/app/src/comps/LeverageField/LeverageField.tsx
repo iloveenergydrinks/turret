@@ -1,4 +1,4 @@
-import type { CollateralToken, Drawer } from "@liquity2/uikit";
+import type { CollateralToken, Drawer } from "@turret/uikit";
 import type { Dnum } from "dnum";
 import type { ComponentPropsWithoutRef } from "react";
 
@@ -28,7 +28,7 @@ import {
 } from "@/src/liquity-math";
 import { infoTooltipProps } from "@/src/uikit-utils";
 import { css } from "@/styled-system/css";
-import { HFlex, InfoTooltip, InputField, lerp, norm, Slider } from "@liquity2/uikit";
+import { HFlex, InfoTooltip, InputField, lerp, norm, Slider } from "@turret/uikit";
 import * as dn from "dnum";
 import { useCallback, useEffect, useMemo, useState } from "react";
 

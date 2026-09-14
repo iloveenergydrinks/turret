@@ -1,0 +1,103 @@
+{
+  "observedDate": "2026-09-02",
+  "productionChanged": false,
+  "admission": "not-approved",
+  "accountAndLicensingRecheck": {
+    "observedAt": "2026-09-02T23:17:34.049Z",
+    "accountPlanObservedInAuthenticatedPortal": "Demo plan (Trial)",
+    "trialFeedCount": 25,
+    "cashcatIncludedInTrial": false,
+    "usdgIncludedInTrial": false,
+    "catalogTotal": 3681,
+    "cashcatFeedId": 3441,
+    "usdgFeedId": 232,
+    "ponsCatalogMatches": 0,
+    "starterMonthlyUsdBeforeTax": 500,
+    "starterCryptoApiAccessAdvertised": true,
+    "starterRedistributionRightsAdvertised": false,
+    "proStartingMonthlyUsdBeforeTax": 2500,
+    "proLimitedRedistributionRightsAdvertised": true,
+    "onchainPublicationRightsConfirmed": false,
+    "pricingSource": "https://www.pyth.network/price-feeds",
+    "authenticatedPlansSource": "https://app.pyth.com/billing/plans",
+    "termsSource": "https://www.dourolabs.xyz/Subscription-Terms.pdf",
+    "termsSectionRequiringClarification": "2.1 restricts third-party machine-readable delivery of underlying Data; obtain provider confirmation for public on-chain cached reports rather than assuming display rights cover publication",
+    "railwayDedicatedIsolatedOracleServicePresent": false,
+    "apiKeyRevealedOrCopied": false,
+    "purchaseOrExternalMessageSent": false,
+    "productionChanged": false
+  },
+  "followUp": {
+    "observedDate": "2026-09-03",
+    "keeperProductionPythApiKeyConfigured": false,
+    "publicReferenceCatalogHttpStatus": 200,
+    "cashcatAndUsdgCatalogEntriesStillPresent": true,
+    "exactPonsReferenceMatch": false,
+    "hermesPonsQueryMatches": 0,
+    "priorEntitlementTestRepeated": false,
+    "productionChanged": false
+  },
+  "sources": {
+    "referenceCatalog": "https://pyth.dourolabs.app/v1/symbols",
+    "hermesCatalog": "https://hermes.pyth.network/v2/price_feeds",
+    "cashcatTerminal": "https://app.pyth.com/explore/Crypto.CASHCAT%2FUSD",
+    "signedPriceEndpoint": "https://pyth-lazer.dourolabs.app/v1/latest_price"
+  },
+  "feeds": [
+    {
+      "symbol": "Crypto.CASHCAT/USD",
+      "proFeedId": 3441,
+      "hermesId": "79eb220a4fddd65d93d17e343cfb7ec3bf89f5ed3aaf32e4d74919761409f993",
+      "state": "stable",
+      "instrumentType": "spot",
+      "assetType": "crypto",
+      "exponent": -8,
+      "minimumPublishers": 2,
+      "cmcId": 40809,
+      "intendedCollateral": "0x020bfC650A365f8BB26819deAAbF3E21291018b4",
+      "exactTokenBindingReviewed": false,
+      "publisherIndependenceReviewed": false
+    },
+    {
+      "symbol": "Crypto.USDG/USD",
+      "proFeedId": 232,
+      "hermesId": "daa58c6a3ce7d4b9c46c32a6e646012c17c4a2b24c08dd8c5e476118b855a7da",
+      "state": "stable",
+      "instrumentType": "spot",
+      "assetType": "crypto",
+      "exponent": -8,
+      "minimumPublishers": 3,
+      "cmcId": 33793,
+      "intendedDebtAsset": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+      "exactTokenBindingReviewed": false
+    }
+  ],
+  "pons": {
+    "exactSymbol": "Crypto.PONS/USD",
+    "referenceCatalogMatch": false,
+    "hermesPonsQueryMatches": 0,
+    "conclusion": "No matching feed found in these catalogs; this is not proof that no provider can supply PONS pricing"
+  },
+  "access": {
+    "accountPlanObservedInPortal": "Demo plan (Trial)",
+    "existingKeyTestedPrivately": true,
+    "requests": [
+      {"ids": [3441], "accessible": false, "error": "PythEntitlementDenied"},
+      {"ids": [232], "accessible": false, "error": "PythEntitlementDenied"},
+      {"ids": [3441, 232], "accessible": false, "error": "PythEntitlementDenied"}
+    ],
+    "unauthenticatedHermesUpdateStatus": 401,
+    "signedCashcatOrUsdgReportVerified": false,
+    "keyPersisted": false,
+    "billingChanged": false
+  },
+  "adapter": {
+    "source": "contracts/src/research/DockyardPythUsdRatioFeed.sol",
+    "unitAndFuzzTestsPassed": 20,
+    "fuzzRuns": 1024,
+    "signatureSourceInTests": "Local fixture signer, not a live CASHCAT or USDG provider signature",
+    "isolatedEngineBorrowAndLiquidationTested": true,
+    "deployed": false,
+    "solvesTwapGapDelay": false
+  }
+}

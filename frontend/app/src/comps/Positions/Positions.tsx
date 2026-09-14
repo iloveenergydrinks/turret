@@ -19,7 +19,7 @@ import { useSboldPosition } from "@/src/sbold";
 import { addPrefixedTroveIdsToStoredState, useStoredState } from "@/src/services/StoredState";
 import { isPositionLoan } from "@/src/types";
 import { css } from "@/styled-system/css";
-import { IconChevronSmallUp } from "@liquity2/uikit";
+import { IconChevronSmallUp } from "@turret/uikit";
 import { a, useSpring, useTransition } from "@react-spring/web";
 import * as dn from "dnum";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";

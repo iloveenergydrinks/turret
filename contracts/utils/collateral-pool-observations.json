@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "chainId": 4663,
+  "admission": "not-approved",
+  "source": "Read-only calls to https://rpc.mainnet.chain.robinhood.com",
+  "limitations": [
+    "Point-in-time interface checks, not a bytecode audit, executable liquidation quote or safe LTV recommendation.",
+    "Pool observation availability does not measure manipulation cost or establish an independent oracle.",
+    "Raw concentrated liquidity is not a USD amount or the amount available to sell.",
+    "Null factory match and false history availability include reverted or unavailable reads, not just absent data.",
+    "Verified-source retrieval from the official Blockscout API was blocked by an HTTP browser challenge; deployed token behavior remains unverified."
+  ],
+  "observations": [
+    {
+      "symbol": "CASHCAT", "quoteSymbol": "WETH",
+      "pool": "0xA70fc67C9F69da90B63a0e4C05D229954574E313",
+      "blockNumber": "52842989", "blockTimestamp": "1788379564",
+      "factory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+      "feePips": 10000, "activeLiquidityRaw": "275046086215867653689010",
+      "factoryRegistrationMatches": true, "observationHistory1800sAvailable": true
+    },
+    {
+      "symbol": "PONS", "quoteSymbol": "WETH",
+      "pool": "0x10CC6BD38112cAc182db90B6a71d8Bb5939526bA",
+      "blockNumber": "52842989", "blockTimestamp": "1788379564",
+      "factory": "0x1f7d7550B1b028f7571E69A784071F0205FD2EfA",
+      "feePips": 10000, "activeLiquidityRaw": "167726113519606077149205",
+      "factoryRegistrationMatches": true, "observationHistory1800sAvailable": true
+    },
+    {
+      "symbol": "CASHCAT", "quoteSymbol": "USDG",
+      "pool": "0x43781f7Ae77D99df3A52095c0b7d162828467A6e",
+      "blockNumber": "52842419", "blockTimestamp": "1788379504",
+      "factory": "0xEce6eCd61177336ea6Fb9b17937AC439D85EE20B",
+      "feePips": 2000, "activeLiquidityRaw": "824095095174705758",
+      "factoryRegistrationMatches": true, "observationHistory1800sAvailable": false
+    },
+    {
+      "symbol": "PONS", "quoteSymbol": "USDG",
+      "pool": "0x2F393B60eF0CFAf669af63284e5592DC3a657B73",
+      "blockNumber": "52842886", "blockTimestamp": "1788379553",
+      "factory": "0x1ac9dB4a2608ba45D6127B1737949b51Bb54B7F3",
+      "feePips": 2500, "activeLiquidityRaw": "3270479803453912074",
+      "factoryRegistrationMatches": null, "observationHistory1800sAvailable": false
+    }
+  ]
+}

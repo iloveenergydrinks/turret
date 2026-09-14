@@ -1,20 +1,13 @@
-import { XLink } from "./XLink";
 import Link from "next/link";
 import { AboutButton } from "./AboutButton";
-
+import { SiteFooter } from "./SiteFooter";
 import { CHAIN_NAME } from "@/src/env";
 
 export function BottomBar() {
   return (
-    <footer className="rusd-footer">
-      <div className="rusd-frame rusd-footer-inner">
-        <span>Independent Stock Token credit protocol · {CHAIN_NAME}</span>
-        <div className="rusd-footer-links">
-          <XLink />
-          <Link className="rusd-text-link" href="/redeem">Redeem rUSD</Link>
-          <AboutButton />
-        </div>
-      </div>
-    </footer>
+    <SiteFooter description={`Independent collateral lending protocol · ${CHAIN_NAME}`}>
+      <Link className="rusd-text-link" href="/redeem">Redeem rUSD</Link>
+      <AboutButton />
+    </SiteFooter>
   );
 }

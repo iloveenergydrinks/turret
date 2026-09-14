@@ -43,7 +43,7 @@ import {
   isCollateralSymbol,
   TextButton,
   TokenIcon,
-} from "@liquity2/uikit";
+} from "@turret/uikit";
 import * as dn from "dnum";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useState } from "react";

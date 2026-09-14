@@ -2,7 +2,7 @@
 
 import type { ComponentProps, ReactNode } from "react";
 
-import { Dropdown, InputField, PillButton, Slider, TextButton, TokenIcon } from "@liquity2/uikit";
+import { Dropdown, InputField, PillButton, Slider, TextButton, TokenIcon } from "@turret/uikit";
 import * as dn from "dnum";
 import { useState } from "react";
 import { useFixtureInput } from "react-cosmos/client";

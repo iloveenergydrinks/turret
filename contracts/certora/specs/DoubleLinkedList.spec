@@ -1,7 +1,7 @@
 import "SortedTrovesStorage.spec";
 
 /// Latest run link:
-/// https://prover.certora.com/output/41958/009427beee184e47840c5aa6fbaa516a/?anonymousKey=fbf0cb14dffccc7b43ef6673ccd9a97442e3b9f2
+/// https://prover.certora.com/output/41958/009427beee184e47840c5aa6fbaa516a/
 
 methods {
     function SortedTroves.size() external returns (uint256) envfree;
